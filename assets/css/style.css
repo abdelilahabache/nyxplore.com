@@ -1,0 +1,50 @@
+/* ===== RESETS ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+img { max-width: 100%; height: auto; }
+
+/* ===== TYPOGRAPHY ===== */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* ===== LAYOUT ===== */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===== COMPONENTS ===== */
+.hero {
+    background: url('../img/hero.jpg') center/cover;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.button {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #ff5a5f;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 40px 0;
+}
+
+/* ===== MEDIA QUERIES ===== */
+@media (max-width: 768px) {
+    .hero { height: 50vh; }
+}
