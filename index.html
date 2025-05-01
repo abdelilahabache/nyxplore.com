@@ -1,43 +1,279 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>NYXplore | NYC Guides</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="favicon.ico">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NYxplore | Coming Soon</title>
+  <meta name="description" content="The ultimate New York City guide is launching soon">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗽</text></svg>">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #ff5a5f;
+      --secondary: #003a66;
+      --accent: #00a896;
+      --light: #f8f9fa;
+      --dark: #1a1a2e;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+    
+    .logo span:first-child {
+      color: var(--primary);
+    }
+    
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+    
+    p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      opacity: 0.9;
+    }
+    
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+    
+    .countdown-item {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      min-width: 100px;
+    }
+    
+    .countdown-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .countdown-label {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.7;
+    }
+    
+    .newsletter-form {
+      max-width: 500px;
+      margin: 0 auto;
+      display: flex;
+    }
+    
+    .newsletter-input {
+      flex: 1;
+      padding: 1rem;
+      border: 2px solid #ddd;
+      border-radius: 50px 0 0 50px;
+      font-size: 1rem;
+      outline: none;
+      transition: border 0.3s ease;
+    }
+    
+    .newsletter-input:focus {
+      border-color: var(--primary);
+    }
+    
+    .newsletter-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0 2rem;
+      border-radius: 0 50px 50px 0;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .newsletter-btn:hover {
+      background-color: #e04a4f;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    
+    .social-link {
+      color: var(--dark);
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+    
+    .social-link:hover {
+      color: var(--primary);
+    }
+    
+    footer {
+      margin-top: auto;
+      padding: 2rem 0;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    
+    @media (max-width: 768px) {
+      .countdown {
+        gap: 0.5rem;
+      }
+      
+      .countdown-item {
+        min-width: 80px;
+        padding: 1rem;
+      }
+      
+      .countdown-number {
+        font-size: 2rem;
+      }
+      
+      .newsletter-form {
+        flex-direction: column;
+      }
+      
+      .newsletter-input {
+        border-radius: 50px;
+        margin-bottom: 0.5rem;
+      }
+      
+      .newsletter-btn {
+        border-radius: 50px;
+        padding: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <a href="index.html" class="logo">NYXplore</a>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="brooklyn.html">Brooklyn</a>
-            <a href="manhattan.html">Manhattan</a>
-            <a href="about.html">About</a>
-        </nav>
-    </header>
+  <div class="container">
+    <div class="logo">
+      <span>NY</span><span>xplore</span>
+    </div>
+    
+    <h1>Discover New York Like Never Before</h1>
+    <p>We're crafting the ultimate guide to NYC's hidden gems, culinary delights, and cultural hotspots. Launching soon!</p>
+    
+    <div class="countdown">
+      <div class="countdown-item">
+        <div class="countdown-number" id="days">00</div>
+        <div class="countdown-label">Days</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-number" id="hours">00</div>
+        <div class="countdown-label">Hours</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-number" id="minutes">00</div>
+        <div class="countdown-label">Minutes</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-number" id="seconds">00</div>
+        <div class="countdown-label">Seconds</div>
+      </div>
+    </div>
+    
+    <form class="newsletter-form">
+      <input type="email" class="newsletter-input" placeholder="Your email address" required>
+      <button type="submit" class="newsletter-btn">Notify Me</button>
+    </form>
+    
+    <div class="social-links">
+      <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+    </div>
+  </div>
+  
+  <footer>
+    &copy; 2023 NYxplore. All rights reserved.
+  </footer>
 
-    <main>
-        <section class="hero">
-            <img src="hero.jpg" alt="NYC Skyline">
-            <h1>Discover Real New York</h1>
-        </section>
-
-        <section class="neighborhoods">
-            <article>
-                <img src="brooklyn-cover.jpg" alt="Brooklyn">
-                <h2>Brooklyn</h2>
-                <a href="brooklyn.html" class="button">Explore</a>
-            </article>
-            <!-- Repeat for other neighborhoods -->
-        </section>
-    </main>
-
-    <footer>
-        <p>© 2023 NYXplore</p>
-    </footer>
-
-    <script src="script.js"></script>
+  <!-- Font Awesome for icons -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  
+  <!-- Countdown Timer -->
+  <script>
+    // Set launch date (2 weeks from now)
+    const launchDate = new Date();
+    launchDate.setDate(launchDate.getDate() + 14);
+    
+    function updateCountdown() {
+      const now = new Date();
+      const diff = launchDate - now;
+      
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      
+      document.getElementById('days').textContent = days.toString().padStart(2, '0');
+      document.getElementById('hours').textContent = Math.floor(hours).toString().padStart(2, '0');
+      document.getElementById('minutes').textContent = Math.floor(minutes).toString().padStart(2, '0');
+      document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+    }
+    
+    // Update every second
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+    
+    // Simple form submission
+    document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = this.querySelector('input').value;
+      alert(`Thanks! We'll notify you at ${email} when we launch.`);
+      this.querySelector('input').value = '';
+    });
+  </script>
 </body>
 </html>
