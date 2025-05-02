@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" class="{{ pageClass }} no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}">
+  
+  <!-- Preload critical resources -->
+  <link rel="preload" href="/js/core.js" as="script">
+  <link rel="preload" href="main.css" as="style">
+
+  <!-- Social Meta -->
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="{{ description }}">
+  <meta property="og:image" content="/assets/{{ heroImage || 'default-hero.jpg' }}">
+
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="main.css">
+  
+  <!-- No-JS fallback styles -->
+  <noscript>
+    <style>
+      .no-js { visibility: visible; }
+      .js-only { display: none !important; }
+      nav ul { display: flex !important; flex-direction: column; }
+      .mobile-nav-toggle { display: none !important; }
+    </style>
+  </noscript>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <a href="/" class="logo">
+        <span class="logo-icon">NY</span>
+        <span>xplore</span>
+      </a>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="/">Home</a></li>
+          <li><a href="/seasonal-events.html">Seasonal Events</a></li>
+          <li><a href="/free-attractions.html">Free Attractions</a></li>
+          <!-- Other nav items -->
+        </ul>
+      </nav>
+      <button class="mobile-nav-toggle js-only" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Content will be injected here -->
+  <main>
+    {% raw %}<?= html ?>{% endraw %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <!-- Your footer content -->
+  </footer>
+
+  <!-- Core JS (always loaded) -->
+  <script>
+    // Remove no-js class immediately
+    document.documentElement.classList.remove('no-js');
+    
+    // Load core JS
+    const coreScript = document.createElement('script');
+    coreScript.src = '/js/core.js';
+    coreScript.defer = true;
+    document.body.appendChild(coreScript);
+  </script>
+
+  <!-- Conditional Page-Specific JS -->
+  {% if pageClass === 'seasonal-events' %}
+    <script src="/js/seasonal-events.js" defer></script>
+  {% endif %}
+  
+  {% if pageClass === 'free-attractions' %}
+    <script src="/js/free-attractions.js" defer></script>
+  {% endif %}
+
+  <!-- Fallback message -->
+  <noscript>
+    <div class="noscript-warning">
+      <p>For the best experience, please enable JavaScript.</p>
+    </div>
+  </noscript>
+</body>
+</html>
