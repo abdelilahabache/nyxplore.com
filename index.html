@@ -1,392 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NYxplore | Premium New York City Guide</title>
-  <meta name="description" content="Discover the best of New York City with our premium guides to restaurants, attractions, and hidden gems">
-  
-  <!-- Open Graph / Twitter Card Meta -->
-  <meta property="og:title" content="NYxplore | Premium New York City Guide">
-  <meta property="og:description" content="Discover the best of New York City with our premium guides">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://nyxplore.com">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80">
-  <meta name="twitter:card" content="summary_large_image">
-  
-  <!-- Favicon -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
-  
-  <!-- CSS -->
-  <link rel="stylesheet" href="main.css">
-  <link rel="stylesheet" href="interactive.css">
-  
-  <!-- Preload critical resources -->
-  <link rel="preload" href="https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" as="image">
-  
-  <!-- Schema.org markup -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "NYxplore",
-      "url": "https://nyxplore.com",
-      "description": "Premium New York City travel guides and recommendations",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://nyxplore.com/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYxplore | Discover the Soul of New York City</title>
+    <meta name="description" content="Explore the beauty and vibrancy of New York City through NYxplore's immersive experience">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <!-- Skip to Content Link -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  
-  <!-- Dark Mode Toggle (HTML only - functionality would require JS) -->
-  <button class="dark-mode-toggle" aria-label="Toggle dark mode">
-    <i class="fas fa-moon"></i>
-    <span class="sr-only">Toggle Dark Mode</span>
-  </button>
-  
-  <!-- Sticky Header -->
-  <header>
-    <div class="header-container">
-      <a href="#" class="logo">
-        <span class="logo-icon">NY</span>
-        <span>xplore</span>
-      </a>
-      
-      <nav>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#explore">Explore</a></li>
-          <li><a href="#dining">Dining</a></li>
-          <li><a href="#culture">Culture</a></li>
-          <li><a href="#tips">Tips</a></li>
-          <li><a href="#newsletter" class="nav-cta">Get Updates</a></li>
-        </ul>
-      </nav>
-      
-      <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-navigation">
-        <i class="fas fa-bars"></i>
-        <span class="sr-only">Menu</span>
-      </button>
-    </div>
-  </header>
+    <!-- Theme Toggle -->
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+    </button>
 
-  <!-- Hero Section -->
-  <section class="hero" id="home">
-    <div class="hero-bg"></div>
-    
-    <div class="hero-content">
-      <h1>Experience New York Like Never Before</h1>
-      <p>Curated guides to the city's best-kept secrets, iconic landmarks, and vibrant culture</p>
-      <a href="#explore" class="hero-btn">
-        Start Exploring <i class="fas fa-arrow-right"></i>
-      </a>
-    </div>
-    
-    <a href="#explore" class="scroll-down" aria-label="Scroll down to explore">
-      <i class="fas fa-chevron-down"></i>
-    </a>
-  </section>
+    <!-- Sound Toggle -->
+    <button id="sound-toggle" class="sound-toggle" aria-label="Toggle ambient sound">
+        <i class="fas fa-volume-up"></i>
+    </button>
 
-  <main id="main-content">
-    <!-- Featured Guides Section -->
-    <section class="section featured" id="explore">
-      <div class="container">
-        <h2 class="section-title">Featured Guides</h2>
-        <p class="section-subtitle">Handpicked recommendations from our local experts</p>
-        
-        <div class="featured-grid">
-          <!-- Guide 1 -->
-          <article class="featured-card" itemscope itemtype="https://schema.org/Guide">
-            <img src="https://images.unsplash.com/photo-1507133750040-4a8f57021571?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80" 
-                 alt="Brooklyn coffee shop" 
-                 class="card-img"
-                 loading="lazy" 
-                 itemprop="image">
-            <div class="card-content">
-              <span class="card-category" itemprop="genre">Food & Drink</span>
-              <h3 class="card-title" itemprop="name">Brooklyn's Best Coffee Shops</h3>
-              <p class="card-excerpt" itemprop="description">Discover 15 artisanal coffee spots that locals love, from Williamsburg to DUMBO.</p>
-              <div class="card-meta">
-                <i class="far fa-clock"></i>
-                <span itemprop="timeRequired">8 min read</span>
-              </div>
-            </div>
-          </article>
-          
-          <!-- Guide 2 -->
-          <article class="featured-card" itemscope itemtype="https://schema.org/Guide">
-            <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1587&q=80" 
-                 alt="Central Park" 
-                 class="card-img"
-                 loading="lazy"
-                 itemprop="image">
-            <div class="card-content">
-              <span class="card-category" itemprop="genre">Outdoors</span>
-              <h3 class="card-title" itemprop="name">Hidden Gems in Central Park</h3>
-              <p class="card-excerpt" itemprop="description">Explore secret gardens, lesser-known sculptures, and quiet spots away from the crowds.</p>
-              <div class="card-meta">
-                <i class="far fa-clock"></i>
-                <span itemprop="timeRequired">12 min read</span>
-              </div>
-            </div>
-          </article>
-          
-          <!-- Guide 3 -->
-          <article class="featured-card" itemscope itemtype="https://schema.org/Guide">
-            <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1494&q=80" 
-                 alt="NYC skyline at night" 
-                 class="card-img"
-                 loading="lazy"
-                 itemprop="image">
-            <div class="card-content">
-              <span class="card-category" itemprop="genre">Nightlife</span>
-              <h3 class="card-title" itemprop="name">NYC's Rooftop Bars with a View</h3>
-              <p class="card-excerpt" itemprop="description">The best elevated drinking spots with stunning skyline vistas across Manhattan.</p>
-              <div class="card-meta">
-                <i class="far fa-clock"></i>
-                <span itemprop="timeRequired">10 min read</span>
-              </div>
-            </div>
-          </article>
-        </div>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+<div class="video-container">
+  <video autoplay muted loop id="hero-video">
+      <source src="assets/videos/nyc-hero.mp4" type="video/mp4">
+      <!-- Fallback content -->
+      <div class="video-fallback">
+          <h2>NYxplore</h2>
+          <p>Discover New York City</p>
       </div>
+  </video>
+  <div class="video-fallback">
+      <h2>NYxplore</h2>
+      <p>Discover New York City</p>
+  </div>
+</div>
     </section>
 
-    <!-- Dining Section -->
-    <section class="section" id="dining">
-      <div class="container">
-        <h2 class="section-title">Culinary Delights</h2>
-        <p class="section-subtitle">From Michelin stars to dollar slices</p>
-        
-        <div class="featured-grid">
-          <!-- Restaurant 1 -->
-          <article class="featured-card" itemscope itemtype="https://schema.org/Guide">
-            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
-                 alt="Upscale restaurant" 
-                 class="card-img"
-                 loading="lazy"
-                 itemprop="image">
-            <div class="card-content">
-              <span class="card-category" itemprop="genre">Fine Dining</span>
-              <h3 class="card-title" itemprop="name">10 Essential NYC Restaurants</h3>
-              <p class="card-excerpt" itemprop="description">Where to experience the pinnacle of New York's culinary scene.</p>
-              <div class="card-meta">
-                <i class="fas fa-utensils"></i>
-                <span itemprop="itemListElement">15 options</span>
-              </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#home" class="navbar-logo">NYxplore</a>
+            <div class="navbar-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
             </div>
-          </article>
-          
-          <!-- Restaurant 2 -->
-          <article class="featured-card" itemscope itemtype="https://schema.org/Guide">
-            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" 
-                 alt="Street food" 
-                 class="card-img"
-                 loading="lazy"
-                 itemprop="image">
-            <div class="card-content">
-              <span class="card-category" itemprop="genre">Street Food</span>
-              <h3 class="card-title" itemprop="name">Best Street Food by Neighborhood</h3>
-              <p class="card-excerpt" itemprop="description">The ultimate guide to NYC's legendary street food vendors.</p>
-              <div class="card-meta">
-                <i class="fas fa-hotdog"></i>
-                <span itemprop="itemListElement">23 vendors</span>
-              </div>
-            </div>
-          </article>
-          
-          <!-- Restaurant 3 -->
-          <article class="featured-card" itemscope itemtype="https://schema.org/Guide">
-            <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
-                 alt="Brunch" 
-                 class="card-img"
-                 loading="lazy"
-                 itemprop="image">
-            <div class="card-content">
-              <span class="card-category" itemprop="genre">Brunch</span>
-              <h3 class="card-title" itemprop="name">Weekend Brunch Spots Worth the Wait</h3>
-              <p class="card-excerpt" itemprop="description">Where to enjoy the most important meal of the weekend.</p>
-              <div class="card-meta">
-                <i class="fas fa-coffee"></i>
-                <span itemprop="itemListElement">12 locations</span>
-              </div>
-            </div>
-          </article>
+            <ul class="navbar-menu">
+                <li class="navbar-item"><a href="#landmarks" class="navbar-link">Landmarks</a></li>
+                <li class="navbar-item"><a href="#culture" class="navbar-link">Culture</a></li>
+                <li class="navbar-item"><a href="#food" class="navbar-link">Food</a></li>
+                <li class="navbar-item"><a href="#gallery" class="navbar-link">Gallery</a></li>
+                <li class="navbar-item"><a href="#map" class="navbar-link">Map</a></li>
+            </ul>
         </div>
-      </div>
+    </nav>
+
+    <!-- Landmarks Section -->
+    <section class="section landmarks" id="landmarks">
+        <div class="section-header">
+            <h2 class="section-title">Iconic Landmarks</h2>
+            <p class="section-subtitle">Explore New York's most famous sights</p>
+        </div>
+        
+        <div class="parallax-container">
+            <div class="parallax-item" data-speed="0.1">
+                <div class="parallax-content">
+                    <h3>Times Square</h3>
+                    <p>The Crossroads of the World, where bright lights and Broadway meet.</p>
+                </div>
+            </div>
+            
+            <div class="parallax-item" data-speed="0.2">
+                <div class="parallax-content">
+                    <h3>Central Park</h3>
+                    <p>An urban oasis in the heart of Manhattan, spanning 843 acres.</p>
+                </div>
+            </div>
+            
+            <div class="parallax-item" data-speed="0.3">
+                <div class="parallax-content">
+                    <h3>Brooklyn Bridge</h3>
+                    <p>A historic suspension bridge connecting Manhattan and Brooklyn.</p>
+                </div>
+            </div>
+            
+            <div class="parallax-item" data-speed="0.4">
+                <div class="parallax-content">
+                    <h3>Statue of Liberty</h3>
+                    <p>A universal symbol of freedom and democracy.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Culture Section -->
-    <section class="section" id="culture">
-      <div class="container">
-        <h2 class="section-title">Arts & Culture</h2>
-        <p class="section-subtitle">Immerse yourself in NYC's creative energy</p>
-        
-        <div class="featured-grid">
-          <!-- Culture 1 -->
-          <article class="featured-card" itemscope itemtype="https://schema.org/Guide">
-            <img src="https://images.unsplash.com/photo-1549310786-a6bc7aece6a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
-                 alt="Art gallery" 
-                 class="card-img"
-                 loading="lazy"
-                 itemprop="image">
-            <div class="card-content">
-              <span class="card-category" itemprop="genre">Galleries</span>
-              <h3 class="card-title" itemprop="name">Emerging Art Scenes Beyond Chelsea</h3>
-              <p class="card-excerpt" itemprop="description">The rising gallery districts nurturing new artistic talent.</p>
-              <div class="card-meta">
-                <i class="fas fa-palette"></i>
-                <span itemprop="itemListElement">7 neighborhoods</span>
-              </div>
-            </div>
-          </article>
-          
-          <!-- Culture 2 -->
-          <article class="featured-card" itemscope itemtype="https://schema.org/Guide">
-            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
-                 alt="Broadway theater" 
-                 class="card-img"
-                 loading="lazy"
-                 itemprop="image">
-            <div class="card-content">
-              <span class="card-category" itemprop="genre">Theater</span>
-              <h3 class="card-title" itemprop="name">Broadway Secrets & Discount Tickets</h3>
-              <p class="card-excerpt" itemprop="description">How to experience world-class theater without breaking the bank.</p>
-              <div class="card-meta">
-                <i class="fas fa-theater-masks"></i>
-                <span itemprop="itemListElement">Insider tips</span>
-              </div>
-            </div>
-          </article>
-          
-          <!-- Culture 3 -->
-          <article class="featured-card" itemscope itemtype="https://schema.org/Guide">
-            <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
-                 alt="Music venue" 
-                 class="card-img"
-                 loading="lazy"
-                 itemprop="image">
-            <div class="card-content">
-              <span class="card-category" itemprop="genre">Music</span>
-              <h3 class="card-title" itemprop="name">Intimate Live Music Venues</h3>
-              <p class="card-excerpt" itemprop="description">Where to discover the next big act in cozy settings.</p>
-              <div class="card-meta">
-                <i class="fas fa-music"></i>
-                <span itemprop="itemListElement">9 venues</span>
-              </div>
-            </div>
-          </article>
+    <section class="section culture" id="culture">
+        <div class="section-header">
+            <h2 class="section-title">NYC Culture</h2>
+            <p class="section-subtitle">Experience the vibrant cultural scene</p>
         </div>
-      </div>
+        
+        <div class="masonry-grid">
+            <div class="masonry-item">
+                <div class="masonry-content">
+                    <h3>Broadway</h3>
+                    <p>The pinnacle of American theater with world-class performances.</p>
+                </div>
+            </div>
+            
+            <div class="masonry-item">
+                <div class="masonry-content">
+                    <h3>Museums</h3>
+                    <p>From the MET to MoMA, NYC houses some of the world's finest art collections.</p>
+                </div>
+            </div>
+            
+            <div class="masonry-item">
+                <div class="masonry-content">
+                    <h3>Music</h3>
+                    <p>Jazz clubs, concert halls, and street performers create the city's soundtrack.</p>
+                </div>
+            </div>
+            
+            <div class="masonry-item">
+                <div class="masonry-content">
+                    <h3>Neighborhoods</h3>
+                    <p>Each district has its own unique character and cultural identity.</p>
+                </div>
+            </div>
+            
+            <div class="masonry-item">
+                <div class="masonry-content">
+                    <h3>Street Art</h3>
+                    <p>Murals and graffiti transform the city into an open-air gallery.</p>
+                </div>
+            </div>
+            
+            <div class="masonry-item">
+                <div class="masonry-content">
+                    <h3>Festivals</h3>
+                    <p>Year-round celebrations of food, film, music, and more.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- Newsletter Section -->
-    <section class="section newsletter" id="newsletter">
-      <div class="newsletter-container">
-        <h2>Stay in the NYC Know</h2>
-        <p>Subscribe to receive our weekly guides, exclusive offers, and neighborhood spotlights.</p>
+    <!-- Food Section -->
+    <section class="section food" id="food">
+        <div class="section-header">
+            <h2 class="section-title">Culinary Delights</h2>
+            <p class="section-subtitle">Taste the flavors of NYC</p>
+        </div>
         
-        <form class="newsletter-form" action="/subscribe" method="POST">
-          <input type="email" 
-                 name="email"
-                 placeholder="Your email address" 
-                 class="newsletter-input" 
-                 required
-                 aria-label="Email address for newsletter subscription">
-          <button type="submit" class="newsletter-btn">
-            Subscribe
-          </button>
-        </form>
-      </div>
+        <div class="food-grid">
+            <div class="food-card">
+                <div class="food-card-inner">
+                    <div class="food-card-front">
+                        <h3>Pizza</h3>
+                    </div>
+                    <div class="food-card-back">
+                        <p>New York-style pizza with its characteristic thin crust and foldable slices.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="food-card">
+                <div class="food-card-inner">
+                    <div class="food-card-front">
+                        <h3>Bagels</h3>
+                    </div>
+                    <div class="food-card-back">
+                        <p>Chewy, dense, and best enjoyed with cream cheese and lox.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="food-card">
+                <div class="food-card-inner">
+                    <div class="food-card-front">
+                        <h3>Hot Dogs</h3>
+                    </div>
+                    <div class="food-card-back">
+                        <p>A street food classic, best from a cart with "everything" on it.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="food-card">
+                <div class="food-card-inner">
+                    <div class="food-card-front">
+                        <h3>International</h3>
+                    </div>
+                    <div class="food-card-back">
+                        <p>From Chinatown dumplings to Little Italy pasta, the world on a plate.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-  </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <!-- Column 1 -->
-        <div class="footer-col">
-          <a href="#" class="footer-logo">NYxplore</a>
-          <p class="footer-about">
-            We're passionate about helping locals and visitors alike discover the authentic New York City experience.
-          </p>
-          <div class="social-links">
-            <a href="#" class="social-link" aria-label="Instagram">
-              <i class="fab fa-instagram"></i>
-            </a>
-            <a href="#" class="social-link" aria-label="Twitter">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a href="#" class="social-link" aria-label="Facebook">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="#" class="social-link" aria-label="TikTok">
-              <i class="fab fa-tiktok"></i>
-            </a>
-          </div>
+    <!-- Gallery Section -->
+    <section class="section gallery" id="gallery">
+        <div class="section-header">
+            <h2 class="section-title">NYC Gallery</h2>
+            <p class="section-subtitle">Visual journey through the city</p>
         </div>
         
-        <!-- Column 2 -->
-        <div class="footer-col">
-          <h3 class="footer-title">Explore</h3>
-          <ul class="footer-links">
-            <li><a href="#">Neighborhood Guides</a></li>
-            <li><a href="seasonal-events.html">Seasonal Events</a></li>
-            <li><a href="free-attractions.html">Free Attractions</a></li>
-            <li><a href="photo-spots.html">Photo Spots</a></li>
-            <li><a href="day-trips.html">Day Trips</a></li>
-          </ul>
+        <div class="gallery-grid">
+            <div class="gallery-item" data-index="0">
+                <img data-src="assets/images/gallery/nyc1.jpg" alt="New York City skyline" class="lazy">
+            </div>
+            <div class="gallery-item" data-index="1">
+                <img data-src="assets/images/gallery/nyc2.jpg" alt="Times Square at night" class="lazy">
+            </div>
+            <div class="gallery-item" data-index="2">
+                <img data-src="assets/images/gallery/nyc3.jpg" alt="Central Park in autumn" class="lazy">
+            </div>
+            <div class="gallery-item" data-index="3">
+                <img data-src="assets/images/gallery/nyc4.jpg" alt="Brooklyn Bridge sunset" class="lazy">
+            </div>
+            <div class="gallery-item" data-index="4">
+                <img data-src="assets/images/gallery/nyc5.jpg" alt="Statue of Liberty" class="lazy">
+            </div>
+            <div class="gallery-item" data-index="5">
+                <img data-src="assets/images/gallery/nyc6.jpg" alt="High Line park" class="lazy">
+            </div>
+            <div class="gallery-item" data-index="6">
+                <img data-src="assets/images/gallery/nyc7.jpg" alt="Metropolitan Museum" class="lazy">
+            </div>
+            <div class="gallery-item" data-index="7">
+                <img data-src="assets/images/gallery/nyc8.jpg" alt="Grand Central Terminal" class="lazy">
+            </div>
         </div>
         
-        <!-- Column 3 -->
-        <div class="footer-col">
-          <h3 class="footer-title">Dining</h3>
-          <ul class="footer-links">
-            <li><a href="#">Restaurant Reviews</a></li>
-            <li><a href="#">Food Tours</a></li>
-            <li><a href="#">Cuisine Guides</a></li>
-            <li><a href="#">Chef Interviews</a></li>
-          </ul>
+        <!-- Lightbox Modal -->
+        <div id="lightbox" class="lightbox">
+            <span class="lightbox-close">&times;</span>
+            <div class="lightbox-content">
+                <img id="lightbox-image" src="" alt="">
+                <div class="lightbox-caption"></div>
+            </div>
+            <a class="lightbox-prev">&#10094;</a>
+            <a class="lightbox-next">&#10095;</a>
         </div>
-        
-        <!-- Column 4 -->
-        <div class="footer-col">
-          <h3 class="footer-title">Company</h3>
-          <ul class="footer-links">
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Our Team</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">Advertise</a></li>
-          </ul>
-        </div>
-      </div>
-      
-      <div class="footer-bottom">
-        <p>&copy; 2023 NYxplore. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
-      </div>
-    </div>
-  </footer>
+    </section>
 
-  <!-- JavaScript -->
-  <script src="main.js"></script>
+    <!-- Map Section -->
+    <section class="section map-section" id="map">
+        <div class="section-header">
+            <h2 class="section-title">Explore NYC</h2>
+            <p class="section-subtitle">Interactive map of key locations</p>
+        </div>
+        
+        <div class="map-container">
+            <svg viewBox="0 0 800 600" class="nyc-map">
+                <!-- Manhattan -->
+                <path id="manhattan" class="map-area" d="M300,100 L500,100 L500,400 L300,400 Z" fill="#3a506b" stroke="#fff" stroke-width="2"/>
+                <!-- Brooklyn -->
+                <path id="brooklyn" class="map-area" d="M500,200 L700,200 L700,500 L500,500 Z" fill="#3a506b" stroke="#fff" stroke-width="2"/>
+                <!-- Queens -->
+                <path id="queens" class="map-area" d="M500,50 L700,50 L700,200 L500,200 Z" fill="#3a506b" stroke="#fff" stroke-width="2"/>
+                <!-- Bronx -->
+                <path id="bronx" class="map-area" d="M300,0 L500,0 L500,100 L300,100 Z" fill="#3a506b" stroke="#fff" stroke-width="2"/>
+                <!-- Staten Island -->
+                <path id="staten-island" class="map-area" d="M100,300 L300,300 L300,500 L100,500 Z" fill="#3a506b" stroke="#fff" stroke-width="2"/>
+                
+                <!-- Landmark Markers -->
+                <circle id="times-square" cx="400" cy="200" r="10" fill="#f79256" class="map-marker"/>
+                <circle id="central-park" cx="350" cy="250" r="10" fill="#f79256" class="map-marker"/>
+                <circle id="brooklyn-bridge" cx="450" cy="350" r="10" fill="#f79256" class="map-marker"/>
+                <circle id="statue-liberty" cx="250" cy="400" r="10" fill="#f79256" class="map-marker"/>
+                <circle id="met-museum" cx="380" cy="220" r="10" fill="#f79256" class="map-marker"/>
+                <circle id="yankee-stadium" cx="400" cy="50" r="10" fill="#f79256" class="map-marker"/>
+            </svg>
+            
+            <div class="map-info">
+                <h3 id="map-location-title">Select a location</h3>
+                <p id="map-location-description">Click on any borough or landmark marker to learn more about it.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <h3>NYxplore</h3>
+                <p>Discover the Soul of New York City</p>
+            </div>
+            
+            <div class="footer-social">
+                <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+            
+            <div class="footer-links">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#landmarks">Landmarks</a></li>
+                    <li><a href="#culture">Culture</a></li>
+                    <li><a href="#food">Food</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#map">Map</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-newsletter">
+                <h4>Stay Updated</h4>
+                <form id="newsletter-form">
+                    <input type="email" placeholder="Your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Ambient Sound -->
+    <audio id="ambient-sound" loop>
+        <source src="assets/sounds/nyc-ambient.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
 </body>
 </html>
