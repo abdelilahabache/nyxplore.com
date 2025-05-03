@@ -590,18 +590,18 @@ img {
 }
 
 .masonry-item:nth-child(4) {
-  background: url('assets/images/neighborhoods.jpg') center/cover no-repeat;
+  background: url('assets/images/neighborhoods.webp') center/cover no-repeat;
   background-color: #1e1e24;
 }
 
 .masonry-item:nth-child(5) {
   grid-column: span 2;
-  background: url('assets/images/street-art.jpg') center/cover no-repeat;
+  background: url('assets/images/street-art.webp') center/cover no-repeat;
   background-color: #3a506b;
 }
 
 .masonry-item:nth-child(6) {
-  background: url('assets/images/festivals.jpg') center/cover no-repeat;
+  background: url('assets/images/festivals.webp') center/cover no-repeat;
   background-color: #0a1128;
 }
 
