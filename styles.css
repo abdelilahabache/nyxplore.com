@@ -458,22 +458,22 @@ img {
 
 /* Apply different background images to each parallax item */
 .parallax-item:nth-child(1) {
-  background: url('assets/images/times-square.jpg') center/cover no-repeat;
+  background: url('assets/images/times-square.webp') center/cover no-repeat;
   background-color: #001f54;
 }
 
 .parallax-item:nth-child(2) {
-  background: url('assets/images/central-park.jpg') center/cover no-repeat;
+  background: url('assets/images/central-park.webp') center/cover no-repeat;
   background-color: #0a1128;
 }
 
 .parallax-item:nth-child(3) {
-  background: url('assets/images/brooklyn-bridge.jpg') center/cover no-repeat;
+  background: url('assets/images/brooklyn-bridge.webp') center/cover no-repeat;
   background-color: #3a506b;
 }
 
 .parallax-item:nth-child(4) {
-  background: url('assets/images/statue-liberty.jpg') center/cover no-repeat;
+  background: url('assets/images/statue-liberty.webp') center/cover no-repeat;
   background-color: #1e1e24;
 }
 
