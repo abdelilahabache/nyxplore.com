@@ -476,6 +476,66 @@ img {
   background: url('assets/images/statue-liberty.webp') center/cover no-repeat;
   background-color: #1e1e24;
 }
+/* Add to your CSS */
+.parallax-item {
+  position: relative;
+  min-height: 300px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Fallback background colors */
+.parallax-item:nth-child(1) { background-color: #001f54; } /* Times Square */
+.parallax-item:nth-child(2) { background-color: #0a1128; } /* Central Park */
+.parallax-item:nth-child(3) { background-color: #3a506b; } /* Brooklyn Bridge */
+.parallax-item:nth-child(4) { background-color: #1e1e24; } /* Statue of Liberty */
+
+.parallax-content {
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+  max-width: 90%;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  border-left: 4px solid var(--accent-color);
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.parallax-item:hover .parallax-content {
+  transform: translateY(0);
+  opacity: 1;
+}
+/* Add these animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.parallax-item.visible {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.parallax-item.visible:nth-child(1) { animation-delay: 0.1s; }
+.parallax-item.visible:nth-child(2) { animation-delay: 0.3s; }
+.parallax-item.visible:nth-child(3) { animation-delay: 0.5s; }
+.parallax-item.visible:nth-child(4) { animation-delay: 0.7s; }
+
+.explore-btn {
+  background: var(--accent-color);
+  border: none;
+  padding: 8px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.explore-btn:hover {
+  background: white;
+  color: var(--primary-color);
+}
 
 /* Masonry Grid for Culture Section */
 .masonry-grid {
@@ -514,18 +574,18 @@ img {
 /* Different heights for masonry items */
 .masonry-item:nth-child(1) {
   grid-row: span 2;
-  background: url('assets/images/broadway.jpg') center/cover no-repeat;
+  background: url('assets/images/broadway.avif') center/cover no-repeat;
   background-color: #3a506b;
 }
 
 .masonry-item:nth-child(2) {
-  background: url('assets/images/museums.jpg') center/cover no-repeat;
+  background: url('assets/images/museums.webp') center/cover no-repeat;
   background-color: #0a1128;
 }
 
 .masonry-item:nth-child(3) {
   grid-row: span 2;
-  background: url('assets/images/music.jpg') center/cover no-repeat;
+  background: url('assets/images/music.webp') center/cover no-repeat;
   background-color: #001f54;
 }
 
@@ -1150,4 +1210,24 @@ img {
   text-align: center;
   color: white;
   padding: 0 20px;
+}
+
+/* Enable hardware-accelerated smooth scrolling */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Adjust based on your header height */
+}
+
+/* Optimize rendering performance */
+body {
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Prevent layout shifts */
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }

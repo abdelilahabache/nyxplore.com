@@ -123,26 +123,24 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   
     // Parallax Effect with performance optimization
+  // Update your parallax initialization code
+function initParallax() {
     const parallaxItems = document.querySelectorAll('.parallax-item');
-    let lastParallaxUpdate = 0;
-    
-    function updateParallax() {
-      const now = Date.now();
-      if (now - lastParallaxUpdate > 16) { // ~60fps
-        const scrollY = window.scrollY;
-        parallaxItems.forEach(item => {
-          const speed = parseFloat(item.getAttribute('data-speed')) || 0.1;
-          const yPos = -(scrollY * speed);
-          item.style.transform = `translateY(${yPos}px)`;
-        });
-        lastParallaxUpdate = now;
+    // Add data-speed attribute if missing
+    parallaxItems.forEach((item, index) => {
+      if (!item.dataset.speed) {
+        item.setAttribute('data-speed', (index * 0.05 + 0.1).toFixed(2));
       }
-      requestAnimationFrame(updateParallax);
-    }
-    
-    if (parallaxItems.length > 0) {
-      requestAnimationFrame(updateParallax);
-    }
+    });
+  
+    window.addEventListener('scroll', () => {
+      parallaxItems.forEach(item => {
+        const speed = parseFloat(item.dataset.speed);
+        const yPos = -(window.scrollY * speed);
+        item.style.transform = `translateY(${yPos}px)`;
+      });
+    }, { passive: true });
+  }
   
     // Intersection Observer for Scroll Animations
     const fadeElements = document.querySelectorAll('.fade-in');
@@ -164,6 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fadeObserver.observe(element);
       });
     }
+    
   
     // Gallery Lightbox with improved UX
     const galleryItems = document.querySelectorAll('.gallery-item');
