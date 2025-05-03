@@ -279,3 +279,38 @@ document.addEventListener('DOMContentLoaded', function() {
       this.reset();
   });
 });
+
+// Video fallback handler
+document.addEventListener('DOMContentLoaded', function() {
+    const heroVideo = document.getElementById('hero-video');
+    
+    // Check if video can play
+    heroVideo.addEventListener('error', function() {
+        // If video fails, show fallback image
+        const fallback = document.querySelector('.video-fallback');
+        if (fallback) {
+            fallback.style.display = 'block';
+            heroVideo.style.display = 'none';
+        }
+    });
+    
+    // For mobile devices - some require this to autoplay
+    heroVideo.setAttribute('playsinline', '');
+    heroVideo.setAttribute('muted', '');
+    heroVideo.setAttribute('autoplay', '');
+    heroVideo.setAttribute('loop', '');
+    
+    // Try to play the video (required for some mobile browsers)
+    const playPromise = heroVideo.play();
+    
+    if (playPromise !== undefined) {
+        playPromise.catch(error => {
+            // Auto-play was prevented, show fallback
+            const fallback = document.querySelector('.video-fallback');
+            if (fallback) {
+                fallback.style.display = 'block';
+                heroVideo.style.display = 'none';
+            }
+        });
+    }
+});

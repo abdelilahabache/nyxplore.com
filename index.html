@@ -23,22 +23,29 @@
     </button>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
-<div class="video-container">
-  <video autoplay muted loop id="hero-video">
-      <source src="assets/videos/nyc-hero.mp4" type="video/mp4">
-      <!-- Fallback content -->
-      <div class="video-fallback">
-          <h2>NYxplore</h2>
-          <p>Discover New York City</p>
-      </div>
-  </video>
-  <div class="video-fallback">
-      <h2>NYxplore</h2>
-      <p>Discover New York City</p>
+   <!-- Hero Section -->
+<section class="hero" id="home">
+  <div class="video-container">
+      <!-- Video with multiple source formats for better compatibility -->
+      <video autoplay muted loop playsinline id="hero-video">
+          <source src="assets/videos/nyc-hero.mp4" type="video/mp4">
+          <source src="assets/videos/nyc-hero.webm" type="video/webm">
+          <!-- Fallback image if video doesn't load -->
+          <img src="assets/images/nyc-fallback.jpg" alt="New York City skyline" class="video-fallback">
+      </video>
+      <!-- Gradient overlay for better text visibility -->
+      <div class="video-overlay"></div>
   </div>
-</div>
-    </section>
+  <div class="hero-content">
+      <h1 class="hero-title">NYxplore</h1>
+      <p class="hero-subtitle">Discover the Soul of New York City</p>
+      <div class="scroll-down">
+          <div class="chevron"></div>
+          <div class="chevron"></div>
+          <div class="chevron"></div>
+      </div>
+  </div>
+</section>
 
     <!-- Navigation -->
     <nav class="navbar">
