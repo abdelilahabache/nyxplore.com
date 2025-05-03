@@ -343,6 +343,70 @@ img {
   transition: var(--transition);
 }
 
+/* ===== BASE LOGO STYLES ===== */
+.logo {
+  display: inline-block;
+  line-height: 0;
+  text-decoration: none;
+  transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.logo img {
+  width: auto;
+  height: 65px; /* Default mobile size */
+  object-fit: contain;
+  transition: all 0.3s ease;
+  will-change: transform;
+}
+
+/* ===== DESKTOP STYLES ===== */
+@media (min-width: 768px) {
+  .logo img {
+    height: 90px; /* Larger on desktop */
+  }
+}
+
+/* ===== HOVER ANIMATION (Desktop only) ===== */
+@media (hover: hover) and (min-width: 768px) {
+  .logo:hover {
+    transform: translateY(-2px); /* Lift effect */
+  }
+  
+  .logo:hover img {
+    transform: scale(1.05);
+    filter: 
+      brightness(1.05) 
+      drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  }
+}
+
+/* ===== TOUCH DEVICE ADJUSTMENTS ===== */
+@media (max-width: 767px) {
+  .logo img {
+    max-width: 180px; /* Prevent overflow on small screens */
+  }
+  
+  .logo:active img {
+    transform: scale(0.98); /* Tap feedback */
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  .logo,
+  .logo img {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+@media (prefers-color-scheme: dark) {
+  .logo img {
+    filter: brightness(0.95) contrast(1.1);
+  }
+}
+
 /* Hamburger Menu Animation */
 .navbar-toggle.active .bar:nth-child(1) {
   transform: translateY(9px) rotate(45deg);
