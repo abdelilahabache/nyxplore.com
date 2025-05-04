@@ -12,45 +12,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Theme Toggle -->
-    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-        <i class="fas fa-moon"></i>
+<!-- Theme and Sound Controls -->
+<div class="floating-controls">
+    <button id="sound-toggle" class="control-button" aria-label="Toggle ambient sound">
+      <i class="fas fa-volume-up"></i>
     </button>
-
-    <!-- Sound Toggle -->
-    <button id="sound-toggle" class="sound-toggle" aria-label="Toggle ambient sound">
-        <i class="fas fa-volume-up"></i>
+    <button id="theme-toggle" class="control-button" aria-label="Toggle dark mode">
+      <i class="fas fa-moon"></i>
     </button>
+  </div>
 
     <!-- Hero Section -->
-   <!-- Hero Section -->
-<section class="hero" id="home">
-  <div class="video-container">
-      <!-- Video with multiple source formats for better compatibility -->
-      <video autoplay muted loop playsinline id="hero-video">
-          <source src="assets/videos/nyc-hero.mp4" type="video/mp4">
-       </video>
-      <!-- Gradient overlay for better text visibility -->
-      <div class="video-overlay"></div>
-  </div>
-  <div class="hero-content">
-      <h1 class="hero-title">NYxplore</h1>
-      <p class="hero-subtitle">Discover the Soul of New York City</p>
-      <div class="scroll-down">
-          <div class="chevron"></div>
-          <div class="chevron"></div>
-          <div class="chevron"></div>
-      </div>
-  </div>
-</section>
+    <section class="hero" id="home">
+        <div class="video-container">
+            <!-- Video with multiple source formats for better compatibility -->
+            <video autoplay muted loop playsinline id="hero-video">
+                <source src="assets/videos/nyc-hero.mp4" type="video/mp4">
+                <!-- Fallback image if video can't load -->
+                <img src="assets/images/nyc-hero-fallback.jpg" alt="New York City skyline" class="video-fallback">
+            </video>
+            <!-- Gradient overlay for better text visibility -->
+            <div class="video-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">NYxplore</h1>
+            <p class="hero-subtitle">Discover the Soul of New York City</p>
+            <div class="scroll-down">
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+                <div class="chevron"></div>
+            </div>
+        </div>
+    </section>
 
     <!-- Navigation -->
     <nav class="navbar">
         <div class="navbar-container">
             <a href="/" class="logo">
-                <img src="assets/images/logo-NY (2).webp" alt="Company Name" width="200" height="50">
-              </a>
-            <div class="navbar-toggle" id="mobile-menu">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo" width="200" height="50">
+            </a>
+            <div class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -64,150 +65,300 @@
             </ul>
         </div>
     </nav>
-
-    <!-- Landmarks Section -->
-    <section class="section landmarks" id="landmarks">
-        <div class="section-header">
-            <h2 class="section-title">Iconic Landmarks</h2>
-            <p class="section-subtitle">Explore New York's most famous sights</p>
+   <!-- Landmarks Section -->
+<section class="section landmarks" id="landmarks">
+    <div class="section-header">
+        <h2 class="section-title">Iconic Landmarks</h2>
+        <p class="section-subtitle">Explore New York's most famous sights</p>
+    </div>
+    <div class="parallax-container">
+        <!-- Times Square -->
+        <div class="parallax-item" data-speed="0.1">
+            <img src="assets/images/times-square.webp" 
+                 alt="Times Square at night with neon lights and crowds" 
+                 class="parallax-image"
+                 loading="lazy">
+            <div class="parallax-content">
+                <h3>Times Square</h3>
+                <p>The Crossroads of the World, where bright lights and Broadway meet.</p>
+            </div>
         </div>
+        <!-- Central Park -->
+        <div class="parallax-item" data-speed="0.2">
+            <img src="assets/images/central-park.webp" 
+                 alt="Aerial view of Central Park in autumn" 
+                 class="parallax-image"
+                 loading="lazy">
+            <div class="parallax-content">
+                <h3>Central Park</h3>
+                <p>An urban oasis in the heart of Manhattan, spanning 843 acres.</p>
+            </div>
+        </div>
+        <!-- Brooklyn Bridge -->
+        <div class="parallax-item" data-speed="0.3">
+            <img src="assets/images/brooklyn-bridge.webp" 
+                 alt="Brooklyn Bridge at sunset" 
+                 class="parallax-image"
+                 loading="lazy">
+            <div class="parallax-content">
+                <h3>Brooklyn Bridge</h3>
+                <p>A historic suspension bridge connecting Manhattan and Brooklyn.</p>
+            </div>
+        </div>
+        <!-- Statue of Liberty -->
+        <div class="parallax-item" data-speed="0.4">
+            <img src="assets/images/statue-liberty.webp" 
+                 alt="Statue of Liberty with blue sky background" 
+                 class="parallax-image"
+                 loading="lazy">
+            <div class="parallax-content">
+                <h3>Statue of Liberty</h3>
+                <p>A universal symbol of freedom and democracy.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Parallax Styles */
+    .parallax-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .parallax-item {
+        position: relative;
+        width: calc(50% - 20px);
+        height: 300px;
+        overflow: hidden;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+    }
+
+    .parallax-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        will-change: transform; /* Optimizes animations */
+    }
+
+    .parallax-content {
+        position: absolute;
+        bottom: 5%;
+        left: 5%;
+        max-width: 90%;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.7);
+        border-left: 4px solid var(--accent-color);
+        color: white;
+        z-index: 1;
+        transform: translateY(20px);
+        opacity: 0;
+        transition: all 0.5s ease;
+    }
+
+    .parallax-item:hover .parallax-content {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+        .parallax-item {
+            width: 100%;
+            height: 250px;
+        }
+    }
+</style>
+
+<script>
+    // Parallax Effect
+    document.addEventListener('DOMContentLoaded', function() {
+        const parallaxItems = document.querySelectorAll('.parallax-item');
         
-        <div class="parallax-container">
-            <div class="parallax-item" data-speed="0.1">
-                <div class="parallax-content">
-                    <h3>Times Square</h3>
-                    <p>The Crossroads of the World, where bright lights and Broadway meet.</p>
-                </div>
-            </div>
-            
-            <div class="parallax-item" data-speed="0.2">
-                <div class="parallax-content">
-                    <h3>Central Park</h3>
-                    <p>An urban oasis in the heart of Manhattan, spanning 843 acres.</p>
-                </div>
-            </div>
-            
-            <div class="parallax-item" data-speed="0.3">
-                <div class="parallax-content">
-                    <h3>Brooklyn Bridge</h3>
-                    <p>A historic suspension bridge connecting Manhattan and Brooklyn.</p>
-                </div>
-            </div>
-            
-            <div class="parallax-item" data-speed="0.4">
-                <div class="parallax-content">
-                    <h3>Statue of Liberty</h3>
-                    <p>A universal symbol of freedom and democracy.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
+        // Initialize parallax only if not on mobile
+        if (window.innerWidth > 768) {
+            window.addEventListener('scroll', function() {
+                parallaxItems.forEach(item => {
+                    const speed = parseFloat(item.getAttribute('data-speed'));
+                    const yPos = -(window.scrollY * speed);
+                    const img = item.querySelector('.parallax-image');
+                    
+                    // Apply parallax effect to image
+                    if (img) {
+                        img.style.transform = `translateY(${yPos}px)`;
+                    }
+                    
+                    // Trigger content fade-in when item is in view
+                    const content = item.querySelector('.parallax-content');
+                    const itemTop = item.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (itemTop < windowHeight * 0.75) {
+                        content.style.opacity = '1';
+                        content.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { passive: true });
+        } else {
+            // On mobile, show all content immediately
+            parallaxItems.forEach(item => {
+                const content = item.querySelector('.parallax-content');
+                content.style.opacity = '1';
+                content.style.transform = 'translateY(0)';
+            });
+        }
+    });
+</script>
     <!-- Culture Section -->
-    <section class="section culture" id="culture">
-        <div class="section-header">
-            <h2 class="section-title">NYC Culture</h2>
-            <p class="section-subtitle">Experience the vibrant cultural scene</p>
+<section class="section culture" id="culture">
+    <div class="section-header">
+        <h2 class="section-title">NYC Culture</h2>
+        <p class="section-subtitle">Experience the vibrant cultural scene</p>
+    </div>
+    
+    <div class="masonry-grid">
+        <!-- Broadway -->
+        <div class="masonry-item">
+            <img src="assets/images/broadway.avif" 
+                 alt="Bright lights of a Broadway theater marquee at night" 
+                 class="masonry-image"
+                 loading="lazy">
+            <div class="masonry-content">
+                <h3>Broadway</h3>
+                <p>The pinnacle of American theater with world-class performances.</p>
+            </div>
         </div>
         
-        <div class="masonry-grid">
-            <div class="masonry-item">
-                <div class="masonry-content">
-                    <h3>Broadway</h3>
-                    <p>The pinnacle of American theater with world-class performances.</p>
-                </div>
-            </div>
-            
-            <div class="masonry-item">
-                <div class="masonry-content">
-                    <h3>Museums</h3>
-                    <p>From the MET to MoMA, NYC houses some of the world's finest art collections.</p>
-                </div>
-            </div>
-            
-            <div class="masonry-item">
-                <div class="masonry-content">
-                    <h3>Music</h3>
-                    <p>Jazz clubs, concert halls, and street performers create the city's soundtrack.</p>
-                </div>
-            </div>
-            
-            <div class="masonry-item">
-                <div class="masonry-content">
-                    <h3>Neighborhoods</h3>
-                    <p>Each district has its own unique character and cultural identity.</p>
-                </div>
-            </div>
-            
-            <div class="masonry-item">
-                <div class="masonry-content">
-                    <h3>Street Art</h3>
-                    <p>Murals and graffiti transform the city into an open-air gallery.</p>
-                </div>
-            </div>
-            
-            <div class="masonry-item">
-                <div class="masonry-content">
-                    <h3>Festivals</h3>
-                    <p>Year-round celebrations of food, film, music, and more.</p>
-                </div>
+        <!-- Museums -->
+        <div class="masonry-item">
+            <img src="assets/images/museums.webp" 
+                 alt="The Metropolitan Museum of Art facade with visitors" 
+                 class="masonry-image"
+                 loading="lazy">
+            <div class="masonry-content">
+                <h3>Museums</h3>
+                <p>From the MET to MoMA, NYC houses some of the world's finest art collections.</p>
             </div>
         </div>
-    </section>
+        
+        <!-- Music -->
+        <div class="masonry-item">
+            <img src="assets/images/music.webp" 
+                 alt="Dimly lit jazz club with musicians performing" 
+                 class="masonry-image"
+                 loading="lazy">
+            <div class="masonry-content">
+                <h3>Music</h3>
+                <p>Jazz clubs, concert halls, and street performers create the city's soundtrack.</p>
+            </div>
+        </div>
+        
+        <!-- Neighborhoods -->
+        <div class="masonry-item">
+            <img src="assets/images/neighborhoods.webp" 
+                 alt="Colorful streets of Chinatown with lantern decorations" 
+                 class="masonry-image"
+                 loading="lazy">
+            <div class="masonry-content">
+                <h3>Neighborhoods</h3>
+                <p>Each district has its own unique character and cultural identity.</p>
+            </div>
+        </div>
+        
+        <!-- Street Art -->
+        <div class="masonry-item">
+            <img src="assets/images/street-art.webp" 
+                 alt="Large colorful mural on a brick building in Bushwick" 
+                 class="masonry-image"
+                 loading="lazy">
+            <div class="masonry-content">
+                <h3>Street Art</h3>
+                <p>Murals and graffiti transform the city into an open-air gallery.</p>
+            </div>
+        </div>
+        
+        <!-- Festivals -->
+        <div class="masonry-item">
+            <img src="assets/images/festivals.webp" 
+                 alt="Crowd enjoying a summer street festival with food stalls" 
+                 class="masonry-image"
+                 loading="lazy">
+            <div class="masonry-content">
+                <h3>Festivals</h3>
+                <p>Year-round celebrations of food, film, music, and more.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <!-- Food Section -->
-    <section class="section food" id="food">
-        <div class="section-header">
-            <h2 class="section-title">Culinary Delights</h2>
-            <p class="section-subtitle">Taste the flavors of NYC</p>
+<!-- Food Section -->
+<section class="section food" id="food">
+    <div class="section-header">
+        <h2 class="section-title">Culinary Delights</h2>
+        <p class="section-subtitle">Taste the flavors of NYC</p>
+    </div>
+    
+    <div class="food-grid">
+        <!-- Pizza -->
+        <div class="food-card">
+            <div class="food-card-inner">
+                <div class="food-card-front" style="background-image: url('assets/images/pizza.webp')">
+                    <div class="food-overlay"></div>
+                    <h3>Pizza</h3>
+                </div>
+                <div class="food-card-back">
+                    <p>New York-style pizza with its characteristic thin crust and foldable slices.</p>
+                    <button class="food-button">View Places</button>
+                </div>
+            </div>
         </div>
         
-        <div class="food-grid">
-            <div class="food-card">
-                <div class="food-card-inner">
-                    <div class="food-card-front">
-                        <h3>Pizza</h3>
-                    </div>
-                    <div class="food-card-back">
-                        <p>New York-style pizza with its characteristic thin crust and foldable slices.</p>
-                    </div>
+        <!-- Bagels -->
+        <div class="food-card">
+            <div class="food-card-inner">
+                <div class="food-card-front" style="background-image: url('assets/images/bagels.webp')">
+                    <div class="food-overlay"></div>
+                    <h3>Bagels</h3>
                 </div>
-            </div>
-            
-            <div class="food-card">
-                <div class="food-card-inner">
-                    <div class="food-card-front">
-                        <h3>Bagels</h3>
-                    </div>
-                    <div class="food-card-back">
-                        <p>Chewy, dense, and best enjoyed with cream cheese and lox.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="food-card">
-                <div class="food-card-inner">
-                    <div class="food-card-front">
-                        <h3>Hot Dogs</h3>
-                    </div>
-                    <div class="food-card-back">
-                        <p>A street food classic, best from a cart with "everything" on it.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="food-card">
-                <div class="food-card-inner">
-                    <div class="food-card-front">
-                        <h3>International</h3>
-                    </div>
-                    <div class="food-card-back">
-                        <p>From Chinatown dumplings to Little Italy pasta, the world on a plate.</p>
-                    </div>
+                <div class="food-card-back">
+                    <p>Chewy, dense, and best enjoyed with cream cheese and lox.</p>
+                    <button class="food-button">View Places</button>
                 </div>
             </div>
         </div>
-    </section>
+        
+        <!-- Hot Dogs -->
+        <div class="food-card">
+            <div class="food-card-inner">
+                <div class="food-card-front" style="background-image: url('assets/images/hot-dogs.webp')">
+                    <div class="food-overlay"></div>
+                    <h3>Hot Dogs</h3>
+                </div>
+                <div class="food-card-back">
+                    <p>A street food classic, best from a cart with "everything" on it.</p>
+                    <button class="food-button">View Places</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- International -->
+        <div class="food-card">
+            <div class="food-card-inner">
+                <div class="food-card-front" style="background-image: url('assets/images/international.webp')">
+                    <div class="food-overlay"></div>
+                    <h3>International</h3>
+                </div>
+                <div class="food-card-back">
+                    <p>From Chinatown dumplings to Little Italy pasta, the world on a plate.</p>
+                    <button class="food-button">View Places</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
     <!-- Gallery Section -->
     <section class="section gallery" id="gallery">
@@ -218,40 +369,40 @@
         
         <div class="gallery-grid">
             <div class="gallery-item" data-index="0">
-                <img data-src="assets/images/gallery/nyc1.jpg" alt="New York City skyline" class="lazy">
+                <img data-src="assets/images/nyc1.webp" alt="New York City skyline" class="lazy">
             </div>
             <div class="gallery-item" data-index="1">
-                <img data-src="assets/images/gallery/nyc2.jpg" alt="Times Square at night" class="lazy">
+                <img data-src="assets/images/nyc2.webp" alt="Times Square at night" class="lazy">
             </div>
             <div class="gallery-item" data-index="2">
-                <img data-src="assets/images/gallery/nyc3.jpg" alt="Central Park in autumn" class="lazy">
+                <img data-src="assets/images/nyc3.webp" alt="Central Park in autumn" class="lazy">
             </div>
             <div class="gallery-item" data-index="3">
-                <img data-src="assets/images/gallery/nyc4.jpg" alt="Brooklyn Bridge sunset" class="lazy">
+                <img data-src="assets/images/nyc4.webp" alt="Brooklyn Bridge sunset" class="lazy">
             </div>
             <div class="gallery-item" data-index="4">
-                <img data-src="assets/images/gallery/nyc5.jpg" alt="Statue of Liberty" class="lazy">
+                <img data-src="assets/images/nyc5.webp" alt="Statue of Liberty" class="lazy">
             </div>
             <div class="gallery-item" data-index="5">
-                <img data-src="assets/images/gallery/nyc6.jpg" alt="High Line park" class="lazy">
+                <img data-src="assets/images/nyc6.webp" alt="High Line park" class="lazy">
             </div>
             <div class="gallery-item" data-index="6">
-                <img data-src="assets/images/gallery/nyc7.jpg" alt="Metropolitan Museum" class="lazy">
+                <img data-src="assets/images/nyc7.webp" alt="Metropolitan Museum" class="lazy">
             </div>
             <div class="gallery-item" data-index="7">
-                <img data-src="assets/images/gallery/nyc8.jpg" alt="Grand Central Terminal" class="lazy">
+                <img data-src="assets/images/nyc8.webp" alt="Grand Central Terminal" class="lazy">
             </div>
         </div>
         
         <!-- Lightbox Modal -->
-        <div id="lightbox" class="lightbox">
-            <span class="lightbox-close">&times;</span>
+        <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+            <span class="lightbox-close" aria-label="Close lightbox">&times;</span>
             <div class="lightbox-content">
                 <img id="lightbox-image" src="" alt="">
                 <div class="lightbox-caption"></div>
             </div>
-            <a class="lightbox-prev">&#10094;</a>
-            <a class="lightbox-next">&#10095;</a>
+            <button class="lightbox-prev" aria-label="Previous image">&#10094;</button>
+            <button class="lightbox-next" aria-label="Next image">&#10095;</button>
         </div>
     </section>
 
@@ -263,25 +414,25 @@
         </div>
         
         <div class="map-container">
-            <svg viewBox="0 0 800 600" class="nyc-map">
+            <svg viewBox="0 0 800 600" class="nyc-map" aria-label="Interactive map of New York City">
                 <!-- Manhattan -->
-                <path id="manhattan" class="map-area" d="M300,100 L500,100 L500,400 L300,400 Z" fill="#3a506b" stroke="#fff" stroke-width="2"/>
+                <path id="manhattan" class="map-area" d="M300,100 L500,100 L500,400 L300,400 Z" fill="#3a506b" stroke="#fff" stroke-width="2" tabindex="0" role="button" aria-label="Manhattan"/>
                 <!-- Brooklyn -->
-                <path id="brooklyn" class="map-area" d="M500,200 L700,200 L700,500 L500,500 Z" fill="#3a506b" stroke="#fff" stroke-width="2"/>
+                <path id="brooklyn" class="map-area" d="M500,200 L700,200 L700,500 L500,500 Z" fill="#3a506b" stroke="#fff" stroke-width="2" tabindex="0" role="button" aria-label="Brooklyn"/>
                 <!-- Queens -->
-                <path id="queens" class="map-area" d="M500,50 L700,50 L700,200 L500,200 Z" fill="#3a506b" stroke="#fff" stroke-width="2"/>
+                <path id="queens" class="map-area" d="M500,50 L700,50 L700,200 L500,200 Z" fill="#3a506b" stroke="#fff" stroke-width="2" tabindex="0" role="button" aria-label="Queens"/>
                 <!-- Bronx -->
-                <path id="bronx" class="map-area" d="M300,0 L500,0 L500,100 L300,100 Z" fill="#3a506b" stroke="#fff" stroke-width="2"/>
+                <path id="bronx" class="map-area" d="M300,0 L500,0 L500,100 L300,100 Z" fill="#3a506b" stroke="#fff" stroke-width="2" tabindex="0" role="button" aria-label="Bronx"/>
                 <!-- Staten Island -->
-                <path id="staten-island" class="map-area" d="M100,300 L300,300 L300,500 L100,500 Z" fill="#3a506b" stroke="#fff" stroke-width="2"/>
+                <path id="staten-island" class="map-area" d="M100,300 L300,300 L300,500 L100,500 Z" fill="#3a506b" stroke="#fff" stroke-width="2" tabindex="0" role="button" aria-label="Staten Island"/>
                 
                 <!-- Landmark Markers -->
-                <circle id="times-square" cx="400" cy="200" r="10" fill="#f79256" class="map-marker"/>
-                <circle id="central-park" cx="350" cy="250" r="10" fill="#f79256" class="map-marker"/>
-                <circle id="brooklyn-bridge" cx="450" cy="350" r="10" fill="#f79256" class="map-marker"/>
-                <circle id="statue-liberty" cx="250" cy="400" r="10" fill="#f79256" class="map-marker"/>
-                <circle id="met-museum" cx="380" cy="220" r="10" fill="#f79256" class="map-marker"/>
-                <circle id="yankee-stadium" cx="400" cy="50" r="10" fill="#f79256" class="map-marker"/>
+                <circle id="times-square" cx="400" cy="200" r="10" fill="#f79256" class="map-marker" tabindex="0" role="button" aria-label="Times Square"/>
+                <circle id="central-park" cx="350" cy="250" r="10" fill="#f79256" class="map-marker" tabindex="0" role="button" aria-label="Central Park"/>
+                <circle id="brooklyn-bridge" cx="450" cy="350" r="10" fill="#f79256" class="map-marker" tabindex="0" role="button" aria-label="Brooklyn Bridge"/>
+                <circle id="statue-liberty" cx="250" cy="400" r="10" fill="#f79256" class="map-marker" tabindex="0" role="button" aria-label="Statue of Liberty"/>
+                <circle id="met-museum" cx="380" cy="220" r="10" fill="#f79256" class="map-marker" tabindex="0" role="button" aria-label="Metropolitan Museum of Art"/>
+                <circle id="yankee-stadium" cx="400" cy="50" r="10" fill="#f79256" class="map-marker" tabindex="0" role="button" aria-label="Yankee Stadium"/>
             </svg>
             
             <div class="map-info">
@@ -290,84 +441,87 @@
             </div>
         </div>
     </section>
-<!-- footer -->
+
+    <!-- Footer -->
     <footer class="footer">
-      <div class="footer-container">
-        <!-- Newsletter Section -->
-        <div class="footer-newsletter">
-          <h3>Explore NYC With Us</h3>
-          <p>Get exclusive updates on hidden gems and events</p>
-          <form class="newsletter-form">
-            <div class="input-group">
-              <input type="email" placeholder="Your email address" required>
-              <button type="submit" aria-label="Subscribe">
-                <i class="fas fa-paper-plane"></i>
-              </button>
+        <div class="footer-container">
+            <!-- Newsletter Section -->
+            <div class="footer-newsletter">
+                <h3>Explore NYC With Us</h3>
+                <p>Get exclusive updates on hidden gems and events</p>
+                <form class="newsletter-form" id="newsletter-form">
+                    <div class="input-group">
+                        <input type="email" placeholder="Your email address" required aria-label="Email address">
+                        <button type="submit" aria-label="Subscribe">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+                <div class="newsletter-success" aria-live="polite">Thank you for subscribing!</div>
             </div>
-          </form>
-          <div class="newsletter-success">Thank you for subscribing!</div>
+        
+            <!-- Quick Links Grid -->
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Discover</h4>
+                    <ul>
+                        <li><a href="#landmarks"><i class="fas fa-landmark"></i> Iconic Landmarks</a></li>
+                        <li><a href="#culture"><i class="fas fa-theater-masks"></i> Arts & Culture</a></li>
+                        <li><a href="#food"><i class="fas fa-utensils"></i> Food Scene</a></li>
+                        <li><a href="#gallery"><i class="fas fa-camera"></i> Photo Gallery</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-subway"></i> Transit Guide</a></li>
+                        <li><a href="#"><i class="fas fa-calendar-alt"></i> Events Calendar</a></li>
+                        <li><a href="#"><i class="fas fa-map-marked-alt"></i> Interactive Map</a></li>
+                        <li><a href="#"><i class="fas fa-question-circle"></i> Visitor FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-heart"></i> About NYxplore</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                        <li><a href="#"><i class="fas fa-briefcase"></i> Careers</a></li>
+                        <li><a href="#"><i class="fas fa-newspaper"></i> Press</a></li>
+                    </ul>
+                </div>
+            </div>
+        
+            <!-- Social & Legal -->
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+                
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Accessibility</a>
+                    <a href="#">Sitemap</a>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
+                    <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
+                </div>
+            </div>
         </div>
-    
-        <!-- Quick Links Grid -->
-        <div class="footer-grid">
-          <div class="footer-column">
-            <h4>Discover</h4>
-            <ul>
-              <li><a href="#landmarks"><i class="fas fa-landmark"></i> Iconic Landmarks</a></li>
-              <li><a href="#culture"><i class="fas fa-theater-masks"></i> Arts & Culture</a></li>
-              <li><a href="#food"><i class="fas fa-utensils"></i> Food Scene</a></li>
-              <li><a href="#gallery"><i class="fas fa-camera"></i> Photo Gallery</a></li>
-            </ul>
-          </div>
-          
-          <div class="footer-column">
-            <h4>Resources</h4>
-            <ul>
-              <li><a href="#"><i class="fas fa-subway"></i> Transit Guide</a></li>
-              <li><a href="#"><i class="fas fa-calendar-alt"></i> Events Calendar</a></li>
-              <li><a href="#"><i class="fas fa-map-marked-alt"></i> Interactive Map</a></li>
-              <li><a href="#"><i class="fas fa-question-circle"></i> Visitor FAQ</a></li>
-            </ul>
-          </div>
-          
-          <div class="footer-column">
-            <h4>Company</h4>
-            <ul>
-              <li><a href="#"><i class="fas fa-heart"></i> About NYxplore</a></li>
-              <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
-              <li><a href="#"><i class="fas fa-briefcase"></i> Careers</a></li>
-              <li><a href="#"><i class="fas fa-newspaper"></i> Press</a></li>
-            </ul>
-          </div>
-        </div>
-    
-        <!-- Social & Legal -->
-        <div class="footer-bottom">
-          <div class="social-links">
-            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-            <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-          </div>
-          
-          <div class="legal-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Accessibility</a>
-            <a href="#">Sitemap</a>
-          </div>
-          
-          <div class="copyright">
-            <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
-            <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
-          </div>
-        </div>
-      </div>
     </footer>
+
     <!-- Ambient Sound -->
     <audio id="ambient-sound" loop>
         <source src="assets/sounds/nyc-ambient.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
     </audio>
 
     <script src="script.js"></script>

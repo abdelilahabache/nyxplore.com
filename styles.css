@@ -34,6 +34,7 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  scroll-padding-top: 80px;
 }
 
 body {
@@ -43,6 +44,8 @@ body {
   line-height: 1.6;
   transition: var(--transition);
   width: 100%;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 h1, h2, h3, h4 {
@@ -60,9 +63,10 @@ ul {
   list-style: none;
 }
 
-img {
+img, video, iframe {
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
 /* Utility Classes */
@@ -113,55 +117,53 @@ img {
   box-shadow: var(--box-shadow);
 }
 
-/* Theme Toggle - Updated */
-.theme-toggle {
+/* Floating Controls */
+.floating-controls {
   position: fixed;
-  top: 25px;
-  right: 25px;
-  width: 40px;
-  height: 40px;
+  left: 20px;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 1000;
+}
+
+.control-button {
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   background-color: var(--primary-color);
   color: var(--light-color);
   border: 2px solid var(--accent-color);
   cursor: pointer;
-  z-index: 1001;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--box-shadow);
-  transition: var(--transition);
-  backdrop-filter: blur(2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
 }
 
-.theme-toggle:hover {
-  transform: scale(1.1);
+.control-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Sound Toggle - Updated */
-.sound-toggle {
-  position: fixed;
-  top: 25px;
-  right: 75px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: var(--primary-color);
-  color: var(--light-color);
-  border: 2px solid var(--accent-color);
-  cursor: pointer;
-  z-index: 1001;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--box-shadow);
-  transition: var(--transition);
-  backdrop-filter: blur(2px);
+.control-button i {
+  font-size: 1.2rem;
 }
 
-.sound-toggle:hover {
-  transform: scale(1.1);
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .floating-controls {
+    left: 15px;
+    bottom: 15px;
+  }
+  .control-button {
+    width: 45px;
+    height: 45px;
+  }
 }
+
 
 /* Hero Section */
 .hero {
@@ -184,24 +186,51 @@ img {
   background-color: var(--secondary-color);
 }
 
-.video-container video {
+#hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   min-width: 100%;
   min-height: 100%;
+  width: auto;
+  height: auto;
   object-fit: cover;
 }
 
-.hero-overlay {
+.video-fallback {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 17, 40, 0.4);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
   text-align: center;
   color: white;
   padding: 0 20px;
-  z-index: 1;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .hero-title {
   font-size: 6rem;
   margin-bottom: 20px;
   animation: fadeInDown 1s ease;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .hero-subtitle {
@@ -211,25 +240,7 @@ img {
   animation-delay: 0.3s;
   opacity: 0;
   animation-fill-mode: forwards;
-}
-
-.hero-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #0a1128 0%, #3a506b 100%);
-  z-index: -1;
-}
-
-.hero-bg::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: url('assets/images/nyc-skyline-silhouette.png') bottom center/contain no-repeat;
-  opacity: 0.1;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 /* Scroll Down Animation */
@@ -262,7 +273,7 @@ img {
   animation-delay: 0.3s;
 }
 
-/* Navigation - Updated */
+/* Navigation */
 .navbar {
   position: fixed;
   top: 0;
@@ -283,15 +294,65 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 160px 15px 20px;
+  padding: 15px 20px;
   position: relative;
 }
 
-.navbar-logo {
-  font-family: var(--font-secondary);
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: white;
+/* Logo Styles */
+.logo {
+  display: inline-block;
+  line-height: 0;
+  text-decoration: none;
+  transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.logo img {
+  width: auto;
+  height: 65px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+  will-change: transform;
+}
+
+@media (min-width: 768px) {
+  .logo img {
+    height: 90px;
+  }
+}
+
+@media (hover: hover) and (min-width: 768px) {
+  .logo:hover {
+    transform: translateY(-2px);
+  }
+  
+  .logo:hover img {
+    transform: scale(1.05);
+    filter: brightness(1.05) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  }
+}
+
+@media (max-width: 767px) {
+  .logo img {
+    max-width: 180px;
+  }
+  
+  .logo:active img {
+    transform: scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo,
+  .logo img {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .logo img {
+    filter: brightness(0.95) contrast(1.1);
+  }
 }
 
 .navbar-menu {
@@ -334,6 +395,8 @@ img {
   position: absolute;
   right: 20px;
   z-index: 1002;
+  background: transparent;
+  border: none;
 }
 
 .bar {
@@ -341,70 +404,6 @@ img {
   height: 3px;
   background-color: white;
   transition: var(--transition);
-}
-
-/* ===== BASE LOGO STYLES ===== */
-.logo {
-  display: inline-block;
-  line-height: 0;
-  text-decoration: none;
-  transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
-}
-
-.logo img {
-  width: auto;
-  height: 65px; /* Default mobile size */
-  object-fit: contain;
-  transition: all 0.3s ease;
-  will-change: transform;
-}
-
-/* ===== DESKTOP STYLES ===== */
-@media (min-width: 768px) {
-  .logo img {
-    height: 90px; /* Larger on desktop */
-  }
-}
-
-/* ===== HOVER ANIMATION (Desktop only) ===== */
-@media (hover: hover) and (min-width: 768px) {
-  .logo:hover {
-    transform: translateY(-2px); /* Lift effect */
-  }
-  
-  .logo:hover img {
-    transform: scale(1.05);
-    filter: 
-      brightness(1.05) 
-      drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-  }
-}
-
-/* ===== TOUCH DEVICE ADJUSTMENTS ===== */
-@media (max-width: 767px) {
-  .logo img {
-    max-width: 180px; /* Prevent overflow on small screens */
-  }
-  
-  .logo:active img {
-    transform: scale(0.98); /* Tap feedback */
-  }
-}
-
-/* ===== ACCESSIBILITY ===== */
-@media (prefers-reduced-motion: reduce) {
-  .logo,
-  .logo img {
-    transition: none !important;
-    transform: none !important;
-  }
-}
-
-/* ===== DARK MODE SUPPORT ===== */
-@media (prefers-color-scheme: dark) {
-  .logo img {
-    filter: brightness(0.95) contrast(1.1);
-  }
 }
 
 /* Hamburger Menu Animation */
@@ -420,10 +419,10 @@ img {
   transform: translateY(-9px) rotate(-45deg);
 }
 
-/* Mobile Menu - Updated */
+/* Mobile Menu */
 @media (max-width: 768px) {
   .navbar-container {
-    padding-right: 160px !important;
+    padding-right: 80px;
   }
 
   .navbar-menu {
@@ -453,13 +452,6 @@ img {
     display: flex;
   }
 
-  .navbar-logo {
-    max-width: 120px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
   .theme-toggle, .sound-toggle {
     top: 20px;
     right: 70px;
@@ -472,136 +464,8 @@ img {
     right: 120px;
   }
 }
-
-/* Parallax Landmarks Section */
-.parallax-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
-
-.parallax-item {
-  position: relative;
-  width: calc(50% - 20px);
-  height: 300px;
-  overflow: hidden;
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
-  transition: var(--transition);
-}
-
-.parallax-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-  z-index: 1;
-}
-
-.parallax-item:hover {
-  transform: translateY(-10px);
-}
-
-.parallax-content {
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-  color: white;
-  z-index: 2;
-  max-width: 80%;
-}
-
-.parallax-content h3 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-/* Apply different background images to each parallax item */
-.parallax-item:nth-child(1) {
-  background: url('assets/images/times-square.webp') center/cover no-repeat;
-  background-color: #001f54;
-}
-
-.parallax-item:nth-child(2) {
-  background: url('assets/images/central-park.webp') center/cover no-repeat;
-  background-color: #0a1128;
-}
-
-.parallax-item:nth-child(3) {
-  background: url('assets/images/brooklyn-bridge.webp') center/cover no-repeat;
-  background-color: #3a506b;
-}
-
-.parallax-item:nth-child(4) {
-  background: url('assets/images/statue-liberty.webp') center/cover no-repeat;
-  background-color: #1e1e24;
-}
-/* Add to your CSS */
-.parallax-item {
-  position: relative;
-  min-height: 300px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-/* Fallback background colors */
-.parallax-item:nth-child(1) { background-color: #001f54; } /* Times Square */
-.parallax-item:nth-child(2) { background-color: #0a1128; } /* Central Park */
-.parallax-item:nth-child(3) { background-color: #3a506b; } /* Brooklyn Bridge */
-.parallax-item:nth-child(4) { background-color: #1e1e24; } /* Statue of Liberty */
-
-.parallax-content {
-  position: absolute;
-  bottom: 5%;
-  left: 5%;
-  max-width: 90%;
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.7);
-  border-left: 4px solid var(--accent-color);
-  transform: translateY(20px);
-  opacity: 0;
-  transition: all 0.5s ease;
-}
-
-.parallax-item:hover .parallax-content {
-  transform: translateY(0);
-  opacity: 1;
-}
-/* Add these animations */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.parallax-item.visible {
-  animation: fadeInUp 0.8s ease forwards;
-}
-
-.parallax-item.visible:nth-child(1) { animation-delay: 0.1s; }
-.parallax-item.visible:nth-child(2) { animation-delay: 0.3s; }
-.parallax-item.visible:nth-child(3) { animation-delay: 0.5s; }
-.parallax-item.visible:nth-child(4) { animation-delay: 0.7s; }
-
-.explore-btn {
-  background: var(--accent-color);
-  border: none;
-  padding: 8px 20px;
-  margin-top: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.explore-btn:hover {
-  background: white;
-  color: var(--primary-color);
-}
-
-/* Masonry Grid for Culture Section */
+ /* Masonry Grid for Culture Section */
+/* Masonry Grid with Images */
 .masonry-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -617,68 +481,64 @@ img {
   transition: var(--transition);
 }
 
-.masonry-item:hover {
-  transform: translateY(-5px);
+.masonry-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  transition: transform 0.5s ease;
+}
+
+.masonry-item:hover .masonry-image {
+  transform: scale(1.05);
 }
 
 .masonry-content {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  position: relative;
+  z-index: 1;
   padding: 20px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  background: rgba(0, 0, 0, 0.7);
   color: white;
-}
-
-.masonry-content h3 {
-  margin-bottom: 10px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transition: all 0.3s ease;
 }
 
 /* Different heights for masonry items */
-.masonry-item:nth-child(1) {
-  grid-row: span 2;
-  background: url('assets/images/broadway.avif') center/cover no-repeat;
-  background-color: #3a506b;
-}
-
-.masonry-item:nth-child(2) {
-  background: url('assets/images/museums.webp') center/cover no-repeat;
-  background-color: #0a1128;
-}
-
+.masonry-item:nth-child(1),
 .masonry-item:nth-child(3) {
   grid-row: span 2;
-  background: url('assets/images/music.webp') center/cover no-repeat;
-  background-color: #001f54;
-}
-
-.masonry-item:nth-child(4) {
-  background: url('assets/images/neighborhoods.webp') center/cover no-repeat;
-  background-color: #1e1e24;
 }
 
 .masonry-item:nth-child(5) {
   grid-column: span 2;
-  background: url('assets/images/street-art.webp') center/cover no-repeat;
-  background-color: #3a506b;
 }
 
-.masonry-item:nth-child(6) {
-  background: url('assets/images/festivals.webp') center/cover no-repeat;
-  background-color: #0a1128;
+@media (max-width: 768px) {
+  .masonry-item:nth-child(5) {
+      grid-column: span 1;
+  }
 }
 
-/* Food Section - Flip Cards */
+
+/* Food Section - Enhanced Flip Cards */
 .food-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 30px;
+  padding: 0 20px;
 }
 
 .food-card {
   perspective: 1000px;
   height: 300px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
 }
 
 .food-card-inner {
@@ -693,53 +553,78 @@ img {
   transform: rotateY(180deg);
 }
 
-.food-card-front, .food-card-back {
+.food-card-front,
+.food-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
   border-radius: var(--border-radius);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   box-shadow: var(--box-shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
 }
 
 .food-card-front {
-  background-color: var(--primary-color);
+  background-size: cover;
+  background-position: center;
   color: white;
+}
+
+.food-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 0;
+}
+
+.food-card-front h3 {
+  position: relative;
+  z-index: 1;
   font-size: 2rem;
-  font-weight: 700;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
 }
 
 .food-card-back {
   background-color: var(--accent-color);
   color: white;
   transform: rotateY(180deg);
-  padding: 20px;
-  text-align: center;
 }
 
-/* Different food card backgrounds */
-.food-card:nth-child(1) .food-card-front {
-  background: url('assets/images/pizza.jpg') center/cover no-repeat;
-  background-color: #f79256;
+.food-button {
+  margin-top: 15px;
+  padding: 8px 20px;
+  background: white;
+  color: var(--accent-color);
+  border: none;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
-.food-card:nth-child(2) .food-card-front {
-  background: url('assets/images/bagels.jpg') center/cover no-repeat;
-  background-color: #e54b4b;
+.food-button:hover {
+  background: var(--primary-color);
+  color: white;
 }
 
-.food-card:nth-child(3) .food-card-front {
-  background: url('assets/images/hot-dogs.jpg') center/cover no-repeat;
-  background-color: #6b2737;
+@media (max-width: 768px) {
+  .food-grid {
+      grid-template-columns: 1fr 1fr;
+  }
 }
 
-.food-card:nth-child(4) .food-card-front {
-  background: url('assets/images/international.jpg') center/cover no-repeat;
-  background-color: #f8f4a6;
-  color: #333;
+@media (max-width: 480px) {
+  .food-grid {
+      grid-template-columns: 1fr;
+  }
 }
 
 /* Gallery Section */
@@ -817,6 +702,8 @@ img {
   font-weight: bold;
   cursor: pointer;
   transition: var(--transition);
+  background: none;
+  border: none;
 }
 
 .lightbox-close:hover {
@@ -835,6 +722,8 @@ img {
   transition: var(--transition);
   user-select: none;
   cursor: pointer;
+  background: none;
+  border: none;
 }
 
 .lightbox-prev {
@@ -868,9 +757,10 @@ img {
   cursor: pointer;
 }
 
-.map-area:hover {
+.map-area:hover, .map-area:focus {
   fill: var(--accent-color);
   opacity: 0.8;
+  outline: none;
 }
 
 .map-marker {
@@ -878,11 +768,12 @@ img {
   cursor: pointer;
 }
 
-.map-marker:hover {
+.map-marker:hover, .map-marker:focus {
   fill: var(--light-color);
   stroke: var(--accent-color);
   stroke-width: 2;
   transform: scale(1.5);
+  outline: none;
 }
 
 .map-info {
@@ -901,7 +792,6 @@ img {
 }
 
 /* Footer */
-/* ===== PRO FOOTER STYLES ===== */
 .footer {
   background: linear-gradient(135deg, #0a1128 0%, #1e1e24 100%);
   color: white;
@@ -1094,7 +984,33 @@ img {
 }
 
 /* Responsive Adjustments */
+@media (max-width: 992px) {
+  .parallax-item {
+    width: 100%;
+  }
+
+  .masonry-item:nth-child(5) {
+    grid-column: span 1;
+  }
+}
+
 @media (max-width: 768px) {
+  .hero-title {
+    font-size: 4rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.4rem;
+  }
+
+  .section {
+    padding: 70px 0;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+  
   .footer-grid {
     grid-template-columns: 1fr;
     gap: 30px;
@@ -1110,9 +1026,16 @@ img {
     gap: 10px;
   }
 }
- 
- 
- 
+
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+
+  .food-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
 /* Animations */
 @keyframes fadeInDown {
@@ -1187,111 +1110,8 @@ img {
   transform: translateX(0) translateY(0);
 }
 
-/* Responsive Adjustments */
-@media (max-width: 992px) {
-  .parallax-item {
-    width: 100%;
-  }
-
-  .masonry-item:nth-child(5) {
-    grid-column: span 1;
-  }
-}
-
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 4rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1.4rem;
-  }
-
-  .section {
-    padding: 70px 0;
-  }
-
-  .section-title {
-    font-size: 2rem;
-  }
-}
-
-@media (max-width: 576px) {
-  .hero-title {
-    font-size: 3rem;
-  }
-
-  .food-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Video Container Styles */
-.video-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: -1;
-}
-
-#hero-video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: cover;
-}
-
-.video-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(10, 17, 40, 0.4);
-  z-index: 1;
-}
-
-.video-fallback {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  color: white;
-  padding: 0 20px;
-}
-
-/* Enable hardware-accelerated smooth scrolling */
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 80px; /* Adjust based on your header height */
-}
-
-/* Optimize rendering performance */
-body {
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-/* Prevent layout shifts */
-img, video, iframe {
-  max-width: 100%;
-  height: auto;
-  display: block;
+/* Loading state for lightbox */
+.lightbox-image.loading {
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
