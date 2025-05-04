@@ -464,8 +464,7 @@ img, video, iframe {
     right: 120px;
   }
 }
- /* Masonry Grid for Culture Section */
-/* Masonry Grid with Images */
+  /* Masonry Grid for Culture Section */
 .masonry-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -500,7 +499,7 @@ img, video, iframe {
   position: relative;
   z-index: 1;
   padding: 20px;
-  background: rgba(0, 0, 0, 0.7);
+  background: transparent;
   color: white;
   height: 100%;
   display: flex;
@@ -1115,3 +1114,4 @@ img, video, iframe {
   opacity: 0;
   transition: opacity 0.3s ease;
 }
+

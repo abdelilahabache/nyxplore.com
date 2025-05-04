@@ -424,3 +424,4 @@ soundToggle.addEventListener('click', function() {
     }
   }
 });
+
