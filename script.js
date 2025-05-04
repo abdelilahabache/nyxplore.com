@@ -23,25 +23,28 @@ themeToggle.addEventListener('click', function() {
   }
 });
 
-// Sound Toggle
+// Sound Toggle - Corrected Version
 const soundToggle = document.getElementById('sound-toggle');
 const ambientSound = document.getElementById('ambient-sound');
 let isSoundOn = localStorage.getItem('sound') === 'on';
 
+// Initialize icon (volume-up when sound is ON, mute when OFF)
 if (isSoundOn) {
-  soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+  soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>'; // Sound ON → Volume UP
   ambientSound.play().catch(e => console.log("Audio autoplay blocked:", e));
+} else {
+  soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>'; // Sound OFF → Mute
 }
 
 soundToggle.addEventListener('click', function() {
   if (isSoundOn) {
     ambientSound.pause();
-    soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+    soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>'; // Mute when turning OFF
     localStorage.setItem('sound', 'off');
   } else {
     ambientSound.play()
       .then(() => {
-        soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>'; // Volume UP when turning ON
         localStorage.setItem('sound', 'on');
       })
       .catch(e => console.log("Audio play failed:", e));

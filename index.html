@@ -20,8 +20,7 @@
     <button id="theme-toggle" class="control-button" aria-label="Toggle dark mode">
       <i class="fas fa-moon"></i>
     </button>
-  </div>
-
+  </div> 
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="video-container">
@@ -43,8 +42,7 @@
                 <div class="chevron"></div>
             </div>
         </div>
-    </section>
-
+    </section> 
     <!-- Navigation -->
     <nav class="navbar">
         <div class="navbar-container">
@@ -117,8 +115,7 @@
             </div>
         </div>
     </div>
-</section>
-
+</section> 
 <style>
     /* Parallax Styles */
     .parallax-container {
@@ -127,8 +124,7 @@
         justify-content: center;
         gap: 20px;
     }
-
-    .parallax-item {
+     .parallax-item {
         position: relative;
         width: calc(50% - 20px);
         height: 300px;
@@ -136,15 +132,13 @@
         border-radius: var(--border-radius);
         box-shadow: var(--box-shadow);
     }
-
-    .parallax-image {
+     .parallax-image {
         width: 100%;
         height: 100%;
         object-fit: cover;
         position: absolute;
         will-change: transform; /* Optimizes animations */
-    }
-
+     }
     .parallax-content {
         position: absolute;
         bottom: 5%;
@@ -159,12 +153,10 @@
         opacity: 0;
         transition: all 0.5s ease;
     }
-
-    .parallax-item:hover .parallax-content {
+     .parallax-item:hover .parallax-content {
         transform: translateY(0);
         opacity: 1;
-    }
-
+     }
     @media (max-width: 768px) {
         .parallax-item {
             width: 100%;
@@ -176,22 +168,16 @@
 <script>
     // Parallax Effect
     document.addEventListener('DOMContentLoaded', function() {
-        const parallaxItems = document.querySelectorAll('.parallax-item');
-        
-        // Initialize parallax only if not on mobile
+         const parallaxItems = document.querySelectorAll('.parallax-item');
         if (window.innerWidth > 768) {
             window.addEventListener('scroll', function() {
                 parallaxItems.forEach(item => {
                     const speed = parseFloat(item.getAttribute('data-speed'));
                     const yPos = -(window.scrollY * speed);
-                    const img = item.querySelector('.parallax-image');
-                    
-                    // Apply parallax effect to image
+                     const img = item.querySelector('.parallax-image');
                     if (img) {
                         img.style.transform = `translateY(${yPos}px)`;
-                    }
-                    
-                    // Trigger content fade-in when item is in view
+                     }
                     const content = item.querySelector('.parallax-content');
                     const itemTop = item.getBoundingClientRect().top;
                     const windowHeight = window.innerHeight;
@@ -202,8 +188,7 @@
                     }
                 });
             }, { passive: true });
-        } else {
-            // On mobile, show all content immediately
+         } else {
             parallaxItems.forEach(item => {
                 const content = item.querySelector('.parallax-content');
                 content.style.opacity = '1';
@@ -217,8 +202,7 @@
     <div class="section-header">
         <h2 class="section-title">NYC Culture</h2>
         <p class="section-subtitle">Experience the vibrant cultural scene</p>
-    </div>
-    
+    </div> 
     <div class="masonry-grid">
         <!-- Broadway -->
         <div class="masonry-item">
@@ -242,8 +226,7 @@
                 <h3>Museums</h3>
                 <p>From the MET to MoMA, NYC houses some of the world's finest art collections.</p>
             </div>
-        </div>
-        
+        </div>      
         <!-- Music -->
         <div class="masonry-item">
             <img src="assets/images/music.webp" 
@@ -254,8 +237,7 @@
                 <h3>Music</h3>
                 <p>Jazz clubs, concert halls, and street performers create the city's soundtrack.</p>
             </div>
-        </div>
-        
+        </div>       
         <!-- Neighborhoods -->
         <div class="masonry-item">
             <img src="assets/images/neighborhoods.webp" 
@@ -266,8 +248,7 @@
                 <h3>Neighborhoods</h3>
                 <p>Each district has its own unique character and cultural identity.</p>
             </div>
-        </div>
-        
+        </div>       
         <!-- Street Art -->
         <div class="masonry-item">
             <img src="assets/images/street-art.webp" 
@@ -278,8 +259,7 @@
                 <h3>Street Art</h3>
                 <p>Murals and graffiti transform the city into an open-air gallery.</p>
             </div>
-        </div>
-        
+        </div>       
         <!-- Festivals -->
         <div class="masonry-item">
             <img src="assets/images/festivals.webp" 
@@ -292,15 +272,13 @@
             </div>
         </div>
     </div>
-</section>
-
+</section> 
 <!-- Food Section -->
 <section class="section food" id="food">
     <div class="section-header">
         <h2 class="section-title">Culinary Delights</h2>
         <p class="section-subtitle">Taste the flavors of NYC</p>
-    </div>
-    
+    </div>   
     <div class="food-grid">
         <!-- Pizza -->
         <div class="food-card">
@@ -314,8 +292,7 @@
                     <button class="food-button">View Places</button>
                 </div>
             </div>
-        </div>
-        
+        </div>      
         <!-- Bagels -->
         <div class="food-card">
             <div class="food-card-inner">
@@ -771,8 +748,7 @@
               "https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?w=400"
             ]
           );
-          
-          // Add borough polygons (simplified)
+
           const boroughs = {
             "Manhattan": { 
               coords: [[40.70, -74.02], [40.80, -74.02], [40.80, -73.93], [40.70, -73.93]],
@@ -874,10 +850,9 @@
 
     <!-- Ambient Sound -->
     <audio id="ambient-sound" loop>
-        <source src="assets/sounds/nyc-ambient.mp3" type="audio/mpeg">
+        <source src="assets/sounds/" type="audio/mpeg">
         Your browser does not support the audio element.
-    </audio>
-
+    </audio> 
     <script src="script.js"></script>
 </body>
 </html>
