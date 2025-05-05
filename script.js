@@ -50,10 +50,7 @@ soundToggle.addEventListener('click', function() {
       .catch(e => console.log("Audio play failed:", e));
   }
   isSoundOn = !isSoundOn;
-});
-
-
-
+}); 
   // Mobile Menu Toggle
   const mobileMenuButton = document.getElementById('mobile-menu');
   const navbarMenu = document.querySelector('.navbar-menu');
@@ -120,10 +117,7 @@ soundToggle.addEventListener('click', function() {
         }
       }
     });
-  });
-
- 
-
+  }); 
   // Intersection Observer for Scroll Animations
   const fadeElements = document.querySelectorAll('.fade-in');
   
@@ -143,122 +137,6 @@ soundToggle.addEventListener('click', function() {
     fadeElements.forEach(element => {
       fadeObserver.observe(element);
     });
-  }
-  
-  // Gallery Lightbox
-  const galleryItems = document.querySelectorAll('.gallery-item');
-  const lightbox = document.getElementById('lightbox');
-  
-  if (galleryItems.length > 0 && lightbox) {
-    const lightboxImg = document.getElementById('lightbox-image');
-    const lightboxCaption = document.querySelector('.lightbox-caption');
-    const lightboxClose = document.querySelector('.lightbox-close');
-    const lightboxPrev = document.querySelector('.lightbox-prev');
-    const lightboxNext = document.querySelector('.lightbox-next');
-    
-    let currentImageIndex = 0;
-    
-    // Preload images for better lightbox performance
-    function preloadImages() {
-      galleryItems.forEach(item => {
-        const img = new Image();
-        img.src = item.querySelector('img').getAttribute('data-src');
-      });
-    }
-    
-    // Open lightbox
-    galleryItems.forEach((item, index) => {
-      item.addEventListener('click', () => {
-        currentImageIndex = index;
-        updateLightbox();
-        lightbox.style.display = 'block';
-        lightbox.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-      });
-      
-      // Add keyboard accessibility
-      item.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          currentImageIndex = index;
-          updateLightbox();
-          lightbox.style.display = 'block';
-          lightbox.setAttribute('aria-hidden', 'false');
-          document.body.style.overflow = 'hidden';
-        }
-      });
-    });
-    
-    // Close lightbox
-    lightboxClose.addEventListener('click', closeLightbox);
-    
-    // Previous image
-    lightboxPrev.addEventListener('click', (e) => {
-      e.stopPropagation();
-      currentImageIndex = (currentImageIndex - 1 + galleryItems.length) % galleryItems.length;
-      updateLightbox();
-    });
-    
-    // Next image
-    lightboxNext.addEventListener('click', (e) => {
-      e.stopPropagation();
-      currentImageIndex = (currentImageIndex + 1) % galleryItems.length;
-      updateLightbox();
-    });
-    
-    // Close when clicking outside image
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) {
-        closeLightbox();
-      }
-    });
-    
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-      if (lightbox.style.display === 'block') {
-        switch(e.key) {
-          case 'Escape':
-            closeLightbox();
-            break;
-          case 'ArrowLeft':
-            currentImageIndex = (currentImageIndex - 1 + galleryItems.length) % galleryItems.length;
-            updateLightbox();
-            break;
-          case 'ArrowRight':
-            currentImageIndex = (currentImageIndex + 1) % galleryItems.length;
-            updateLightbox();
-            break;
-        }
-      }
-    });
-    
-    function updateLightbox() {
-      const imgElement = galleryItems[currentImageIndex].querySelector('img');
-      const imgSrc = imgElement.getAttribute('data-src');
-      const imgAlt = imgElement.getAttribute('alt');
-      
-      // Add loading class
-      lightboxImg.classList.add('loading');
-      
-      // Load image
-      const img = new Image();
-      img.src = imgSrc;
-      img.onload = () => {
-        lightboxImg.setAttribute('src', imgSrc);
-        lightboxImg.setAttribute('alt', imgAlt);
-        lightboxCaption.textContent = imgAlt;
-        lightboxImg.classList.remove('loading');
-      };
-    }
-    
-    function closeLightbox() {
-      lightbox.style.display = 'none';
-      lightbox.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = 'auto';
-    }
-    
-    // Preload images after page load
-    window.addEventListener('load', preloadImages);
   }
 
   // Interactive Map
@@ -428,3 +306,254 @@ soundToggle.addEventListener('click', function() {
   }
 });
 
+// hero-cta.js
+document.addEventListener('DOMContentLoaded', function() {
+  const ctaButton = document.querySelector('.cta-button');
+  
+  if (ctaButton) {
+    // 1. Smooth Scroll to First Section
+    ctaButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Scroll to landmarks section (or any target)
+      const targetSection = document.getElementById('landmarks');
+      if (targetSection) {
+        targetSection.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+
+      // 2. Optional: Analytics Event (Google Analytics example)
+      if (typeof gtag === 'function') {
+        gtag('event', 'click', {
+          'event_category': 'CTA',
+          'event_label': 'Hero Button Click'
+        });
+      }
+      
+      // 3. Ripple Effect (Visual feedback)
+      const ripple = document.createElement('span');
+      ripple.classList.add('ripple-effect');
+      this.appendChild(ripple);
+      
+      // Remove ripple after animation
+      setTimeout(() => ripple.remove(), 600);
+    });
+    
+    // 4. Keyboard Accessibility
+    ctaButton.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        ctaButton.click();
+      }
+    });
+  }
+});
+// Culture Section Interaction
+document.addEventListener('DOMContentLoaded', function() {
+  // Add buttons to masonry items
+  document.querySelectorAll('.masonry-item').forEach(item => {
+    const content = item.querySelector('.masonry-content');
+    if (content && !content.querySelector('.explore-culture-btn')) {
+      const btn = document.createElement('button');
+      btn.className = 'explore-culture-btn';
+      btn.textContent = 'Quick View';
+      btn.setAttribute('aria-label', 'Quick view of this cultural item');
+      content.appendChild(btn);
+    }
+  });
+
+  // Modal functionality
+  const modal = document.createElement('div');
+  modal.className = 'culture-modal';
+  modal.innerHTML = `
+    <div class="modal-content">
+      <button class="close-modal" aria-label="Close modal">&times;</button>
+      <div class="modal-body"></div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  // Click handlers
+  document.querySelectorAll('.masonry-item').forEach(item => {
+    const btn = item.querySelector('.explore-culture-btn');
+    const title = item.querySelector('h3')?.textContent;
+    const imgSrc = item.querySelector('img')?.src;
+    const description = item.querySelector('p')?.textContent;
+
+    btn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      modal.querySelector('.modal-body').innerHTML = `
+        <h2>${title}</h2>
+        <img src="${imgSrc}" alt="${title}" loading="lazy" class="modal-image">
+        <p>${description}</p>
+        <a href="#map" class="modal-map-link">Find on Map</a>
+      `;
+      modal.classList.add('active');
+    });
+  });
+
+  // Close modal
+  modal.querySelector('.close-modal').addEventListener('click', () => {
+    modal.classList.remove('active');
+  });
+
+  // Close when clicking outside
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('active');
+    }
+  });
+});
+
+// ==============================================
+// FOOD SECTION - COMPLETE JAVASCRIPT
+// ==============================================
+
+document.addEventListener('DOMContentLoaded', function() {
+  // 1. Initialize Elements
+  const foodCards = document.querySelectorAll('.food-card');
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  
+  // 2. Device Detection
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+  // 3. Mobile Tap Handling
+  if (isTouchDevice) {
+    foodCards.forEach(card => {
+      card.addEventListener('click', function(e) {
+        // Ignore clicks on the "View Places" button
+        if (!e.target.closest('.food-button')) {
+          // Close other flipped cards first
+          document.querySelectorAll('.food-card.flipped').forEach(flippedCard => {
+            if (flippedCard !== this) flippedCard.classList.remove('flipped');
+          });
+          // Toggle current card
+          this.classList.toggle('flipped');
+        }
+      });
+    });
+  }
+
+  // 4. Filter Functionality
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // Update active button state
+      filterButtons.forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-pressed', 'false');
+      });
+      this.classList.add('active');
+      this.setAttribute('aria-pressed', 'true');
+      
+      // Get filter category
+      const filterValue = this.dataset.filter;
+      
+      // Filter cards
+      foodCards.forEach(card => {
+        const cardCategory = card.dataset.category;
+        const shouldShow = filterValue === 'all' || cardCategory === filterValue;
+        
+        card.style.display = shouldShow ? 'block' : 'none';
+        card.setAttribute('aria-hidden', !shouldShow);
+        
+        // Reset flip state when filtering
+        if (shouldShow) card.classList.remove('flipped');
+      });
+    });
+  });
+
+  // 5. "View Places" Button Handling
+  document.querySelectorAll('.food-button').forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.stopPropagation(); // Prevent card flip
+      const foodType = this.closest('.food-card').querySelector('h3').textContent;
+      
+      // Your action here (example):
+      console.log(`Opening locations for: ${foodType}`);
+      // highlightOnMap(foodType); // If you have map integration
+    });
+  });
+
+  // 6. Initialize default state
+  function initFoodSection() {
+    // Activate "All" filter by default
+    document.querySelector('.filter-btn[data-filter="all"]')?.classList.add('active');
+    
+    // Make sure all cards are visible initially
+    foodCards.forEach(card => {
+      card.style.display = 'block';
+      card.setAttribute('aria-hidden', 'false');
+    });
+  }
+
+  initFoodSection();
+});
+
+    // Parallax Effect
+    document.addEventListener('DOMContentLoaded', function() {
+         const parallaxItems = document.querySelectorAll('.parallax-item');
+        if (window.innerWidth > 768) {
+            window.addEventListener('scroll', function() {
+                parallaxItems.forEach(item => {
+                    const speed = parseFloat(item.getAttribute('data-speed'));
+                    const yPos = -(window.scrollY * speed);
+                     const img = item.querySelector('.parallax-image');
+                    if (img) {
+                        img.style.transform = `translateY(${yPos}px)`;
+                     }
+                    const content = item.querySelector('.parallax-content');
+                    const itemTop = item.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (itemTop < windowHeight * 0.75) {
+                        content.style.opacity = '1';
+                        content.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { passive: true });
+         } else {
+            parallaxItems.forEach(item => {
+                const content = item.querySelector('.parallax-content');
+                content.style.opacity = '1';
+                content.style.transform = 'translateY(0)';
+            });
+        }
+    });
+    // Landmark Interaction
+document.addEventListener('DOMContentLoaded', function() {
+  const parallaxItems = document.querySelectorAll('.parallax-item');
+
+  parallaxItems.forEach(item => {
+    const content = item.querySelector('.parallax-content');
+    if (content && !content.querySelector('.landmark-button')) {
+      const button = document.createElement('button');
+      button.className = 'landmark-button';
+      button.textContent = 'Explore';
+      button.setAttribute('aria-label', 'Explore this landmark');
+      content.appendChild(button);
+    }
+  });
+
+  parallaxItems.forEach(item => {
+    const button = item.querySelector('.landmark-button');
+    const title = item.querySelector('h3')?.textContent;
+    
+    button?.addEventListener('click', () => {
+      console.log(`Selected: ${title}`);
+      // Example: document.getElementById('map').scrollIntoView({behavior: 'smooth'});
+    });
+  });
+
+  // Mobile fallback
+  if ('ontouchstart' in window) {
+    parallaxItems.forEach(item => {
+      item.addEventListener('click', function(e) {
+        if (!e.target.closest('.landmark-button')) {
+          this.querySelector('.landmark-button')?.click();
+        }
+      });
+    });
+  }
+});
