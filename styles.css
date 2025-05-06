@@ -1219,7 +1219,17 @@ img, video, iframe {
             height: 250px;
         }
     }
-    /* Landmark Buttons */
+    /* Landmark Cards */
+.parallax-item {
+  position: relative;
+  display: block; /* Changed from default to make anchor tags work properly */
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* Landmark Buttons */
 .landmark-button {
   display: inline-block;
   margin-top: 15px;
@@ -1235,23 +1245,19 @@ img, video, iframe {
   transition: all 0.3s ease;
   transform: translateY(10px);
   opacity: 0;
+  pointer-events: none; /* Prevent button from intercepting card clicks */
 }
 
 .parallax-item:hover .landmark-button {
   transform: translateY(0);
   opacity: 1;
 }
-
-.landmark-button:hover {
-  background-color: white;
-  color: var(--accent-color);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
+ 
 /* Mobile touch support */
 @media (hover: none) {
   .landmark-button {
     transform: none !important;
     opacity: 1 !important;
+    pointer-events: auto; /* Allow button clicks on mobile */
   }
-}
+} 

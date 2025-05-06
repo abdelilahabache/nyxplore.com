@@ -101,7 +101,7 @@ soundToggle.addEventListener('click', function() {
       const targetElement = document.querySelector(targetId);
       
       if (targetElement) {
-        const offset = 80; // Same as your CSS
+        const offset = 80; // 
         const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
         
         window.scrollTo({
@@ -521,39 +521,25 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
-    // Landmark Interaction
+   // Final Landmarks Interaction Script
 document.addEventListener('DOMContentLoaded', function() {
-  const parallaxItems = document.querySelectorAll('.parallax-item');
-
-  parallaxItems.forEach(item => {
-    const content = item.querySelector('.parallax-content');
-    if (content && !content.querySelector('.landmark-button')) {
-      const button = document.createElement('button');
-      button.className = 'landmark-button';
-      button.textContent = 'Explore';
-      button.setAttribute('aria-label', 'Explore this landmark');
-      content.appendChild(button);
-    }
-  });
-
-  parallaxItems.forEach(item => {
-    const button = item.querySelector('.landmark-button');
-    const title = item.querySelector('h3')?.textContent;
+  // Get all landmark cards
+  const landmarkCards = document.querySelectorAll('.parallax-item');
+  
+  // Add click handling to each card
+  landmarkCards.forEach(card => {
+    card.addEventListener('click', function(e) {
+      // Only navigate if the click wasn't on the button itself
+      if (!e.target.closest('.landmark-button') && this.href) {
+        window.location.href = this.href;
+      }
+    });
     
-    button?.addEventListener('click', () => {
-      console.log(`Selected: ${title}`);
-      // Example: document.getElementById('map').scrollIntoView({behavior: 'smooth'});
+    // Optional: Add keyboard navigation support
+    card.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && this.href) {
+        window.location.href = this.href;
+      }
     });
   });
-
-  // Mobile fallback
-  if ('ontouchstart' in window) {
-    parallaxItems.forEach(item => {
-      item.addEventListener('click', function(e) {
-        if (!e.target.closest('.landmark-button')) {
-          this.querySelector('.landmark-button')?.click();
-        }
-      });
-    });
-  }
-});
+}); 

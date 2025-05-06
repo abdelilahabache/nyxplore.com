@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central Park | NYxplore</title>
+    <meta name="description" content="Discover the urban oasis of Central Park in the heart of Manhattan">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Central Park specific styles */
+        .landmark-hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.2)), 
+                        url('assets/images/central-park.webp') center/cover no-repeat;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .landmark-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        .seasonal-theme {
+            background-color: #2a5c45;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .landmark-info {
+            padding: 60px 0;
+            background-color: var(--light-color);
+        }
+        
+        .park-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .feature-content {
+            padding: 20px;
+        }
+        
+        .map-container {
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .park-map {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .wildlife-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .wildlife-item {
+            text-align: center;
+        }
+        
+        .wildlife-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .landmark-title {
+                font-size: 2.5rem;
+            }
+            
+            .wildlife-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme and Sound Controls -->
+    <div class="floating-controls">
+        <button id="sound-toggle" class="control-button" aria-label="Toggle ambient sound">
+          <i class="fas fa-volume-up"></i>
+        </button>
+        <button id="theme-toggle" class="control-button" aria-label="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </button>
+    </div> 
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="logo">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo" width="200" height="50">
+            </a>
+            <div class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar-menu">
+                <li class="navbar-item"><a href="../index.html#landmarks" class="navbar-link">Landmarks</a></li>
+                <li class="navbar-item"><a href="../index.html#culture" class="navbar-link">Culture</a></li>
+                <li class="navbar-item"><a href="../index.html#food" class="navbar-link">Food</a></li>
+                <li class="navbar-item"><a href="../index.html#gallery" class="navbar-link">Gallery</a></li>
+                <li class="navbar-item"><a href="../index.html#map" class="navbar-link">Map</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="landmark-hero">
+        <div class="hero-content">
+            <span class="seasonal-theme">Currently: Autumn Foliage</span>
+            <h1 class="landmark-title">Central Park</h1>
+            <p class="hero-subtitle">New York's Urban Oasis</p>
+        </div>
+    </section>
+    
+    <!-- Landmark Info Section -->
+    <section class="landmark-info container">
+        <div class="section-header">
+            <h2 class="section-title">843 Acres of Natural Beauty</h2>
+            <p class="section-subtitle">Designed by Frederick Law Olmsted and Calvert Vaux in 1858</p>
+        </div>
+        
+        <p>Central Park is an urban park in New York City located between the Upper West and Upper East Sides of Manhattan. It is the fifth-largest park in the city by area, covering 843 acres. It is the most visited urban park in the United States, with an estimated 42 million visitors annually.</p>
+        
+        <div class="park-features">
+            <div class="feature-card">
+                <img src="../assets/images/bow-bridge.jpg" alt="Bow Bridge in Central Park" loading="lazy">
+                <div class="feature-content">
+                    <h3>Iconic Bridges</h3>
+                    <p>The park features 36 ornamental bridges, each with unique designs. The most famous is Bow Bridge, a cast iron bridge spanning 60 feet across the Lake.</p>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <img src="../assets/images/central-park-zoo.jpg" alt="Central Park Zoo" loading="lazy">
+                <div class="feature-content">
+                    <h3>Central Park Zoo</h3>
+                    <p>A 6.5-acre zoo located near the southeast corner of the park. Home to over 130 species including snow leopards, penguins, and grizzly bears.</p>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <img src="../assets/images/belvedere-castle.jpg" alt="Belvedere Castle" loading="lazy">
+                <div class="feature-content">
+                    <h3>Belvedere Castle</h3>
+                    <p>A folly in Central Park offering one of the highest vantage points in the park with panoramic views of the Great Lawn and Turtle Pond.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="map-container">
+            <h3>Park Map</h3>
+            <img src="../assets/images/central-park-map.jpg" alt="Central Park Map" class="park-map" loading="lazy">
+        </div>
+        
+        <div class="wildlife-grid">
+            <div class="wildlife-item">
+                <div class="wildlife-icon"><i class="fas fa-dove"></i></div>
+                <div class="wildlife-label">230+ Bird Species</div>
+            </div>
+            <div class="wildlife-item">
+                <div class="wildlife-icon"><i class="fas fa-tree"></i></div>
+                <div class="wildlife-label">20,000+ Trees</div>
+            </div>
+            <div class="wildlife-item">
+                <div class="wildlife-icon"><i class="fas fa-paw"></i></div>
+                <div class="wildlife-label">Mammals & Reptiles</div>
+            </div>
+            <div class="wildlife-item">
+                <div class="wildlife-icon"><i class="fas fa-leaf"></i></div>
+                <div class="wildlife-label">1,000+ Plant Species</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-newsletter">
+                <h3>Explore More of NYC</h3>
+                <p>Get exclusive updates on hidden gems and events</p>
+                <form class="newsletter-form" id="newsletter-form">
+                    <div class="input-group">
+                        <input type="email" placeholder="Your email address" required aria-label="Email address">
+                        <button type="submit" aria-label="Subscribe">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+                <div class="newsletter-success" aria-live="polite">Thank you for subscribing!</div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
+                    <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        // Initialize current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Central Park specific scripts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update seasonal theme based on actual date
+            const months = ['Winter', 'Winter', 'Spring', 'Spring', 'Spring', 'Summer', 
+                          'Summer', 'Summer', 'Autumn', 'Autumn', 'Autumn', 'Winter'];
+            const seasonalElement = document.querySelector('.seasonal-theme');
+            if (seasonalElement) {
+                const currentMonth = new Date().getMonth();
+                seasonalElement.textContent = 'Currently: ' + months[currentMonth] + ' Season';
+                
+                // Change color based on season
+                const seasonColors = {
+                    'Winter': '#2c3e50',
+                    'Spring': '#27ae60',
+                    'Summer': '#2980b9',
+                    'Autumn': '#d35400'
+                };
+                seasonalElement.style.backgroundColor = seasonColors[months[currentMonth]];
+            }
+        });
+    </script>
+</body>
+</html>

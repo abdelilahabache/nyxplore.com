@@ -7,108 +7,159 @@ document.addEventListener('DOMContentLoaded', function() {
     const lightboxClose = document.querySelector('.lightbox-close');
     const lightboxPrev = document.querySelector('.lightbox-prev');
     const lightboxNext = document.querySelector('.lightbox-next');
+    const playPauseBtn = document.getElementById('playPauseBtn');
     
     // State
     let currentIndex = 0;
-    let isAnimating = false;
-    let touchStartX = 0;
-  
+    let slideshowInterval;
+    let slideshowSpeed = 5000; // 5 seconds per slide
+    let isPlaying = true;
+    let progressInterval;
+    
     // Open Lightbox
     function openLightbox(index) {
-      currentIndex = index;
-      updateLightbox();
-      lightbox.classList.add('active');
-      document.body.style.overflow = 'hidden';
+        currentIndex = index;
+        updateLightbox();
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        startSlideshow();
+        applyKenBurnsEffect();
     }
-  
+    
     // Update Lightbox Content
     function updateLightbox(direction = null) {
-      if (isAnimating) return;
-      isAnimating = true;
-      
-      // Apply direction class if provided
-      if (direction === 'prev') {
-        lightboxImg.classList.add('slide-right');
-      } else if (direction === 'next') {
-        lightboxImg.classList.add('slide-left');
-      }
-      
-      // Update content
-      const activeItem = galleryItems[currentIndex];
-      const imgSrc = activeItem.querySelector('img').dataset.src;
-      const imgAlt = activeItem.querySelector('img').alt;
-      
-      lightboxImg.src = imgSrc;
-      lightboxImg.alt = imgAlt;
-      lightboxCaption.textContent = imgAlt;
-      
-      // Reset animation after load
-      lightboxImg.onload = function() {
+        const activeItem = galleryItems[currentIndex];
+        const imgSrc = activeItem.querySelector('img').src;
+        const imgAlt = activeItem.querySelector('img').alt;
+        
+        // Apply fade transition
+        lightboxImg.style.opacity = '0';
+        
         setTimeout(() => {
-          lightboxImg.classList.remove('slide-left', 'slide-right');
-          isAnimating = false;
-        }, 20);
-      };
+            lightboxImg.src = imgSrc;
+            lightboxImg.alt = imgAlt;
+            lightboxCaption.textContent = imgAlt;
+            lightboxImg.style.opacity = '1';
+        }, 300);
     }
-  
-    // Navigation
+    
+    // Start Auto-Slideshow
+    function startSlideshow() {
+        if (slideshowInterval) clearInterval(slideshowInterval);
+        if (progressInterval) clearInterval(progressInterval);
+        
+        isPlaying = true;
+        playPauseBtn.classList.add('playing');
+        
+        // Progress bar animation
+        let startTime = Date.now();
+        progressInterval = setInterval(() => {
+            const elapsed = Date.now() - startTime;
+            const progress = (elapsed % slideshowSpeed) / slideshowSpeed * 100;
+            document.querySelector('.progress').style.width = `${progress}%`;
+        }, 50);
+        
+        // Auto-advance slides
+        slideshowInterval = setInterval(() => {
+            navigate(1);
+            startTime = Date.now(); // Reset progress bar
+        }, slideshowSpeed);
+    }
+    
+    // Pause Slideshow
+    function pauseSlideshow() {
+        clearInterval(slideshowInterval);
+        clearInterval(progressInterval);
+        isPlaying = false;
+        playPauseBtn.classList.remove('playing');
+    }
+    
+    // Toggle Play/Pause
+    function toggleSlideshow() {
+        if (isPlaying) {
+            pauseSlideshow();
+        } else {
+            startSlideshow();
+        }
+    }
+    
+    // Apply Ken Burns Effect (randomly)
+    function applyKenBurnsEffect() {
+        if (Math.random() > 0.5) {
+            lightboxImg.classList.add('ken-burns');
+        } else {
+            lightboxImg.classList.remove('ken-burns');
+        }
+    }
+    
+    // Navigate Between Images
     function navigate(direction) {
-      currentIndex = (currentIndex + direction + galleryItems.length) % galleryItems.length;
-      updateLightbox(direction > 0 ? 'next' : 'prev');
+        currentIndex = (currentIndex + direction + galleryItems.length) % galleryItems.length;
+        updateLightbox();
+        applyKenBurnsEffect();
     }
-  
+    
     // Event Listeners
     galleryItems.forEach((item, index) => {
-      item.addEventListener('click', () => openLightbox(index));
+        item.addEventListener('click', () => openLightbox(index));
     });
-  
-    lightboxPrev.addEventListener('click', (e) => {
-      e.stopPropagation();
-      navigate(-1);
+    
+    lightboxPrev.addEventListener('click', () => {
+        pauseSlideshow();
+        navigate(-1);
     });
-  
-    lightboxNext.addEventListener('click', (e) => {
-      e.stopPropagation();
-      navigate(1);
+    
+    lightboxNext.addEventListener('click', () => {
+        pauseSlideshow();
+        navigate(1);
     });
-  
+    
     lightboxClose.addEventListener('click', () => {
-      lightbox.classList.remove('active');
-      document.body.style.overflow = 'auto';
-    });
-  
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) {
+        pauseSlideshow();
         lightbox.classList.remove('active');
         document.body.style.overflow = 'auto';
-      }
     });
-  
+    
+    playPauseBtn.addEventListener('click', toggleSlideshow);
+    
     // Keyboard Navigation
     document.addEventListener('keydown', (e) => {
-      if (!lightbox.classList.contains('active')) return;
-      
-      switch(e.key) {
-        case 'ArrowLeft': navigate(-1); break;
-        case 'ArrowRight': navigate(1); break;
-        case 'Escape':
-          lightbox.classList.remove('active');
-          document.body.style.overflow = 'auto';
-          break;
-      }
+        if (!lightbox.classList.contains('active')) return;
+        
+        switch(e.key) {
+            case 'ArrowLeft': 
+                pauseSlideshow();
+                navigate(-1);
+                break;
+            case 'ArrowRight': 
+                pauseSlideshow();
+                navigate(1);
+                break;
+            case ' ':
+                toggleSlideshow();
+                break;
+            case 'Escape':
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                pauseSlideshow();
+                break;
+        }
     });
-  
-    // Touch Events
+    
+    // Touch Events for Mobile Swiping
+    let touchStartX = 0;
+    
     lightbox.addEventListener('touchstart', (e) => {
-      touchStartX = e.touches[0].clientX;
+        touchStartX = e.touches[0].clientX;
     }, { passive: true });
-  
+    
     lightbox.addEventListener('touchend', (e) => {
-      const touchEndX = e.changedTouches[0].clientX;
-      const diff = touchStartX - touchEndX;
-      
-      if (Math.abs(diff) > 50) { // Minimum swipe distance
-        diff > 0 ? navigate(1) : navigate(-1);
-      }
+        const touchEndX = e.changedTouches[0].clientX;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > 75) {
+            pauseSlideshow();
+            diff > 0 ? navigate(1) : navigate(-1);
+        }
     }, { passive: true });
-  });
+});
