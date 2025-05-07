@@ -167,7 +167,7 @@
         
         <div class="park-features">
             <div class="feature-card">
-                <img src="../assets/images/bow-bridge.jpg" alt="Bow Bridge in Central Park" loading="lazy">
+                <img src="assets/images/central-park/bow-bridge.webp" alt="Bow Bridge in Central Park" loading="lazy">
                 <div class="feature-content">
                     <h3>Iconic Bridges</h3>
                     <p>The park features 36 ornamental bridges, each with unique designs. The most famous is Bow Bridge, a cast iron bridge spanning 60 feet across the Lake.</p>
@@ -175,7 +175,7 @@
             </div>
             
             <div class="feature-card">
-                <img src="../assets/images/central-park-zoo.jpg" alt="Central Park Zoo" loading="lazy">
+                <img src="assets/images/central-park/central-park-zoo.webp" alt="Central Park Zoo" loading="lazy">
                 <div class="feature-content">
                     <h3>Central Park Zoo</h3>
                     <p>A 6.5-acre zoo located near the southeast corner of the park. Home to over 130 species including snow leopards, penguins, and grizzly bears.</p>
@@ -183,7 +183,7 @@
             </div>
             
             <div class="feature-card">
-                <img src="../assets/images/belvedere-castle.jpg" alt="Belvedere Castle" loading="lazy">
+                <img src="assets/images/central-park/belvedere-castle.webp" alt="Belvedere Castle" loading="lazy">
                 <div class="feature-content">
                     <h3>Belvedere Castle</h3>
                     <p>A folly in Central Park offering one of the highest vantage points in the park with panoramic views of the Great Lawn and Turtle Pond.</p>
@@ -192,9 +192,431 @@
         </div>
         
         <div class="map-container">
-            <h3>Park Map</h3>
-            <img src="../assets/images/central-park-map.jpg" alt="Central Park Map" class="park-map" loading="lazy">
+            <h3>Interactive Central Park Map</h3>
+            <div class="map-controls">
+                <div class="map-search">
+                    <input type="text" id="searchInput" placeholder="Search locations..." aria-label="Search locations">
+                    <button id="searchButton" aria-label="Search"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="map-legend">
+                    <div class="legend-item"><span class="legend-icon path"></span> Walking Path</div>
+                    <div class="legend-item"><span class="legend-icon water"></span> Water</div>
+                    <div class="legend-item"><span class="legend-icon landmark"></span> Landmark</div>
+                </div>
+            </div>
+            <div id="centralParkMap" style="height: 600px; width: 100%; border-radius: 8px;"></div>
+            <div class="map-base-selector">
+                <button class="base-map-btn active" data-map="Standard">Standard</button>
+                <button class="base-map-btn" data-map="Satellite">Satellite</button>
+                <button class="base-map-btn" data-map="Dark">Dark</button>
+            </div>
         </div>
+        
+        <!-- Leaflet CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+              integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+              crossorigin=""/>
+        <!-- Leaflet Search CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-search@3.0.2/dist/leaflet-search.min.css" />
+        
+        <!-- Leaflet JS -->
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+                integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+                crossorigin=""></script>
+        <!-- Leaflet Search JS -->
+        <script src="https://unpkg.com/leaflet-search@3.0.2/dist/leaflet-search.min.js"></script>
+        
+        <style>
+            .map-container {
+                margin: 2rem 0;
+                position: relative;
+            }
+            
+            #centralParkMap {
+                box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                z-index: 1;
+            }
+            
+            /* Map Controls */
+            .map-controls {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .map-search {
+                display: flex;
+                max-width: 300px;
+            }
+            
+            .map-search input {
+                padding: 8px 12px;
+                border: 1px solid #ddd;
+                border-radius: 20px 0 0 20px;
+                width: 100%;
+            }
+            
+            .map-search button {
+                padding: 0 15px;
+                background: var(--accent-color);
+                color: white;
+                border: none;
+                border-radius: 0 20px 20px 0;
+                cursor: pointer;
+            }
+            
+            /* Legend */
+            .map-legend {
+                background: white;
+                padding: 8px 15px;
+                border-radius: 20px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                display: flex;
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+            
+            .legend-item {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                font-size: 0.85rem;
+            }
+            
+            .legend-icon {
+                display: inline-block;
+                width: 12px;
+                height: 12px;
+                border-radius: 2px;
+            }
+            
+            .legend-icon.path {
+                background: #e74c3c;
+                width: 15px;
+                height: 3px;
+                margin-top: 5px;
+            }
+            
+            .legend-icon.water {
+                background: #3498db;
+            }
+            
+            .legend-icon.landmark {
+                background: #2ecc71;
+            }
+            
+            /* Base Map Selector */
+            .map-base-selector {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                margin-top: 15px;
+            }
+            
+            .base-map-btn {
+                padding: 5px 15px;
+                background: #f8f9fa;
+                border: 1px solid #ddd;
+                border-radius: 15px;
+                cursor: pointer;
+                font-size: 0.85rem;
+                transition: all 0.2s;
+            }
+            
+            .base-map-btn:hover {
+                background: #e9ecef;
+            }
+            
+            .base-map-btn.active {
+                background: var(--accent-color);
+                color: white;
+                border-color: var(--accent-color);
+            }
+            
+            /* Custom Popup */
+            .leaflet-popup-content h4 {
+                margin: 0 0 5px 0;
+                color: var(--accent-color);
+            }
+            
+            .leaflet-popup-content p {
+                margin: 5px 0;
+            }
+            
+            .leaflet-popup-content img {
+                max-width: 100%;
+                border-radius: 4px;
+                margin-top: 5px;
+            }
+            
+            /* Search results */
+            .search-tooltip {
+                background: white;
+                border-radius: 4px;
+                padding: 5px 10px;
+                box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+                cursor: pointer;
+            }
+            
+            .search-tooltip:hover {
+                background: #f0f0f0;
+            }
+            
+            @media (max-width: 768px) {
+                #centralParkMap {
+                    height: 400px;
+                }
+                
+                .map-controls {
+                    flex-direction: column;
+                }
+                
+                .map-search {
+                    max-width: 100%;
+                }
+            }
+        </style>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Central Park coordinates (center point)
+                const centralPark = [40.7829, -73.9654];
+                
+                // Initialize map
+                const map = L.map('centralParkMap').setView(centralPark, 15);
+                
+                // Base map layers
+                const baseLayers = {
+                    "Standard": L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }),
+                    "Satellite": L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+                    }),
+                    "Dark": L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                    })
+                };
+                
+                // Add default base layer
+                baseLayers["Standard"].addTo(map);
+                
+                // Create layer group for search results
+                const searchLayer = L.layerGroup().addTo(map);
+                
+                // Park boundary coordinates (detailed polygon)
+                const parkBoundary = [
+                    [40.8006, -73.9582], [40.7999, -73.9568], [40.7990, -73.9554], [40.7980, -73.9541],
+                    [40.7968, -73.9529], [40.7955, -73.9518], [40.7941, -73.9509], [40.7926, -73.9501],
+                    [40.7910, -73.9495], [40.7894, -73.9492], [40.7877, -73.9490], [40.7860, -73.9491],
+                    [40.7645, -73.9730], [40.7652, -73.9745], [40.7660, -73.9759], [40.7669, -73.9773],
+                    [40.7679, -73.9786], [40.7689, -73.9798], [40.7701, -73.9809], [40.7713, -73.9819],
+                    [40.7726, -73.9828], [40.7740, -73.9836], [40.7754, -73.9842], [40.7769, -73.9847],
+                    [40.7784, -73.9851], [40.7799, -73.9853], [40.7815, -73.9854], [40.7830, -73.9853],
+                    [40.8006, -73.9582]
+                ];
+                
+                // Draw park boundary
+                L.polygon(parkBoundary, {
+                    color: '#2ecc71',
+                    fillOpacity: 0.1,
+                    weight: 3,
+                    fillColor: '#2ecc71'
+                }).addTo(map).bindPopup("<h4>Central Park</h4><p>843 acres of urban parkland</p>");
+                
+                // Water bodies
+                const waterBodies = {
+                    "The Lake": [
+                        [40.7755, -73.9689], [40.7750, -73.9682], [40.7745, -73.9678], [40.7738, -73.9676],
+                        [40.7728, -73.9677], [40.7720, -73.9682], [40.7715, -73.9690], [40.7713, -73.9700],
+                        [40.7715, -73.9710], [40.7720, -73.9718], [40.7728, -73.9723], [40.7737, -73.9724],
+                        [40.7745, -73.9720], [40.7751, -73.9712], [40.7754, -73.9702], [40.7755, -73.9689]
+                    ],
+                    "Harlem Meer": [
+                        [40.7945, -73.9505], [40.7938, -73.9498], [40.7929, -73.9494], [40.7919, -73.9493],
+                        [40.7909, -73.9496], [40.7901, -73.9502], [40.7896, -73.9511], [40.7895, -73.9521],
+                        [40.7898, -73.9530], [40.7904, -73.9537], [40.7913, -73.9541], [40.7923, -73.9541],
+                        [40.7932, -73.9537], [40.7939, -73.9529], [40.7943, -73.9518], [40.7945, -73.9505]
+                    ]
+                };
+                
+                Object.entries(waterBodies).forEach(([name, coords]) => {
+                    L.polygon(coords, {
+                        color: '#3498db',
+                        fillColor: '#3498db',
+                        fillOpacity: 0.5,
+                        weight: 2
+                    }).addTo(map).bindPopup(`<h4>${name}</h4>`);
+                });
+                
+                // Walking paths (simplified)
+                const walkingPaths = [
+                    {
+                        name: "The Mall",
+                        coords: [
+                            [40.7725, -73.9745], [40.7723, -73.9738], [40.7720, -73.9732], [40.7716, -73.9726],
+                            [40.7711, -73.9721], [40.7705, -73.9717], [40.7698, -73.9714], [40.7691, -73.9712]
+                        ],
+                        color: '#e74c3c'
+                    },
+                    {
+                        name: "Reservoir Running Track",
+                        coords: [
+                            [40.7837, -73.9595], [40.7830, -73.9580], [40.7822, -73.9566], [40.7813, -73.9553],
+                            [40.7803, -73.9541], [40.7792, -73.9531], [40.7780, -73.9522], [40.7768, -73.9515]
+                        ],
+                        color: '#e67e22'
+                    }
+                ];
+                
+                walkingPaths.forEach(path => {
+                    L.polyline(path.coords, {
+                        color: path.color,
+                        weight: 4,
+                        opacity: 0.8,
+                        dashArray: '5, 5'
+                    }).addTo(map).bindPopup(`<h4>${path.name}</h4><p>Walking/Jogging Path</p>`);
+                });
+                
+                // Points of interest with categories
+                const pointsOfInterest = [
+                    {
+                        name: "Bethesda Terrace",
+                        coords: [40.7736, -73.9716],
+                        category: "landmark",
+                        description: "Iconic terrace with the Angel of the Waters fountain",
+                        image: "assets/images/central-park/bethesda-terrace.webp"
+                    },
+                    {
+                        name: "Central Park Zoo",
+                        coords: [40.7678, -73.9719],
+                        category: "attraction",
+                        description: "Compact zoo with sea lions, penguins & a petting zoo",
+                        image: "assets/images/central-park/central-park-zoo.webp"
+                    },
+                    {
+                        name: "Bow Bridge",
+                        coords: [40.7751, -73.9688],
+                        category: "landmark",
+                        description: "Cast-iron bridge offering picturesque views",
+                        image: "assets/images/central-park/bow-bridge.webp"
+                    }
+                ];
+                
+                // Custom icons
+                const iconTypes = {
+                    landmark: { color: '#2ecc71', icon: '🏛️' },
+                    attraction: { color: '#e74c3c', icon: '🎪' },
+                    memorial: { color: '#9b59b6', icon: '🕊️' }
+                };
+                
+                // Add markers for each POI
+                const searchFeatures = [];
+                
+                pointsOfInterest.forEach(poi => {
+                    const iconType = iconTypes[poi.category] || iconTypes.landmark;
+                    
+                    const marker = L.marker(poi.coords, {
+                        icon: L.divIcon({
+                            className: 'custom-icon',
+                            html: `<span style="background:${iconType.color}">${iconType.icon}</span>`,
+                            iconSize: [30, 30]
+                        })
+                    }).addTo(map);
+                    
+                    const popupContent = `
+                        <h4>${poi.name}</h4>
+                        <p>${poi.description}</p>
+                        ${poi.image ? `<img src="${poi.image}" alt="${poi.name}" loading="lazy">` : ''}
+                    `;
+                    
+                    marker.bindPopup(popupContent);
+                    
+                    // Add to search index
+                    searchFeatures.push({
+                        loc: poi.coords,
+                        title: poi.name,
+                        text: poi.description
+                    });
+                });
+                
+                // Configure search control
+                const searchControl = new L.Control.Search({
+                    position: 'topleft',
+                    layer: searchLayer,
+                    initial: false,
+                    zoom: 17,
+                    marker: false,
+                    textPlaceholder: 'Search locations...',
+                    sourceData: function(text, callback) {
+                        const results = searchFeatures.filter(feature => 
+                            feature.title.toLowerCase().includes(text.toLowerCase()) || 
+                            feature.text.toLowerCase().includes(text.toLowerCase())
+                        );
+                        callback(results);
+                    },
+                    buildTip: function(text, val) {
+                        return L.DomUtil.create('div', 'search-tooltip', val.layer._container).innerHTML = text;
+                    }
+                });
+                
+                map.addControl(searchControl);
+                
+                // Handle search button click
+                document.getElementById('searchButton').addEventListener('click', function() {
+                    const query = document.getElementById('searchInput').value.trim();
+                    if (query) {
+                        searchControl.search(query);
+                    }
+                });
+                
+                // Handle Enter key in search input
+                document.getElementById('searchInput').addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        const query = this.value.trim();
+                        if (query) {
+                            searchControl.search(query);
+                        }
+                    }
+                });
+                
+                // Handle base map selection
+                document.querySelectorAll('.base-map-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        // Update UI
+                        document.querySelectorAll('.base-map-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        // Change base layer
+                        const selectedMap = this.dataset.map;
+                        Object.values(baseLayers).forEach(layer => layer.remove());
+                        baseLayers[selectedMap].addTo(map);
+                    });
+                });
+                
+                // Add scale control
+                L.control.scale({ position: 'bottomleft' }).addTo(map);
+                
+                // Add geolocation button
+                const locateControl = L.control.locate({
+                    position: 'topright',
+                    drawCircle: true,
+                    follow: true,
+                    setView: 'once',
+                    keepCurrentZoomLevel: true,
+                    markerStyle: {
+                        weight: 1,
+                        opacity: 0.8,
+                        fillOpacity: 0.8
+                    },
+                    locateOptions: {
+                        maxZoom: 16
+                    }
+                }).addTo(map);
+            });
+        </script>
         
         <div class="wildlife-grid">
             <div class="wildlife-item">
