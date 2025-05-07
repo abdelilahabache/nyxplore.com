@@ -1374,3 +1374,24 @@ img, video, iframe {
       font-size: 1.2rem;
   }
 }
+
+/* Disable text selection */
+body {
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+/* Optional: Allow text selection in input fields */
+input, textarea {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Hide empty elements that might reveal structure */
+div:empty, span:empty, a:empty, p:empty {
+  display: none !important;
+}
