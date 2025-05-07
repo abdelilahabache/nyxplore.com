@@ -585,3 +585,46 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 }); 
+
+// Scroll to Top Button with Progress Indicator
+document.addEventListener('DOMContentLoaded', function() {
+  const scrollTopBtn = document.querySelector('.scroll-top');
+
+  if (scrollTopBtn) {
+      function updateScrollProgress() {
+          const scrollHeight = document.documentElement.scrollHeight;
+          const clientHeight = document.documentElement.clientHeight;
+          const scrollable = scrollHeight - clientHeight;
+          const scrolled = window.scrollY;
+          
+          // Update button visibility
+          if (scrolled > 300) {
+              scrollTopBtn.classList.add('show');
+          } else {
+              scrollTopBtn.classList.remove('show');
+          }
+          
+          // Update progress circle
+          const progress = scrolled / scrollable;
+          const circumference = 307.919; // This matches your SVG path length
+          const offset = circumference - (progress * circumference);
+          
+          const path = scrollTopBtn.querySelector('path');
+          path.style.strokeDashoffset = offset;
+      }
+
+      function scrollToTop() {
+          window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+          });
+      }
+
+      // Event Listeners
+      window.addEventListener('scroll', updateScrollProgress);
+      scrollTopBtn.addEventListener('click', scrollToTop);
+
+      // Initialize on load
+      updateScrollProgress();
+  }
+});
