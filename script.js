@@ -243,34 +243,76 @@ soundToggle.addEventListener('click', function() {
     });
   }
 
-  // Newsletter Form with validation
-  const newsletterForm = document.getElementById('newsletter-form');
-  
-  if (newsletterForm) {
-    newsletterForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const emailInput = this.querySelector('input[type="email"]');
-      const email = emailInput.value.trim();
-      const successMessage = this.querySelector('.newsletter-success');
+  document.addEventListener('DOMContentLoaded', function() {
+    const newsletterForm = document.getElementById('newsletter-form');
+    
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const emailInput = this.querySelector('input[type="email"]');
+        const submitButton = this.querySelector('button[type="submit"]');
+        const email = emailInput.value.trim();
+        const successMessage = this.nextElementSibling;
+        
+        if (!validateEmail(email)) {
+          emailInput.setAttribute('aria-invalid', 'true');
+          alert('Please enter a valid email address.');
+          emailInput.focus();
+          return;
+        }
+        
+        // Add loading state
+        submitButton.classList.add('loading');
+        submitButton.setAttribute('aria-busy', 'true');
+        
+        try {
+          const formData = new FormData(this);
+          formData.append('form-name', 'newsletter');
+          
+          const response = await fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData)
+          });
+          
+          if (response.ok) {
+            // Show success message
+            successMessage.style.display = 'block';
+            emailInput.setAttribute('aria-invalid', 'false');
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+              successMessage.style.display = 'none';
+            }, 3000);
+            
+            // Reset form
+            this.reset();
+          } else {
+            throw new Error('Network response was not ok');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          alert('Subscription failed. Please try again later.');
+        } finally {
+          // Remove loading state
+          submitButton.classList.remove('loading');
+          submitButton.removeAttribute('aria-busy');
+        }
+      });
       
-      if (validateEmail(email)) {
-        // In a real app, you would send this to your server
-        successMessage.style.display = 'block';
-        setTimeout(() => {
-          successMessage.style.display = 'none';
-        }, 3000);
-        this.reset();
-      } else {
-        alert('Please enter a valid email address.');
-        emailInput.focus();
-      }
-    });
+      // Real-time email validation
+      const emailInput = newsletterForm.querySelector('input[type="email"]');
+      emailInput.addEventListener('input', function() {
+        this.setAttribute('aria-invalid', !validateEmail(this.value.trim()));
+      });
+    }
     
     function validateEmail(email) {
       const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return re.test(email);
     }
-  }
+  });
 
   // Video fallback handler
   const heroVideo = document.getElementById('hero-video');
