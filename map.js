@@ -66,24 +66,24 @@ document.addEventListener('DOMContentLoaded', function() {
         coords: [40.7580, -73.9855],
         description: "The bustling commercial and entertainment hub known as 'The Crossroads of the World'.",
         photos: [
-          "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=400",
-          "https://images.unsplash.com/photo-1584013898407-1d0b2d527604?w=400"
+        "assets/images/times square/times-square-day.webp",
+        "assets/images/times square/times-square-night.webp"
         ]
       },
       "Central Park": {
-        coords: [40.7829, -73.9654],
-        description: "An urban oasis with 843 acres of lawns, woods, and recreational facilities.",
-        photos: [
-          "https://images.unsplash.com/photo-1493241640584-47f57a99580e?w=400",
-          "https://images.unsplash.com/photo-1490312278390-ab64016e0aa9?w=400"
-        ]
-      },
+    coords: [40.7829, -73.9654],
+    description: "An urban oasis with 843 acres of lawns, woods, and recreational facilities.",
+    photos: [
+        "assets/images/central-park/bethesda-terrace.webp",
+        "assets/images/central-park/bow-bridge.webp"
+    ]
+},
       "Statue of Liberty": {
         coords: [40.6892, -74.0445],
         description: "A symbol of freedom gifted by France in 1886, located on Liberty Island.",
         photos: [
-          "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=400",
-          "https://images.unsplash.com/photo-1585155369983-44d8d6d7d3a1?w=400"
+        "assets/images/Statue of Liberty/statue-gallery1.webp",
+        "assets/images/Statue of Liberty/statue-gallery2.webp"
         ]
       }
     };
