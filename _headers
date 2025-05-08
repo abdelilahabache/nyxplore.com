@@ -1,6 +1,9 @@
 /*
-  User-Agent: *
-  Disallow: /
-
-User-Agent: Googlebot
-  Allow: /
+  X-Netlify-Bot-Block: AhrefsBot
+  X-Netlify-Bot-Block: SemrushBot
+  X-Netlify-Bot-Block: MJ12bot
+  X-Netlify-Bot-Block: dotbot
+  X-Netlify-Bot-Block: MauiBot
+  X-Netlify-Bot-Block: MegaIndex.ru
+  X-Netlify-Bot-Block: BLEXBot
+  X-Netlify-Bot-Block: ZoominfoBot
