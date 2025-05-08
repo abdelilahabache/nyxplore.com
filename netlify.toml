@@ -3,3 +3,10 @@
   [headers.values]
     X-Netlify-Bot-Block = "bad-bot"
     X-Netlify-Bot-Block = "scraper-bot"
+
+    [build]
+  publish = "public"
+
+[context.production.environment]
+  NETLIFY_BOT_BLOCKING = "true"  # Netlify's native bot protection
+  FORCE_HTTPS = "true"           # Redirect HTTP → HTTPS

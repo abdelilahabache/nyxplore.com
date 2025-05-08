@@ -7,3 +7,6 @@
   X-Netlify-Bot-Block: MegaIndex.ru
   X-Netlify-Bot-Block: BLEXBot
   X-Netlify-Bot-Block: ZoominfoBot
+
+  /admin/*
+  X-Required-Auth: true
