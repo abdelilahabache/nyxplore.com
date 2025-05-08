@@ -23,34 +23,49 @@ themeToggle.addEventListener('click', function() {
   }
 });
 
-// Sound Toggle - Corrected Version
+// Sound Toggle with Initial Volume Set to 30%
+// Sound Toggle - Visitor Controlled Version
 const soundToggle = document.getElementById('sound-toggle');
 const ambientSound = document.getElementById('ambient-sound');
-let isSoundOn = localStorage.getItem('sound') === 'on';
+let isSoundOn = localStorage.getItem('sound') === 'on'; // Defaults to off if not set
 
-// Initialize icon (volume-up when sound is ON, mute when OFF)
-if (isSoundOn) {
-  soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>'; // Sound ON → Volume UP
-  ambientSound.play().catch(e => console.log("Audio autoplay blocked:", e));
-} else {
-  soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>'; // Sound OFF → Mute
-}
+// Configure audio settings
+ambientSound.volume = 0.1; // 10% volume (when turned on)
+ambientSound.loop = false; // Don't loop
 
+// Always start muted (regardless of previous setting)
+soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+ambientSound.pause();
+
+// Toggle functionality
 soundToggle.addEventListener('click', function() {
   if (isSoundOn) {
+    // Turn sound OFF
     ambientSound.pause();
-    soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>'; // Mute when turning OFF
+    soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
     localStorage.setItem('sound', 'off');
   } else {
+    // Turn sound ON
+    ambientSound.currentTime = 0; // Reset to start
     ambientSound.play()
       .then(() => {
-        soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>'; // Volume UP when turning ON
+        soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
         localStorage.setItem('sound', 'on');
       })
-      .catch(e => console.log("Audio play failed:", e));
+      .catch(e => {
+        console.log("Play failed:", e);
+        // Show some UI indication that play was blocked if needed
+      });
   }
   isSoundOn = !isSoundOn;
-}); 
+});
+
+// Handle case where sound was previously on
+// (but still require user interaction to start)
+if (isSoundOn) {
+  soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+  // Note: We don't autoplay here - waiting for user click
+}
   // Mobile Menu Toggle
   const mobileMenuButton = document.getElementById('mobile-menu');
   const navbarMenu = document.querySelector('.navbar-menu');
