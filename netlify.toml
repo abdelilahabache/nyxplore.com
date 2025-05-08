@@ -10,3 +10,11 @@
 [context.production.environment]
   NETLIFY_BOT_BLOCKING = "true"  # Netlify's native bot protection
   FORCE_HTTPS = "true"           # Redirect HTTP → HTTPS
+
+  # netlify.toml
+[[plugins]]
+  package = "@netlify/plugin-rate-limit"
+  [plugins.inputs]
+    paths = ["/admin/*", "/login"]  # Protected routes
+    limit = 5                        # Max 5 requests
+    window = 60                      # Per 60 seconds
