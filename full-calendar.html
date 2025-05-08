@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYC Cultural Events Calendar | NYxplore</title>
+    <meta name="description" content="Complete guide to New York City's cultural events, festivals, and performances">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="calendar-full.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMW3YWQXBF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DMW3YWQXBF');
+    </script>
+        <style>
+            /* Updated Navigation Styles */
+            .navbar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                background-color: rgba(10, 17, 40, 0.95);
+                color: white;
+                z-index: 1000;
+                transition: all 0.3s ease;
+                padding: 15px 0;
+            }
+    
+            .navbar.scrolled {
+                background-color: var(--primary-color);
+                box-shadow: var(--box-shadow);
+                padding: 10px 0;
+            }
+    
+            .navbar-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+                position: relative;
+            }
+    
+            .logo img {
+                height: 50px;
+                width: auto;
+                transition: all 0.3s ease;
+            }
+    
+            .navbar-menu {
+                display: flex;
+                gap: 30px;
+            }
+    
+            .navbar-item {
+                position: relative;
+            }
+    
+            .navbar-link {
+                padding: 8px 0;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                color: white;
+            }
+    
+            .navbar-link.active {
+                color: var(--accent-color);
+            }
+    
+            .navbar-link::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background-color: var(--accent-color);
+                transition: all 0.3s ease;
+            }
+    
+            .navbar-link:hover::after,
+            .navbar-link.active::after {
+                width: 100%;
+            }
+    
+            .navbar-toggle {
+                display: none;
+                cursor: pointer;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 30px;
+                height: 21px;
+                position: relative;
+                z-index: 1002;
+                background: transparent;
+                border: none;
+                padding: 0;
+            }
+    
+            .bar {
+                width: 100%;
+                height: 3px;
+                background-color: white;
+                transition: all 0.3s ease;
+            }
+    
+            .navbar-toggle.active .bar:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+    
+            .navbar-toggle.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+    
+            .navbar-toggle.active .bar:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+    
+            /* Mobile Menu */
+            @media (max-width: 992px) {
+                .navbar-menu {
+                    position: fixed;
+                    top: 0;
+                    left: -100%;
+                    width: 80%;
+                    max-width: 300px;
+                    height: 100vh;
+                    background-color: var(--primary-color);
+                    flex-direction: column;
+                    align-items: flex-start;
+                    padding: 80px 30px 30px;
+                    transition: all 0.4s ease;
+                    z-index: 1001;
+                }
+    
+                .navbar-menu.active {
+                    left: 0;
+                }
+    
+                .navbar-toggle {
+                    display: flex;
+                }
+    
+                .navbar-item {
+                    width: 100%;
+                    margin: 10px 0;
+                }
+    
+                .navbar-link {
+                    display: block;
+                    padding: 12px 0;
+                    width: 100%;
+                }
+            }
+    
+            @media (max-width: 480px) {
+                .navbar-container {
+                    padding: 0 15px;
+                }
+    
+                .logo img {
+                    height: 40px;
+                }
+            }
+    
+            /* Add this for mobile menu scroll lock */
+            .no-scroll {
+                overflow: hidden;
+                height: 100%;
+            }
+        </style>
+</head>
+<body>
+    <!-- Reuse your navigation from index.html -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="logo">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo">
+            </a>
+            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="navbar-menu" id="navbar-menu">
+                <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
+                <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
+                <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
+                <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
+                <li class="navbar-item"><a href="index.html#map" class="navbar-link">Map</a></li>
+                <li class="navbar-item"><a href="full-calendar.html" class="navbar-link active">Events</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    
+    <main class="full-calendar-container">
+        <div class="calendar-hero">
+            <h1>NYC Cultural Events</h1>
+            <p>Discover exhibitions, performances, and festivals across the city</p>
+        </div>
+        
+        <div class="calendar-controls">
+            <div class="view-toggle">
+                <button class="view-btn active" data-view="month">Month</button>
+                <button class="view-btn" data-view="week">Week</button>
+                <button class="view-btn" data-view="day">Day</button>
+                <button class="view-btn" data-view="list">List</button>
+            </div>
+            
+            <div class="calendar-filters">
+                <select id="category-filter">
+                    <option value="all">All Categories</option>
+                    <option value="art">Art</option>
+                    <option value="music">Music</option>
+                    <option value="theater">Theater</option>
+                    <option value="dance">Dance</option>
+                    <option value="festival">Festivals</option>
+                </select>
+                
+                <div class="date-navigation">
+                    <button id="calendar-prev"><i class="fas fa-chevron-left"></i></button>
+                    <h2 id="calendar-title">May 2023</h2>
+                    <button id="calendar-next"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Calendar Container -->
+        <div id="full-calendar"></div>
+        
+        <!-- Event Submission CTA -->
+        <div class="event-submission-cta">
+            <h3>Hosting a Cultural Event?</h3>
+            <p>List your event to reach thousands of culture-loving New Yorkers</p>
+            <button id="submit-event-btn">Submit Your Event</button>
+        </div>
+    </main>
+    
+    <!-- Reuse your footer from index.html -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-newsletter">
+                <h3>Explore NYC With Us</h3>
+                <p>Get exclusive updates on hidden gems and events</p>
+                <form class="newsletter-form" id="newsletter-form" name="newsletter" method="POST" netlify data-netlify-honeypot="bot-field">
+                    <input type="hidden" name="form-name" value="newsletter">
+                    <p class="hidden">
+                        <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                    </p>
+                    <div class="input-group">
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Your email address" 
+                            required 
+                            aria-label="Email address"
+                            aria-describedby="email-helper"
+                        >
+                        <button type="submit" aria-label="Subscribe">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <small id="email-helper" class="visually-hidden">We'll never share your email</small>
+                </form>
+                <div class="newsletter-success" aria-live="polite">Thank you for subscribing!</div>
+            </div>
+            
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Discover</h4>
+                    <ul>
+                        <li><a href="index.html#landmarks"><i class="fas fa-landmark"></i> Iconic Landmarks</a></li>
+                        <li><a href="index.html#culture"><i class="fas fa-theater-masks"></i> Arts & Culture</a></li>
+                        <li><a href="index.html#food"><i class="fas fa-utensils"></i> Food Scene</a></li>
+                        <li><a href="index.html#gallery"><i class="fas fa-camera"></i> Photo Gallery</a></li>
+                        <li><a href="full-calendar.html"><i class="fas fa-calendar-alt"></i> Events Calendar</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-subway"></i> Transit Guide</a></li>
+                        <li><a href="#"><i class="fas fa-calendar-alt"></i> Events Calendar</a></li>
+                        <li><a href="#"><i class="fas fa-map-marked-alt"></i> Interactive Map</a></li>
+                        <li><a href="#"><i class="fas fa-question-circle"></i> Visitor FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-heart"></i> About NYxplore</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                        <li><a href="#"><i class="fas fa-briefcase"></i> Careers</a></li>
+                        <li><a href="#"><i class="fas fa-newspaper"></i> Press</a></li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+                
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Accessibility</a>
+                    <a href="#">Sitemap</a>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
+                    <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+            <!-- Scroll to Top Button -->
+            <div class="scroll-top">
+                <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                    <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
+                          style="transition: stroke-dashoffset 10ms linear; 
+                                 stroke-dasharray: 307.919, 307.919; 
+                                 stroke-dashoffset: 307.919;">
+                    </path>
+                </svg>
+            </div>
+    
+        <!-- Ambient Sound -->
+        <audio id="ambient-sound" loop>
+            <source src="assets/sounds/" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio> 
+        <script src="script.js"></script>
+        <script>
+            // Basic Protection Methods
+            document.addEventListener('DOMContentLoaded', function() {
+              // 1. Disable right-click
+              document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                alert('Right-click is disabled on this page');
+              });
+            
+              // 2. Disable keyboard shortcuts
+              document.addEventListener('keydown', function(e) {
+                if (e.key === 'F12' || 
+                    (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                    (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+                    (e.ctrlKey && e.key === 'u')) {
+                  e.preventDefault();
+                  alert('This action is not allowed');
+                }
+              });
+              
+              // Optional: Disable drag-and-drop of images
+              document.addEventListener('dragstart', function(e) {
+                if (e.target.tagName === 'IMG') {
+                  e.preventDefault();
+                }
+              });
+            });
+            </script>
+             <script>
+                // Mobile Menu Toggle - Improved Version
+                document.addEventListener('DOMContentLoaded', function() {
+                    try {
+                        const mobileMenuButton = document.getElementById('mobile-menu');
+                        const navbarMenu = document.getElementById('navbar-menu');
+                        
+                        // Check if elements exist before adding event listeners
+                        if (!mobileMenuButton || !navbarMenu) {
+                            console.error('Mobile menu elements not found');
+                            return;
+                        }
+                        
+                        // Toggle mobile menu
+                        mobileMenuButton.addEventListener('click', function() {
+                            try {
+                                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                                this.setAttribute('aria-expanded', String(!isExpanded));
+                                navbarMenu.classList.toggle('active');
+                                document.body.style.overflow = navbarMenu.classList.contains('active') ? 'hidden' : 'auto';
+                                document.documentElement.classList.toggle('no-scroll', navbarMenu.classList.contains('active'));
+                            } catch (e) {
+                                console.error('Error toggling mobile menu:', e);
+                            }
+                        });
+                        
+                        // Close menu when clicking on a link
+                        document.querySelectorAll('.navbar-link').forEach(link => {
+                            link.addEventListener('click', (e) => {
+                                // Only close if it's not an anchor link to the same page
+                                if (!e.target.hash || e.target.hash === '#') {
+                                    try {
+                                        mobileMenuButton.setAttribute('aria-expanded', 'false');
+                                        navbarMenu.classList.remove('active');
+                                        document.body.style.overflow = 'auto';
+                                        document.documentElement.classList.remove('no-scroll');
+                                    } catch (e) {
+                                        console.error('Error closing mobile menu:', e);
+                                    }
+                                }
+                            });
+                        });
+                        
+                        // Close menu when clicking outside
+                        document.addEventListener('click', (e) => {
+                            if (navbarMenu.classList.contains('active') && 
+                                !e.target.closest('.navbar-container') && 
+                                !e.target.closest('.navbar-toggle')) {
+                                try {
+                                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                                    navbarMenu.classList.remove('active');
+                                    document.body.style.overflow = 'auto';
+                                    document.documentElement.classList.remove('no-scroll');
+                                } catch (e) {
+                                    console.error('Error closing mobile menu on outside click:', e);
+                                }
+                            }
+                        });
+                        
+                        // Sticky Navbar on Scroll with throttling
+                        const navbar = document.querySelector('.navbar');
+                        if (navbar) {
+                            let lastScrollY = window.scrollY;
+                            let ticking = false;
+                            
+                            const updateNavbar = () => {
+                                navbar.classList.toggle('scrolled', window.scrollY > 50);
+                                ticking = false;
+                            };
+                            
+                            window.addEventListener('scroll', () => {
+                                lastScrollY = window.scrollY;
+                                if (!ticking) {
+                                    window.requestAnimationFrame(updateNavbar);
+                                    ticking = true;
+                                }
+                            });
+                        }
+                        
+                    } catch (error) {
+                        console.error('Error initializing mobile menu:', error);
+                    }
+        
+                    // Set current year in footer
+                    document.getElementById('year').textContent = new Date().getFullYear();
+                    
+                    // Your existing protection methods
+                    document.addEventListener('contextmenu', function(e) {
+                        e.preventDefault();
+                        alert('Right-click is disabled on this page');
+                    });
+                    
+                    document.addEventListener('keydown', function(e) {
+                        if (e.key === 'F12' || 
+                            (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                            (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+                            (e.ctrlKey && e.key === 'u')) {
+                            e.preventDefault();
+                            alert('This action is not allowed');
+                        }
+                    });
+                    
+                    document.addEventListener('dragstart', function(e) {
+                        if (e.target.tagName === 'IMG') {
+                            e.preventDefault();
+                        }
+                    });
+                });
+            </script>
+
+    <!-- Include FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script src="calendar-full.js"></script>
+    
+    <!-- Your existing scripts -->
+    <script>
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Basic Protection Methods
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Disable right-click
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                alert('Right-click is disabled on this page');
+            });
+        
+            // 2. Disable keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'F12' || 
+                    (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                    (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+                    (e.ctrlKey && e.key === 'u')) {
+                    e.preventDefault();
+                    alert('This action is not allowed');
+                }
+            });
+            
+            // Optional: Disable drag-and-drop of images
+            document.addEventListener('dragstart', function(e) {
+                if (e.target.tagName === 'IMG') {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Your Event | NYxplore</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Form-specific styles */
+        .event-form-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: #ff5a5f;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 30px auto 0;
+        }
+        
+        .submit-btn:hover {
+            background: #e04a50;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Your site header would go here -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="logo">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo" width="200" height="50">
+            </a>
+            <div class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar-menu">
+                <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
+                <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
+                <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
+                <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
+                <li class="navbar-item"><a href="index.html#map" class="navbar-link">Map</a></li>
+                <li class="navbar-item"><a href="full-calendar.html" class="navbar-link active">Events</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="event-submission-page">
+        <div class="event-form-container">
+            <div class="form-header">
+                <h1><i class="fas fa-calendar-plus"></i> Submit Your Event</h1>
+                <p>Share your cultural event with thousands of NYC visitors</p>
+            </div>
+            
+            <form id="event-submission-form" netlify>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="event-title">Event Title*</label>
+                        <input type="text" id="event-title" name="event-title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="event-category">Category*</label>
+                        <select id="event-category" name="event-category" required>
+                            <option value="">Select category...</option>
+                            <option value="art">Art Exhibition</option>
+                            <option value="music">Concert/Performance</option>
+                            <option value="theater">Theater/Dance</option>
+                            <option value="festival">Festival</option>
+                            <option value="workshop">Workshop/Class</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="event-date">Date*</label>
+                        <input type="date" id="event-date" name="event-date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="event-time">Time*</label>
+                        <input type="time" id="event-time" name="event-time" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="event-location">Location*</label>
+                        <input type="text" id="event-location" name="event-location" placeholder="Venue name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="event-address">Address*</label>
+                        <input type="text" id="event-address" name="event-address" placeholder="Street address" required>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="event-description">Description*</label>
+                        <textarea id="event-description" name="event-description" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="event-website">Website</label>
+                        <input type="url" id="event-website" name="event-website" placeholder="https://">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="event-image">Image URL</label>
+                        <input type="url" id="event-image" name="event-image" placeholder="https://">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="organizer-info">Organizer Information*</label>
+                        <input type="text" id="organizer-info" name="organizer-info" placeholder="Organization/Individual name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contact-email">Contact Email*</label>
+                        <input type="email" id="contact-email" name="contact-email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contact-phone">Contact Phone</label>
+                        <input type="tel" id="contact-phone" name="contact-phone">
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Submit Event
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Your site footer would go here -->
+     <!-- Footer -->
+     <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-newsletter">
+                <h3>Explore NYC With Us</h3>
+                <p>Get exclusive updates on hidden gems and events</p>
+                <form class="newsletter-form" id="newsletter-form" name="newsletter" method="POST" netlify data-netlify-honeypot="bot-field">
+                    <input type="hidden" name="form-name" value="newsletter">
+                    <p class="hidden">
+                        <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                    </p>
+                    <div class="input-group">
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Your email address" 
+                            required 
+                            aria-label="Email address"
+                            aria-describedby="email-helper"
+                        >
+                        <button type="submit" aria-label="Subscribe">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <small id="email-helper" class="visually-hidden">We'll never share your email</small>
+                </form>
+                <div class="newsletter-success" aria-live="polite">Thank you for subscribing!</div>
+            </div>
+            
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Discover</h4>
+                    <ul>
+                        <li><a href="index.html#landmarks"><i class="fas fa-landmark"></i> Iconic Landmarks</a></li>
+                        <li><a href="index.html#culture"><i class="fas fa-theater-masks"></i> Arts & Culture</a></li>
+                        <li><a href="index.html#food"><i class="fas fa-utensils"></i> Food Scene</a></li>
+                        <li><a href="index.html#gallery"><i class="fas fa-camera"></i> Photo Gallery</a></li>
+                        <li><a href="full-calendar.html"><i class="fas fa-calendar-alt"></i> Events Calendar</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-subway"></i> Transit Guide</a></li>
+                        <li><a href="#"><i class="fas fa-calendar-alt"></i> Events Calendar</a></li>
+                        <li><a href="#"><i class="fas fa-map-marked-alt"></i> Interactive Map</a></li>
+                        <li><a href="#"><i class="fas fa-question-circle"></i> Visitor FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-heart"></i> About NYxplore</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                        <li><a href="#"><i class="fas fa-briefcase"></i> Careers</a></li>
+                        <li><a href="#"><i class="fas fa-newspaper"></i> Press</a></li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+                
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Accessibility</a>
+                    <a href="#">Sitemap</a>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
+                    <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+        <!-- Scroll to Top Button -->
+        <div class="scroll-top">
+            <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
+                      style="transition: stroke-dashoffset 10ms linear; 
+                             stroke-dasharray: 307.919, 307.919; 
+                             stroke-dashoffset: 307.919;">
+                </path>
+            </svg>
+        </div>
+
+    <!-- Ambient Sound -->
+    <audio id="ambient-sound" loop>
+        <source src="assets/sounds/" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio> 
+    <script src="script.js"></script>
+    <script src="gallery.js" defer></script>
+    <script src="map.js" defer></script>
+    <script>
+        // Basic Protection Methods
+        document.addEventListener('DOMContentLoaded', function() {
+          // 1. Disable right-click
+          document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            alert('Right-click is disabled on this page');
+          });
+        
+          // 2. Disable keyboard shortcuts
+          document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+                (e.ctrlKey && e.key === 'u')) {
+              e.preventDefault();
+              alert('This action is not allowed');
+            }
+          });
+          
+          // Optional: Disable drag-and-drop of images
+          document.addEventListener('dragstart', function(e) {
+            if (e.target.tagName === 'IMG') {
+              e.preventDefault();
+            }
+          });
+        });
+        </script>
+
+    <script>
+        // Form validation and submission
+        document.getElementById('event-submission-form').addEventListener('submit', function(e) {
+            const form = e.target;
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.style.borderColor = '#ff5a5f';
+                    isValid = false;
+                } else {
+                    field.style.borderColor = '#ddd';
+                }
+            });
+            
+            if (!isValid) {
+                e.preventDefault();
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // Add loading state
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            submitBtn.disabled = true;
+            
+            // In a real implementation, you would handle form submission here
+            // This example assumes you're using Netlify Forms
+        });
+        
+        // Initialize date picker with minimum today's date
+        document.getElementById('event-date').min = new Date().toISOString().split('T')[0];
+    </script>
+</body>
+</html>

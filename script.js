@@ -392,62 +392,122 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
-// Culture Section Interaction
+
 document.addEventListener('DOMContentLoaded', function() {
-  // Add buttons to masonry items
-  document.querySelectorAll('.masonry-item').forEach(item => {
-    const content = item.querySelector('.masonry-content');
-    if (content && !content.querySelector('.explore-culture-btn')) {
-      const btn = document.createElement('button');
-      btn.className = 'explore-culture-btn';
-      btn.textContent = 'Quick View';
-      btn.setAttribute('aria-label', 'Quick view of this cultural item');
-      content.appendChild(btn);
-    }
+  // Filter functionality
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const masonryItems = document.querySelectorAll('.masonry-item');
+  
+  filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+          // Remove active class from all buttons
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          
+          // Add active class to clicked button
+          this.classList.add('active');
+          
+          const filterValue = this.getAttribute('data-filter');
+          
+          // Filter items
+          masonryItems.forEach(item => {
+              if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                  item.style.display = 'flex';
+              } else {
+                  item.style.display = 'none';
+              }
+          });
+      });
   });
-
-  // Modal functionality
-  const modal = document.createElement('div');
-  modal.className = 'culture-modal';
-  modal.innerHTML = `
-    <div class="modal-content">
-      <button class="close-modal" aria-label="Close modal">&times;</button>
-      <div class="modal-body"></div>
-    </div>
-  `;
-  document.body.appendChild(modal);
-
-  // Click handlers
-  document.querySelectorAll('.masonry-item').forEach(item => {
-    const btn = item.querySelector('.explore-culture-btn');
-    const title = item.querySelector('h3')?.textContent;
-    const imgSrc = item.querySelector('img')?.src;
-    const description = item.querySelector('p')?.textContent;
-
-    btn?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      modal.querySelector('.modal-body').innerHTML = `
-        <h2>${title}</h2>
-        <img src="${imgSrc}" alt="${title}" loading="lazy" class="modal-image">
-        <p>${description}</p>
-        <a href="#map" class="modal-map-link">Find on Map</a>
-      `;
-      modal.classList.add('active');
-    });
+  
+  // Click animation for masonry items
+  masonryItems.forEach(item => {
+      // Add keyboard accessibility
+      item.setAttribute('tabindex', '0');
+      
+      item.addEventListener('click', function(e) {
+          // Don't follow link if user clicked on the explore button
+          if (e.target.classList.contains('explore-button') || 
+              e.target.closest('.explore-button')) {
+              e.preventDefault();
+              
+              const button = e.target.classList.contains('explore-button') ? 
+                  e.target : e.target.closest('.explore-button');
+              const originalContent = button.innerHTML;
+              
+              // Show loading state
+              button.innerHTML = `
+                  <span>Loading...</span>
+                  <i class="fas fa-spinner fa-spin"></i>
+              `;
+              button.style.pointerEvents = 'none';
+              
+              // Simulate loading delay (remove in production)
+              setTimeout(() => {
+                  window.location.href = this.getAttribute('href');
+              }, 800);
+          }
+      });
+      
+      // Keyboard support
+      item.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+              this.click();
+          }
+      });
   });
-
-  // Close modal
-  modal.querySelector('.close-modal').addEventListener('click', () => {
-    modal.classList.remove('active');
-  });
-
-  // Close when clicking outside
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      modal.classList.remove('active');
-    }
+  
+  // Initialize Masonry layout after images load
+  imagesLoaded('.masonry-grid', function() {
+      const masonryGrid = document.querySelector('.masonry-grid');
+      
+      // Adjust grid items that span multiple rows
+      document.querySelectorAll('.masonry-item:nth-child(3n+1)').forEach(item => {
+          if (window.innerWidth > 768) {
+              const rowHeight = parseInt(window.getComputedStyle(masonryGrid).getPropertyValue('grid-auto-rows'));
+              const rowGap = parseInt(window.getComputedStyle(masonryGrid).getPropertyValue('grid-row-gap'));
+              const rowSpan = Math.ceil((item.querySelector('.image-container').offsetHeight + 
+                                       item.querySelector('.masonry-content').offsetHeight + 
+                                       rowGap) / (rowHeight + rowGap));
+              item.style.gridRowEnd = 'span ' + rowSpan;
+          }
+      });
   });
 });
+
+// Helper function to wait for images to load
+function imagesLoaded(selector, callback) {
+  const elements = document.querySelectorAll(selector);
+  let loadedCount = 0;
+  const totalCount = elements.length;
+  
+  if (totalCount === 0) {
+      callback();
+      return;
+  }
+  
+  function imageLoaded() {
+      loadedCount++;
+      if (loadedCount === totalCount) {
+          callback();
+      }
+  }
+  
+  elements.forEach(element => {
+      const images = element.querySelectorAll('img');
+      if (images.length === 0) {
+          imageLoaded();
+      } else {
+          images.forEach(img => {
+              if (img.complete) {
+                  imageLoaded();
+              } else {
+                  img.addEventListener('load', imageLoaded);
+                  img.addEventListener('error', imageLoaded); // Handle broken images too
+              }
+          });
+      }
+  });
+}
 
 // ==============================================
 // FOOD SECTION - COMPLETE JAVASCRIPT
@@ -660,4 +720,200 @@ document.addEventListener('keydown', function(e) {
     e.preventDefault();
     alert('View source is disabled');
   }
+});
+
+
+
+// Cultural Events Calendar
+document.addEventListener('DOMContentLoaded', function() {
+  // Sample events data (in production, you would fetch this from an API)
+  const events = [
+      {
+          id: 1,
+          title: "Broadway Night at Times Square",
+          date: new Date(2023, 4, 15),
+          time: "7:00 PM",
+          location: "Times Square",
+          category: "performance"
+      },
+      {
+          id: 2,
+          title: "Metropolitan Museum Tour",
+          date: new Date(2023, 4, 18),
+          time: "10:00 AM",
+          location: "The Met",
+          category: "art"
+      },
+      {
+          id: 3,
+          title: "Jazz Night in Harlem",
+          date: new Date(2023, 4, 20),
+          time: "8:30 PM",
+          location: "Harlem Jazz Club",
+          category: "music"
+      },
+      {
+          id: 4,
+          title: "Chinatown Food Festival",
+          date: new Date(2023, 4, 22),
+          time: "12:00 PM",
+          location: "Chinatown",
+          category: "food"
+      },
+      {
+          id: 5,
+          title: "Brooklyn Street Art Walk",
+          date: new Date(2023, 4, 25),
+          time: "2:00 PM",
+          location: "Bushwick Collective",
+          category: "art"
+      }
+  ];
+
+  // Calendar variables
+  let currentMonth = new Date().getMonth();
+  let currentYear = new Date().getFullYear();
+  let selectedDate = new Date();
+
+  // DOM elements
+  const calendarDays = document.getElementById('calendar-days');
+  const currentMonthElement = document.getElementById('current-month');
+  const prevMonthBtn = document.getElementById('prev-month');
+  const nextMonthBtn = document.getElementById('next-month');
+  const eventsContainer = document.querySelector('.events-list');
+
+  // Initialize calendar
+  renderCalendar(currentMonth, currentYear);
+  renderEvents(selectedDate);
+
+  // Event listeners
+  prevMonthBtn.addEventListener('click', () => {
+      currentMonth--;
+      if (currentMonth < 0) {
+          currentMonth = 11;
+          currentYear--;
+      }
+      renderCalendar(currentMonth, currentYear);
+  });
+
+  nextMonthBtn.addEventListener('click', () => {
+      currentMonth++;
+      if (currentMonth > 11) {
+          currentMonth = 0;
+          currentYear++;
+      }
+      renderCalendar(currentMonth, currentYear);
+  });
+
+  // Render calendar
+  function renderCalendar(month, year) {
+      // Update month/year display
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      currentMonthElement.textContent = `${monthNames[month]} ${year}`;
+
+      // Clear previous days
+      calendarDays.innerHTML = '';
+
+      // Get first day of month and total days
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const today = new Date();
+
+      // Add empty cells for days before first day of month
+      for (let i = 0; i < firstDay; i++) {
+          const emptyDay = document.createElement('div');
+          emptyDay.className = 'calendar-day other-month';
+          calendarDays.appendChild(emptyDay);
+      }
+
+      // Add days of month
+      for (let day = 1; day <= daysInMonth; day++) {
+          const dayElement = document.createElement('div');
+          dayElement.className = 'calendar-day';
+          dayElement.innerHTML = `<span class="calendar-day-number">${day}</span>`;
+
+          const currentDate = new Date(year, month, day);
+
+          // Check if day is today
+          if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+              dayElement.classList.add('today');
+          }
+
+          // Check if day has events
+          if (hasEvents(currentDate)) {
+              dayElement.classList.add('has-event');
+          }
+
+          // Check if day is selected
+          if (day === selectedDate.getDate() && month === selectedDate.getMonth() && year === selectedDate.getFullYear()) {
+              dayElement.classList.add('selected');
+          }
+
+          // Add click event
+          dayElement.addEventListener('click', () => {
+              selectedDate = new Date(year, month, day);
+              renderCalendar(currentMonth, currentYear);
+              renderEvents(selectedDate);
+          });
+
+          calendarDays.appendChild(dayElement);
+      }
+  }
+
+  // Check if date has events
+  function hasEvents(date) {
+      return events.some(event => 
+          event.date.getDate() === date.getDate() &&
+          event.date.getMonth() === date.getMonth() &&
+          event.date.getFullYear() === date.getFullYear()
+      );
+  }
+
+  // Render events for selected date
+  function renderEvents(date) {
+      // Clear previous events
+      eventsContainer.innerHTML = '';
+
+      // Filter events for selected date
+      const dayEvents = events.filter(event => 
+          event.date.getDate() === date.getDate() &&
+          event.date.getMonth() === date.getMonth() &&
+          event.date.getFullYear() === date.getFullYear()
+      );
+
+      // Display events or "no events" message
+      if (dayEvents.length > 0) {
+          dayEvents.forEach(event => {
+              const eventElement = document.createElement('div');
+              eventElement.className = 'event-item';
+              eventElement.innerHTML = `
+                  <div class="event-date">
+                      <span class="event-date-month">${event.date.toLocaleString('default', { month: 'short' })}</span>
+                      <span class="event-date-day">${event.date.getDate()}</span>
+                  </div>
+                  <div class="event-details">
+                      <h4 class="event-title">${event.title}</h4>
+                      <div class="event-time">
+                          <i class="far fa-clock"></i> ${event.time}
+                      </div>
+                      <div class="event-location">
+                          <i class="fas fa-map-marker-alt"></i> ${event.location}
+                      </div>
+                  </div>
+              `;
+              eventsContainer.appendChild(eventElement);
+          });
+      } else {
+          const noEvents = document.createElement('div');
+          noEvents.className = 'no-events';
+          noEvents.textContent = 'No events scheduled for this date';
+          eventsContainer.appendChild(noEvents);
+      }
+  }
+
+  // Event submission (example functionality)
+  document.getElementById('add-event-btn').addEventListener('click', function() {
+      // In a real implementation, this would open a modal or redirect to a form
+      alert('Event submission form would open here. In production, you would connect this to your backend.');
+  });
 });

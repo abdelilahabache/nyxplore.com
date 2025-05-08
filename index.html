@@ -58,14 +58,14 @@
     <nav class="navbar">
         <div class="navbar-container">
             <a href="/" class="logo">
-                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo" width="200" height="50">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo">
             </a>
-            <div class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu">
+            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
-            </div>
-            <ul class="navbar-menu">
+            </button>
+            <ul class="navbar-menu" id="navbar-menu">
                 <li class="navbar-item"><a href="#landmarks" class="navbar-link">Landmarks</a></li>
                 <li class="navbar-item"><a href="#culture" class="navbar-link">Culture</a></li>
                 <li class="navbar-item"><a href="#food" class="navbar-link">Food</a></li>
@@ -135,82 +135,250 @@
       </a>
   </div>
 </section>
-    <!-- Culture Section -->
+   <!-- Culture Section -->
 <section class="section culture" id="culture">
     <div class="section-header">
         <h2 class="section-title">NYC Culture</h2>
         <p class="section-subtitle">Experience the vibrant cultural scene</p>
     </div> 
+    
+    <div class="culture-filter">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="arts">Arts</button>
+        <button class="filter-btn" data-filter="music">Music</button>
+        <button class="filter-btn" data-filter="neighborhoods">Neighborhoods</button>
+        <button class="filter-btn" data-filter="events">Events</button>
+    </div>
+    
     <div class="masonry-grid">
         <!-- Broadway -->
-        <div class="masonry-item">
-            <img src="assets/images/broadway.avif" 
-                 alt="Bright lights of a Broadway theater marquee at night" 
-                 class="masonry-image"
-                 loading="lazy">
-            <div class="masonry-content">
-                <h3>Broadway</h3>
-                <p>The pinnacle of American theater with world-class performances.</p>
+        <a href="broadway.html" class="masonry-item" data-category="arts">
+            <div class="image-container">
+                <img src="assets/images/broadway.avif" 
+                     alt="Bright lights of a Broadway theater marquee at night" 
+                     class="masonry-image"
+                     loading="lazy">
+                <div class="image-overlay"></div>
             </div>
-        </div>
+            <div class="masonry-content">
+                <div class="content-text">
+                    <h3>Broadway</h3>
+                    <p>The pinnacle of American theater with world-class performances.</p>
+                </div>
+                <button class="explore-button" aria-label="Explore Broadway">
+                    <span>Explore</span>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="category-badge">Arts</div>
+        </a>
         
         <!-- Museums -->
-        <div class="masonry-item">
-            <img src="assets/images/museums.webp" 
-                 alt="The Metropolitan Museum of Art facade with visitors" 
-                 class="masonry-image"
-                 loading="lazy">
-            <div class="masonry-content">
-                <h3>Museums</h3>
-                <p>From the MET to MoMA, NYC houses some of the world's finest art collections.</p>
+        <a href="museums.html" class="masonry-item" data-category="arts">
+            <div class="image-container">
+                <img src="assets/images/museums.webp" 
+                     alt="The Metropolitan Museum of Art facade with visitors" 
+                     class="masonry-image"
+                     loading="lazy">
+                <div class="image-overlay"></div>
             </div>
-        </div>      
+            <div class="masonry-content">
+                <div class="content-text">
+                    <h3>Museums</h3>
+                    <p>From the MET to MoMA, NYC houses some of the world's finest art collections.</p>
+                </div>
+                <button class="explore-button" aria-label="Explore Museums">
+                    <span>Explore</span>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="category-badge">Arts</div>
+        </a>      
+        
         <!-- Music -->
-        <div class="masonry-item">
-            <img src="assets/images/music.webp" 
-                 alt="Dimly lit jazz club with musicians performing" 
-                 class="masonry-image"
-                 loading="lazy">
-            <div class="masonry-content">
-                <h3>Music</h3>
-                <p>Jazz clubs, concert halls, and street performers create the city's soundtrack.</p>
+        <a href="music.html" class="masonry-item" data-category="music">
+            <div class="image-container">
+                <img src="assets/images/music.webp" 
+                     alt="Dimly lit jazz club with musicians performing" 
+                     class="masonry-image"
+                     loading="lazy">
+                <div class="image-overlay"></div>
             </div>
-        </div>       
+            <div class="masonry-content">
+                <div class="content-text">
+                    <h3>Music</h3>
+                    <p>Jazz clubs, concert halls, and street performers create the city's soundtrack.</p>
+                </div>
+                <button class="explore-button" aria-label="Explore Music">
+                    <span>Explore</span>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="category-badge">Music</div>
+        </a>       
+        
         <!-- Neighborhoods -->
-        <div class="masonry-item">
-            <img src="assets/images/neighborhoods.webp" 
-                 alt="Colorful streets of Chinatown with lantern decorations" 
-                 class="masonry-image"
-                 loading="lazy">
-            <div class="masonry-content">
-                <h3>Neighborhoods</h3>
-                <p>Each district has its own unique character and cultural identity.</p>
+        <a href="neighborhoods.html" class="masonry-item" data-category="neighborhoods">
+            <div class="image-container">
+                <img src="assets/images/neighborhoods.webp" 
+                     alt="Colorful streets of Chinatown with lantern decorations" 
+                     class="masonry-image"
+                     loading="lazy">
+                <div class="image-overlay"></div>
             </div>
-        </div>       
+            <div class="masonry-content">
+                <div class="content-text">
+                    <h3>Neighborhoods</h3>
+                    <p>Each district has its own unique character and cultural identity.</p>
+                </div>
+                <button class="explore-button" aria-label="Explore Neighborhoods">
+                    <span>Explore</span>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="category-badge">Neighborhoods</div>
+        </a>       
+        
         <!-- Street Art -->
-        <div class="masonry-item">
-            <img src="assets/images/street-art.webp" 
-                 alt="Large colorful mural on a brick building in Bushwick" 
-                 class="masonry-image"
-                 loading="lazy">
-            <div class="masonry-content">
-                <h3>Street Art</h3>
-                <p>Murals and graffiti transform the city into an open-air gallery.</p>
+        <a href="street-art.html" class="masonry-item" data-category="arts">
+            <div class="image-container">
+                <img src="assets/images/street-art.webp" 
+                     alt="Large colorful mural on a brick building in Bushwick" 
+                     class="masonry-image"
+                     loading="lazy">
+                <div class="image-overlay"></div>
             </div>
-        </div>       
+            <div class="masonry-content">
+                <div class="content-text">
+                    <h3>Street Art</h3>
+                    <p>Murals and graffiti transform the city into an open-air gallery.</p>
+                </div>
+                <button class="explore-button" aria-label="Explore Street Art">
+                    <span>Explore</span>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="category-badge">Arts</div>
+        </a>       
+        
         <!-- Festivals -->
-        <div class="masonry-item">
-            <img src="assets/images/festivals.webp" 
-                 alt="Crowd enjoying a summer street festival with food stalls" 
-                 class="masonry-image"
-                 loading="lazy">
-            <div class="masonry-content">
-                <h3>Festivals</h3>
-                <p>Year-round celebrations of food, film, music, and more.</p>
+        <a href="festivals.html" class="masonry-item" data-category="events">
+            <div class="image-container">
+                <img src="assets/images/festivals.webp" 
+                     alt="Crowd enjoying a summer street festival with food stalls" 
+                     class="masonry-image"
+                     loading="lazy">
+                <div class="image-overlay"></div>
             </div>
+            <div class="masonry-content">
+                <div class="content-text">
+                    <h3>Festivals</h3>
+                    <p>Year-round celebrations of food, film, music, and more.</p>
+                </div>
+                <button class="explore-button" aria-label="Explore Festivals">
+                    <span>Explore</span>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="category-badge">Events</div>
+        </a>
+        
+        <!-- Cultural Events -->
+        <a href="cultural-events.html" class="masonry-item" data-category="events">
+            <div class="image-container">
+                <img src="assets/images/cultural-events.webp" 
+                     alt="People attending an outdoor cultural event" 
+                     class="masonry-image"
+                     loading="lazy">
+                <div class="image-overlay"></div>
+            </div>
+            <div class="masonry-content">
+                <div class="content-text">
+                    <h3>Cultural Events</h3>
+                    <p>Discover upcoming exhibitions, performances, and cultural happenings.</p>
+                </div>
+                <button class="explore-button" aria-label="Explore Cultural Events">
+                    <span>Explore</span>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="category-badge">Events</div>
+        </a>
+        
+        <!-- Historical Sites -->
+        <a href="historical-sites.html" class="masonry-item" data-category="neighborhoods">
+            <div class="image-container">
+                <img src="assets/images/historical-sites.webp" 
+                     alt="Ellis Island historical building" 
+                     class="masonry-image"
+                     loading="lazy">
+                <div class="image-overlay"></div>
+            </div>
+            <div class="masonry-content">
+                <div class="content-text">
+                    <h3>Historical Sites</h3>
+                    <p>Walk through NYC's rich history at these significant locations.</p>
+                </div>
+                <button class="explore-button" aria-label="Explore Historical Sites">
+                    <span>Explore</span>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="category-badge">Neighborhoods</div>
+        </a>
+    </div>
+    
+    <div class="view-all-container">
+        <a href="culture-guide.html" class="view-all-button">
+            View Complete Culture Guide
+            <i class="fas fa-long-arrow-alt-right"></i>
+        </a>
+    </div>
+    <!-- Cultural Events Calendar -->
+<div class="culture-calendar">
+    <div class="calendar-header">
+        <h3>Upcoming Cultural Events</h3>
+        <div class="calendar-nav">
+            <button id="prev-month" aria-label="Previous month">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <h4 id="current-month">May 2025</h4>
+            <button id="next-month" aria-label="Next month">
+                <i class="fas fa-chevron-right"></i>
+            </button>
         </div>
     </div>
-</section> 
+    
+    <div class="calendar-grid">
+        <div class="calendar-weekdays">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+        </div>
+        <div class="calendar-days" id="calendar-days"></div>
+    </div>
+    
+    <div class="calendar-events" id="calendar-events">
+        <h4>Today's Events</h4>
+        <div class="events-list">
+            <!-- Events will be populated by JavaScript -->
+            <div class="no-events">No events scheduled for today</div>
+        </div>
+    </div>
+    
+    <div class="calendar-cta">
+        <button id="add-event-btn">Submit Your Event</button>
+        <a href="full-calendar.html" class="view-full-calendar">
+            View Full Calendar <i class="fas fa-long-arrow-alt-right"></i>
+        </a>
+    </div>
+</div>
+</section>
+
 <!-- Food Section -->
 <section class="section food" id="food">
   <div class="section-header">
