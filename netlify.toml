@@ -10,9 +10,3 @@
   [headers.values]
     X-Netlify-Bot-Block = "bad-bot, scraper-bot, AhrefsBot, SemrushBot "
 
-[[plugins]]
-  package = "@netlify/plugin-rate-limit"
-  [plugins.inputs]
-    paths = ["/admin/*", "/login"]  # Protected routes
-    limit = 5                       # Max 5 requests
-    window = 60                     # Per 60 seconds
