@@ -8,10 +8,7 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    X-Netlify-Bot-Block = "bad-bot"
-    X-Netlify-Bot-Block = "scraper-bot"
-    X-Netlify-Bot-Block = "AhrefsBot"
-    X-Netlify-Bot-Block = "SemrushBot"
+    X-Netlify-Bot-Block = "bad-bot, scraper-bot, AhrefsBot, SemrushBot "
 
 [[plugins]]
   package = "@netlify/plugin-rate-limit"

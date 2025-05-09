@@ -1,12 +1,5 @@
 /*
-  X-Netlify-Bot-Block: AhrefsBot
-  X-Netlify-Bot-Block: SemrushBot
-  X-Netlify-Bot-Block: MJ12bot
-  X-Netlify-Bot-Block: dotbot
-  X-Netlify-Bot-Block: MauiBot
-  X-Netlify-Bot-Block: MegaIndex.ru
-  X-Netlify-Bot-Block: BLEXBot
-  X-Netlify-Bot-Block: ZoominfoBot
+  X-Netlify-Bot-Block: bad-bot, scraper-bot, AhrefsBot, SemrushBot, MJ12bot, dotbot, MauiBot, MegaIndex.ru, BLEXBot, ZoominfoBot
 
   /admin/*
   X-Required-Auth: true
