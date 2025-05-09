@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYC Events Calendar | NYxplore</title>
+    <meta name="description" content="Discover what's happening in New York City with our comprehensive events calendar featuring concerts, festivals, exhibitions, and special happenings">
+    
+    <!-- Preload and Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" as="style">
+    <link rel="preload" href="assets/images/events/nyc-events-hero.webp" as="image">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Critical CSS -->
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        /* Events Calendar specific styles */
+        .events-hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), 
+                        url('assets/images/events/nyc-events-hero.webp') center/cover no-repeat;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .events-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        .calendar-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 40px 0;
+            justify-content: center;
+        }
+        
+        .filter-btn {
+            padding: 12px 25px;
+            border: 2px solid var(--accent-color);
+            background: white;
+            color: var(--primary-color);
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        .calendar-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .calendar-sidebar {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 25px;
+        }
+        
+        .month-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .month-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .day-header {
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary-color);
+            padding: 5px;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+        
+        .calendar-day {
+            aspect-ratio: 1;
+            border: 1px solid var(--light-color);
+            display: flex;
+            flex-direction: column;
+            padding: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .calendar-day:hover {
+            background-color: var(--light-color);
+        }
+        
+        .day-number {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        
+        .event-indicator {
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            margin: 1px auto;
+        }
+        
+        .current-day {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .events-list {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 25px;
+        }
+        
+        .event-card {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--light-color);
+        }
+        
+        .event-card:last-child {
+            border-bottom: none;
+        }
+        
+        .event-date {
+            text-align: center;
+        }
+        
+        .event-day {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+        
+        .event-month {
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+        }
+        
+        .event-details {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .event-time {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .event-category {
+            display: inline-block;
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .event-location {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            color: var(--primary-color);
+        }
+        
+        .event-location i {
+            margin-right: 8px;
+            color: var(--accent-color);
+        }
+        
+        /* Navigation Styles */
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        @media (max-width: 1024px) {
+            .calendar-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .events-title {
+                font-size: 2.5rem;
+            }
+            
+            .filter-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .event-card {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme and Sound Controls -->
+    <div class="floating-controls">
+        <button id="sound-toggle" class="control-button" aria-label="Toggle ambient sound">
+          <i class="fas fa-volume-up"></i>
+        </button>
+        <button id="theme-toggle" class="control-button" aria-label="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </button>
+    </div> 
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="logo">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo" width="120" height="40">
+            </a>
+            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="navbar-menu" id="navbar-menu">
+                <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
+                <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
+                <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
+                <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
+                <li class="navbar-item"><a href="index.html#map" class="navbar-link">Map</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="events-hero">
+        <div class="hero-content">
+            <h1 class="events-title">NYC Events Calendar</h1>
+            <p class="hero-subtitle">Find the best concerts, exhibitions, and special happenings in the city</p>
+        </div>
+    </section>
+    
+    <!-- Events Calendar Section -->
+    <section class="events-calendar container">
+        <div class="section-header">
+            <h2 class="section-title">What's Happening in New York</h2>
+            <p class="section-subtitle">Browse upcoming events by date, category, or neighborhood</p>
+        </div>
+        
+        <div class="calendar-filters">
+            <button class="filter-btn active" data-filter="all">All Events</button>
+            <button class="filter-btn" data-filter="music">Music</button>
+            <button class="filter-btn" data-filter="art">Art</button>
+            <button class="filter-btn" data-filter="food">Food & Drink</button>
+            <button class="filter-btn" data-filter="theater">Theater</button>
+            <button class="filter-btn" data-filter="sports">Sports</button>
+            <button class="filter-btn" data-filter="free">Free Events</button>
+        </div>
+        
+        <div class="calendar-container">
+            <div class="calendar-sidebar">
+                <div class="month-navigation">
+                    <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+                    <span class="month-name">June 2024</span>
+                    <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                
+                <div class="calendar-days">
+                    <div class="day-header">Sun</div>
+                    <div class="day-header">Mon</div>
+                    <div class="day-header">Tue</div>
+                    <div class="day-header">Wed</div>
+                    <div class="day-header">Thu</div>
+                    <div class="day-header">Fri</div>
+                    <div class="day-header">Sat</div>
+                </div>
+                
+                <div class="calendar-grid" id="calendar-grid">
+                    <!-- Calendar days will be populated by JavaScript -->
+                </div>
+                
+                <div class="calendar-legend">
+                    <h4>Today's Events</h4>
+                    <div class="legend-item">
+                        <span class="event-indicator"></span>
+                        <span>Events scheduled</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="events-list">
+                <h3>Featured Events</h3>
+                
+                <div class="event-card" data-category="music">
+                    <div class="event-date">
+                        <div class="event-day">15</div>
+                        <div class="event-month">Jun</div>
+                    </div>
+                    <div class="event-details">
+                        <h4>SummerStage: Central Park</h4>
+                        <span class="event-time">7:00 PM - 10:00 PM</span>
+                        <span class="event-category">Concert</span>
+                        <p>Free outdoor concert featuring indie rock bands in Central Park's Rumsey Playfield.</p>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Central Park, Rumsey Playfield</span>
+                        </div>
+                        <a href="#" class="cta-button">Event Details</a>
+                    </div>
+                </div>
+                
+                <div class="event-card" data-category="art">
+                    <div class="event-date">
+                        <div class="event-day">16</div>
+                        <div class="event-month">Jun</div>
+                    </div>
+                    <div class="event-details">
+                        <h4>Whitney Museum: New Exhibitions</h4>
+                        <span class="event-time">10:30 AM - 6:00 PM</span>
+                        <span class="event-category">Art Exhibition</span>
+                        <p>Opening weekend for three new contemporary art exhibitions at the Whitney.</p>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Whitney Museum of American Art</span>
+                        </div>
+                        <a href="#" class="cta-button">Get Tickets</a>
+                    </div>
+                </div>
+                
+                <div class="event-card" data-category="food">
+                    <div class="event-date">
+                        <div class="event-day">17</div>
+                        <div class="event-month">Jun</div>
+                    </div>
+                    <div class="event-details">
+                        <h4>Smorgasburg Opening Day</h4>
+                        <span class="event-time">11:00 AM - 6:00 PM</span>
+                        <span class="event-category">Food Festival</span>
+                        <p>Brooklyn's famous outdoor food market returns with 100+ vendors every weekend.</p>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Williamsburg Waterfront</span>
+                        </div>
+                        <a href="#" class="cta-button">Vendor List</a>
+                    </div>
+                </div>
+                
+                <div class="event-card" data-category="theater">
+                    <div class="event-date">
+                        <div class="event-day">18</div>
+                        <div class="event-month">Jun</div>
+                    </div>
+                    <div class="event-details">
+                        <h4>Shakespeare in the Park</h4>
+                        <span class="event-time">8:00 PM - 10:30 PM</span>
+                        <span class="event-category">Theater</span>
+                        <p>Free performance of "A Midsummer Night's Dream" at the Delacorte Theater.</p>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Central Park, Delacorte Theater</span>
+                        </div>
+                        <a href="#" class="cta-button">Ticket Info</a>
+                    </div>
+                </div>
+                
+                <div class="event-card" data-category="sports">
+                    <div class="event-date">
+                        <div class="event-day">20</div>
+                        <div class="event-month">Jun</div>
+                    </div>
+                    <div class="event-details">
+                        <h4>Yankees vs. Red Sox</h4>
+                        <span class="event-time">7:05 PM - 10:00 PM</span>
+                        <span class="event-category">Baseball</span>
+                        <p>Rivalry game at Yankee Stadium with special pre-game ceremonies.</p>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Yankee Stadium</span>
+                        </div>
+                        <a href="#" class="cta-button">Buy Tickets</a>
+                    </div>
+                </div>
+                
+                <div class="event-card" data-category="free">
+                    <div class="event-date">
+                        <div class="event-day">22</div>
+                        <div class="event-month">Jun</div>
+                    </div>
+                    <div class="event-details">
+                        <h4>Museum Mile Festival</h4>
+                        <span class="event-time">6:00 PM - 9:00 PM</span>
+                        <span class="event-category">Cultural Festival</span>
+                        <p>Annual event where 5th Avenue museums open their doors for free with special programs.</p>
+                        <div class="event-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>5th Avenue, from 82nd to 105th St</span>
+                        </div>
+                        <a href="#" class="cta-button">Event Map</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="newsletter-signup">
+            <h3>Get Weekly Event Updates</h3>
+            <p>Subscribe to receive curated event recommendations based on your interests</p>
+            <form class="events-newsletter">
+                <input type="email" placeholder="Your email address" required>
+                <select>
+                    <option value="">All Categories</option>
+                    <option value="music">Music Events</option>
+                    <option value="art">Art Exhibitions</option>
+                    <option value="food">Food Festivals</option>
+                    <option value="theater">Theater & Performance</option>
+                </select>
+                <button type="submit" class="cta-button">Subscribe</button>
+            </form>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-newsletter">
+                <h3>Explore NYC With Us</h3>
+                <p>Get personalized event recommendations</p>
+                <form class="newsletter-form" id="newsletter-form" name="newsletter" method="POST" netlify data-netlify-honeypot="bot-field">
+                    <input type="hidden" name="form-name" value="newsletter">
+                    <p class="hidden">
+                        <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                    </p>
+                    <div class="input-group">
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Your email address" 
+                            required 
+                            aria-label="Email address"
+                            aria-describedby="email-helper"
+                        >
+                        <button type="submit" aria-label="Subscribe">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <small id="email-helper" class="visually-hidden">We'll never share your email</small>
+                </form>
+                <div class="newsletter-success" aria-live="polite">Thank you for subscribing!</div>
+            </div>
+            
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Discover</h4>
+                    <ul>
+                        <li><a href="index.html#landmarks"><i class="fas fa-landmark"></i> Iconic Landmarks</a></li>
+                        <li><a href="index.html#culture"><i class="fas fa-theater-masks"></i> Arts & Culture</a></li>
+                        <li><a href="index.html#food"><i class="fas fa-utensils"></i> Food Scene</a></li>
+                        <li><a href="index.html#gallery"><i class="fas fa-camera"></i> Photo Gallery</a></li>
+                        <li><a href="index.html#map"><i class="fas fa-map-marked-alt"></i> Map</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Event Resources</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-calendar-alt"></i> Full Calendar</i></a></li>
+                        <li><a href="#"><i class="fas fa-ticket-alt"></i> Ticket Deals</a></li>
+                        <li><a href="#"><i class="fas fa-child"></i> Family Events</a></li>
+                        <li><a href="#"><i class="fas fa-dollar-sign"></i> Free Events</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-heart"></i> About NYxplore</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                        <li><a href="#"><i class="fas fa-briefcase"></i> Careers</a></li>
+                        <li><a href="#"><i class="fas fa-newspaper"></i> Press</a></li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+                
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Accessibility</a>
+                    <a href="#">Sitemap</a>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
+                    <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
+                  style="transition: stroke-dashoffset 10ms linear; 
+                         stroke-dasharray: 307.919, 307.919; 
+                         stroke-dashoffset: 307.919;">
+            </path>
+        </svg>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu');
+            const navbarMenu = document.getElementById('navbar-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                navbarMenu.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.navbar-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navbarMenu.classList.remove('active');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                });
+            });
+            
+            // Event filtering
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const eventCards = document.querySelectorAll('.event-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    const filter = button.getAttribute('data-filter');
+                    
+                    // Filter event cards
+                    eventCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'grid';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Calendar functionality
+            const monthName = document.querySelector('.month-name');
+            const calendarGrid = document.getElementById('calendar-grid');
+            const prevMonthBtn = document.getElementById('prev-month');
+            const nextMonthBtn = document.getElementById('next-month');
+            
+            let currentDate = new Date();
+            let currentMonth = currentDate.getMonth();
+            let currentYear = currentDate.getFullYear();
+            
+            function renderCalendar() {
+                // Set month and year in header
+                monthName.textContent = new Intl.DateTimeFormat('en-US', { 
+                    month: 'long', 
+                    year: 'numeric' 
+                }).format(new Date(currentYear, currentMonth));
+                
+                // Clear previous calendar days
+                calendarGrid.innerHTML = '';
+                
+                // Get first day of month and total days
+                const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+                const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+                
+                // Get days from previous month to display
+                const prevMonthDays = new Date(currentYear, currentMonth, 0).getDate();
+                
+                // Create calendar days
+                for (let i = 0; i < 42; i++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.className = 'calendar-day';
+                    
+                    if (i < firstDay) {
+                        // Days from previous month
+                        const prevDay = prevMonthDays - firstDay + i + 1;
+                        dayElement.innerHTML = `<div class="day-number">${prevDay}</div>`;
+                        dayElement.style.opacity = '0.5';
+                    } else if (i >= firstDay + daysInMonth) {
+                        // Days from next month
+                        const nextDay = i - firstDay - daysInMonth + 1;
+                        dayElement.innerHTML = `<div class="day-number">${nextDay}</div>`;
+                        dayElement.style.opacity = '0.5';
+                    } else {
+                        // Current month days
+                        const day = i - firstDay + 1;
+                        dayElement.innerHTML = `
+                            <div class="day-number">${day}</div>
+                            <div class="event-indicator"></div>
+                        `;
+                        
+                        // Highlight current day
+                        if (day === currentDate.getDate() && 
+                            currentMonth === currentDate.getMonth() && 
+                            currentYear === currentDate.getFullYear()) {
+                            dayElement.classList.add('current-day');
+                        }
+                    }
+                    
+                    calendarGrid.appendChild(dayElement);
+                }
+            }
+            
+            // Navigation between months
+            prevMonthBtn.addEventListener('click', () => {
+                currentMonth--;
+                if (currentMonth < 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                renderCalendar();
+            });
+            
+            nextMonthBtn.addEventListener('click', () => {
+                currentMonth++;
+                if (currentMonth > 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                renderCalendar();
+            });
+            
+            // Initial calendar render
+            renderCalendar();
+        });
+    </script>
+</body>
+</html>

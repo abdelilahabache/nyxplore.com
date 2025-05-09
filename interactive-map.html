@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYC Interactive Map | NYxplore</title>
+    <meta name="description" content="Explore New York City with our interactive map featuring landmarks, neighborhoods, restaurants, and points of interest">
+    
+    <!-- Preload and Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" as="style">
+    <link rel="preload" href="assets/images/map/nyc-map-hero.webp" as="image">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Critical CSS -->
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        /* Map specific styles */
+        .map-hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), 
+                        url('assets/images/map/nyc-map-hero.webp') center/cover no-repeat;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .map-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        .map-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 40px 0;
+            justify-content: center;
+        }
+        
+        .filter-btn {
+            padding: 12px 25px;
+            border: 2px solid var(--accent-color);
+            background: white;
+            color: var(--primary-color);
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        .map-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            height: 70vh;
+            margin: 40px 0;
+        }
+        
+        .map-sidebar {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 25px;
+            overflow-y: auto;
+        }
+        
+        #interactive-map {
+            height: 100%;
+            width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .map-legend {
+            margin-top: 20px;
+            padding: 15px;
+            background: var(--light-color);
+            border-radius: var(--border-radius);
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .legend-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+        
+        .location-list {
+            margin-top: 20px;
+        }
+        
+        .location-card {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: var(--border-radius);
+            background: var(--light-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .location-card:hover {
+            background: #d6eaf8;
+        }
+        
+        .location-card.active {
+            border-left: 4px solid var(--accent-color);
+            background: #eaf2f8;
+        }
+        
+        .location-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .location-category {
+            display: inline-block;
+            background-color: white;
+            color: var(--primary-color);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .location-address {
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        /* Navigation Styles */
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        @media (max-width: 1024px) {
+            .map-container {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            #interactive-map {
+                height: 50vh;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .map-title {
+                font-size: 2.5rem;
+            }
+            
+            .filter-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme and Sound Controls -->
+    <div class="floating-controls">
+        <button id="sound-toggle" class="control-button" aria-label="Toggle ambient sound">
+          <i class="fas fa-volume-up"></i>
+        </button>
+        <button id="theme-toggle" class="control-button" aria-label="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </button>
+    </div> 
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="logo">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo" width="120" height="40">
+            </a>
+            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="navbar-menu" id="navbar-menu">
+                <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
+                <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
+                <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
+                <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
+                <li class="navbar-item"><a href="events-calendar.html" class="navbar-link">Events</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="map-hero">
+        <div class="hero-content">
+            <h1 class="map-title">NYC Interactive Map</h1>
+            <p class="hero-subtitle">Explore the city's landmarks, neighborhoods, and hidden gems</p>
+        </div>
+    </section>
+    
+    <!-- Interactive Map Section -->
+    <section class="interactive-map container">
+        <div class="section-header">
+            <h2 class="section-title">Discover New York City</h2>
+            <p class="section-subtitle">Find the best places to visit, eat, and explore</p>
+        </div>
+        
+        <div class="map-filters">
+            <button class="filter-btn active" data-filter="all">All Locations</button>
+            <button class="filter-btn" data-filter="landmark">Landmarks</button>
+            <button class="filter-btn" data-filter="museum">Museums</button>
+            <button class="filter-btn" data-filter="restaurant">Restaurants</button>
+            <button class="filter-btn" data-filter="park">Parks</button>
+            <button class="filter-btn" data-filter="neighborhood">Neighborhoods</button>
+            <button class="filter-btn" data-filter="shopping">Shopping</button>
+        </div>
+        
+        <div class="map-container">
+            <div class="map-sidebar">
+                <h3>Locations</h3>
+                <div class="location-list" id="location-list">
+                    <!-- Locations will be populated by JavaScript -->
+                </div>
+                
+                <div class="map-legend">
+                    <h4>Map Legend</h4>
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background-color: #e74c3c;"></div>
+                        <span>Landmarks</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background-color: #3498db;"></div>
+                        <span>Museums</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background-color: #2ecc71;"></div>
+                        <span>Restaurants</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background-color: #9b59b6;"></div>
+                        <span>Parks</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-icon" style="background-color: #f39c12;"></div>
+                        <span>Neighborhoods</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="interactive-map"></div>
+        </div>
+        
+        <div class="map-tools">
+            <button id="locate-me" class="map-tool-button">
+                <i class="fas fa-location-arrow"></i> Locate Me
+            </button>
+            <button id="reset-view" class="map-tool-button">
+                <i class="fas fa-globe-americas"></i> Reset View
+            </button>
+            <button id="print-map" class="map-tool-button">
+                <i class="fas fa-print"></i> Print Map
+            </button>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-newsletter">
+                <h3>Explore NYC With Us</h3>
+                <p>Get personalized recommendations based on your interests</p>
+                <form class="newsletter-form" id="newsletter-form" name="newsletter" method="POST" netlify data-netlify-honeypot="bot-field">
+                    <input type="hidden" name="form-name" value="newsletter">
+                    <p class="hidden">
+                        <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                    </p>
+                    <div class="input-group">
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Your email address" 
+                            required 
+                            aria-label="Email address"
+                            aria-describedby="email-helper"
+                        >
+                        <button type="submit" aria-label="Subscribe">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <small id="email-helper" class="visually-hidden">We'll never share your email</small>
+                </form>
+                <div class="newsletter-success" aria-live="polite">Thank you for subscribing!</div>
+            </div>
+            
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Discover</h4>
+                    <ul>
+                        <li><a href="index.html#landmarks"><i class="fas fa-landmark"></i> Iconic Landmarks</a></li>
+                        <li><a href="index.html#culture"><i class="fas fa-theater-masks"></i> Arts & Culture</a></li>
+                        <li><a href="index.html#food"><i class="fas fa-utensils"></i> Food Scene</a></li>
+                        <li><a href="index.html#gallery"><i class="fas fa-camera"></i> Photo Gallery</a></li>
+                        <li><a href="events-calendar.html"><i class="fas fa-calendar-alt"></i> Events</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Map Resources</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-subway"></i> Subway Map</a></li>
+                        <li><a href="#"><i class="fas fa-bus"></i> Bus Routes</a></li>
+                        <li><a href="#"><i class="fas fa-biking"></i> Bike Paths</a></li>
+                        <li><a href="#"><i class="fas fa-hiking"></i> Walking Tours</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-heart"></i> About NYxplore</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                        <li><a href="#"><i class="fas fa-briefcase"></i> Careers</a></li>
+                        <li><a href="#"><i class="fas fa-newspaper"></i> Press</a></li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+                
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Accessibility</a>
+                    <a href="#">Sitemap</a>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
+                    <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
+                  style="transition: stroke-dashoffset 10ms linear; 
+                         stroke-dasharray: 307.919, 307.919; 
+                         stroke-dashoffset: 307.919;">
+            </path>
+        </svg>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Main JS -->
+    <script src="script.js"></script>
+    
+    <!-- Map JS -->
+    <script>
+        // Initialize current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu');
+            const navbarMenu = document.getElementById('navbar-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                navbarMenu.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.navbar-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navbarMenu.classList.remove('active');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                });
+            });
+            
+            // Initialize the map
+            const map = L.map('interactive-map').setView([40.7128, -74.0060], 12);
+            
+            // Add tile layer (OpenStreetMap)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            
+            // Sample locations data
+            const locations = [
+                {
+                    id: 1,
+                    name: "Statue of Liberty",
+                    category: "landmark",
+                    coords: [40.6892, -74.0445],
+                    address: "Liberty Island, New York, NY 10004",
+                    description: "Iconic symbol of freedom and democracy",
+                    iconColor: "#e74c3c"
+                },
+                {
+                    id: 2,
+                    name: "Central Park",
+                    category: "park",
+                    coords: [40.7829, -73.9654],
+                    address: "New York, NY 10024",
+                    description: "Vast urban park with walking paths, lakes and cultural attractions",
+                    iconColor: "#9b59b6"
+                },
+                {
+                    id: 3,
+                    name: "The Metropolitan Museum of Art",
+                    category: "museum",
+                    coords: [40.7794, -73.9632],
+                    address: "1000 5th Ave, New York, NY 10028",
+                    description: "Massive art museum with works from around the world",
+                    iconColor: "#3498db"
+                },
+                {
+                    id: 4,
+                    name: "Times Square",
+                    category: "landmark",
+                    coords: [40.7580, -73.9855],
+                    address: "Manhattan, NY 10036",
+                    description: "Bustling commercial intersection with giant digital billboards",
+                    iconColor: "#e74c3c"
+                },
+                {
+                    id: 5,
+                    name: "Katz's Delicatessen",
+                    category: "restaurant",
+                    coords: [40.7224, -73.9875],
+                    address: "205 E Houston St, New York, NY 10002",
+                    description: "Legendary Jewish deli known for its pastrami sandwiches",
+                    iconColor: "#2ecc71"
+                },
+                {
+                    id: 6,
+                    name: "Brooklyn Bridge",
+                    category: "landmark",
+                    coords: [40.7061, -73.9969],
+                    address: "New York, NY 10038",
+                    description: "Iconic 19th-century suspension bridge connecting Manhattan and Brooklyn",
+                    iconColor: "#e74c3c"
+                },
+                {
+                    id: 7,
+                    name: "Chelsea Market",
+                    category: "shopping",
+                    coords: [40.7424, -74.0061],
+                    address: "75 9th Ave, New York, NY 10011",
+                    description: "Food & shopping mall in the Meatpacking District",
+                    iconColor: "#f39c12"
+                },
+                {
+                    id: 8,
+                    name: "Empire State Building",
+                    category: "landmark",
+                    coords: [40.7484, -73.9857],
+                    address: "20 W 34th St, New York, NY 10001",
+                    description: "Iconic 102-story Art Deco skyscraper with observatories",
+                    iconColor: "#e74c3c"
+                }
+            ];
+            
+            // Create custom icons
+            function createCustomIcon(color) {
+                return L.divIcon({
+                    className: 'custom-icon',
+                    html: `<svg viewBox="0 0 24 24" width="24" height="24" fill="${color}">
+                              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                          </svg>`,
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 24],
+                    popupAnchor: [0, -24]
+                });
+            }
+            
+            // Add markers to map and create location list
+            const locationList = document.getElementById('location-list');
+            const markers = [];
+            
+            locations.forEach(location => {
+                // Create marker
+                const marker = L.marker(location.coords, {
+                    icon: createCustomIcon(location.iconColor)
+                }).addTo(map);
+                
+                // Bind popup
+                marker.bindPopup(`
+                    <h3>${location.name}</h3>
+                    <p><strong>Category:</strong> ${location.category.charAt(0).toUpperCase() + location.category.slice(1)}</p>
+                    <p>${location.description}</p>
+                    <p><i class="fas fa-map-marker-alt"></i> ${location.address}</p>
+                `);
+                
+                // Create location card
+                const locationCard = document.createElement('div');
+                locationCard.className = 'location-card';
+                locationCard.dataset.id = location.id;
+                locationCard.dataset.category = location.category;
+                locationCard.innerHTML = `
+                    <div class="location-name">${location.name}</div>
+                    <span class="location-category">${location.category.charAt(0).toUpperCase() + location.category.slice(1)}</span>
+                    <div class="location-address"><i class="fas fa-map-marker-alt"></i> ${location.address}</div>
+                `;
+                
+                // Add click event to card
+                locationCard.addEventListener('click', () => {
+                    // Highlight card
+                    document.querySelectorAll('.location-card').forEach(card => {
+                        card.classList.remove('active');
+                    });
+                    locationCard.classList.add('active');
+                    
+                    // Fly to marker
+                    map.flyTo(location.coords, 15);
+                    
+                    // Open popup
+                    marker.openPopup();
+                });
+                
+                locationList.appendChild(locationCard);
+                markers.push(marker);
+            });
+            
+            // Filter functionality
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    const filter = button.dataset.filter;
+                    
+                    // Filter location cards
+                    document.querySelectorAll('.location-card').forEach(card => {
+                        if (filter === 'all' || card.dataset.category === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                    
+                    // Filter markers
+                    markers.forEach((marker, index) => {
+                        if (filter === 'all' || locations[index].category === filter) {
+                            marker.addTo(map);
+                        } else {
+                            marker.remove();
+                        }
+                    });
+                });
+            });
+            
+            // Map tools functionality
+            document.getElementById('locate-me').addEventListener('click', () => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(position => {
+                        const userLocation = [position.coords.latitude, position.coords.longitude];
+                        map.flyTo(userLocation, 15);
+                        
+                        // Add user location marker
+                        L.marker(userLocation, {
+                            icon: createCustomIcon('#2c3e50')
+                        }).addTo(map)
+                        .bindPopup('Your location')
+                        .openPopup();
+                    });
+                } else {
+                    alert('Geolocation is not supported by your browser');
+                }
+            });
+            
+            document.getElementById('reset-view').addEventListener('click', () => {
+                map.flyTo([40.7128, -74.0060], 12);
+            });
+            
+            document.getElementById('print-map').addEventListener('click', () => {
+                window.print();
+            });
+        });
+    </script>
+</body>
+</html>

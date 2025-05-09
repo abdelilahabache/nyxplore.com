@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYC Transit Guide | NYxplore</title>
+    <meta name="description" content="Navigate New York City like a local with our complete transit guide covering subways, buses, bikes, and walking routes">
+    
+    <!-- Preload and Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" as="style">
+    <link rel="preload" href="assets/images/transit/nyc-transit-hero.webp" as="image">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Critical CSS -->
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        /* Transit Guide specific styles */
+        .transit-hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), 
+                        url('assets/images/transit/nyc-transit-hero.webp') center/cover no-repeat;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .transit-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        .transit-modes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 40px 0;
+            justify-content: center;
+        }
+        
+        .mode-btn {
+            padding: 12px 25px;
+            border: 2px solid var(--accent-color);
+            background: white;
+            color: var(--primary-color);
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .mode-btn:hover,
+        .mode-btn.active {
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        .guide-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .guide-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .guide-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .guide-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+        
+        .subway-line {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            color: white;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        .transit-tip {
+            background-color: var(--light-color);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .transit-tip:before {
+            content: '\f0eb';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+        }
+        
+        .route-map {
+            width: 100%;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+        
+        /* Navigation Styles */
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        @media (max-width: 768px) {
+            .transit-title {
+                font-size: 2.5rem;
+            }
+            
+            .guide-sections {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme and Sound Controls -->
+    <div class="floating-controls">
+        <button id="sound-toggle" class="control-button" aria-label="Toggle ambient sound">
+          <i class="fas fa-volume-up"></i>
+        </button>
+        <button id="theme-toggle" class="control-button" aria-label="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </button>
+    </div> 
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="logo">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo" width="120" height="40">
+            </a>
+            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="navbar-menu" id="navbar-menu">
+                <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
+                <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
+                <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
+                <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
+                <li class="navbar-item"><a href="index.html#map" class="navbar-link">Map</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="transit-hero">
+        <div class="hero-content">
+            <h1 class="transit-title">NYC Transit Guide</h1>
+            <p class="hero-subtitle">Master the subway, buses, and more to navigate the city like a local</p>
+        </div>
+    </section>
+    
+    <!-- Transit Guide Section -->
+    <section class="transit-guide container">
+        <div class="section-header">
+            <h2 class="section-title">Navigating New York City</h2>
+            <p class="section-subtitle">Everything you need to know about getting around the five boroughs</p>
+        </div>
+        
+        <div class="transit-modes">
+            <button class="mode-btn active" data-mode="all">All Modes</button>
+            <button class="mode-btn" data-mode="subway">Subway</button>
+            <button class="mode-btn" data-mode="bus">Buses</button>
+            <button class="mode-btn" data-mode="bike">Bikes</button>
+            <button class="mode-btn" data-mode="ferry">Ferries</button>
+            <button class="mode-btn" data-mode="walking">Walking</button>
+        </div>
+        
+        <div class="guide-sections">
+            <div class="guide-card" data-mode="subway">
+                <div class="guide-icon">
+                    <i class="fas fa-subway"></i>
+                </div>
+                <h3>Subway System</h3>
+                <p>The fastest way to get around NYC with 24/7 service on most lines. Over 5 million riders daily.</p>
+                
+                <div class="transit-tip">
+                    <p>Download the MYmta app for real-time updates and service changes.</p>
+                </div>
+                
+                <h4>Key Subway Lines:</h4>
+                <p>
+                    <span class="subway-line" style="background-color: #EE352E;">1</span>
+                    <span class="subway-line" style="background-color: #EE352E;">2</span>
+                    <span class="subway-line" style="background-color: #EE352E;">3</span>
+                    <span>West Side (Manhattan to Bronx/Brooklyn)</span>
+                </p>
+                <p>
+                    <span class="subway-line" style="background-color: #00933C;">4</span>
+                    <span class="subway-line" style="background-color: #00933C;">5</span>
+                    <span class="subway-line" style="background-color: #00933C;">6</span>
+                    <span>East Side (Manhattan to Bronx)</span>
+                </p>
+                <p>
+                    <span class="subway-line" style="background-color: #FF6319;">N</span>
+                    <span class="subway-line" style="background-color: #FF6319;">Q</span>
+                    <span class="subway-line" style="background-color: #FF6319;">R</span>
+                    <span>Broadway (Manhattan to Queens/Brooklyn)</span>
+                </p>
+                
+                <a href="#" class="cta-button">View Subway Map</a>
+            </div>
+            
+            <div class="guide-card" data-mode="bus">
+                <div class="guide-icon">
+                    <i class="fas fa-bus"></i>
+                </div>
+                <h3>Bus Network</h3>
+                <p>Comprehensive coverage with over 300 routes serving all five boroughs.</p>
+                
+                <div class="transit-tip">
+                    <p>Use the Bus Time feature in the MYmta app to track buses in real-time.</p>
+                </div>
+                
+                <h4>Select Bus Service (SBS):</h4>
+                <ul>
+                    <li>Faster service with off-board fare payment</li>
+                    <li>Limited stops and dedicated lanes</li>
+                    <li>Routes include M15, B44, Bx12, Q44, and more</li>
+                </ul>
+                
+                <h4>Express Buses:</h4>
+                <p>Premium service between boroughs and Manhattan with comfortable seating.</p>
+                
+                <a href="#" class="cta-button">Bus Routes & Schedules</a>
+            </div>
+            
+            <div class="guide-card" data-mode="bike">
+                <div class="guide-icon">
+                    <i class="fas fa-bicycle"></i>
+                </div>
+                <h3>Citi Bike & Cycling</h3>
+                <p>Over 1,500 bike share stations and 1,000+ miles of bike lanes across NYC.</p>
+                
+                <div class="transit-tip">
+                    <p>Get unlimited 30-minute rides with a Citi Bike Day Pass ($15).</p>
+                </div>
+                
+                <h4>Citi Bike Options:</h4>
+                <ul>
+                    <li>Single ride: $3.50 + tax</li>
+                    <li>Day pass: $15 (unlimited 30-min rides)</li>
+                    <li>Annual membership: $205 (best for locals)</li>
+                </ul>
+                
+                <h4>Best Bike Routes:</h4>
+                <ul>
+                    <li>Hudson River Greenway</li>
+                    <li>Brooklyn Waterfront Greenway</li>
+                    <li>Central Park Loop</li>
+                </ul>
+                
+                <a href="#" class="cta-button">Bike Map & Stations</a>
+            </div>
+            
+            <div class="guide-card" data-mode="ferry">
+                <div class="guide-icon">
+                    <i class="fas fa-ferry"></i>
+                </div>
+                <h3>NYC Ferry</h3>
+                <p>Scenic and efficient waterway transportation with 6 routes connecting the boroughs.</p>
+                
+                <div class="transit-tip">
+                    <p>Ferries accept MetroCards and have bike racks onboard.</p>
+                </div>
+                
+                <h4>Ferry Routes:</h4>
+                <ul>
+                    <li>East River (Lower Manhattan, Brooklyn, Queens)</li>
+                    <li>South Brooklyn (Bay Ridge to Wall St)</li>
+                    <li>Rockaway (Wall St to Rockaway Beach)</li>
+                    <li>Astoria (Wall St to Astoria)</li>
+                </ul>
+                
+                <h4>Fares:</h4>
+                <p>Same as subway: $2.90 per ride, free transfers within 2 hours.</p>
+                
+                <a href="#" class="cta-button">Ferry Schedule & Map</a>
+            </div>
+            
+            <div class="guide-card" data-mode="walking">
+                <div class="guide-icon">
+                    <i class="fas fa-walking"></i>
+                </div>
+                <h3>Walking NYC</h3>
+                <p>Manhattan is only 2.3 miles wide - many destinations are walkable!</p>
+                
+                <div class="transit-tip">
+                    <p>Manhattan streets are numbered - odd=west, even=east from 5th Ave.</p>
+                </div>
+                
+                <h4>Walking Times:</h4>
+                <ul>
+                    <li>20 blocks = 1 mile</li>
+                    <li>Average block: 1 min walk (north-south), 3 min walk (east-west)</li>
+                    <li>Times Square to Central Park: 15 min walk</li>
+                </ul>
+                
+                <h4>Pedestrian Tips:</h4>
+                <ul>
+                    <li>Look both ways - one-way streets can be confusing</li>
+                    <li>Use crosswalks and wait for walk signals</li>
+                    <li>Download a walking map or offline directions</li>
+                </ul>
+                
+                <a href="#" class="cta-button">Walking Tour Maps</a>
+            </div>
+            
+            <div class="guide-card" data-mode="all">
+                <div class="guide-icon">
+                    <i class="fas fa-fare-card"></i>
+                </div>
+                <h3>Fares & MetroCard</h3>
+                <p>One payment system for subway, buses, and ferries.</p>
+                
+                <div class="transit-tip">
+                    <p>Get unlimited rides with 7-day ($33) or 30-day ($127) unlimited MetroCards.</p>
+                </div>
+                
+                <h4>Payment Options:</h4>
+                <ul>
+                    <li>Single ride: $2.90 (no transfers)</li>
+                    <li>Pay-Per-Ride MetroCard: $2.90 with free transfers</li>
+                    <li>Unlimited 7-day: $33 (best for visitors)</li>
+                    <li>OMNY contactless payment (credit/debit cards, phones, watches)</li>
+                </ul>
+                
+                <h4>Where to Buy:</h4>
+                <ul>
+                    <li>Subway station vending machines</li>
+                    <li>Convenience stores with MetroCard sign</li>
+                    <li>OMNY readers at all subway stations and buses</li>
+                </ul>
+                
+                <a href="#" class="cta-button">Fare Details & Locations</a>
+            </div>
+        </div>
+        
+        <div class="transit-map-section">
+            <h3>Interactive Transit Map</h3>
+            <img src="assets/images/transit/nyc-transit-map.webp" alt="NYC Transit Map" class="route-map" loading="lazy">
+            <p>Explore our interactive map with real-time service updates and route planning tools.</p>
+            <a href="#" class="cta-button">Launch Interactive Map</a>
+        </div>
+        
+        <div class="transit-resources">
+            <h3>Essential Transit Resources</h3>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h4>MTA Official App</h4>
+                    <p>Real-time subway and bus updates, service alerts, and trip planning.</p>
+                    <a href="#" class="cta-button">Download</a>
+                </div>
+                
+                <div class="resource-card">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h4>Printable Maps</h4>
+                    <p>Subway, bus, and neighborhood maps to carry with you.</p>
+                    <a href="#" class="cta-button">Download PDFs</a>
+                </div>
+                
+                <div class="resource-card">
+                    <i class="fas fa-headset"></i>
+                    <h4>24/7 Transit Help</h4>
+                    <p>MTA customer service for route questions and issues.</p>
+                    <a href="#" class="cta-button">Contact Info</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-newsletter">
+                <h3>Explore NYC With Us</h3>
+                <p>Get transit updates and navigation tips</p>
+                <form class="newsletter-form" id="newsletter-form" name="newsletter" method="POST" netlify data-netlify-honeypot="bot-field">
+                    <input type="hidden" name="form-name" value="newsletter">
+                    <p class="hidden">
+                        <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                    </p>
+                    <div class="input-group">
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Your email address" 
+                            required 
+                            aria-label="Email address"
+                            aria-describedby="email-helper"
+                        >
+                        <button type="submit" aria-label="Subscribe">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <small id="email-helper" class="visually-hidden">We'll never share your email</small>
+                </form>
+                <div class="newsletter-success" aria-live="polite">Thank you for subscribing!</div>
+            </div>
+            
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Discover</h4>
+                    <ul>
+                        <li><a href="index.html#landmarks"><i class="fas fa-landmark"></i> Iconic Landmarks</a></li>
+                        <li><a href="index.html#culture"><i class="fas fa-theater-masks"></i> Arts & Culture</a></li>
+                        <li><a href="index.html#food"><i class="fas fa-utensils"></i> Food Scene</a></li>
+                        <li><a href="index.html#gallery"><i class="fas fa-camera"></i> Photo Gallery</a></li>
+                        <li><a href="index.html#map"><i class="fas fa-map-marked-alt"></i> Map</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Transit Resources</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-subway"></i> Subway Guide</a></li>
+                        <li><a href="#"><i class="fas fa-bus"></i> Bus Routes</a></li>
+                        <li><a href="#"><i class="fas fa-bicycle"></i> Bike Share</a></li>
+                        <li><a href="#"><i class="fas fa-accessible-icon"></i> Accessibility</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-heart"></i> About NYxplore</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                        <li><a href="#"><i class="fas fa-briefcase"></i> Careers</a></li>
+                        <li><a href="#"><i class="fas fa-newspaper"></i> Press</a></li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+                
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Accessibility</a>
+                    <a href="#">Sitemap</a>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
+                    <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
+                  style="transition: stroke-dashoffset 10ms linear; 
+                         stroke-dasharray: 307.919, 307.919; 
+                         stroke-dashoffset: 307.919;">
+            </path>
+        </svg>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu');
+            const navbarMenu = document.getElementById('navbar-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                navbarMenu.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.navbar-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navbarMenu.classList.remove('active');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                });
+            });
+            
+            // Transit mode filtering
+            const modeButtons = document.querySelectorAll('.mode-btn');
+            const guideCards = document.querySelectorAll('.guide-card');
+            
+            modeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    modeButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    const mode = button.getAttribute('data-mode');
+                    
+                    // Filter guide cards
+                    guideCards.forEach(card => {
+                        if (mode === 'all' || card.getAttribute('data-mode') === mode) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

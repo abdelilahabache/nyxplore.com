@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYC Visitor FAQ | NYxplore</title>
+    <meta name="description" content="Get answers to common questions about visiting New York City - transportation, attractions, safety, and more from local experts">
+    
+    <!-- Preload and Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" as="style">
+    <link rel="preload" href="assets/images/faq/nyc-faq-hero.webp" as="image">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Critical CSS -->
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        /* FAQ specific styles */
+        .faq-hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), 
+                        url('assets/images/faq/nyc-faq-hero.webp') center/cover no-repeat;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .faq-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        .faq-search {
+            max-width: 800px;
+            margin: 40px auto;
+            position: relative;
+        }
+        
+        #faq-search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 50px;
+            border: none;
+            box-shadow: var(--box-shadow);
+            font-size: 1.1rem;
+            padding-right: 60px;
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        .faq-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 40px 0;
+            justify-content: center;
+        }
+        
+        .category-btn {
+            padding: 12px 25px;
+            border: 2px solid var(--accent-color);
+            background: white;
+            color: var(--primary-color);
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        .faq-container {
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+        
+        .faq-section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        .faq-item {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .faq-question:hover {
+            background-color: var(--light-color);
+        }
+        
+        .faq-question i {
+            transition: var(--transition);
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .faq-item.active .faq-question {
+            background-color: var(--light-color);
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+        
+        .contact-prompt {
+            background: var(--light-color);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            margin: 60px 0;
+        }
+        
+        /* Navigation Styles */
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        @media (max-width: 768px) {
+            .faq-title {
+                font-size: 2.5rem;
+            }
+            
+            .category-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .faq-question {
+                padding: 15px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme and Sound Controls -->
+    <div class="floating-controls">
+        <button id="sound-toggle" class="control-button" aria-label="Toggle ambient sound">
+          <i class="fas fa-volume-up"></i>
+        </button>
+        <button id="theme-toggle" class="control-button" aria-label="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </button>
+    </div> 
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="logo">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo" width="120" height="40">
+            </a>
+            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="navbar-menu" id="navbar-menu">
+                <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
+                <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
+                <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
+                <li class="navbar-item"><a href="interactive-map.html" class="navbar-link">Map</a></li>
+                <li class="navbar-item"><a href="events-calendar.html" class="navbar-link">Events</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="faq-hero">
+        <div class="hero-content">
+            <h1 class="faq-title">Visitor FAQ</h1>
+            <p class="hero-subtitle">Answers to common questions about visiting New York City</p>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section class="visitor-faq container">
+        <div class="section-header">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-subtitle">Find quick answers from NYC locals and experts</p>
+        </div>
+        
+        <div class="faq-search">
+            <input type="text" id="faq-search-input" placeholder="Search questions...">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+        
+        <div class="faq-categories">
+            <button class="category-btn active" data-category="all">All Questions</button>
+            <button class="category-btn" data-category="transportation">Transportation</button>
+            <button class="category-btn" data-category="attractions">Attractions</button>
+            <button class="category-btn" data-category="dining">Dining</button>
+            <button class="category-btn" data-category="accommodation">Accommodation</button>
+            <button class="category-btn" data-category="safety">Safety</button>
+            <button class="category-btn" data-category="budget">Budget Tips</button>
+        </div>
+        
+        <div class="faq-container">
+            <div class="faq-section" id="transportation-section">
+                <h3 class="section-title"><i class="fas fa-subway"></i> Transportation</h3>
+                
+                <div class="faq-item" data-category="transportation">
+                    <div class="faq-question">
+                        <span>What's the best way to get around NYC?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>The subway is the fastest and most affordable way to get around NYC, operating 24/7. For shorter distances, walking is often the best option in Manhattan. Taxis and rideshares (Uber/Lyft) are convenient but more expensive, especially during peak hours. Buses are good for crosstown routes where subways don't run.</p>
+                        <p>Consider getting a MetroCard (or using OMNY contactless payment) for subway and bus access. Unlimited ride passes are available for 7 or 30 days if you'll be using public transit frequently.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="transportation">
+                    <div class="faq-question">
+                        <span>How do I get from JFK to Manhattan?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>There are several options:</p>
+                        <ul>
+                            <li><strong>AirTrain + Subway:</strong> ($8.25) Take AirTrain to Jamaica Station (for E, J, Z trains) or Howard Beach (for A train), then transfer to subway</li>
+                            <li><strong>Taxi:</strong> Flat rate of $52 (plus tolls and tip) to Manhattan</li>
+                            <li><strong>Rideshare:</strong> Uber/Lyft typically cost $45-$75 depending on demand</li>
+                            <li><strong>Airport Shuttle:</strong> Shared vans like NYC Airporter cost about $20 per person</li>
+                            <li><strong>Private Car:</strong> Services like Dial7 or Carmel cost $75-$100</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="transportation">
+                    <div class="faq-question">
+                        <span>Is the NYC subway safe at night?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Generally yes, especially on busy lines and in Manhattan. However, it's wise to take precautions:</p>
+                        <ul>
+                            <li>Wait near other people or near the conductor's area</li>
+                            <li>Stay in well-lit cars (usually the middle cars)</li>
+                            <li>Be aware of your surroundings</li>
+                            <li>Avoid empty stations late at night</li>
+                            <li>Consider taking a taxi if you're uncomfortable</li>
+                        </ul>
+                        <p>Crime rates on the subway are relatively low, but petty theft does occur, so keep valuables secure.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-section" id="attractions-section">
+                <h3 class="section-title"><i class="fas fa-landmark"></i> Attractions</h3>
+                
+                <div class="faq-item" data-category="attractions">
+                    <div class="faq-question">
+                        <span>What are the must-see attractions for first-time visitors?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Top attractions for first-timers include:</p>
+                        <ul>
+                            <li><strong>Times Square:</strong> The iconic crossroads of the world (best visited at night)</li>
+                            <li><strong>Central Park:</strong> 843 acres of green space with many points of interest</li>
+                            <li><strong>Statue of Liberty & Ellis Island:</strong> Book ferry tickets in advance</li>
+                            <li><strong>Empire State Building or Top of the Rock:</strong> Stunning city views</li>
+                            <li><strong>Metropolitan Museum of Art:</strong> One of the world's great museums</li>
+                            <li><strong>Broadway Show:</strong> See a world-class theater production</li>
+                            <li><strong>9/11 Memorial & Museum:</strong> Powerful tribute to 9/11 victims</li>
+                        </ul>
+                        <p>Consider a CityPASS or similar attraction pass if visiting multiple paid attractions.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="attractions">
+                    <div class="faq-question">
+                        <span>Are there any free attractions in NYC?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! NYC has many excellent free attractions:</p>
+                        <ul>
+                            <li><strong>Museums:</strong> Many offer free hours (MoMA - Fridays 4-8pm, AMNH - pay-what-you-wish)</li>
+                            <li><strong>Parks:</strong> Central Park, High Line, Brooklyn Bridge Park</li>
+                            <li><strong>Landmarks:</strong> Grand Central Terminal, New York Public Library, Charging Bull</li>
+                            <li><strong>Ferries:</strong> Staten Island Ferry (free with great Statue of Liberty views)</li>
+                            <li><strong>Neighborhoods:</strong> Walk through Chinatown, Little Italy, Greenwich Village</li>
+                            <li><strong>Outdoor Events:</strong> SummerStage concerts, Shakespeare in the Park (free tickets)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="attractions">
+                    <div class="faq-question">
+                        <span>How early should I arrive for Broadway shows?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>For Broadway shows:</p>
+                        <ul>
+                            <li>Arrive at least 30 minutes before curtain time</li>
+                            <li>If picking up tickets at will call, arrive 45 minutes early</li>
+                            <li>Latecomers may not be seated until intermission</li>
+                            <li>Allow extra time if dining beforehand (restaurants near theaters get crowded)</li>
+                            <li>Weekend evenings are busiest - allow more time</li>
+                        </ul>
+                        <p>Most shows start promptly at the scheduled time (8pm for evening shows, 2pm for matinees).</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-section" id="dining-section">
+                <h3 class="section-title"><i class="fas fa-utensils"></i> Dining</h3>
+                
+                <div class="faq-item" data-category="dining">
+                    <div class="faq-question">
+                        <span>Do I need to make restaurant reservations in advance?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>It depends on the restaurant and when you're visiting:</p>
+                        <ul>
+                            <li><strong>Popular restaurants:</strong> Book 2-4 weeks in advance (some require 1 month+)</li>
+                            <li><strong>Weekends:</strong> Always make reservations if possible</li>
+                            <li><strong>Lunch:</strong> Often easier to walk in than dinner</li>
+                            <li><strong>Off-hours:</strong> Try dining early (5-6pm) or late (after 9pm)</li>
+                            <li><strong>Alternatives:</strong> Many places have bar seating for walk-ins</li>
+                        </ul>
+                        <p>Use apps like Resy or OpenTable to find availability. Some famous spots (like Katz's Deli) don't take reservations.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="dining">
+                    <div class="faq-question">
+                        <span>What's the tipping etiquette in NYC restaurants?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Standard tipping in NYC:</p>
+                        <ul>
+                            <li><strong>Restaurants:</strong> 18-20% of pre-tax bill (15% is considered minimum)</li>
+                            <li><strong>Bartenders:</strong> $1-2 per drink or 15-20% of tab</li>
+                            <li><strong>Delivery:</strong> 15-20% of order ($2-5 minimum)</li>
+                            <li><strong>Taxi/Rideshare:</strong> 15-20% of fare</li>
+                            <li><strong>Hotel staff:</strong> $1-2 per bag for bellhops, $2-5 per night for housekeeping</li>
+                        </ul>
+                        <p>Many restaurants now include suggested tip amounts on receipts. Credit cards are accepted everywhere for tipping.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-prompt">
+                <h3>Still have questions?</h3>
+                <p>Our NYC experts are happy to help with any additional questions you have about visiting the city.</p>
+                <a href="contact.html" class="cta-button">Contact Us</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-newsletter">
+                <h3>Explore NYC With Us</h3>
+                <p>Get insider tips and recommendations for your NYC visit</p>
+                <form class="newsletter-form" id="newsletter-form" name="newsletter" method="POST" netlify data-netlify-honeypot="bot-field">
+                    <input type="hidden" name="form-name" value="newsletter">
+                    <p class="hidden">
+                        <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                    </p>
+                    <div class="input-group">
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Your email address" 
+                            required 
+                            aria-label="Email address"
+                            aria-describedby="email-helper"
+                        >
+                        <button type="submit" aria-label="Subscribe">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <small id="email-helper" class="visually-hidden">We'll never share your email</small>
+                </form>
+                <div class="newsletter-success" aria-live="polite">Thank you for subscribing!</div>
+            </div>
+            
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Discover</h4>
+                    <ul>
+                        <li><a href="index.html#landmarks"><i class="fas fa-landmark"></i> Iconic Landmarks</a></li>
+                        <li><a href="index.html#culture"><i class="fas fa-theater-masks"></i> Arts & Culture</a></li>
+                        <li><a href="index.html#food"><i class="fas fa-utensils"></i> Food Scene</a></li>
+                        <li><a href="interactive-map.html"><i class="fas fa-map-marked-alt"></i> Interactive Map</a></li>
+                        <li><a href="events-calendar.html"><i class="fas fa-calendar-alt"></i> Events</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Visitor Resources</h4>
+                    <ul>
+                        <li><a href="visitor-faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                        <li><a href="#"><i class="fas fa-subway"></i> Transportation Guide</a></li>
+                        <li><a href="#"><i class="fas fa-hotel"></i> Neighborhood Guide</a></li>
+                        <li><a href="#"><i class="fas fa-suitcase-rolling"></i> Packing Tips</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-heart"></i> About NYxplore</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                        <li><a href="#"><i class="fas fa-briefcase"></i> Careers</a></li>
+                        <li><a href="#"><i class="fas fa-newspaper"></i> Press</a></li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+                
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Accessibility</a>
+                    <a href="#">Sitemap</a>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
+                    <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
+                  style="transition: stroke-dashoffset 10ms linear; 
+                         stroke-dasharray: 307.919, 307.919; 
+                         stroke-dashoffset: 307.919;">
+            </path>
+        </svg>
+    </div>
+
+    <!-- Main JS -->
+    <script src="script.js"></script>
+    
+    <!-- FAQ JS -->
+    <script>
+        // Initialize current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu');
+            const navbarMenu = document.getElementById('navbar-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                navbarMenu.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.navbar-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navbarMenu.classList.remove('active');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                });
+            });
+            
+            // FAQ accordion functionality
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const faqItem = question.parentElement;
+                    faqItem.classList.toggle('active');
+                    
+                    // Close other open items if needed
+                    // document.querySelectorAll('.faq-item').forEach(item => {
+                    //     if (item !== faqItem) {
+                    //         item.classList.remove('active');
+                    //     }
+                    // });
+                });
+            });
+            
+            // FAQ search functionality
+            const searchInput = document.getElementById('faq-search-input');
+            
+            searchInput.addEventListener('input', () => {
+                const searchTerm = searchInput.value.toLowerCase();
+                const faqItems = document.querySelectorAll('.faq-item');
+                
+                faqItems.forEach(item => {
+                    const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                    const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                    
+                    if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+            
+            // FAQ category filtering
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    const category = button.dataset.category;
+                    const faqItems = document.querySelectorAll('.faq-item');
+                    
+                    if (category === 'all') {
+                        faqItems.forEach(item => {
+                            item.style.display = 'block';
+                        });
+                    } else {
+                        faqItems.forEach(item => {
+                            if (item.dataset.category === category) {
+                                item.style.display = 'block';
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

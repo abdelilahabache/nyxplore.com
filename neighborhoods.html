@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brooklyn Bridge | NYxplore</title>
-    <meta name="description" content="Walk across the historic Brooklyn Bridge, connecting Manhattan and Brooklyn">
+    <title>Cultural Neighborhoods of NYC | NYxplore</title>
+    <meta name="description" content="Explore New York City's diverse neighborhoods from Chinatown to Harlem, each with unique cultural attractions, dining, and history">
     
     <!-- Preload and Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" as="style">
-    <link rel="preload" href="assets/images/brooklyn-bridge/brooklyn-bridge-cover.webp" as="image">
+    <link rel="preload" href="assets/images/neighborhoods/nyc-neighborhoods-hero.webp" as="image">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
@@ -34,10 +34,10 @@
             --transition: all 0.3s ease;
         }
         
-        /* Brooklyn Bridge specific styles */
-        .landmark-hero {
+        /* Neighborhoods specific styles */
+        .neighborhoods-hero {
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), 
-                        url('assets/images/brooklyn-bridge/brooklyn-bridge-cover.webp') center/cover no-repeat;
+                        url('assets/images/neighborhoods/nyc-neighborhoods-hero.webp') center/cover no-repeat;
             height: 60vh;
             display: flex;
             align-items: center;
@@ -47,135 +47,104 @@
             position: relative;
         }
         
-        .landmark-title {
+        .neighborhoods-title {
             font-size: 4rem;
             margin-bottom: 1rem;
             text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
         }
         
-        .bridge-facts {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 40px;
-            border-radius: var(--border-radius);
+        .neighborhood-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
             margin: 40px 0;
+            justify-content: center;
         }
         
-        .walking-guide {
+        .neighborhood-filters button {
+            padding: 10px 20px;
+            border: 2px solid var(--accent-color);
+            background: white;
+            color: var(--primary-color);
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .neighborhood-filters button:hover,
+        .neighborhood-filters button.active {
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        .neighborhood-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 30px;
             margin: 40px 0;
         }
         
-        .guide-step {
+        .neighborhood-card {
             background: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
-            padding: 25px;
-            position: relative;
             overflow: hidden;
             transition: var(--transition);
         }
         
-        .guide-step:hover {
+        .neighborhood-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
         }
         
-        .step-number {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 3rem;
-            font-weight: 700;
-            color: rgba(0,0,0,0.05);
-            z-index: 0;
+        .neighborhood-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
         }
         
-        .guide-content {
-            position: relative;
-            z-index: 1;
+        .card-content {
+            padding: 25px;
         }
         
-        .viewpoints {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin: 40px 0;
+        .neighborhood-meta {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            color: var(--primary-color);
+            font-size: 0.9rem;
         }
         
-        .viewpoint {
-            text-align: center;
-            padding: 20px;
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            transition: var(--transition);
-        }
-        
-        .viewpoint:hover {
-            transform: translateY(-5px);
-        }
-        
-        .viewpoint-icon {
-            font-size: 2rem;
+        .neighborhood-meta .highlights {
             color: var(--accent-color);
-            margin-bottom: 15px;
+            font-weight: 600;
         }
         
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 40px auto;
-        }
-        
-        .timeline::before {
-            content: '';
-            position: absolute;
-            width: 2px;
+        .cta-button {
+            display: inline-block;
             background-color: var(--accent-color);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -1px;
-        }
-        
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            width: 50%;
-            box-sizing: border-box;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-        }
-        
-        .timeline-item.animate {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .timeline-item:nth-child(odd) {
-            left: 0;
-        }
-        
-        .timeline-item:nth-child(even) {
-            left: 50%;
-        }
-        
-        .timeline-content {
-            padding: 20px;
-            background: white;
+            color: white;
+            padding: 12px 25px;
             border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-top: 15px;
         }
         
-        .timeline-date {
-            font-weight: 700;
-            color: var(--accent-color);
+        .cta-button:hover {
+            background-color: var(--secondary-color);
         }
         
-        /* Navigation Styles */
+        .neighborhood-map {
+            background-color: var(--light-color);
+            padding: 60px 0;
+            margin: 60px 0;
+            text-align: center;
+        }
+        
+        /* Navigation Styles (same as Brooklyn Bridge) */
         .navbar {
             background-color: var(--primary-color);
             padding: 1rem;
@@ -184,95 +153,18 @@
             z-index: 1000;
         }
         
-        .navbar-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .logo img {
-            height: 40px;
-            width: auto;
-        }
-        
-        .navbar-menu {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .navbar-item {
-            margin-left: 1.5rem;
-        }
-        
-        .navbar-link {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-        
-        .navbar-link:hover {
-            color: var(--accent-color);
-        }
-        
-        .navbar-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
         @media (max-width: 768px) {
-            .landmark-title {
+            .neighborhoods-title {
                 font-size: 2.5rem;
             }
             
-            .viewpoints {
+            .neighborhood-grid {
                 grid-template-columns: 1fr;
             }
             
-            .timeline::before {
-                left: 31px;
-            }
-            
-            .timeline-item {
-                width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
-            }
-            
-            .timeline-item:nth-child(even) {
-                left: 0;
-            }
-            
-            .navbar-menu {
-                display: none;
+            .neighborhood-filters {
                 flex-direction: column;
-                width: 100%;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                background-color: var(--primary-color);
-                padding: 1rem 0;
-            }
-            
-            .navbar-menu.active {
-                display: flex;
-            }
-            
-            .navbar-item {
-                margin: 0;
-                padding: 0.5rem 1rem;
-            }
-            
-            .navbar-toggle {
-                display: block;
+                align-items: center;
             }
         }
     </style>
@@ -310,100 +202,120 @@
     </nav>
     
     <!-- Hero Section -->
-    <section class="landmark-hero">
+    <section class="neighborhoods-hero">
         <div class="hero-content">
-            <h1 class="landmark-title">Brooklyn Bridge</h1>
-            <p class="hero-subtitle">Connecting Manhattan and Brooklyn since 1883</p>
+            <h1 class="neighborhoods-title">NYC Cultural Neighborhoods</h1>
+            <p class="hero-subtitle">Discover the unique character of New York's most vibrant communities</p>
         </div>
     </section>
     
-    <!-- Landmark Info Section -->
-    <section class="landmark-info container">
+    <!-- Neighborhood Guide Section -->
+    <section class="neighborhood-guide container">
         <div class="section-header">
-            <h2 class="section-title">An Engineering Marvel</h2>
-            <p class="section-subtitle">The first steel-wire suspension bridge in the world</p>
+            <h2 class="section-title">Explore NYC's Diverse Communities</h2>
+            <p class="section-subtitle">Each neighborhood tells its own story through food, architecture, and culture</p>
         </div>
         
-        <div class="bridge-facts">
-            <p>The Brooklyn Bridge is a hybrid cable-stayed/suspension bridge in New York City, spanning the East River between the boroughs of Manhattan and Brooklyn. When opened in 1883, it was the longest suspension bridge in the world with a main span of 1,595.5 feet.</p>
+        <div class="neighborhood-filters">
+            <button class="active" data-filter="all">All Areas</button>
+            <button data-filter="manhattan">Manhattan</button>
+            <button data-filter="brooklyn">Brooklyn</button>
+            <button data-filter="queens">Queens</button>
+            <button data-filter="historic">Historic</button>
         </div>
         
-        <h3>Walking Across the Bridge</h3>
-        <div class="walking-guide">
-            <div class="guide-step">
-                <div class="step-number">1</div>
-                <div class="guide-content">
-                    <h4>Start in Manhattan</h4>
-                    <p>Begin at City Hall Park in Manhattan. The pedestrian entrance is near the intersection of Centre Street and Chambers Street.</p>
+        <div class="neighborhood-grid">
+            <!-- Chinatown -->
+            <article class="neighborhood-card" data-borough="manhattan" data-tags="asian,historic">
+                <img src="assets/images/neighborhoods/chinatown.webp" alt="Chinatown streets with lanterns" loading="lazy">
+                <div class="card-content">
+                    <h3>Chinatown</h3>
+                    <div class="neighborhood-meta">
+                        <span class="location">Lower Manhattan</span>
+                        <span class="highlights">Food, Festivals, Markets</span>
+                    </div>
+                    <p>The largest Chinatown in the Western Hemisphere, offering authentic cuisine, vibrant festivals, and bustling markets along Mott and Canal Streets.</p>
+                    <a href="/neighborhoods/chinatown.html" class="cta-button">Explore Chinatown</a>
                 </div>
-            </div>
+            </article>
             
-            <div class="guide-step">
-                <div class="step-number">2</div>
-                <div class="guide-content">
-                    <h4>Walk the Promenade</h4>
-                    <p>The wooden walkway is elevated above the car traffic, offering spectacular views of both Manhattan and Brooklyn.</p>
+            <!-- Harlem -->
+            <article class="neighborhood-card" data-borough="manhattan" data-tags="african-american,historic">
+                <img src="assets/images/neighborhoods/harlem.webp" alt="Apollo Theater in Harlem" loading="lazy">
+                <div class="card-content">
+                    <h3>Harlem</h3>
+                    <div class="neighborhood-meta">
+                        <span class="location">Upper Manhattan</span>
+                        <span class="highlights">Jazz, Soul Food, History</span>
+                    </div>
+                    <p>Birthplace of the Harlem Renaissance, home to legendary jazz clubs, soul food restaurants, and historic brownstones.</p>
+                    <a href="/neighborhoods/harlem.html" class="cta-button">Explore Harlem</a>
                 </div>
-            </div>
+            </article>
             
-            <div class="guide-step">
-                <div class="step-number">3</div>
-                <div class="guide-content">
-                    <h4>Arrive in Brooklyn</h4>
-                    <p>End your walk in DUMBO (Down Under the Manhattan Bridge Overpass), a trendy neighborhood with great dining options.</p>
+            <!-- Little Italy -->
+            <article class="neighborhood-card" data-borough="manhattan" data-tags="italian,historic">
+                <img src="assets/images/neighborhoods/little-italy.webp" alt="Little Italy restaurant scene" loading="lazy">
+                <div class="card-content">
+                    <h3>Little Italy</h3>
+                    <div class="neighborhood-meta">
+                        <span class="location">Lower Manhattan</span>
+                        <span class="highlights">Italian Cuisine, Festas</span>
+                    </div>
+                    <p>Historic Italian enclave famous for its authentic restaurants, bakeries, and the annual Feast of San Gennaro.</p>
+                    <a href="/neighborhoods/little-italy.html" class="cta-button">Explore Little Italy</a>
                 </div>
-            </div>
+            </article>
+            
+            <!-- Williamsburg -->
+            <article class="neighborhood-card" data-borough="brooklyn" data-tags="hipster,arts">
+                <img src="assets/images/neighborhoods/williamsburg.webp" alt="Williamsburg street art and shops" loading="lazy">
+                <div class="card-content">
+                    <h3>Williamsburg</h3>
+                    <div class="neighborhood-meta">
+                        <span class="location">Brooklyn</span>
+                        <span class="highlights">Art, Music, Nightlife</span>
+                    </div>
+                    <p>Brooklyn's hipster capital with thriving arts scene, boutique shops, and panoramic Manhattan skyline views.</p>
+                    <a href="/neighborhoods/williamsburg.html" class="cta-button">Explore Williamsburg</a>
+                </div>
+            </article>
+            
+            <!-- Astoria -->
+            <article class="neighborhood-card" data-borough="queens" data-tags="greek,diverse">
+                <img src="assets/images/neighborhoods/astoria.webp" alt="Astoria's diverse food scene" loading="lazy">
+                <div class="card-content">
+                    <h3>Astoria</h3>
+                    <div class="neighborhood-meta">
+                        <span class="location">Queens</span>
+                        <span class="highlights">Greek Food, Museums</span>
+                    </div>
+                    <p>Historically Greek neighborhood now boasting diverse international cuisine, the Museum of the Moving Image, and Kaufman Arts District.</p>
+                    <a href="/neighborhoods/astoria.html" class="cta-button">Explore Astoria</a>
+                </div>
+            </article>
+            
+            <!-- DUMBO -->
+            <article class="neighborhood-card" data-borough="brooklyn" data-tags="historic,arts">
+                <img src="assets/images/neighborhoods/dumbo.webp" alt="DUMBO waterfront and bridges" loading="lazy">
+                <div class="card-content">
+                    <h3>DUMBO</h3>
+                    <div class="neighborhood-meta">
+                        <span class="location">Brooklyn</span>
+                        <span class="highlights">Art Galleries, Waterfront</span>
+                    </div>
+                    <p>Down Under the Manhattan Bridge Overpass features converted industrial spaces, tech startups, and iconic bridge views.</p>
+                    <a href="/neighborhoods/dumbo.html" class="cta-button">Explore DUMBO</a>
+                </div>
+            </article>
         </div>
         
-        <h3>Best Photo Spots</h3>
-        <div class="viewpoints">
-            <div class="viewpoint">
-                <div class="viewpoint-icon"><i class="fas fa-camera"></i></div>
-                <h4>Manhattan Side</h4>
-                <p>City Hall Park offers classic shots of the bridge's stone arches.</p>
-            </div>
-            
-            <div class="viewpoint">
-                <div class="viewpoint-icon"><i class="fas fa-sun"></i></div>
-                <h4>Mid-Span</h4>
-                <p>The middle of the bridge provides panoramic views of both boroughs.</p>
-            </div>
-            
-            <div class="viewpoint">
-                <div class="viewpoint-icon"><i class="fas fa-umbrella-beach"></i></div>
-                <h4>Brooklyn Side</h4>
-                <p>Brooklyn Bridge Park offers postcard-perfect views of the bridge and Manhattan skyline.</p>
-            </div>
-        </div>
-        
-        <h3>Historical Timeline</h3>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <div class="timeline-date">1869</div>
-                    <p>Construction begins under John A. Roebling's design</p>
-                </div>
-            </div>
-            
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <div class="timeline-date">1883</div>
-                    <p>Bridge opens to the public on May 24 after 14 years of construction</p>
-                </div>
-            </div>
-            
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <div class="timeline-date">1964</div>
-                    <p>Designated a National Historic Landmark</p>
-                </div>
-            </div>
-            
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <div class="timeline-date">1983</div>
-                    <p>Centennial celebration with fireworks and special events</p>
-                </div>
+        <div class="neighborhood-map">
+            <h3>Interactive Neighborhood Map</h3>
+            <div class="map-container">
+                <!-- Map placeholder - would be replaced with actual map implementation -->
+                <img src="assets/images/neighborhoods/nyc-map-placeholder.webp" alt="NYC Neighborhood Map" loading="lazy" style="width:100%; border-radius:var(--border-radius);">
+                <p class="map-notice">Interactive map coming soon - explore our neighborhood guides in the meantime!</p>
             </div>
         </div>
     </section>
@@ -413,7 +325,7 @@
         <div class="footer-container">
             <div class="footer-newsletter">
                 <h3>Explore NYC With Us</h3>
-                <p>Get exclusive updates on hidden gems and events</p>
+                <p>Get neighborhood guides and cultural event updates</p>
                 <form class="newsletter-form" id="newsletter-form" name="newsletter" method="POST" netlify data-netlify-honeypot="bot-field">
                     <input type="hidden" name="form-name" value="newsletter">
                     <p class="hidden">
@@ -510,9 +422,9 @@
         // Initialize current year
         document.getElementById('year').textContent = new Date().getFullYear();
         
-        // Brooklyn Bridge specific scripts
+        // Neighborhood filter functionality
         document.addEventListener('DOMContentLoaded', function() {
-            // Mobile menu toggle
+            // Mobile menu toggle (same as Brooklyn Bridge)
             const mobileMenuButton = document.getElementById('mobile-menu');
             const navbarMenu = document.getElementById('navbar-menu');
             
@@ -530,18 +442,30 @@
                 });
             });
             
-            // Animate timeline items on scroll
-            const timelineItems = document.querySelectorAll('.timeline-item');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
+            // Neighborhood filtering
+            const filterButtons = document.querySelectorAll('.neighborhood-filters button');
+            const neighborhoodCards = document.querySelectorAll('.neighborhood-card');
             
-            timelineItems.forEach(item => observer.observe(item));
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    const filterValue = button.getAttribute('data-filter');
+                    
+                    // Filter cards
+                    neighborhoodCards.forEach(card => {
+                        if (filterValue === 'all' || 
+                            card.getAttribute('data-borough') === filterValue || 
+                            card.getAttribute('data-tags').includes(filterValue)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
         });
     </script>
 </body>

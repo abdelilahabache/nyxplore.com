@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYC Street Art Guide | NYxplore</title>
+    <meta name="description" content="Discover New York City's vibrant street art scene with our guide to murals, graffiti hotspots, and urban art tours">
+    
+    <!-- Preload and Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" as="style">
+    <link rel="preload" href="assets/images/street-art/street-art-hero.webp" as="image">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Critical CSS -->
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        /* Street Art specific styles */
+        .street-art-hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), 
+                        url('assets/images/street-art/street-art-hero.webp') center/cover no-repeat;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .street-art-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        .art-district {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 40px;
+            margin: 40px 0;
+        }
+        
+        .artwork-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .artwork-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .artwork-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .artwork-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .artwork-info {
+            padding: 20px;
+        }
+        
+        .artist-name {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin: 10px 0;
+        }
+        
+        .artwork-location {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+            color: var(--primary-color);
+        }
+        
+        .artwork-location i {
+            margin-right: 8px;
+            color: var(--secondary-color);
+        }
+        
+        .tours-guide {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .tour-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .tour-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tour-type {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            z-index: 1;
+            background: rgba(255,255,255,0.9);
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        
+        /* Navigation Styles */
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        @media (max-width: 768px) {
+            .street-art-title {
+                font-size: 2.5rem;
+            }
+            
+            .artwork-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme and Sound Controls -->
+    <div class="floating-controls">
+        <button id="sound-toggle" class="control-button" aria-label="Toggle ambient sound">
+          <i class="fas fa-volume-up"></i>
+        </button>
+        <button id="theme-toggle" class="control-button" aria-label="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </button>
+    </div> 
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="logo">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo" width="120" height="40">
+            </a>
+            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="navbar-menu" id="navbar-menu">
+                <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
+                <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
+                <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
+                <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
+                <li class="navbar-item"><a href="index.html#map" class="navbar-link">Map</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="street-art-hero">
+        <div class="hero-content">
+            <h1 class="street-art-title">NYC Street Art</h1>
+            <p class="hero-subtitle">Discover the city's vibrant urban art scene</p>
+        </div>
+    </section>
+    
+    <!-- Street Art Guide Section -->
+    <section class="street-art-guide container">
+        <div class="section-header">
+            <h2 class="section-title">New York's Urban Canvas</h2>
+            <p class="section-subtitle">From Bushwick murals to Lower East Side graffiti</p>
+        </div>
+        
+        <div class="art-district">
+            <h3>Bushwick Collective</h3>
+            <p>The Bushwick Collective in Brooklyn is one of NYC's most concentrated areas for large-scale murals, featuring works by both local and international street artists. What began as a local initiative has grown into an open-air gallery spanning multiple blocks.</p>
+        </div>
+        
+        <h3>Featured Artworks</h3>
+        <div class="artwork-grid">
+            <article class="artwork-card">
+                <img src="assets/images/street-art/bushwick-mural-1.webp" alt="Colorful geometric mural in Bushwick" loading="lazy" class="artwork-image">
+                <div class="artwork-info">
+                    <h4>Geometric Dreams</h4>
+                    <p class="artist-name">By Eduardo Kobra</p>
+                    <p>Vibrant kaleidoscopic portrait featuring bold colors and geometric patterns.</p>
+                    <div class="artwork-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Troutman St & St. Nicholas Ave, Brooklyn</span>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="artwork-card">
+                <img src="assets/images/street-art/williamsburg-mural.webp" alt="Large female portrait mural in Williamsburg" loading="lazy" class="artwork-image">
+                <div class="artwork-info">
+                    <h4>The Williamsburg Muse</h4>
+                    <p class="artist-name">By Elle Street</p>
+                    <p>Striking portrait of a local artist that changes subtly each year.</p>
+                    <div class="artwork-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>N 6th St & Bedford Ave, Brooklyn</span>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="artwork-card">
+                <img src="assets/images/street-art/les-graffiti.webp" alt="Abstract graffiti piece in Lower East Side" loading="lazy" class="artwork-image">
+                <div class="artwork-info">
+                    <h4>Urban Chaos</h4>
+                    <p class="artist-name">By CRASH</p>
+                    <p>Legendary graffiti piece that blends abstract forms with pop culture references.</p>
+                    <div class="artwork-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Houston St & Bowery, Manhattan</span>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="artwork-card">
+                <img src="assets/images/street-art/queens-mural.webp" alt="Community mural in Queens" loading="lazy" class="artwork-image">
+                <div class="artwork-info">
+                    <h4>Unity in Diversity</h4>
+                    <p class="artist-name">By community artists</p>
+                    <p>Collaborative mural celebrating Queens' multicultural community.</p>
+                    <div class="artwork-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Jackson Ave & Crane St, Queens</span>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="artwork-card">
+                <img src="assets/images/street-art/harlem-art.webp" alt="Jazz-inspired mural in Harlem" loading="lazy" class="artwork-image">
+                <div class="artwork-info">
+                    <h4>Harlem Jazz</h4>
+                    <p class="artist-name">By James Daunt</p>
+                    <p>Musical tribute to Harlem's jazz legacy with dynamic figures and rhythm.</p>
+                    <div class="artwork-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Lenox Ave & W 125th St, Manhattan</span>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="artwork-card">
+                <img src="assets/images/street-art/dumbo-mural.webp" alt="Waterfront mural in DUMBO" loading="lazy" class="artwork-image">
+                <div class="artwork-info">
+                    <h4>Waterfront Dreams</h4>
+                    <p class="artist-name">By Maya Hayuk</p>
+                    <p>Hypnotic rainbow-colored patterns that play with the waterfront light.</p>
+                    <div class="artwork-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Washington St & Water St, Brooklyn</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <h3>Street Art Tours</h3>
+        <div class="tours-guide">
+            <div class="tour-card">
+                <span class="tour-type">Walking Tour</span>
+                <h4>Bushwick Murals Tour</h4>
+                <p>2-hour guided walk through Brooklyn's most famous street art neighborhood, covering over 50 murals with insights into the artists and their techniques.</p>
+                <ul>
+                    <li><i class="fas fa-clock"></i> Daily at 11am & 2pm</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Starts at Roberts Ave & Troutman St</li>
+                    <li><i class="fas fa-dollar-sign"></i> $25 per person</li>
+                </ul>
+                <a href="#" class="cta-button">Book Tour</a>
+            </div>
+            
+            <div class="tour-card">
+                <span class="tour-type">Bike Tour</span>
+                <h4>Manhattan Graffiti Ride</h4>
+                <p>3-hour bicycle tour covering street art hotspots in the Lower East Side, East Village, and Nolita with stops at hidden alleyway galleries.</p>
+                <ul>
+                    <li><i class="fas fa-clock"></i> Weekends at 10am</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Starts at Tompkins Square Park</li>
+                    <li><i class="fas fa-dollar-sign"></i> $40 per person (bike included)</li>
+                </ul>
+                <a href="#" class="cta-button">Book Tour</a>
+            </div>
+            
+            <div class="tour-card">
+                <span class="tour-type">Self-Guided</span>
+                <h4>Street Art Explorer App</h4>
+                <p>Interactive map with over 200 documented artworks across all boroughs, including artist interviews and augmented reality features.</p>
+                <ul>
+                    <li><i class="fas fa-clock"></i> Available anytime</li>
+                    <li><i class="fas fa-mobile-alt"></i> iOS & Android</li>
+                    <li><i class="fas fa-dollar-sign"></i> $7.99 download</li>
+                </ul>
+                <a href="#" class="cta-button">Get App</a>
+            </div>
+        </div>
+        
+        <div class="artist-spotlight">
+            <h3>Artist Spotlight: Lady Pink</h3>
+            <div class="spotlight-content">
+                <img src="assets/images/street-art/lady-pink.webp" alt="Lady Pink with her artwork" loading="lazy" class="spotlight-image">
+                <div class="spotlight-text">
+                    <p>Sandra "Lady Pink" Fabara is an Ecuadorian-American graffiti artist who began painting on trains in the late 1970s and became one of the few women active in the male-dominated graffiti subculture.</p>
+                    <p>Her work often addresses feminist themes and social issues, and can be seen throughout NYC, particularly in Queens where she maintains a studio. Notable works include the "Subway Therapy" wall in the East Village.</p>
+                    <a href="#" class="cta-button">View Artist Profile</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-newsletter">
+                <h3>Explore NYC With Us</h3>
+                <p>Get updates on new street art installations and tours</p>
+                <form class="newsletter-form" id="newsletter-form" name="newsletter" method="POST" netlify data-netlify-honeypot="bot-field">
+                    <input type="hidden" name="form-name" value="newsletter">
+                    <p class="hidden">
+                        <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                    </p>
+                    <div class="input-group">
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Your email address" 
+                            required 
+                            aria-label="Email address"
+                            aria-describedby="email-helper"
+                        >
+                        <button type="submit" aria-label="Subscribe">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <small id="email-helper" class="visually-hidden">We'll never share your email</small>
+                </form>
+                <div class="newsletter-success" aria-live="polite">Thank you for subscribing!</div>
+            </div>
+            
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Discover</h4>
+                    <ul>
+                        <li><a href="index.html#landmarks"><i class="fas fa-landmark"></i> Iconic Landmarks</a></li>
+                        <li><a href="index.html#culture"><i class="fas fa-theater-masks"></i> Arts & Culture</a></li>
+                        <li><a href="index.html#food"><i class="fas fa-utensils"></i> Food Scene</a></li>
+                        <li><a href="index.html#gallery"><i class="fas fa-camera"></i> Photo Gallery</a></li>
+                        <li><a href="index.html#map"><i class="fas fa-map-marked-alt"></i> Map</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Street Art Resources</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-map"></i> Mural Map</a></li>
+                        <li><a href="#"><i class="fas fa-calendar-alt"></i> Art Walks</a></li>
+                        <li><a href="#"><i class="fas fa-paint-brush"></i> Artist Directory</a></li>
+                        <li><a href="#"><i class="fas fa-camera-retro"></i> Photography Tips</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-heart"></i> About NYxplore</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                        <li><a href="#"><i class="fas fa-briefcase"></i> Careers</a></li>
+                        <li><a href="#"><i class="fas fa-newspaper"></i> Press</a></li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+                
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Accessibility</a>
+                    <a href="#">Sitemap</a>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
+                    <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
+                  style="transition: stroke-dashoffset 10ms linear; 
+                         stroke-dasharray: 307.919, 307.919; 
+                         stroke-dashoffset: 307.919;">
+            </path>
+        </svg>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu');
+            const navbarMenu = document.getElementById('navbar-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                navbarMenu.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.navbar-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navbarMenu.classList.remove('active');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                });
+            });
+            
+            // Artwork card hover effect enhancement
+            const artworkCards = document.querySelectorAll('.artwork-card');
+            artworkCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.querySelector('img').style.transform = 'scale(1.05)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.querySelector('img').style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

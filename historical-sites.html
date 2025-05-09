@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYC Historical Sites | NYxplore</title>
+    <meta name="description" content="Explore New York City's rich history through its most significant landmarks, from Revolutionary War sites to Gilded Age mansions">
+    
+    <!-- Preload and Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" as="style">
+    <link rel="preload" href="assets/images/historical-sites/history-hero.webp" as="image">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Critical CSS -->
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        /* Historical Sites specific styles */
+        .history-hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), 
+                        url('assets/images/historical-sites/history-hero.webp') center/cover no-repeat;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .history-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        .era-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 40px 0;
+            justify-content: center;
+        }
+        
+        .era-btn {
+            padding: 12px 25px;
+            border: 2px solid var(--accent-color);
+            background: white;
+            color: var(--primary-color);
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .era-btn:hover,
+        .era-btn.active {
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        .sites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .site-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .site-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+        
+        .site-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .site-info {
+            padding: 25px;
+        }
+        
+        .site-era {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .site-year {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin: 10px 0;
+        }
+        
+        .site-location {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+            color: var(--primary-color);
+        }
+        
+        .site-location i {
+            margin-right: 8px;
+            color: var(--accent-color);
+        }
+        
+        .historical-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+        
+        .historical-timeline::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: var(--accent-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .timeline-date {
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+        
+        /* Navigation Styles */
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        @media (max-width: 768px) {
+            .history-title {
+                font-size: 2.5rem;
+            }
+            
+            .sites-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .historical-timeline::before {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .era-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme and Sound Controls -->
+    <div class="floating-controls">
+        <button id="sound-toggle" class="control-button" aria-label="Toggle ambient sound">
+          <i class="fas fa-volume-up"></i>
+        </button>
+        <button id="theme-toggle" class="control-button" aria-label="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </button>
+    </div> 
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="logo">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo" width="120" height="40">
+            </a>
+            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="navbar-menu" id="navbar-menu">
+                <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
+                <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
+                <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
+                <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
+                <li class="navbar-item"><a href="index.html#map" class="navbar-link">Map</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="history-hero">
+        <div class="hero-content">
+            <h1 class="history-title">NYC Historical Sites</h1>
+            <p class="hero-subtitle">Walk through 400 years of New York history</p>
+        </div>
+    </section>
+    
+    <!-- Historical Sites Section -->
+    <section class="historical-sites container">
+        <div class="section-header">
+            <h2 class="section-title">New York's Living History</h2>
+            <p class="section-subtitle">Preserved landmarks that tell the story of America's greatest city</p>
+        </div>
+        
+        <div class="era-filters">
+            <button class="era-btn active" data-era="all">All Eras</button>
+            <button class="era-btn" data-era="colonial">Colonial</button>
+            <button class="era-btn" data-era="revolution">Revolution</button>
+            <button class="era-btn" data-era="gilded">Gilded Age</button>
+            <button class="era-btn" data-era="modern">Modern</button>
+        </div>
+        
+        <div class="sites-grid">
+            <!-- Federal Hall -->
+            <article class="site-card" data-era="revolution">
+                <img src="assets/images/historical-sites/federal-hall.webp" alt="Federal Hall National Memorial" loading="lazy" class="site-image">
+                <div class="site-info">
+                    <span class="site-era">Revolutionary Era</span>
+                    <h3>Federal Hall</h3>
+                    <p class="site-year">1789</p>
+                    <p>Site of George Washington's inauguration as first U.S. President and the first Capitol building.</p>
+                    <div class="site-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>26 Wall Street, Financial District</span>
+                    </div>
+                    <a href="#" class="cta-button">Visit Site</a>
+                </div>
+            </article>
+            
+            <!-- Ellis Island -->
+            <article class="site-card" data-era="modern">
+                <img src="assets/images/historical-sites/ellis-island.webp" alt="Ellis Island Immigration Museum" loading="lazy" class="site-image">
+                <div class="site-info">
+                    <span class="site-era">Modern Era</span>
+                    <h3>Ellis Island</h3>
+                    <p class="site-year">1892-1954</p>
+                    <p>America's busiest immigrant inspection station that processed over 12 million immigrants.</p>
+                    <div class="site-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>New York Harbor</span>
+                    </div>
+                    <a href="#" class="cta-button">Plan Visit</a>
+                </div>
+            </article>
+            
+            <!-- Fraunces Tavern -->
+            <article class="site-card" data-era="revolution">
+                <img src="assets/images/historical-sites/fraunces-tavern.webp" alt="Fraunces Tavern Museum" loading="lazy" class="site-image">
+                <div class="site-info">
+                    <span class="site-era">Revolutionary Era</span>
+                    <h3>Fraunces Tavern</h3>
+                    <p class="site-year">1762</p>
+                    <p>Where George Washington gave his farewell address to Continental Army officers in 1783.</p>
+                    <div class="site-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>54 Pearl Street, Financial District</span>
+                    </div>
+                    <a href="#" class="cta-button">Tour Museum</a>
+                </div>
+            </article>
+            
+            <!-- Tenement Museum -->
+            <article class="site-card" data-era="modern">
+                <img src="assets/images/historical-sites/tenement-museum.webp" alt="Lower East Side Tenement Museum" loading="lazy" class="site-image">
+                <div class="site-info">
+                    <span class="site-era">Modern Era</span>
+                    <h3>Tenement Museum</h3>
+                    <p class="site-year">1863</p>
+                    <p>Preserved tenement building showcasing immigrant life in the 19th and 20th centuries.</p>
+                    <div class="site-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>97 Orchard Street, Lower East Side</span>
+                    </div>
+                    <a href="#" class="cta-button">Book Tour</a>
+                </div>
+            </article>
+            
+            <!-- Hamilton Grange -->
+            <article class="site-card" data-era="colonial">
+                <img src="assets/images/historical-sites/hamilton-grange.webp" alt="Hamilton Grange National Memorial" loading="lazy" class="site-image">
+                <div class="site-info">
+                    <span class="site-era">Colonial Era</span>
+                    <h3>Hamilton Grange</h3>
+                    <p class="site-year">1802</p>
+                    <p>Country home of Alexander Hamilton, preserved with period furnishings and exhibits.</p>
+                    <div class="site-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>414 W 141st Street, Harlem</span>
+                    </div>
+                    <a href="#" class="cta-button">Explore Home</a>
+                </div>
+            </article>
+            
+            <!-- Woolworth Building -->
+            <article class="site-card" data-era="gilded">
+                <img src="assets/images/historical-sites/woolworth-building.webp" alt="Woolworth Building lobby" loading="lazy" class="site-image">
+                <div class="site-info">
+                    <span class="site-era">Gilded Age</span>
+                    <h3>Woolworth Building</h3>
+                    <p class="site-year">1913</p>
+                    <p>Early skyscraper with stunning Gothic Revival architecture and mosaic ceilings.</p>
+                    <div class="site-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>233 Broadway, Tribeca</span>
+                    </div>
+                    <a href="#" class="cta-button">View Lobby</a>
+                </div>
+            </article>
+        </div>
+        
+        <h3>New York City Historical Timeline</h3>
+        <div class="historical-timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">1624</div>
+                    <p>Dutch establish New Amsterdam settlement</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">1785-1790</div>
+                    <p>New York serves as first U.S. capital</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">1825</div>
+                    <p>Erie Canal opens, making NYC premier American port</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">1883</div>
+                    <p>Brooklyn Bridge opens, connecting Manhattan and Brooklyn</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">1920</div>
+                    <p>Harlem Renaissance begins cultural movement</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">2001</div>
+                    <p>9/11 attacks and construction of memorial</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="historical-tours">
+            <h3>Guided History Tours</h3>
+            <div class="tours-grid">
+                <div class="tour-card">
+                    <i class="fas fa-walking"></i>
+                    <h4>Revolutionary New York</h4>
+                    <p>2-hour walking tour of Financial District sites from the American Revolution.</p>
+                    <a href="#" class="cta-button">Book Tour</a>
+                </div>
+                
+                <div class="tour-card">
+                    <i class="fas fa-subway"></i>
+                    <h4>Immigrant Experience</h4>
+                    <p>Explore Lower East Side tenements and Ellis Island with historian guide.</p>
+                    <a href="#" class="cta-button">Book Tour</a>
+                </div>
+                
+                <div class="tour-card">
+                    <i class="fas fa-landmark"></i>
+                    <h4>Gilded Age Mansions</h4>
+                    <p>Tour of Upper East Side millionaire's row and Museum Mile.</p>
+                    <a href="#" class="cta-button">Book Tour</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-newsletter">
+                <h3>Explore NYC With Us</h3>
+                <p>Get updates on historical tours and preservation events</p>
+                <form class="newsletter-form" id="newsletter-form" name="newsletter" method="POST" netlify data-netlify-honeypot="bot-field">
+                    <input type="hidden" name="form-name" value="newsletter">
+                    <p class="hidden">
+                        <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                    </p>
+                    <div class="input-group">
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Your email address" 
+                            required 
+                            aria-label="Email address"
+                            aria-describedby="email-helper"
+                        >
+                        <button type="submit" aria-label="Subscribe">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <small id="email-helper" class="visually-hidden">We'll never share your email</small>
+                </form>
+                <div class="newsletter-success" aria-live="polite">Thank you for subscribing!</div>
+            </div>
+            
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Discover</h4>
+                    <ul>
+                        <li><a href="index.html#landmarks"><i class="fas fa-landmark"></i> Iconic Landmarks</a></li>
+                        <li><a href="index.html#culture"><i class="fas fa-theater-masks"></i> Arts & Culture</a></li>
+                        <li><a href="index.html#food"><i class="fas fa-utensils"></i> Food Scene</a></li>
+                        <li><a href="index.html#gallery"><i class="fas fa-camera"></i> Photo Gallery</a></li>
+                        <li><a href="index.html#map"><i class="fas fa-map-marked-alt"></i> Map</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>History Resources</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-book"></i> Historical Archives</a></li>
+                        <li><a href="#"><i class="fas fa-map"></i> Heritage Trails</a></li>
+                        <li><a href="#"><i class="fas fa-university"></i> Preservation Society</a></li>
+                        <li><a href="#"><i class="fas fa-child"></i> Kids History</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-heart"></i> About NYxplore</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                        <li><a href="#"><i class="fas fa-briefcase"></i> Careers</a></li>
+                        <li><a href="#"><i class="fas fa-newspaper"></i> Press</a></li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+                
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Accessibility</a>
+                    <a href="#">Sitemap</a>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
+                    <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
+                  style="transition: stroke-dashoffset 10ms linear; 
+                         stroke-dasharray: 307.919, 307.919; 
+                         stroke-dashoffset: 307.919;">
+            </path>
+        </svg>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu');
+            const navbarMenu = document.getElementById('navbar-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                navbarMenu.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.navbar-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navbarMenu.classList.remove('active');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                });
+            });
+            
+            // Era filtering functionality
+            const eraButtons = document.querySelectorAll('.era-btn');
+            const siteCards = document.querySelectorAll('.site-card');
+            
+            eraButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    eraButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    const era = button.getAttribute('data-era');
+                    
+                    // Filter site cards
+                    siteCards.forEach(card => {
+                        if (era === 'all' || card.getAttribute('data-era') === era) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

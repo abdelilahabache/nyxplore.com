@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Map | NYxplore</title>
+    <meta name="description" content="Complete directory of all pages on NYxplore - your guide to New York City's landmarks, culture, food, and events">
+    
+    <!-- Preload and Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" as="style">
+    <link rel="preload" href="assets/images/sitemap/nyc-sitemap-hero.webp" as="image">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Critical CSS -->
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        /* Sitemap specific styles */
+        .sitemap-hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), 
+                        url('assets/images/sitemap/nyc-sitemap-hero.webp') center/cover no-repeat;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .sitemap-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        .sitemap-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .sitemap-section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        .sitemap-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .sitemap-link-group {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 25px;
+        }
+        
+        .link-group-title {
+            font-size: 1.3rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .link-group-title i {
+            color: var(--accent-color);
+        }
+        
+        .sitemap-list {
+            list-style-type: none;
+        }
+        
+        .sitemap-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .sitemap-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+        
+        .sitemap-list a {
+            color: var(--primary-color);
+            transition: var(--transition);
+            display: block;
+            padding: 5px 0;
+        }
+        
+        .sitemap-list a:hover {
+            color: var(--secondary-color);
+            transform: translateX(5px);
+        }
+        
+        .xml-sitemap {
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+            background: var(--light-color);
+            border-radius: var(--border-radius);
+        }
+        
+        /* Navigation Styles */
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        @media (max-width: 768px) {
+            .sitemap-title {
+                font-size: 2.5rem;
+            }
+            
+            .sitemap-links {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme and Sound Controls -->
+    <div class="floating-controls">
+        <button id="sound-toggle" class="control-button" aria-label="Toggle ambient sound">
+          <i class="fas fa-volume-up"></i>
+        </button>
+        <button id="theme-toggle" class="control-button" aria-label="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </button>
+    </div> 
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="logo">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo" width="120" height="40">
+            </a>
+            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="navbar-menu" id="navbar-menu">
+                <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
+                <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
+                <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
+                <li class="navbar-item"><a href="interactive-map.html" class="navbar-link">Map</a></li>
+                <li class="navbar-item"><a href="events-calendar.html" class="navbar-link">Events</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="sitemap-hero">
+        <div class="hero-content">
+            <h1 class="sitemap-title">Site Map</h1>
+            <p class="hero-subtitle">Complete directory of NYxplore resources</p>
+        </div>
+    </section>
+    
+    <!-- Sitemap Section -->
+    <section class="website-sitemap">
+        <div class="sitemap-container">
+            <div class="sitemap-section">
+                <h2 class="section-title">Explore NYxplore</h2>
+                <div class="sitemap-links">
+                    <div class="sitemap-link-group">
+                        <h3 class="link-group-title"><i class="fas fa-compass"></i> Discover NYC</h3>
+                        <ul class="sitemap-list">
+                            <li><a href="index.html">Homepage</a></li>
+                            <li><a href="index.html#landmarks">Iconic Landmarks</a></li>
+                            <li><a href="index.html#culture">Arts & Culture</a></li>
+                            <li><a href="index.html#food">Food Scene</a></li>
+                            <li><a href="index.html#gallery">Photo Gallery</a></li>
+                            <li><a href="index.html#map">Neighborhood Map</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sitemap-link-group">
+                        <h3 class="link-group-title"><i class="fas fa-calendar-alt"></i> Events & Activities</h3>
+                        <ul class="sitemap-list">
+                            <li><a href="events-calendar.html">Events Calendar</a></li>
+                            <li><a href="events-calendar.html#concerts">Concerts</a></li>
+                            <li><a href="events-calendar.html#festivals">Festivals</a></li>
+                            <li><a href="events-calendar.html#exhibitions">Exhibitions</a></li>
+                            <li><a href="events-calendar.html#sports">Sports Events</a></li>
+                            <li><a href="events-calendar.html#family">Family Activities</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sitemap-link-group">
+                        <h3 class="link-group-title"><i class="fas fa-map-marked-alt"></i> Interactive Tools</h3>
+                        <ul class="sitemap-list">
+                            <li><a href="interactive-map.html">Interactive Map</a></li>
+                            <li><a href="interactive-map.html#landmarks">Landmarks Map</a></li>
+                            <li><a href="interactive-map.html#restaurants">Restaurant Finder</a></li>
+                            <li><a href="interactive-map.html#transportation">Transportation Guide</a></li>
+                            <li><a href="interactive-map.html#itinerary">Itinerary Planner</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sitemap-section">
+                <h2 class="section-title">Visitor Resources</h2>
+                <div class="sitemap-links">
+                    <div class="sitemap-link-group">
+                        <h3 class="link-group-title"><i class="fas fa-question-circle"></i> Help Center</h3>
+                        <ul class="sitemap-list">
+                            <li><a href="visitor-faq.html">Visitor FAQ</a></li>
+                            <li><a href="visitor-faq.html#transportation">Transportation</a></li>
+                            <li><a href="visitor-faq.html#accommodation">Accommodation</a></li>
+                            <li><a href="visitor-faq.html#safety">Safety Tips</a></li>
+                            <li><a href="visitor-faq.html#budget">Budget Guide</a></li>
+                            <li><a href="visitor-faq.html#accessibility">Accessibility</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sitemap-link-group">
+                        <h3 class="link-group-title"><i class="fas fa-book-open"></i> Guides</h3>
+                        <ul class="sitemap-list">
+                            <li><a href="guides/first-time-visitors.html">First-Time Visitors</a></li>
+                            <li><a href="guides/family-guide.html">Family Guide</a></li>
+                            <li><a href="guides/food-tours.html">Food Tours</a></li>
+                            <li><a href="guides/seasonal-guides.html">Seasonal Guides</a></li>
+                            <li><a href="guides/neighborhood-spotlights.html">Neighborhood Spotlights</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sitemap-link-group">
+                        <h3 class="link-group-title"><i class="fas fa-blog"></i> Blog & News</h3>
+                        <ul class="sitemap-list">
+                            <li><a href="blog.html">NYC Blog</a></li>
+                            <li><a href="blog/category/events.html">Event Updates</a></li>
+                            <li><a href="blog/category/restaurants.html">Restaurant News</a></li>
+                            <li><a href="blog/category/tips.html">Local Tips</a></li>
+                            <li><a href="blog/category/hidden-gems.html">Hidden Gems</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sitemap-section">
+                <h2 class="section-title">About NYxplore</h2>
+                <div class="sitemap-links">
+                    <div class="sitemap-link-group">
+                        <h3 class="link-group-title"><i class="fas fa-info-circle"></i> Company</h3>
+                        <ul class="sitemap-list">
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="about.html#team">Our Team</a></li>
+                            <li><a href="about.html#mission">Mission</a></li>
+                            <li><a href="about.html#partners">Partners</a></li>
+                            <li><a href="careers.html">Careers</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sitemap-link-group">
+                        <h3 class="link-group-title"><i class="fas fa-newspaper"></i> Press</h3>
+                        <ul class="sitemap-list">
+                            <li><a href="press.html">Press Center</a></li>
+                            <li><a href="press.html#releases">Press Releases</a></li>
+                            <li><a href="press.html#media-kit">Media Kit</a></li>
+                            <li><a href="press.html#contact">Press Contact</a></li>
+                            <li><a href="press.html#coverage">Media Coverage</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sitemap-link-group">
+                        <h3 class="link-group-title"><i class="fas fa-headset"></i> Support</h3>
+                        <ul class="sitemap-list">
+                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="feedback.html">Feedback</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                            <li><a href="terms.html">Terms of Service</a></li>
+                            <li><a href="accessibility.html">Accessibility</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="xml-sitemap">
+                <h3>Looking for our XML sitemap?</h3>
+                <p>For search engines and developers, access our <a href="sitemap.xml">XML sitemap</a> for all website pages.</p>
+                <a href="sitemap.xml" class="cta-button">View XML Sitemap</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-newsletter">
+                <h3>Explore NYC With Us</h3>
+                <p>Get the latest NYC travel tips and hidden gems in your inbox</p>
+                <form class="newsletter-form" id="newsletter-form" name="newsletter" method="POST" netlify data-netlify-honeypot="bot-field">
+                    <input type="hidden" name="form-name" value="newsletter">
+                    <p class="hidden">
+                        <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                    </p>
+                    <div class="input-group">
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Your email address" 
+                            required 
+                            aria-label="Email address"
+                            aria-describedby="email-helper"
+                        >
+                        <button type="submit" aria-label="Subscribe">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <small id="email-helper" class="visually-hidden">We'll never share your email</small>
+                </form>
+                <div class="newsletter-success" aria-live="polite">Thank you for subscribing!</div>
+            </div>
+            
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Discover</h4>
+                    <ul>
+                        <li><a href="index.html#landmarks"><i class="fas fa-landmark"></i> Iconic Landmarks</a></li>
+                        <li><a href="index.html#culture"><i class="fas fa-theater-masks"></i> Arts & Culture</a></li>
+                        <li><a href="index.html#food"><i class="fas fa-utensils"></i> Food Scene</a></li>
+                        <li><a href="interactive-map.html"><i class="fas fa-map-marked-alt"></i> Interactive Map</a></li>
+                        <li><a href="events-calendar.html"><i class="fas fa-calendar-alt"></i> Events</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="visitor-faq.html"><i class="fas fa-question-circle"></i> Visitor FAQ</a></li>
+                        <li><a href="blog.html"><i class="fas fa-blog"></i> Travel Blog</a></li>
+                        <li><a href="guides.html"><i class="fas fa-book"></i> City Guides</a></li>
+                        <li><a href="sitemap.html"><i class="fas fa-sitemap"></i> Site Map</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html"><i class="fas fa-heart"></i> About Us</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                        <li><a href="press.html"><i class="fas fa-newspaper"></i> Press</a></li>
+                        <li><a href="careers.html"><i class="fas fa-briefcase"></i> Careers</a></li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+                
+                <div class="legal-links">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="accessibility.html">Accessibility</a>
+                    <a href="sitemap.html">Site Map</a>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
+                    <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
+                  style="transition: stroke-dashoffset 10ms linear; 
+                         stroke-dasharray: 307.919, 307.919; 
+                         stroke-dashoffset: 307.919;">
+            </path>
+        </svg>
+    </div>
+
+    <!-- Main JS -->
+    <script src="script.js"></script>
+    
+    <!-- Sitemap JS -->
+    <script>
+        // Initialize current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu');
+            const navbarMenu = document.getElementById('navbar-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                navbarMenu.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.navbar-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navbarMenu.classList.remove('active');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

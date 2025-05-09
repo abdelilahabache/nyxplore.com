@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYC Cultural Events | NYxplore</title>
+    <meta name="description" content="Discover New York City's vibrant cultural scene with our guide to museum exhibitions, theater performances, dance shows, and artistic happenings">
+    
+    <!-- Preload and Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" as="style">
+    <link rel="preload" href="assets/images/cultural-events/cultural-hero.webp" as="image">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Critical CSS -->
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        /* Cultural Events specific styles */
+        .cultural-hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), 
+                        url('assets/images/cultural-events/cultural-hero.webp') center/cover no-repeat;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .cultural-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        .event-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 40px 0;
+            justify-content: center;
+        }
+        
+        .category-btn {
+            padding: 12px 25px;
+            border: none;
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .category-btn:hover,
+        .category-btn.active {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .event-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .event-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .event-details {
+            padding: 25px;
+        }
+        
+        .event-type {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .event-date {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .event-date i {
+            margin-right: 8px;
+        }
+        
+        .event-location {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            color: var(--primary-color);
+        }
+        
+        .event-location i {
+            margin-right: 8px;
+            color: var(--accent-color);
+        }
+        
+        .event-highlights {
+            margin: 20px 0;
+        }
+        
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .highlight-item i {
+            color: var(--accent-color);
+            margin-right: 10px;
+            width: 20px;
+        }
+        
+        /* Navigation Styles */
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        @media (max-width: 768px) {
+            .cultural-title {
+                font-size: 2.5rem;
+            }
+            
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme and Sound Controls -->
+    <div class="floating-controls">
+        <button id="sound-toggle" class="control-button" aria-label="Toggle ambient sound">
+          <i class="fas fa-volume-up"></i>
+        </button>
+        <button id="theme-toggle" class="control-button" aria-label="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </button>
+    </div> 
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="logo">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo" width="120" height="40">
+            </a>
+            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="navbar-menu" id="navbar-menu">
+                <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
+                <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
+                <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
+                <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
+                <li class="navbar-item"><a href="index.html#map" class="navbar-link">Map</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="cultural-hero">
+        <div class="hero-content">
+            <h1 class="cultural-title">NYC Cultural Events</h1>
+            <p class="hero-subtitle">Immerse yourself in the city's vibrant arts scene</p>
+        </div>
+    </section>
+    
+    <!-- Cultural Events Section -->
+    <section class="cultural-events container">
+        <div class="section-header">
+            <h2 class="section-title">New York's Cultural Calendar</h2>
+            <p class="section-subtitle">From Broadway shows to avant-garde gallery exhibitions</p>
+        </div>
+        
+        <div class="event-categories">
+            <button class="category-btn active" data-category="all">All Events</button>
+            <button class="category-btn" data-category="museum">Museums</button>
+            <button class="category-btn" data-category="theater">Theater</button>
+            <button class="category-btn" data-category="dance">Dance</button>
+            <button class="category-btn" data-category="music">Music</button>
+            <button class="category-btn" data-category="lecture">Lectures</button>
+            <button class="category-btn" data-category="special">Special Exhibits</button>
+        </div>
+        
+        <div class="events-grid">
+            <!-- Museum Event -->
+            <article class="event-card" data-category="museum special">
+                <img src="assets/images/cultural-events/met-exhibit.webp" alt="Metropolitan Museum special exhibition" loading="lazy" class="event-image">
+                <div class="event-details">
+                    <span class="event-type">Museum Exhibition</span>
+                    <h3>Ancient Egypt Reimagined</h3>
+                    <div class="event-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Through October 15, 2024</span>
+                    </div>
+                    <div class="event-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>The Metropolitan Museum of Art</span>
+                    </div>
+                    <div class="event-highlights">
+                        <div class="highlight-item">
+                            <i class="fas fa-star"></i>
+                            <span>Over 200 artifacts from the New Kingdom</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Timed entry tickets required</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>Included with museum admission</span>
+                        </div>
+                    </div>
+                    <a href="#" class="cta-button">Get Tickets</a>
+                </div>
+            </article>
+            
+            <!-- Theater Event -->
+            <article class="event-card" data-category="theater">
+                <img src="assets/images/cultural-events/broadway-show.webp" alt="Broadway theater performance" loading="lazy" class="event-image">
+                <div class="event-details">
+                    <span class="event-type">Broadway Show</span>
+                    <h3>Hamilton</h3>
+                    <div class="event-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Multiple dates through 2025</span>
+                    </div>
+                    <div class="event-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Richard Rodgers Theatre</span>
+                    </div>
+                    <div class="event-highlights">
+                        <div class="highlight-item">
+                            <i class="fas fa-star"></i>
+                            <span>Tony Award-winning musical</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-clock"></i>
+                            <span>2 hours 45 minutes with intermission</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-wheelchair"></i>
+                            <span>Accessible performances available</span>
+                        </div>
+                    </div>
+                    <a href="#" class="cta-button">Book Tickets</a>
+                </div>
+            </article>
+            
+            <!-- Dance Event -->
+            <article class="event-card" data-category="dance">
+                <img src="assets/images/cultural-events/ballet.webp" alt="New York City Ballet performance" loading="lazy" class="event-image">
+                <div class="event-details">
+                    <span class="event-type">Dance Performance</span>
+                    <h3>New York City Ballet Fall Season</h3>
+                    <div class="event-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>September 17 - October 13, 2024</span>
+                    </div>
+                    <div class="event-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>David H. Koch Theater</span>
+                    </div>
+                    <div class="event-highlights">
+                        <div class="highlight-item">
+                            <i class="fas fa-star"></i>
+                            <span>Mixed repertory programs</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Evening and matinee performances</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-user-friends"></i>
+                            <span>Student and senior discounts available</span>
+                        </div>
+                    </div>
+                    <a href="#" class="cta-button">View Schedule</a>
+                </div>
+            </article>
+            
+            <!-- Music Event -->
+            <article class="event-card" data-category="music">
+                <img src="assets/images/cultural-events/philharmonic.webp" alt="New York Philharmonic concert" loading="lazy" class="event-image">
+                <div class="event-details">
+                    <span class="event-type">Classical Music</span>
+                    <h3>New York Philharmonic Opening Night</h3>
+                    <div class="event-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>September 18, 2024 at 7:30pm</span>
+                    </div>
+                    <div class="event-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>David Geffen Hall</span>
+                    </div>
+                    <div class="event-highlights">
+                        <div class="highlight-item">
+                            <i class="fas fa-star"></i>
+                            <span>Beethoven's Symphony No. 9</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Pre-concert lecture at 6:30pm</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-utensils"></i>
+                            <span>Dining packages available</span>
+                        </div>
+                    </div>
+                    <a href="#" class="cta-button">Purchase Tickets</a>
+                </div>
+            </article>
+            
+            <!-- Lecture Event -->
+            <article class="event-card" data-category="lecture">
+                <img src="assets/images/cultural-events/lecture.webp" alt="Author lecture at public library" loading="lazy" class="event-image">
+                <div class="event-details">
+                    <span class="event-type">Author Talk</span>
+                    <h3>Colson Whitehead in Conversation</h3>
+                    <div class="event-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>October 5, 2024 at 6:30pm</span>
+                    </div>
+                    <div class="event-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>New York Public Library</span>
+                    </div>
+                    <div class="event-highlights">
+                        <div class="highlight-item">
+                            <i class="fas fa-star"></i>
+                            <span>Discussion of new novel "Crook Manifesto"</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Free with RSVP</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-book"></i>
+                            <span>Book signing to follow</span>
+                        </div>
+                    </div>
+                    <a href="#" class="cta-button">RSVP Now</a>
+                </div>
+            </article>
+            
+            <!-- Special Event -->
+            <article class="event-card" data-category="special museum">
+                <img src="assets/images/cultural-events/installation.webp" alt="Interactive art installation" loading="lazy" class="event-image">
+                <div class="event-details">
+                    <span class="event-type">Art Installation</span>
+                    <h3>Yayoi Kusama: Infinite Mirrors</h3>
+                    <div class="event-date">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>November 10, 2024 - January 5, 2025</span>
+                    </div>
+                    <div class="event-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>New Museum</span>
+                    </div>
+                    <div class="event-highlights">
+                        <div class="highlight-item">
+                            <i class="fas fa-star"></i>
+                            <span>6 immersive mirror rooms</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Timed entry every 30 minutes</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span>Extremely popular - book early</span>
+                        </div>
+                    </div>
+                    <a href="#" class="cta-button">Reserve Entry</a>
+                </div>
+            </article>
+        </div>
+        
+        <div class="cultural-resources">
+            <h3>Cultural Resources</h3>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <i class="fas fa-theater-masks"></i>
+                    <h4>Broadway Discounts</h4>
+                    <p>How to find same-day tickets and student rush deals for popular shows.</p>
+                    <a href="#" class="cta-button">Learn More</a>
+                </div>
+                
+                <div class="resource-card">
+                    <i class="fas fa-university"></i>
+                    <h4>Museum Free Days</h4>
+                    <p>Complete guide to free admission hours at NYC's top museums.</p>
+                    <a href="#" class="cta-button">View Schedule</a>
+                </div>
+                
+                <div class="resource-card">
+                    <i class="fas fa-subway"></i>
+                    <h4>Cultural Venue Guide</h4>
+                    <p>Best transportation options and tips for major cultural venues.</p>
+                    <a href="#" class="cta-button">Get Guide</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-newsletter">
+                <h3>Explore NYC With Us</h3>
+                <p>Get weekly updates on cultural events and exhibitions</p>
+                <form class="newsletter-form" id="newsletter-form" name="newsletter" method="POST" netlify data-netlify-honeypot="bot-field">
+                    <input type="hidden" name="form-name" value="newsletter">
+                    <p class="hidden">
+                        <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                    </p>
+                    <div class="input-group">
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Your email address" 
+                            required 
+                            aria-label="Email address"
+                            aria-describedby="email-helper"
+                        >
+                        <button type="submit" aria-label="Subscribe">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <small id="email-helper" class="visually-hidden">We'll never share your email</small>
+                </form>
+                <div class="newsletter-success" aria-live="polite">Thank you for subscribing!</div>
+            </div>
+            
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Discover</h4>
+                    <ul>
+                        <li><a href="index.html#landmarks"><i class="fas fa-landmark"></i> Iconic Landmarks</a></li>
+                        <li><a href="index.html#culture"><i class="fas fa-theater-masks"></i> Arts & Culture</a></li>
+                        <li><a href="index.html#food"><i class="fas fa-utensils"></i> Food Scene</a></li>
+                        <li><a href="index.html#gallery"><i class="fas fa-camera"></i> Photo Gallery</a></li>
+                        <li><a href="index.html#map"><i class="fas fa-map-marked-alt"></i> Map</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Cultural Resources</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-calendar-alt"></i> Event Calendar</a></li>
+                        <li><a href="#"><i class="fas fa-ticket-alt"></i> Ticket Guide</a></li>
+                        <li><a href="#"><i class="fas fa-child"></i> Family-Friendly</a></li>
+                        <li><a href="#"><i class="fas fa-wheelchair"></i> Accessibility</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-heart"></i> About NYxplore</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                        <li><a href="#"><i class="fas fa-briefcase"></i> Careers</a></li>
+                        <li><a href="#"><i class="fas fa-newspaper"></i> Press</a></li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+                
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Accessibility</a>
+                    <a href="#">Sitemap</a>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
+                    <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
+                  style="transition: stroke-dashoffset 10ms linear; 
+                         stroke-dasharray: 307.919, 307.919; 
+                         stroke-dashoffset: 307.919;">
+            </path>
+        </svg>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu');
+            const navbarMenu = document.getElementById('navbar-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                navbarMenu.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.navbar-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navbarMenu.classList.remove('active');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                });
+            });
+            
+            // Event category filtering
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const eventCards = document.querySelectorAll('.event-card');
+            
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    const category = button.getAttribute('data-category');
+                    
+                    // Filter event cards
+                    eventCards.forEach(card => {
+                        if (category === 'all' || card.getAttribute('data-category').includes(category)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

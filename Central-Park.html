@@ -5,12 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Central Park | NYxplore</title>
     <meta name="description" content="Discover the urban oasis of Central Park in the heart of Manhattan">
-    <link rel="stylesheet" href="../styles.css">
+    
+    <!-- Preload and Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" as="style">
+    <link rel="preload" href="assets/images/central-park.webp" as="image">
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Critical CSS -->
     <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
         /* Central Park specific styles */
         .landmark-hero {
             background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.2)), 
@@ -104,6 +127,59 @@
             margin-bottom: 10px;
         }
         
+        /* Navigation Styles */
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+        
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .navbar-item {
+            margin-left: 1.5rem;
+        }
+        
+        .navbar-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .navbar-link:hover {
+            color: var(--accent-color);
+        }
+        
+        .navbar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
         @media (max-width: 768px) {
             .landmark-title {
                 font-size: 2.5rem;
@@ -111,6 +187,30 @@
             
             .wildlife-grid {
                 grid-template-columns: 1fr 1fr;
+            }
+            
+            .navbar-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                background-color: var(--primary-color);
+                padding: 1rem 0;
+            }
+            
+            .navbar-menu.active {
+                display: flex;
+            }
+            
+            .navbar-item {
+                margin: 0;
+                padding: 0.5rem 1rem;
+            }
+            
+            .navbar-toggle {
+                display: block;
             }
         }
     </style>
@@ -130,19 +230,19 @@
     <nav class="navbar">
         <div class="navbar-container">
             <a href="/" class="logo">
-                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo" width="200" height="50">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo" width="120" height="40">
             </a>
-            <div class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu">
+            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
-            </div>
-            <ul class="navbar-menu">
-                <li class="navbar-item"><a href="../index.html#landmarks" class="navbar-link">Landmarks</a></li>
-                <li class="navbar-item"><a href="../index.html#culture" class="navbar-link">Culture</a></li>
-                <li class="navbar-item"><a href="../index.html#food" class="navbar-link">Food</a></li>
-                <li class="navbar-item"><a href="../index.html#gallery" class="navbar-link">Gallery</a></li>
-                <li class="navbar-item"><a href="../index.html#map" class="navbar-link">Map</a></li>
+            </button>
+            <ul class="navbar-menu" id="navbar-menu">
+                <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
+                <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
+                <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
+                <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
+                <li class="navbar-item"><a href="index.html#map" class="navbar-link">Map</a></li>
             </ul>
         </div>
     </nav>
@@ -167,7 +267,7 @@
         
         <div class="park-features">
             <div class="feature-card">
-                <img src="assets/images/central-park/bow-bridge.webp" alt="Bow Bridge in Central Park" loading="lazy">
+                <img src="assets/images/central-park/bow-bridge.webp" alt="Bow Bridge in Central Park" loading="lazy" width="400" height="200">
                 <div class="feature-content">
                     <h3>Iconic Bridges</h3>
                     <p>The park features 36 ornamental bridges, each with unique designs. The most famous is Bow Bridge, a cast iron bridge spanning 60 feet across the Lake.</p>
@@ -175,7 +275,7 @@
             </div>
             
             <div class="feature-card">
-                <img src="assets/images/central-park/central-park-zoo.webp" alt="Central Park Zoo" loading="lazy">
+                <img src="assets/images/central-park/central-park-zoo.webp" alt="Central Park Zoo" loading="lazy" width="400" height="200">
                 <div class="feature-content">
                     <h3>Central Park Zoo</h3>
                     <p>A 6.5-acre zoo located near the southeast corner of the park. Home to over 130 species including snow leopards, penguins, and grizzly bears.</p>
@@ -183,7 +283,7 @@
             </div>
             
             <div class="feature-card">
-                <img src="assets/images/central-park/belvedere-castle.webp" alt="Belvedere Castle" loading="lazy">
+                <img src="assets/images/central-park/belvedere-castle.webp" alt="Belvedere Castle" loading="lazy" width="400" height="200">
                 <div class="feature-content">
                     <h3>Belvedere Castle</h3>
                     <p>A folly in Central Park offering one of the highest vantage points in the park with panoramic views of the Great Lawn and Turtle Pond.</p>
@@ -723,24 +823,43 @@
             </div>
         </div>
     </footer>
-        <!-- Scroll to Top Button -->
-        <div class="scroll-top">
-            <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-                <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
-                      style="transition: stroke-dashoffset 10ms linear; 
-                             stroke-dasharray: 307.919, 307.919; 
-                             stroke-dashoffset: 307.919;">
-                </path>
-            </svg>
-        </div>
+    
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
+                  style="transition: stroke-dashoffset 10ms linear; 
+                         stroke-dasharray: 307.919, 307.919; 
+                         stroke-dashoffset: 307.919;">
+            </path>
+        </svg>
+    </div>
 
-    <script src="../script.js"></script>
+    <script src="script.js"></script>
     <script>
         // Initialize current year
         document.getElementById('year').textContent = new Date().getFullYear();
         
         // Central Park specific scripts
         document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu');
+            const navbarMenu = document.getElementById('navbar-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                navbarMenu.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.navbar-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navbarMenu.classList.remove('active');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                });
+            });
+            
             // Update seasonal theme based on actual date
             const months = ['Winter', 'Winter', 'Spring', 'Spring', 'Spring', 'Summer', 
                           'Summer', 'Summer', 'Autumn', 'Autumn', 'Autumn', 'Winter'];

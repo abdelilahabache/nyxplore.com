@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYxplore | Broadway Theater</title>
+    <meta name="description" content="Experience the magic of Broadway - New York City's world-famous theater district">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMW3YWQXBF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DMW3YWQXBF');
+    </script>
+
+    <!-- Leaflet Map CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Preload key resources -->
+<link rel="preload" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" as="style">
+<link rel="preload" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" as="script">
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+        <!-- Preconnect -->
+        <link rel="preconnect" href="https://www.googletagmanager.com">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Broadway Page Specific CSS -->
+    <style>
+        /* Hero Banner */
+        .hero-banner {
+            position: relative;
+            height: 70vh;
+            min-height: 500px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Content Section */
+        .content-section {
+            padding: 5rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .content-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #333;
+            text-align: center;
+        }
+
+        .content-section p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Feature Boxes */
+        .feature-boxes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-box {
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            background: #f8f8f8;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-box i {
+            font-size: 3rem;
+            color: #d35400;
+            margin-bottom: 1rem;
+        }
+
+        .feature-box h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .feature-box p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* Show Grid */
+        .show-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .show-card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .show-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .show-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .show-info {
+            padding: 1.5rem;
+        }
+
+        .show-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .show-info p {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .show-info .show-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* Tips Section */
+        .tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .tip-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #d35400;
+        }
+
+        .tip-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .tip-card p {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 0;
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 3rem 0;
+            background: #f8f8f8;
+        }
+
+        .interactive-map {
+            height: 500px;
+            background: #ddd;
+            border-radius: 8px;
+            margin-top: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Map Popup Customization */
+        .map-popup {
+            font-family: 'Montserrat', sans-serif;
+            padding: 10px;
+        }
+        .map-popup h3 {
+            color: #d35400;
+            margin: 5px 0;
+            font-size: 1.2rem;
+        }
+        .map-popup p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+        .map-popup-btn {
+            background: #d35400;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .map-popup-btn:hover {
+            background: #e67e22;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+            
+            .feature-box {
+                min-width: 100%;
+            }
+            
+            .show-grid, .tips {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="logo">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo">
+            </a>
+            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="navbar-menu" id="navbar-menu">
+                <li class="navbar-item"><a href="../index.html#landmarks" class="navbar-link">Landmarks</a></li>
+                <li class="navbar-item"><a href="../index.html#culture" class="navbar-link">Culture</a></li>
+                <li class="navbar-item"><a href="../index.html#food" class="navbar-link">Food</a></li>
+                <li class="navbar-item"><a href="../index.html#gallery" class="navbar-link">Gallery</a></li>
+                <li class="navbar-item"><a href="../index.html#map" class="navbar-link">Map</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main class="culture-detail">
+        <!-- Hero Banner -->
+        <section class="hero-banner" style="background-image: url('assets/images/broadway/broadway-hero.webp')">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1>Broadway Theater</h1>
+                <p>The pinnacle of American theater with world-class performances</p>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <section class="content-section">
+            <div class="container">
+                <h2>The Heart of American Theater</h2>
+                <p>Broadway is synonymous with theatrical excellence, hosting some of the most spectacular productions in the world. With over 40 professional theaters in the Theater District and Lincoln Center along Broadway in Midtown Manhattan, this is where dreams are made and stars are born.</p>
+                
+                <div class="feature-boxes">
+                    <div class="feature-box">
+                        <i class="fas fa-theater-masks"></i>
+                        <h3>Shows for Everyone</h3>
+                        <p>From classic musicals to cutting-edge dramas, there's something for every taste</p>
+                    </div>
+                    <div class="feature-box">
+                        <i class="fas fa-star"></i>
+                        <h3>Tony Award Winners</h3>
+                        <p>See performances by the most celebrated actors and actresses</p>
+                    </div>
+                    <div class="feature-box">
+                        <i class="fas fa-history"></i>
+                        <h3>Historic Theaters</h3>
+                        <p>Performing in venues with nearly a century of theatrical history</p>
+                    </div>
+                </div>
+                
+                <h2>Current Must-See Shows</h2>
+                <div class="show-grid" id="show-grid">
+                    <!-- Shows will be loaded via JavaScript -->
+                </div>
+                
+                <h2>Tips for Broadway Visitors</h2>
+                <div class="tips">
+                    <div class="tip-card">
+                        <h3>Getting Tickets</h3>
+                        <p>Learn about TKTS booths, rush tickets, and online discounts</p>
+                    </div>
+                    <div class="tip-card">
+                        <h3>Theater Etiquette</h3>
+                        <p>What to know before you go to a Broadway show</p>
+                    </div>
+                    <div class="tip-card">
+                        <h3>Dining Nearby</h3>
+                        <p>Great restaurants for pre-theater meals</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Map Section -->
+        <section class="map-section">
+            <div class="container">
+                <h2>Broadway Theater District Map</h2>
+                <div class="interactive-map" id="broadway-map"></div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Newsletter Section -->
+            <div class="footer-newsletter">
+                <h3>Explore NYC With Us</h3>
+                <p>Get exclusive updates on hidden gems and events</p>
+                <form class="newsletter-form" id="newsletter-form" name="newsletter" method="POST" netlify data-netlify-honeypot="bot-field">
+                    <input type="hidden" name="form-name" value="newsletter">
+                    <p class="hidden">
+                        <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                    </p>
+                    <div class="input-group">
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Your email address" 
+                            required 
+                            aria-label="Email address"
+                            aria-describedby="email-helper"
+                        >
+                        <button type="submit" aria-label="Subscribe">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <small id="email-helper" class="visually-hidden">We'll never share your email</small>
+                </form>
+                <div class="newsletter-success" aria-live="polite">Thank you for subscribing!</div>
+            </div>
+            
+            <!-- Quick Links Grid -->
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Discover</h4>
+                    <ul>
+                        <li><a href="index.html#landmarks"><i class="fas fa-landmark"></i> Iconic Landmarks</a></li>
+                        <li><a href="index.html#culture"><i class="fas fa-theater-masks"></i> Arts & Culture</a></li>
+                        <li><a href="index.html#food"><i class="fas fa-utensils"></i> Food Scene</a></li>
+                        <li><a href="index.html#gallery"><i class="fas fa-camera"></i> Photo Gallery</a></li>
+                        <li><a href="full-calendar.html"><i class="fas fa-calendar-alt"></i> Events Calendar</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-subway"></i> Transit Guide</a></li>
+                        <li><a href="#"><i class="fas fa-calendar-alt"></i> Events Calendar</a></li>
+                        <li><a href="#"><i class="fas fa-map-marked-alt"></i> Interactive Map</a></li>
+                        <li><a href="#"><i class="fas fa-question-circle"></i> Visitor FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-heart"></i> About NYxplore</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                        <li><a href="#"><i class="fas fa-briefcase"></i> Careers</a></li>
+                        <li><a href="#"><i class="fas fa-newspaper"></i> Press</a></li>
+                    </ul>
+                </div>
+            </div>
+        
+            <!-- Social & Legal -->
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+                
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Accessibility</a>
+                    <a href="#">Sitemap</a>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
+                    <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
+                  style="transition: stroke-dashoffset 10ms linear; 
+                         stroke-dasharray: 307.919, 307.919; 
+                         stroke-dashoffset: 307.919;">
+            </path>
+        </svg>
+    </div>
+
+    <!-- Ambient Sound -->
+    <audio id="ambient-sound" loop>
+        <source src="assets/sounds/audio-bg.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio> 
+    
+    <!-- External Scripts -->
+    <script src="script.js"></script>
+    <script src="gallery.js" defer></script>
+    
+    <!-- Leaflet Map JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    
+    <!-- Netlify Identity Widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    
+    <!-- Inline JavaScript -->
+    <script>
+        // Broadway Theater Page Specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Broadway Map
+            initBroadwayMap();
+            
+            // Load show data
+            loadBroadwayShows();
+            
+            // Mobile menu toggle
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navbarMenu = document.getElementById('navbar-menu');
+            
+            mobileMenu.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                navbarMenu.classList.toggle('active');
+                this.classList.toggle('active');
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Set current year in footer
+            document.getElementById('year').textContent = new Date().getFullYear();
+            
+            // Scroll to top button
+            const scrollTop = document.querySelector('.scroll-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollTop.classList.add('show');
+                } else {
+                    scrollTop.classList.remove('show');
+                }
+            });
+            
+            scrollTop.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Basic Protection Methods
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                alert('Right-click is disabled on this page');
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'F12' || 
+                    (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                    (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+                    (e.ctrlKey && e.key === 'u')) {
+                    e.preventDefault();
+                    alert('This action is not allowed');
+                }
+            });
+            
+            document.addEventListener('dragstart', function(e) {
+                if (e.target.tagName === 'IMG') {
+                    e.preventDefault();
+                }
+            });
+            
+            // Netlify Identity
+            if (window.netlifyIdentity) {
+                netlifyIdentity.on("init", user => {
+                    if (!user) netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                });
+            }
+        });
+
+        // Initialize Broadway Map with Leaflet
+        function initBroadwayMap() {
+            const mapElement = document.getElementById('broadway-map');
+            if (!mapElement) return;
+            
+            try {
+                // Initialize map centered on Times Square
+                const map = L.map('broadway-map').setView([40.7580, -73.9855], 15);
+                
+                // Add tile layer
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+                
+                // Theater data
+                const theaters = [
+                    {
+                        name: 'Majestic Theatre',
+                        location: [40.7597, -73.9847],
+                        address: '245 W 44th St, New York, NY 10036',
+                        currentShow: 'The Phantom of the Opera',
+                        iconUrl: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png'
+                    },
+                    {
+                        name: 'Richard Rodgers Theatre',
+                        location: [40.7593, -73.9867],
+                        address: '226 W 46th St, New York, NY 10036',
+                        currentShow: 'Hamilton',
+                        iconUrl: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png'
+                    },
+                    {
+                        name: 'Gershwin Theatre',
+                        location: [40.7618, -73.9848],
+                        address: '222 W 51st St, New York, NY 10019',
+                        currentShow: 'Wicked',
+                        iconUrl: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png'
+                    },
+                    {
+                        name: 'Minskoff Theatre',
+                        location: [40.7586, -73.9842],
+                        address: '200 W 45th St, New York, NY 10036',
+                        currentShow: 'The Lion King',
+                        iconUrl: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png'
+                    }
+                ];
+                
+                // Add markers for each theater
+                theaters.forEach(theater => {
+                    const customIcon = L.icon({
+                        iconUrl: theater.iconUrl,
+                        iconSize: [32, 32],
+                        iconAnchor: [16, 32],
+                        popupAnchor: [0, -32]
+                    });
+                    
+                    const marker = L.marker(theater.location, {
+                        icon: customIcon
+                    }).addTo(map);
+                    
+                    marker.bindPopup(`
+                        <div class="map-popup">
+                            <h3>${theater.name}</h3>
+                            <p><strong>Current Show:</strong> ${theater.currentShow}</p>
+                            <p><i class="fas fa-map-marker-alt"></i> ${theater.address}</p>
+                            <button class="map-popup-btn" onclick="alert('Ticket purchase would go here for ${theater.currentShow}')">
+                                Get Tickets
+                            </button>
+                        </div>
+                    `);
+                });
+                
+                // Add circle around Theater District
+                L.circle([40.7580, -73.9855], {
+                    color: '#d35400',
+                    fillColor: '#f79256',
+                    fillOpacity: 0.2,
+                    radius: 500
+                }).addTo(map).bindPopup('Broadway Theater District');
+                
+            } catch (error) {
+                console.error('Error initializing map:', error);
+                mapElement.innerHTML = `
+                    <div style="padding: 2rem; text-align: center; color: #666;">
+                        <i class="fas fa-map-marked-alt" style="font-size: 3rem; color: #d35400;"></i>
+                        <h3>Map Could Not Be Loaded</h3>
+                        <p>Please try refreshing the page or check your internet connection.</p>
+                        <button onclick="window.location.reload()" style="
+                            background: #d35400;
+                            color: white;
+                            border: none;
+                            padding: 10px 20px;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            margin-top: 10px;
+                        ">Retry</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Load Broadway shows data
+        function loadBroadwayShows() {
+            const showGrid = document.getElementById('show-grid');
+            if (!showGrid) return;
+            
+            const shows = [
+                {
+                    title: 'The Lion King',
+                    description: 'The beloved Disney musical about Simba\'s journey to become king.',
+                    image: '../assets/images/lion-king-show.jpg',
+                    theater: 'Minskoff Theatre',
+                    duration: '2h 30m'
+                },
+                {
+                    title: 'Hamilton',
+                    description: 'The revolutionary musical about American founding father Alexander Hamilton.',
+                    image: '../assets/images/hamilton-show.jpg',
+                    theater: 'Richard Rodgers Theatre',
+                    duration: '2h 45m'
+                },
+                {
+                    title: 'Wicked',
+                    description: 'The untold story of the witches of Oz.',
+                    image: '../assets/images/wicked-show.jpg',
+                    theater: 'Gershwin Theatre',
+                    duration: '2h 45m'
+                }
+            ];
+            
+            // Clear any placeholder content
+            showGrid.innerHTML = '';
+            
+            // Add show cards to the grid
+            shows.forEach(show => {
+                const showCard = document.createElement('div');
+                showCard.className = 'show-card';
+                
+                showCard.innerHTML = `
+                    <div class="show-image" style="background-image: url('${show.image}')"></div>
+                    <div class="show-info">
+                        <h3>${show.title}</h3>
+                        <p>${show.description}</p>
+                        <div class="show-meta">
+                            <span>${show.theater}</span>
+                            <span>${show.duration}</span>
+                        </div>
+                    </div>
+                `;
+                
+                showGrid.appendChild(showCard);
+            });
+        }
+
+        // Newsletter form handling
+        const newsletterForm = document.getElementById('newsletter-form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = this.elements['email'].value;
+                console.log('Subscribing email:', email);
+                
+                const successMessage = document.querySelector('.newsletter-success');
+                if (successMessage) {
+                    successMessage.style.display = 'block';
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                }
+                
+                this.reset();
+            });
+        }
+    </script>
+</body>
+</html>
