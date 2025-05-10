@@ -171,7 +171,7 @@
             height: 70vh;
             min-height: 500px;
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), 
-                        url('assets/images/neighborhoods/nyc-neighborhoods-hero.webp') center/cover no-repeat;
+                        url('assets/images/neighborhoods.webp') center/cover no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -808,17 +808,6 @@
 <body>
     <!-- Skip to Content Link -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    
-    <!-- Theme and Sound Controls -->
-    <div class="floating-controls">
-        <button id="sound-toggle" class="control-button" aria-label="Toggle ambient sound">
-            <i class="fas fa-volume-up"></i>
-        </button>
-        <button id="theme-toggle" class="control-button" aria-label="Toggle dark mode">
-            <i class="fas fa-moon"></i>
-        </button>
-    </div>
-    
     <!-- Header with Search -->
     <header class="header" role="banner">
         <div class="header-container">
@@ -883,8 +872,8 @@
                 <div class="neighborhood-grid" role="list">
                     <!-- Chinatown -->
                     <article class="neighborhood-card" data-borough="manhattan" data-tags="asian,historic" role="listitem">
-                        <img src="assets/images/neighborhoods/chinatown-small.webp" 
-                             data-src="assets/images/neighborhoods/chinatown.webp" 
+                        <img src="assets/images/neighborhoods/Chinatown Lunar New Year celebration.webp" 
+                              
                              alt="Chinatown streets with lanterns" 
                              loading="lazy"
                              width="600"
@@ -903,8 +892,7 @@
                     
                     <!-- Harlem -->
                     <article class="neighborhood-card" data-borough="manhattan" data-tags="african-american,historic" role="listitem">
-                        <img src="assets/images/neighborhoods/harlem-small.webp" 
-                             data-src="assets/images/neighborhoods/harlem.webp" 
+                        <img src="assets/images/neighborhoods/Apollo Theater in Harlem.webp"  
                              alt="Apollo Theater in Harlem" 
                              loading="lazy"
                              width="600"
@@ -923,8 +911,7 @@
                     
                     <!-- Little Italy -->
                     <article class="neighborhood-card" data-borough="manhattan" data-tags="italian,historic" role="listitem">
-                        <img src="assets/images/neighborhoods/little-italy-small.webp" 
-                             data-src="assets/images/neighborhoods/little-italy.webp" 
+                        <img src="assets/images/neighborhoods/Little Italy restaurant scene.webp" 
                              alt="Little Italy restaurant scene" 
                              loading="lazy"
                              width="600"
@@ -943,8 +930,7 @@
                     
                     <!-- Williamsburg -->
                     <article class="neighborhood-card" data-borough="brooklyn" data-tags="hipster,arts" role="listitem">
-                        <img src="assets/images/neighborhoods/williamsburg-small.webp" 
-                             data-src="assets/images/neighborhoods/williamsburg.webp" 
+                        <img src="assets/images/neighborhoods/Williamsburg street art.webp" 
                              alt="Williamsburg street art and shops" 
                              loading="lazy"
                              width="600"
@@ -963,8 +949,7 @@
                     
                     <!-- Astoria -->
                     <article class="neighborhood-card" data-borough="queens" data-tags="greek,diverse" role="listitem">
-                        <img src="assets/images/neighborhoods/astoria-small.webp" 
-                             data-src="assets/images/neighborhoods/astoria.webp" 
+                        <img src="assets/images/neighborhoods/Astoria's diverse food scene.webp" 
                              alt="Astoria's diverse food scene" 
                              loading="lazy"
                              width="600"
@@ -983,8 +968,7 @@
                     
                     <!-- DUMBO -->
                     <article class="neighborhood-card" data-borough="brooklyn" data-tags="historic,arts" role="listitem">
-                        <img src="assets/images/neighborhoods/dumbo-small.webp" 
-                             data-src="assets/images/neighborhoods/dumbo.webp" 
+                        <img src="assets/images/neighborhoods/DUMBO waterfront and bridges.webp" 
                              alt="DUMBO waterfront and bridges" 
                              loading="lazy"
                              width="600"
@@ -1024,32 +1008,28 @@
                 
                 <div class="gallery-grid" role="list">
                     <div class="gallery-item" role="listitem">
-                        <img src="assets/images/neighborhoods/gallery1-small.webp" 
-                             data-src="assets/images/neighborhoods/gallery1.webp" 
+                        <img src="assets/images/neighborhoods/Chinatown Lunar New Year celebration.webp"                              
                              alt="Chinatown Lunar New Year celebration" 
                              loading="lazy"
                              width="600"
                              height="450">
                     </div>
                     <div class="gallery-item" role="listitem">
-                        <img src="assets/images/neighborhoods/gallery2-small.webp" 
-                             data-src="assets/images/neighborhoods/gallery2.webp" 
+                        <img src="assets/images/neighborhoods/Harlem street performers.webp" 
                              alt="Harlem street performers" 
                              loading="lazy"
                              width="600"
                              height="450">
                     </div>
                     <div class="gallery-item" role="listitem">
-                        <img src="assets/images/neighborhoods/gallery3-small.webp" 
-                             data-src="assets/images/neighborhoods/gallery3.webp" 
+                        <img src="assets/images/neighborhoods/Little Italy restaurant scene.webp"  
                              alt="Little Italy restaurant scene" 
                              loading="lazy"
                              width="600"
                              height="450">
                     </div>
                     <div class="gallery-item" role="listitem">
-                        <img src="assets/images/neighborhoods/gallery4-small.webp" 
-                             data-src="assets/images/neighborhoods/gallery4.webp" 
+                        <img src="assets/images/neighborhoods/Williamsburg street art.webp"  
                              alt="Williamsburg street art" 
                              loading="lazy"
                              width="600"
@@ -1370,21 +1350,7 @@
                 });
             }
             
-            // Sound toggle functionality
-            const soundToggle = document.getElementById('sound-toggle');
-            if (soundToggle) {
-                soundToggle.addEventListener('click', () => {
-                    const icon = soundToggle.querySelector('i');
-                    if (icon.classList.contains('fa-volume-up')) {
-                        icon.classList.replace('fa-volume-up', 'fa-volume-mute');
-                        // In a real implementation, you would pause any ambient sounds here
-                    } else {
-                        icon.classList.replace('fa-volume-mute', 'fa-volume-up');
-                        // In a real implementation, you would play ambient sounds here
-                    }
-                });
-            }
-            
+
             // Improved lazy loading
             const lazyLoadImages = () => {
                 const lazyImages = document.querySelectorAll('img[data-src]');

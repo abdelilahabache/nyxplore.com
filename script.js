@@ -23,7 +23,7 @@ themeToggle.addEventListener('click', function() {
   }
 });
 
-// Sound Toggle with Initial Volume Set to 30%
+// Sound Toggle with Initial Volume Set to 10%
 // Sound Toggle - Visitor Controlled Version
 const soundToggle = document.getElementById('sound-toggle');
 const ambientSound = document.getElementById('ambient-sound');
@@ -257,7 +257,7 @@ if (isSoundOn) {
       lazyObserver.observe(img);
     });
   }
-
+// Newsletter form handling
   document.addEventListener('DOMContentLoaded', function() {
     const newsletterForm = document.getElementById('newsletter-form');
     
@@ -328,6 +328,8 @@ if (isSoundOn) {
       return re.test(email);
     }
   });
+
+  
 
   // Video fallback handler
   const heroVideo = document.getElementById('hero-video');

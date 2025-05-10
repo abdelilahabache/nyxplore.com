@@ -377,7 +377,7 @@
         }
         
         /* Footer */
-        .footer {
+ .footer {
             background: #222;
             color: #fff;
             padding: 3rem 0 0;
@@ -389,7 +389,7 @@
             padding: 0 20px;
         }
         
-        .footer-grid {
+      .footer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 2rem;
@@ -412,17 +412,17 @@
             margin-bottom: 0.8rem;
         }
         
-        .footer-column a {
+       .footer-column a {
             color: #bbb;
             text-decoration: none;
             transition: color 0.3s;
         }
         
-        .footer-column a:hover {
+       .footer-column a:hover {
             color: #fff;
         }
         
-        .footer-bottom {
+       .footer-bottom {
             border-top: 1px solid #444;
             padding: 2rem 0;
             text-align: center;
@@ -440,7 +440,7 @@
         }
         
         .social-links a:hover {
-            color: var(--accent-color);
+            color: var(--primary-color);
         }
         
         .legal-links {
@@ -723,91 +723,92 @@
     </main>
     
     <!-- Footer -->
-    <footer class="footer" role="contentinfo">
-        <div class="footer-container">
-            <!-- Newsletter Section -->
-            <div class="footer-newsletter">
-                <h3>Explore NYC With Us</h3>
-                <p>Get exclusive updates on hidden gems and events</p>
-                <form class="newsletter-form" id="newsletter-form" name="newsletter" method="POST" netlify data-netlify-honeypot="bot-field">
-                    <input type="hidden" name="form-name" value="newsletter">
-                    <p class="hidden">
-                        <label>Don't fill this out if you're human: <input name="bot-field"></label>
-                    </p>
-                    <div class="input-group">
-                        <input 
-                            type="email" 
-                            name="email" 
-                            placeholder="Your email address" 
-                            required 
-                            aria-label="Email address"
-                            aria-describedby="email-helper"
-                        >
-                        <button type="submit" aria-label="Subscribe">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </div>
-                    <small id="email-helper">We'll never share your email</small>
-                </form>
-                <div id="newsletter-message" class="newsletter-message" aria-live="polite"></div>
+    <!-- Footer -->
+<footer class="footer" role="contentinfo">
+    <div class="footer-container">
+        <!-- Newsletter Section -->
+        <div class="footer-newsletter">
+            <h3>Explore NYC With Us</h3>
+            <p>Get exclusive updates on NYC landmarks and attractions</p>
+            <form class="newsletter-form" id="newsletter-form" name="newsletter" method="POST" netlify data-netlify-honeypot="bot-field">
+                <input type="hidden" name="form-name" value="newsletter">
+                <p class="hidden">
+                    <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                </p>
+                <div class="input-group">
+                    <input 
+                        type="email" 
+                        name="email" 
+                        placeholder="Your email address" 
+                        required 
+                        aria-label="Email address"
+                        aria-describedby="email-helper"
+                    >
+                    <button type="submit" aria-label="Subscribe">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <small id="email-helper">We'll never share your email</small>
+            </form>
+            <div id="newsletter-message" class="newsletter-message" aria-live="polite"></div>
+        </div>
+        
+        <!-- Quick Links Grid -->
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h4>NYC Landmarks</h4>
+                <ul>
+                    <li><a href="/statue-of-liberty.html"><i class="fas fa-monument" aria-hidden="true"></i> Statue of Liberty</a></li>
+                    <li><a href="/central-park.html"><i class="fas fa-tree" aria-hidden="true"></i> Central Park</a></li>
+                    <li><a href="/empire-state-building.html"><i class="fas fa-building" aria-hidden="true"></i> Empire State Building</a></li>
+                    <li><a href="/times-square.html"><i class="fas fa-lightbulb" aria-hidden="true"></i> Times Square</a></li>
+                </ul>
             </div>
             
-            <!-- Quick Links Grid -->
-            <div class="footer-grid">
-                <div class="footer-column">
-                    <h4>Discover NYC</h4>
-                    <ul>
-                        <li><a href="/landmarks.html"><i class="fas fa-landmark" aria-hidden="true"></i> Iconic Landmarks</a></li>
-                        <li><a href="/neighborhoods.html"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Neighborhoods</a></li>
-                        <li><a href="/tours.html"><i class="fas fa-walking" aria-hidden="true"></i> Guided Tours</a></li>
-                        <li><a href="/events.html"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Events</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h4>Visitor Resources</h4>
-                    <ul>
-                        <li><a href="/transportation.html"><i class="fas fa-subway" aria-hidden="true"></i> Transportation</a></li>
-                        <li><a href="/itineraries.html"><i class="fas fa-route" aria-hidden="true"></i> Itineraries</a></li>
-                        <li><a href="/maps.html"><i class="fas fa-map" aria-hidden="true"></i> Interactive Maps</a></li>
-                        <li><a href="/faq.html"><i class="fas fa-question-circle" aria-hidden="true"></i> Visitor FAQ</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h4>About NYxplore</h4>
-                    <ul>
-                        <li><a href="/about.html"><i class="fas fa-heart" aria-hidden="true"></i> Our Story</a></li>
-                        <li><a href="/contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact Us</a></li>
-                        <li><a href="/blog.html"><i class="fas fa-newspaper" aria-hidden="true"></i> NYC Blog</a></li>
-                        <li><a href="/privacy.html"><i class="fas fa-shield-alt" aria-hidden="true"></i> Privacy Policy</a></li>
-                    </ul>
-                </div>
+            <div class="footer-column">
+                <h4>Visitor Resources</h4>
+                <ul>
+                    <li><a href="https://www.nycgo.com/" target="_blank" rel="noopener"><i class="fas fa-info-circle" aria-hidden="true"></i> Official NYC Guide</a></li>
+                    <li><a href="https://new.mta.info/" target="_blank" rel="noopener"><i class="fas fa-subway" aria-hidden="true"></i> Subway Map</a></li>
+                    <li><a href="https://www.nycgo.com/restaurants" target="_blank" rel="noopener"><i class="fas fa-utensils" aria-hidden="true"></i> Best Restaurants</a></li>
+                    <li><a href="https://www.nycgo.com/free-things-to-do" target="_blank" rel="noopener"><i class="fas fa-dollar-sign" aria-hidden="true"></i> Free Attractions</a></li>
+                </ul>
             </div>
-        
-            <!-- Social & Legal -->
-            <div class="footer-bottom">
-                <div class="social-links">
-                    <a href="https://www.instagram.com/nyxplore" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://twitter.com/nyxplore" target="_blank" rel="noopener" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.facebook.com/nyxplore" target="_blank" rel="noopener" aria-label="Follow us on Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.youtube.com/nyxplore" target="_blank" rel="noopener" aria-label="Subscribe on YouTube"><i class="fab fa-youtube"></i></a>
-                </div>
-                
-                <div class="legal-links">
-                    <a href="/privacy.html">Privacy Policy</a>
-                    <a href="/terms.html">Terms of Service</a>
-                    <a href="/accessibility.html">Accessibility</a>
-                    <a href="/sitemap.xml">Sitemap</a>
-                </div>
-                
-                <div class="copyright">
-                    <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
-                    <p>Made with <i class="fas fa-heart" style="color: var(--accent-color);" aria-hidden="true"></i> in New York City</p>
-                </div>
+            
+            <div class="footer-column">
+                <h4>About NYxplore</h4>
+                <ul>
+                    <li><a href="/about.html"><i class="fas fa-heart" aria-hidden="true"></i> Our Story</a></li>
+                    <li><a href="/contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact Us</a></li>
+                    <li><a href="/blog.html"><i class="fas fa-newspaper" aria-hidden="true"></i> NYC Blog</a></li>
+                    <li><a href="/privacy.html"><i class="fas fa-shield-alt" aria-hidden="true"></i> Privacy Policy</a></li>
+                </ul>
             </div>
         </div>
-    </footer>
+    
+        <!-- Social & Legal -->
+        <div class="footer-bottom">
+            <div class="social-links">
+                <a href="https://www.instagram.com/nyxplore" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://twitter.com/nyxplore" target="_blank" rel="noopener" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.facebook.com/nyxplore" target="_blank" rel="noopener" aria-label="Follow us on Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.youtube.com/nyxplore" target="_blank" rel="noopener" aria-label="Subscribe on YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+            
+            <div class="legal-links">
+                <a href="/privacy.html">Privacy Policy</a>
+                <a href="/terms.html">Terms of Service</a>
+                <a href="/accessibility.html">Accessibility</a>
+                <a href="/sitemap.xml">Sitemap</a>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
+                <p>Made with <i class="fas fa-heart" style="color: var(--primary-color);" aria-hidden="true"></i> in New York City</p>
+            </div>
+        </div>
+    </div>
+</footer>
     <!-- Scroll to Top Button -->
 <div class="scroll-top">
     <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
