@@ -55,25 +55,167 @@
         </div>
     </section> 
     <!-- Navigation -->
-    <nav class="navbar">
-        <div class="navbar-container">
-            <a href="/" class="logo">
-                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo">
-            </a>
-            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-            <ul class="navbar-menu" id="navbar-menu">
-                <li class="navbar-item"><a href="#landmarks" class="navbar-link">Landmarks</a></li>
-                <li class="navbar-item"><a href="#culture" class="navbar-link">Culture</a></li>
-                <li class="navbar-item"><a href="#food" class="navbar-link">Food</a></li>
-                <li class="navbar-item"><a href="#gallery" class="navbar-link">Gallery</a></li>
-                <li class="navbar-item"><a href="#map" class="navbar-link">Map</a></li>
-            </ul>
+<nav class="navbar">
+  <div class="navbar-container">
+    <a href="/" class="logo">
+      <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo" width="120" height="40">
+    </a>
+    
+    <!-- Enhanced Search Bar with Suggestions -->
+    <div class="search-container">
+      <form class="search-form" role="search" id="search-form">
+        <div class="search-input-wrapper">
+          <input type="search" class="search-input" 
+                 placeholder="Search NYC landmarks, food, culture..." 
+                 aria-label="Search New York City attractions"
+                 aria-autocomplete="list"
+                 aria-controls="search-suggestions"
+                 autocomplete="off"
+                 id="search-input">
+          <div class="search-suggestions" id="search-suggestions" role="listbox" aria-expanded="false">
+            <!-- Suggestions will appear here dynamically -->
+          </div>
         </div>
-    </nav>
+        <button type="submit" class="search-button" aria-label="Submit search">
+          <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+    
+    <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false" aria-controls="navbar-menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+    
+    <ul class="navbar-menu" id="navbar-menu">
+      <li class="navbar-item"><a href="#landmarks" class="navbar-link">Landmarks</a></li>
+      <li class="navbar-item"><a href="#culture" class="navbar-link">Culture</a></li>
+      <li class="navbar-item"><a href="#food" class="navbar-link">Food</a></li>
+      <li class="navbar-item"><a href="#gallery" class="navbar-link">Gallery</a></li>
+      <li class="navbar-item"><a href="#map" class="navbar-link">Map</a></li>
+    </ul>
+  </div>
+</nav>
+<style>
+    /* Base Styles */
+.search-container {
+  position: relative;
+  flex: 1;
+  max-width: 600px;
+  margin: 0 20px;
+}
+
+.search-form {
+  display: flex;
+  width: 100%;
+}
+
+.search-input-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 20px;
+  padding-right: 50px; /* Space for button */
+  border: 2px solid #e0e0e0;
+  border-radius: 30px;
+  font-size: 1rem;
+  background-color: #f8f8f8;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #007bff;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0,123,255,0.25);
+}
+
+.search-button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: #666;
+  transition: color 0.2s;
+}
+
+.search-button:hover {
+  color: #007bff;
+}
+
+.search-icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* Suggestions Dropdown */
+.search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+  display: none;
+  margin-top: 5px;
+}
+
+.search-suggestions[aria-expanded="true"] {
+  display: block;
+}
+
+.search-suggestions div {
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.search-suggestions div:hover,
+.search-suggestions div[aria-selected="true"] {
+  background-color: #f0f0f0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .search-container {
+    order: 3;
+    width: 100%;
+    max-width: 100%;
+    margin: 15px 0;
+  }
+  
+  .search-input {
+    padding: 10px 15px;
+    padding-right: 40px;
+  }
+}
+
+/* Animation for better UX */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.search-suggestions {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+</style>
    
 <!-- Landmarks Section -->
 <section class="section landmarks" id="landmarks">
@@ -195,27 +337,7 @@
             <div class="category-badge">Arts</div>
         </a>      
         
-        <!-- Music -->
-        <a href="music.html" class="masonry-item" data-category="music">
-            <div class="image-container">
-                <img src="assets/images/music.webp" 
-                     alt="Dimly lit jazz club with musicians performing" 
-                     class="masonry-image"
-                     loading="lazy">
-                <div class="image-overlay"></div>
-            </div>
-            <div class="masonry-content">
-                <div class="content-text">
-                    <h3>Music</h3>
-                    <p>Jazz clubs, concert halls, and street performers create the city's soundtrack.</p>
-                </div>
-                <button class="explore-button" aria-label="Explore Music">
-                    <span>Explore</span>
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-            <div class="category-badge">Music</div>
-        </a>       
+
         
         <!-- Neighborhoods -->
         <a href="neighborhoods.html" class="masonry-item" data-category="neighborhoods">
@@ -261,27 +383,6 @@
             <div class="category-badge">Arts</div>
         </a>       
         
-        <!-- Festivals -->
-        <a href="festivals.html" class="masonry-item" data-category="events">
-            <div class="image-container">
-                <img src="assets/images/festivals.webp" 
-                     alt="Crowd enjoying a summer street festival with food stalls" 
-                     class="masonry-image"
-                     loading="lazy">
-                <div class="image-overlay"></div>
-            </div>
-            <div class="masonry-content">
-                <div class="content-text">
-                    <h3>Festivals</h3>
-                    <p>Year-round celebrations of food, film, music, and more.</p>
-                </div>
-                <button class="explore-button" aria-label="Explore Festivals">
-                    <span>Explore</span>
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-            <div class="category-badge">Events</div>
-        </a>
         
         <!-- Cultural Events -->
         <a href="cultural-events.html" class="masonry-item" data-category="events">
@@ -687,6 +788,7 @@
           });
         });
         </script>
+        
         <!-- Before </body> -->
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script>

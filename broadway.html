@@ -3,8 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NYxplore | Broadway Theater</title>
-    <meta name="description" content="Experience the magic of Broadway - New York City's world-famous theater district">
+    <title>Broadway Theater Guide | NYxplore - Shows, Tickets & Theater District Map</title>
+    <meta name="description" content="Complete guide to Broadway shows in NYC. Find current musicals, theater locations, ticket deals, and insider tips for the best Broadway experience.">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TheaterEvent",
+      "name": "Broadway Shows",
+      "description": "World-class theatrical performances in New York City's Broadway Theater District",
+      "location": {
+        "@type": "Place",
+        "name": "Broadway Theater District",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Multiple locations along Broadway",
+          "addressLocality": "New York",
+          "addressRegion": "NY",
+          "postalCode": "10036",
+          "addressCountry": "US"
+        }
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "lowPrice": "99",
+        "highPrice": "399",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
     
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMW3YWQXBF"></script>
@@ -15,39 +43,130 @@
       gtag('config', 'G-DMW3YWQXBF');
     </script>
 
+    <!-- Preload key resources -->
+    <link rel="preload" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" as="style">
+    <link rel="preload" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" as="script">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" as="style">
+    
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    
     <!-- Leaflet Map CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <!-- Main CSS -->
     <link rel="stylesheet" href="styles.css">
-    <!-- Preload key resources -->
-<link rel="preload" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" as="style">
-<link rel="preload" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" as="script">
-    <!-- DNS Prefetch -->
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
-    <link rel="dns-prefetch" href="https://unpkg.com">
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-        <!-- Preconnect -->
-        <link rel="preconnect" href="https://www.googletagmanager.com">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
+    
     <!-- Broadway Page Specific CSS -->
     <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #d35400;
+            --secondary-color: #f79256;
+            --text-color: #333;
+            --light-text: #666;
+            --bg-light: #f8f8f8;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Header & Search */
+        .header {
+            background-color: #fff;
+            box-shadow: var(--shadow);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+        
+        .search-container {
+            position: relative;
+            width: 50%;
+            max-width: 500px;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(211, 84, 0, 0.2);
+        }
+        
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-radius: 0 0 10px 10px;
+            box-shadow: var(--shadow);
+            z-index: 100;
+            display: none;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .search-suggestions.active {
+            display: block;
+        }
+        
+        .search-suggestion-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .search-suggestion-item:hover {
+            background: var(--bg-light);
+        }
+        
         /* Hero Banner */
         .hero-banner {
             position: relative;
             height: 70vh;
             min-height: 500px;
+            background-image: url('assets/images/broadway/broadway-hero.webp');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -57,65 +176,77 @@
             text-align: center;
             padding: 0 20px;
         }
-
-        .hero-overlay {
+        
+        .hero-banner::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
         }
-
+        
         .hero-content {
             position: relative;
             z-index: 1;
             max-width: 800px;
         }
-
+        
         .hero-content h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 4rem;
+            font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 700;
             margin-bottom: 1rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
-
+        
         .hero-content p {
-            font-size: 1.5rem;
+            font-size: clamp(1rem, 2vw, 1.5rem);
             margin-bottom: 2rem;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
-
+        
         /* Content Section */
         .content-section {
             padding: 5rem 0;
         }
-
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-
-        .content-section h2 {
+        
+        .section-title {
             font-family: 'Playfair Display', serif;
             font-size: 2.5rem;
             margin-bottom: 2rem;
-            color: #333;
+            color: var(--text-color);
             text-align: center;
+            position: relative;
         }
-
-        .content-section p {
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 1rem auto;
+        }
+        
+        .section-description {
             font-size: 1.1rem;
             line-height: 1.6;
-            color: #555;
+            color: var(--light-text);
             margin-bottom: 2rem;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+            text-align: center;
         }
-
+        
         /* Feature Boxes */
         .feature-boxes {
             display: flex;
@@ -124,41 +255,36 @@
             gap: 2rem;
             margin: 3rem 0;
         }
-
+        
         .feature-box {
             flex: 1;
             min-width: 250px;
             max-width: 350px;
-            background: #f8f8f8;
+            background: var(--bg-light);
             padding: 2rem;
             border-radius: 8px;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow);
             transition: transform 0.3s ease;
         }
-
+        
         .feature-box:hover {
             transform: translateY(-5px);
         }
-
-        .feature-box i {
+        
+        .feature-icon {
             font-size: 3rem;
-            color: #d35400;
+            color: var(--primary-color);
             margin-bottom: 1rem;
         }
-
-        .feature-box h3 {
+        
+        .feature-title {
             font-family: 'Montserrat', sans-serif;
             font-size: 1.5rem;
             margin-bottom: 1rem;
-            color: #333;
+            color: var(--text-color);
         }
-
-        .feature-box p {
-            font-size: 1rem;
-            color: #666;
-        }
-
+        
         /* Show Grid */
         .show-grid {
             display: grid;
@@ -166,48 +292,67 @@
             gap: 2rem;
             margin: 3rem 0;
         }
-
+        
         .show-card {
             background: #fff;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow);
             transition: transform 0.3s ease;
         }
-
+        
         .show-card:hover {
             transform: translateY(-5px);
         }
-
+        
         .show-image {
             height: 200px;
             background-size: cover;
             background-position: center;
+            position: relative;
         }
-
+        
+        .show-image::after {
+            content: attr(aria-label);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 8px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
         .show-info {
             padding: 1.5rem;
         }
-
-        .show-info h3 {
+        
+        .show-title {
             font-size: 1.3rem;
             margin-bottom: 0.5rem;
-            color: #333;
+            color: var(--text-color);
         }
-
-        .show-info p {
+        
+        .show-description {
             font-size: 0.9rem;
-            color: #666;
+            color: var(--light-text);
             margin-bottom: 1rem;
         }
-
-        .show-info .show-meta {
+        
+        .show-meta {
             display: flex;
             justify-content: space-between;
             font-size: 0.9rem;
             color: #888;
         }
-
+        
+        .price-range {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
         /* Tips Section */
         .tips {
             display: grid;
@@ -215,57 +360,49 @@
             gap: 2rem;
             margin: 3rem 0;
         }
-
+        
         .tip-card {
             background: #fff;
             border-radius: 8px;
             padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-top: 4px solid #d35400;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--primary-color);
         }
-
-        .tip-card h3 {
+        
+        .tip-title {
             font-size: 1.3rem;
             margin-bottom: 1rem;
-            color: #333;
+            color: var(--text-color);
         }
-
-        .tip-card p {
-            font-size: 1rem;
-            color: #666;
-            margin-bottom: 0;
-        }
-
+        
         /* Map Section */
         .map-section {
             padding: 3rem 0;
-            background: #f8f8f8;
+            background: var(--bg-light);
         }
-
+        
         .interactive-map {
             height: 500px;
             background: #ddd;
             border-radius: 8px;
             margin-top: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow);
         }
-
+        
         /* Map Popup Customization */
         .map-popup {
             font-family: 'Montserrat', sans-serif;
             padding: 10px;
         }
-        .map-popup h3 {
-            color: #d35400;
+        
+        .map-popup-title {
+            color: var(--primary-color);
             margin: 5px 0;
             font-size: 1.2rem;
         }
-        .map-popup p {
-            margin: 5px 0;
-            font-size: 0.9rem;
-        }
+        
         .map-popup-btn {
-            background: #d35400;
+            background: var(--primary-color);
             color: white;
             border: none;
             padding: 8px 15px;
@@ -274,18 +411,143 @@
             cursor: pointer;
             transition: background 0.3s;
         }
+        
         .map-popup-btn:hover {
-            background: #e67e22;
+            background: var(--secondary-color);
         }
-
+        
+        /* History Section */
+        .history-section {
+            background: #fff;
+            padding: 5rem 0;
+        }
+        
+        .history-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .history-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .history-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .history-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #222;
+            color: #fff;
+            padding: 3rem 0 0;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h4 {
+            color: #fff;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: #fff;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            margin-bottom: 1rem;
+        }
+        
+        .social-links a {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .legal-links {
+            margin-bottom: 1rem;
+        }
+        
+        .legal-links a {
+            color: #bbb;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .legal-links a:hover {
+            color: #fff;
+        }
+        
+        .copyright {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
         /* Responsive Adjustments */
         @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: 3rem;
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
             }
             
-            .hero-content p {
-                font-size: 1.2rem;
+            .search-container {
+                width: 100%;
+            }
+            
+            .hero-content h1 {
+                font-size: 3rem;
             }
             
             .feature-box {
@@ -295,114 +557,258 @@
             .show-grid, .tips {
                 grid-template-columns: 1fr;
             }
+            
+            .history-content {
+                flex-direction: column;
+            }
         }
-
+        
         @media (max-width: 480px) {
             .hero-content h1 {
                 font-size: 2.5rem;
             }
             
-            .hero-content p {
-                font-size: 1rem;
+            .section-title {
+                font-size: 2rem;
             }
         }
+        
+        /* Accessibility Focus Styles */
+        a:focus, button:focus, input:focus {
+            outline: 3px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+        
+        /* Print Styles */
+        @media print {
+            .header, .footer, .map-section {
+                display: none;
+            }
+            
+            body {
+                font-size: 12pt;
+                color: #000;
+            }
+            
+            .show-card {
+                page-break-inside: avoid;
+            }
+        }
+        /* Scroll to Top Button Styles */
+.scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-top.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-top::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-top: 3px solid white;
+    border-left: 3px solid white;
+    transform: rotate(45deg);
+    margin-top: 8px;
+}
+
+.progress-circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.progress-circle path {
+    fill: none;
+    stroke: white;
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+
+@media (max-width: 768px) {
+    .scroll-top {
+        width: 40px;
+        height: 40px;
+        right: 20px;
+        bottom: 20px;
+    }
+    
+    .scroll-top::before {
+        width: 16px;
+        height: 16px;
+        margin-top: 6px;
+    }
+}
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="navbar-container">
+    <!-- Header with Search -->
+    <header class="header" role="banner">
+        <div class="header-container">
             <a href="/" class="logo">
-                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore - New York City Travel Guide" width="150" height="50">
             </a>
-            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-            <ul class="navbar-menu" id="navbar-menu">
-                <li class="navbar-item"><a href="../index.html#landmarks" class="navbar-link">Landmarks</a></li>
-                <li class="navbar-item"><a href="../index.html#culture" class="navbar-link">Culture</a></li>
-                <li class="navbar-item"><a href="../index.html#food" class="navbar-link">Food</a></li>
-                <li class="navbar-item"><a href="../index.html#gallery" class="navbar-link">Gallery</a></li>
-                <li class="navbar-item"><a href="../index.html#map" class="navbar-link">Map</a></li>
-            </ul>
+            
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Search Broadway shows..." aria-label="Search Broadway shows" id="search-input">
+                <div class="search-suggestions" id="search-suggestions" role="listbox">
+                    <!-- Suggestions will be populated by JavaScript -->
+                </div>
+            </div>
         </div>
-    </nav>
+    </header>
     
-    <main class="culture-detail">
+    <main class="broadway-guide" id="main-content">
         <!-- Hero Banner -->
-        <section class="hero-banner" style="background-image: url('assets/images/broadway/broadway-hero.webp')">
-            <div class="hero-overlay"></div>
+        <section class="hero-banner" aria-labelledby="hero-heading">
             <div class="hero-content">
-                <h1>Broadway Theater</h1>
-                <p>The pinnacle of American theater with world-class performances</p>
+                <h1 id="hero-heading">Broadway Theater</h1>
+                <p>Experience the magic of world-class performances in New York City's Theater District</p>
             </div>
         </section>
 
         <!-- Main Content -->
-        <section class="content-section">
+        <section class="content-section" aria-labelledby="broadway-intro">
             <div class="container">
-                <h2>The Heart of American Theater</h2>
-                <p>Broadway is synonymous with theatrical excellence, hosting some of the most spectacular productions in the world. With over 40 professional theaters in the Theater District and Lincoln Center along Broadway in Midtown Manhattan, this is where dreams are made and stars are born.</p>
+                <h2 id="broadway-intro" class="section-title">The Heart of American Theater</h2>
+                <p class="section-description">Broadway is synonymous with theatrical excellence, hosting some of the most spectacular productions in the world. With over 40 professional theaters in the Theater District and Lincoln Center along Broadway in Midtown Manhattan, this is where dreams are made and stars are born.</p>
                 
                 <div class="feature-boxes">
                     <div class="feature-box">
-                        <i class="fas fa-theater-masks"></i>
-                        <h3>Shows for Everyone</h3>
+                        <div class="feature-icon" aria-hidden="true">
+                            <i class="fas fa-theater-masks"></i>
+                        </div>
+                        <h3 class="feature-title">Shows for Everyone</h3>
                         <p>From classic musicals to cutting-edge dramas, there's something for every taste</p>
                     </div>
                     <div class="feature-box">
-                        <i class="fas fa-star"></i>
-                        <h3>Tony Award Winners</h3>
+                        <div class="feature-icon" aria-hidden="true">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3 class="feature-title">Tony Award Winners</h3>
                         <p>See performances by the most celebrated actors and actresses</p>
                     </div>
                     <div class="feature-box">
-                        <i class="fas fa-history"></i>
-                        <h3>Historic Theaters</h3>
+                        <div class="feature-icon" aria-hidden="true">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <h3 class="feature-title">Historic Theaters</h3>
                         <p>Performing in venues with nearly a century of theatrical history</p>
                     </div>
                 </div>
                 
-                <h2>Current Must-See Shows</h2>
-                <div class="show-grid" id="show-grid">
+                <h2 class="section-title">Current Must-See Shows</h2>
+                <div class="show-grid" id="show-grid" role="list">
                     <!-- Shows will be loaded via JavaScript -->
                 </div>
                 
-                <h2>Tips for Broadway Visitors</h2>
-                <div class="tips">
-                    <div class="tip-card">
-                        <h3>Getting Tickets</h3>
-                        <p>Learn about TKTS booths, rush tickets, and online discounts</p>
+                <h2 class="section-title">Broadway Visitor Tips</h2>
+                <div class="tips" role="list">
+                    <div class="tip-card" role="listitem">
+                        <h3 class="tip-title">Getting Tickets</h3>
+                        <p>Learn about TKTS booths (discount same-day tickets), rush tickets (discounted tickets sold when the box office opens), lottery tickets, and online discounts. The TKTS booth in Times Square offers same-day tickets for up to 50% off.</p>
                     </div>
-                    <div class="tip-card">
-                        <h3>Theater Etiquette</h3>
-                        <p>What to know before you go to a Broadway show</p>
+                    <div class="tip-card" role="listitem">
+                        <h3 class="tip-title">Theater Etiquette</h3>
+                        <p>Arrive at least 30 minutes early, silence phones, avoid talking during performances, and dress appropriately (business casual is typical). Photography and recording are strictly prohibited.</p>
                     </div>
-                    <div class="tip-card">
-                        <h3>Dining Nearby</h3>
-                        <p>Great restaurants for pre-theater meals</p>
+                    <div class="tip-card" role="listitem">
+                        <h3 class="tip-title">Dining Nearby</h3>
+                        <p>Great pre-theater dining options include Sardi's (legendary theater district restaurant), Joe Allen (popular with actors), and Glass House Tavern. Make reservations for 5:30-6:30pm for 8pm shows.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Broadway History Section -->
+        <section class="history-section" aria-labelledby="broadway-history">
+            <div class="container">
+                <h2 id="broadway-history" class="section-title">A Rich Theatrical History</h2>
+                <div class="history-content">
+                    <div class="history-text">
+                        <p>Broadway theater dates back to the mid-18th century when the first theaters opened in New York City. The Theater District as we know it today began to take shape in the early 20th century, with the construction of many theaters that are still in use today.</p>
+                        <p>The term "Broadway" originally referred to the physical street, but became synonymous with professional theater when the majority of theaters were built near the street. The first musical comedy on Broadway was "The Black Crook" in 1866, running for a then-unprecedented 474 performances.</p>
+                        <p>Today, Broadway is considered the highest level of commercial theater in the English-speaking world, with shows often transferring to London's West End and touring productions across the globe.</p>
+                    </div>
+                    <div class="history-image">
+                        <img src="assets/images/broadway/historic-broadway.webp" alt="Historic Broadway theaters in the early 1900s" loading="lazy">
                     </div>
                 </div>
             </div>
         </section>
         
         <!-- Map Section -->
-        <section class="map-section">
+        <section class="map-section" aria-labelledby="broadway-map-title">
             <div class="container">
-                <h2>Broadway Theater District Map</h2>
-                <div class="interactive-map" id="broadway-map"></div>
+                <h2 id="broadway-map-title" class="section-title">Broadway Theater District Map</h2>
+                <p class="section-description">Explore the locations of major Broadway theaters in Manhattan's Theater District</p>
+                <div class="interactive-map" id="broadway-map" aria-label="Interactive map of Broadway theaters" role="application">
+                    <!-- Map will be loaded via JavaScript -->
+                </div>
+                <noscript>
+                    <div class="map-fallback">
+                        <h3>Broadway Theater Locations</h3>
+                        <ul>
+                            <li>Majestic Theatre - 245 W 44th St (The Phantom of the Opera)</li>
+                            <li>Richard Rodgers Theatre - 226 W 46th St (Hamilton)</li>
+                            <li>Gershwin Theatre - 222 W 51st St (Wicked)</li>
+                            <li>Minskoff Theatre - 200 W 45th St (The Lion King)</li>
+                        </ul>
+                    </div>
+                </noscript>
+            </div>
+        </section>
+        
+        <!-- Accessibility Section -->
+        <section class="content-section" aria-labelledby="accessibility-info">
+            <div class="container">
+                <h2 id="accessibility-info" class="section-title">Accessibility Information</h2>
+                <div class="tips">
+                    <div class="tip-card">
+                        <h3 class="tip-title">Wheelchair Access</h3>
+                        <p>Most Broadway theaters offer wheelchair seating and accessible restrooms. Call the theater box office in advance to arrange accommodations.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h3 class="tip-title">Assisted Listening</h3>
+                        <p>Many theaters provide assistive listening devices. Some offer sign language interpreted and open caption performances on specific dates.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h3 class="tip-title">Autism-Friendly</h3>
+                        <p>Select shows offer autism-friendly performances with adjusted lighting and sound, and a more relaxed environment.</p>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
     
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="footer-container">
             <!-- Newsletter Section -->
             <div class="footer-newsletter">
                 <h3>Explore NYC With Us</h3>
-                <p>Get exclusive updates on hidden gems and events</p>
+                <p>Get exclusive updates on Broadway shows and NYC events</p>
                 <form class="newsletter-form" id="newsletter-form" name="newsletter" method="POST" netlify data-netlify-honeypot="bot-field">
                     <input type="hidden" name="form-name" value="newsletter">
                     <p class="hidden">
@@ -421,41 +827,40 @@
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </div>
-                    <small id="email-helper" class="visually-hidden">We'll never share your email</small>
+                    <small id="email-helper">We'll never share your email</small>
                 </form>
-                <div class="newsletter-success" aria-live="polite">Thank you for subscribing!</div>
+                <div id="newsletter-message" class="newsletter-message" aria-live="polite"></div>
             </div>
             
             <!-- Quick Links Grid -->
             <div class="footer-grid">
                 <div class="footer-column">
-                    <h4>Discover</h4>
+                    <h4>Discover Broadway</h4>
                     <ul>
-                        <li><a href="index.html#landmarks"><i class="fas fa-landmark"></i> Iconic Landmarks</a></li>
-                        <li><a href="index.html#culture"><i class="fas fa-theater-masks"></i> Arts & Culture</a></li>
-                        <li><a href="index.html#food"><i class="fas fa-utensils"></i> Food Scene</a></li>
-                        <li><a href="index.html#gallery"><i class="fas fa-camera"></i> Photo Gallery</a></li>
-                        <li><a href="full-calendar.html"><i class="fas fa-calendar-alt"></i> Events Calendar</a></li>
+                        <li><a href="#broadway-intro"><i class="fas fa-info-circle" aria-hidden="true"></i> About Broadway</a></li>
+                        <li><a href="#show-grid"><i class="fas fa-ticket-alt" aria-hidden="true"></i> Current Shows</a></li>
+                        <li><a href="#broadway-map-title"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Theater Map</a></li>
+                        <li><a href="#accessibility-info"><i class="fas fa-wheelchair" aria-hidden="true"></i> Accessibility</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
-                    <h4>Resources</h4>
+                    <h4>Visitor Resources</h4>
                     <ul>
-                        <li><a href="#"><i class="fas fa-subway"></i> Transit Guide</a></li>
-                        <li><a href="#"><i class="fas fa-calendar-alt"></i> Events Calendar</a></li>
-                        <li><a href="#"><i class="fas fa-map-marked-alt"></i> Interactive Map</a></li>
-                        <li><a href="#"><i class="fas fa-question-circle"></i> Visitor FAQ</a></li>
+                        <li><a href="https://www.tdf.org/" target="_blank" rel="noopener"><i class="fas fa-tag" aria-hidden="true"></i> Discount Tickets</a></li>
+                        <li><a href="https://www.broadway.org/" target="_blank" rel="noopener"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Show Schedules</a></li>
+                        <li><a href="https://www.nycgo.com/restaurants" target="_blank" rel="noopener"><i class="fas fa-utensils" aria-hidden="true"></i> Nearby Dining</a></li>
+                        <li><a href="https://new.mta.info/" target="_blank" rel="noopener"><i class="fas fa-subway" aria-hidden="true"></i> Transit Guide</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
-                    <h4>Company</h4>
+                    <h4>About NYxplore</h4>
                     <ul>
-                        <li><a href="#"><i class="fas fa-heart"></i> About NYxplore</a></li>
-                        <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
-                        <li><a href="#"><i class="fas fa-briefcase"></i> Careers</a></li>
-                        <li><a href="#"><i class="fas fa-newspaper"></i> Press</a></li>
+                        <li><a href="/about.html"><i class="fas fa-heart" aria-hidden="true"></i> Our Story</a></li>
+                        <li><a href="/contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact Us</a></li>
+                        <li><a href="/blog.html"><i class="fas fa-newspaper" aria-hidden="true"></i> NYC Blog</a></li>
+                        <li><a href="/privacy.html"><i class="fas fa-shield-alt" aria-hidden="true"></i> Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
@@ -463,50 +868,37 @@
             <!-- Social & Legal -->
             <div class="footer-bottom">
                 <div class="social-links">
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/nyxplore" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com/nyxplore" target="_blank" rel="noopener" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.facebook.com/nyxplore" target="_blank" rel="noopener" aria-label="Follow us on Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.youtube.com/nyxplore" target="_blank" rel="noopener" aria-label="Subscribe on YouTube"><i class="fab fa-youtube"></i></a>
                 </div>
                 
                 <div class="legal-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Accessibility</a>
-                    <a href="#">Sitemap</a>
+                    <a href="/privacy.html">Privacy Policy</a>
+                    <a href="/terms.html">Terms of Service</a>
+                    <a href="/accessibility.html">Accessibility</a>
+                    <a href="/sitemap.xml">Sitemap</a>
                 </div>
                 
                 <div class="copyright">
                     <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
-                    <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
+                    <p>Made with <i class="fas fa-heart" style="color: var(--primary-color);" aria-hidden="true"></i> in New York City</p>
                 </div>
             </div>
         </div>
     </footer>
-    
     <!-- Scroll to Top Button -->
-    <div class="scroll-top">
-        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
-                  style="transition: stroke-dashoffset 10ms linear; 
-                         stroke-dasharray: 307.919, 307.919; 
-                         stroke-dashoffset: 307.919;">
-            </path>
-        </svg>
-    </div>
-
-    <!-- Ambient Sound -->
-    <audio id="ambient-sound" loop>
-        <source src="assets/sounds/audio-bg.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio> 
-    
+<div class="scroll-top">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
+              style="transition: stroke-dashoffset 10ms linear; 
+                     stroke-dasharray: 307.919, 307.919; 
+                     stroke-dashoffset: 307.919;">
+        </path>
+    </svg>
+</div>
     <!-- External Scripts -->
-    <script src="script.js"></script>
-    <script src="gallery.js" defer></script>
-    
-    <!-- Leaflet Map JS -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     
     <!-- Netlify Identity Widget -->
@@ -516,82 +908,45 @@
     <script>
         // Broadway Theater Page Specific JavaScript
         document.addEventListener('DOMContentLoaded', function() {
+            // Set current year in footer
+            document.getElementById('year').textContent = new Date().getFullYear();
+            
             // Initialize Broadway Map
             initBroadwayMap();
             
             // Load show data
             loadBroadwayShows();
             
-            // Mobile menu toggle
-            const mobileMenu = document.getElementById('mobile-menu');
-            const navbarMenu = document.getElementById('navbar-menu');
+            // Initialize search functionality
+            initSearch();
             
-            mobileMenu.addEventListener('click', function() {
-                const isExpanded = this.getAttribute('aria-expanded') === 'true';
-                this.setAttribute('aria-expanded', !isExpanded);
-                navbarMenu.classList.toggle('active');
-                this.classList.toggle('active');
-            });
-            
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
+            // Newsletter form handling
+            const newsletterForm = document.getElementById('newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
                     e.preventDefault();
                     
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
+                    const email = this.elements['email'].value;
+                    const messageElement = document.getElementById('newsletter-message');
                     
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth'
-                        });
+                    // Simple validation
+                    if (!email.includes('@')) {
+                        messageElement.textContent = 'Please enter a valid email address';
+                        messageElement.style.color = 'red';
+                        return;
                     }
+                    
+                    // Simulate submission (in a real site, this would be an AJAX call)
+                    messageElement.textContent = 'Thank you for subscribing to our newsletter!';
+                    messageElement.style.color = 'green';
+                    
+                    // Reset form after 3 seconds
+                    setTimeout(() => {
+                        this.reset();
+                        messageElement.textContent = '';
+                    }, 3000);
                 });
-            });
-            
-            // Set current year in footer
-            document.getElementById('year').textContent = new Date().getFullYear();
-            
-            // Scroll to top button
-            const scrollTop = document.querySelector('.scroll-top');
-            
-            window.addEventListener('scroll', function() {
-                if (window.pageYOffset > 300) {
-                    scrollTop.classList.add('show');
-                } else {
-                    scrollTop.classList.remove('show');
-                }
-            });
-            
-            scrollTop.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-            
-            // Basic Protection Methods
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-                alert('Right-click is disabled on this page');
-            });
-            
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'F12' || 
-                    (e.ctrlKey && e.shiftKey && e.key === 'I') || 
-                    (e.ctrlKey && e.shiftKey && e.key === 'J') ||
-                    (e.ctrlKey && e.key === 'u')) {
-                    e.preventDefault();
-                    alert('This action is not allowed');
-                }
-            });
-            
-            document.addEventListener('dragstart', function(e) {
-                if (e.target.tagName === 'IMG') {
-                    e.preventDefault();
-                }
-            });
+            }
             
             // Netlify Identity
             if (window.netlifyIdentity) {
@@ -614,7 +969,8 @@
                 
                 // Add tile layer
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
+                    crossOrigin: true
                 }).addTo(map);
                 
                 // Theater data
@@ -624,28 +980,40 @@
                         location: [40.7597, -73.9847],
                         address: '245 W 44th St, New York, NY 10036',
                         currentShow: 'The Phantom of the Opera',
-                        iconUrl: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png'
+                        showImage: 'assets/images/broadway/phantom.webp',
+                        priceRange: '$99-$399',
+                        accessibility: 'Wheelchair accessible, assisted listening devices available',
+                        iconUrl: 'assets/images/map-marker-theater.png'
                     },
                     {
                         name: 'Richard Rodgers Theatre',
                         location: [40.7593, -73.9867],
                         address: '226 W 46th St, New York, NY 10036',
                         currentShow: 'Hamilton',
-                        iconUrl: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png'
+                        showImage: 'assets/images/broadway/hamilton.webp',
+                        priceRange: '$149-$499',
+                        accessibility: 'Wheelchair accessible, open caption performances available',
+                        iconUrl: 'assets/images/map-marker-theater.png'
                     },
                     {
                         name: 'Gershwin Theatre',
                         location: [40.7618, -73.9848],
                         address: '222 W 51st St, New York, NY 10019',
                         currentShow: 'Wicked',
-                        iconUrl: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png'
+                        showImage: 'assets/images/broadway/wicked.webp',
+                        priceRange: '$89-$299',
+                        accessibility: 'Wheelchair accessible, sign language interpreted performances available',
+                        iconUrl: 'assets/images/map-marker-theater.png'
                     },
                     {
                         name: 'Minskoff Theatre',
                         location: [40.7586, -73.9842],
                         address: '200 W 45th St, New York, NY 10036',
                         currentShow: 'The Lion King',
-                        iconUrl: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png'
+                        showImage: 'assets/images/broadway/lion-king.webp',
+                        priceRange: '$129-$349',
+                        accessibility: 'Wheelchair accessible, autism-friendly performances available',
+                        iconUrl: 'assets/images/map-marker-theater.png'
                     }
                 ];
                 
@@ -659,15 +1027,18 @@
                     });
                     
                     const marker = L.marker(theater.location, {
-                        icon: customIcon
+                        icon: customIcon,
+                        alt: `${theater.name} - ${theater.currentShow}`
                     }).addTo(map);
                     
                     marker.bindPopup(`
                         <div class="map-popup">
-                            <h3>${theater.name}</h3>
+                            <h3 class="map-popup-title">${theater.name}</h3>
                             <p><strong>Current Show:</strong> ${theater.currentShow}</p>
-                            <p><i class="fas fa-map-marker-alt"></i> ${theater.address}</p>
-                            <button class="map-popup-btn" onclick="alert('Ticket purchase would go here for ${theater.currentShow}')">
+                            <p><strong>Price Range:</strong> ${theater.priceRange}</p>
+                            <p><strong>Accessibility:</strong> ${theater.accessibility}</p>
+                            <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> ${theater.address}</p>
+                            <button class="map-popup-btn" onclick="alert('Redirecting to ticket purchase for ${theater.currentShow}')" aria-label="Get tickets for ${theater.currentShow}">
                                 Get Tickets
                             </button>
                         </div>
@@ -711,24 +1082,63 @@
             const shows = [
                 {
                     title: 'The Lion King',
-                    description: 'The beloved Disney musical about Simba\'s journey to become king.',
-                    image: '../assets/images/lion-king-show.jpg',
+                    description: 'The beloved Disney musical about Simba\'s journey to become king of the Pride Lands. Features spectacular puppetry and unforgettable songs by Elton John.',
+                    image: 'assets/images/broadway/lion-king-show.webp',
                     theater: 'Minskoff Theatre',
-                    duration: '2h 30m'
+                    duration: '2h 30m',
+                    priceRange: '$129-$349',
+                    ageRecommendation: 'Ages 6+',
+                    altText: 'The Lion King Broadway show poster'
                 },
                 {
                     title: 'Hamilton',
-                    description: 'The revolutionary musical about American founding father Alexander Hamilton.',
-                    image: '../assets/images/hamilton-show.jpg',
+                    description: 'Lin-Manuel Miranda\'s revolutionary musical about American founding father Alexander Hamilton, blending hip-hop, jazz, and Broadway styles.',
+                    image: 'assets/images/broadway/hamilton-show.webp',
                     theater: 'Richard Rodgers Theatre',
-                    duration: '2h 45m'
+                    duration: '2h 45m',
+                    priceRange: '$149-$499',
+                    ageRecommendation: 'Ages 10+',
+                    altText: 'Hamilton Broadway show poster'
                 },
                 {
                     title: 'Wicked',
-                    description: 'The untold story of the witches of Oz.',
-                    image: '../assets/images/wicked-show.jpg',
+                    description: 'The untold story of the witches of Oz, exploring the relationship between Glinda the Good and the Wicked Witch of the West before Dorothy arrived.',
+                    image: 'assets/images/broadway/wicked-show.webp',
                     theater: 'Gershwin Theatre',
-                    duration: '2h 45m'
+                    duration: '2h 45m',
+                    priceRange: '$89-$299',
+                    ageRecommendation: 'Ages 8+',
+                    altText: 'Wicked Broadway show poster'
+                },
+                {
+                    title: 'The Phantom of the Opera',
+                    description: 'Andrew Lloyd Webber\'s masterpiece about a masked figure who lurks beneath the Paris Opera House, exercising a reign of terror over its occupants.',
+                    image: 'assets/images/broadway/phantom-show.webp',
+                    theater: 'Majestic Theatre',
+                    duration: '2h 30m',
+                    priceRange: '$99-$399',
+                    ageRecommendation: 'Ages 10+',
+                    altText: 'The Phantom of the Opera Broadway show poster'
+                },
+                {
+                    title: 'Moulin Rouge! The Musical',
+                    description: 'A theatrical adaptation of Baz Luhrmann\'s revolutionary film, featuring pop music mashups and spectacular choreography.',
+                    image: 'assets/images/broadway/moulin-rouge-show.webp',
+                    theater: 'Al Hirschfeld Theatre',
+                    duration: '2h 35m',
+                    priceRange: '$119-$349',
+                    ageRecommendation: 'Ages 12+',
+                    altText: 'Moulin Rouge Broadway show poster'
+                },
+                {
+                    title: 'Harry Potter and the Cursed Child',
+                    description: 'The eighth Harry Potter story and the first official story to be presented on stage, set 19 years after the last book.',
+                    image: 'assets/images/broadway/harry-potter-show.webp',
+                    theater: 'Lyric Theatre',
+                    duration: '3h 30m (Part 1 & 2)',
+                    priceRange: '$79-$299',
+                    ageRecommendation: 'Ages 10+',
+                    altText: 'Harry Potter and the Cursed Child Broadway show poster'
                 }
             ];
             
@@ -737,17 +1147,22 @@
             
             // Add show cards to the grid
             shows.forEach(show => {
-                const showCard = document.createElement('div');
+                const showCard = document.createElement('article');
                 showCard.className = 'show-card';
+                showCard.setAttribute('aria-label', `${show.title} at ${show.theater}`);
                 
                 showCard.innerHTML = `
-                    <div class="show-image" style="background-image: url('${show.image}')"></div>
+                    <div class="show-image" style="background-image: url('${show.image}')" aria-label="${show.altText}"></div>
                     <div class="show-info">
-                        <h3>${show.title}</h3>
-                        <p>${show.description}</p>
+                        <h3 class="show-title">${show.title}</h3>
+                        <p class="show-description">${show.description}</p>
                         <div class="show-meta">
-                            <span>${show.theater}</span>
-                            <span>${show.duration}</span>
+                            <span><i class="fas fa-landmark" aria-hidden="true"></i> ${show.theater}</span>
+                            <span><i class="fas fa-clock" aria-hidden="true"></i> ${show.duration}</span>
+                        </div>
+                        <div class="show-meta">
+                            <span><i class="fas fa-tag" aria-hidden="true"></i> <span class="price-range">${show.priceRange}</span></span>
+                            <span><i class="fas fa-user" aria-hidden="true"></i> ${show.ageRecommendation}</span>
                         </div>
                     </div>
                 `;
@@ -756,26 +1171,125 @@
             });
         }
 
-        // Newsletter form handling
-        const newsletterForm = document.getElementById('newsletter-form');
-        if (newsletterForm) {
-            newsletterForm.addEventListener('submit', function(e) {
-                e.preventDefault();
+        // Initialize search functionality
+        function initSearch() {
+            const searchInput = document.getElementById('search-input');
+            const searchSuggestions = document.getElementById('search-suggestions');
+            
+            if (!searchInput || !searchSuggestions) return;
+            
+            // Sample search data (in a real app, this would come from an API)
+            const searchData = [
+                { term: 'Hamilton', type: 'show', url: '#hamilton' },
+                { term: 'The Lion King', type: 'show', url: '#lion-king' },
+                { term: 'Wicked', type: 'show', url: '#wicked' },
+                { term: 'Phantom of the Opera', type: 'show', url: '#phantom' },
+                { term: 'Matilda', type: 'show', url: '#matilda' },
+                { term: 'Harry Potter', type: 'show', url: '#harry-potter' },
+                { term: 'Moulin Rouge', type: 'show', url: '#moulin-rouge' },
+                { term: 'TKTS Booth', type: 'tickets', url: '#tkts' },
+                { term: 'Rush Tickets', type: 'tickets', url: '#rush-tickets' },
+                { term: 'Theater District', type: 'location', url: '#theater-district' },
+                { term: 'Accessibility', type: 'info', url: '#accessibility' },
+                { term: 'Broadway History', type: 'info', url: '#history' }
+            ];
+            
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase();
                 
-                const email = this.elements['email'].value;
-                console.log('Subscribing email:', email);
-                
-                const successMessage = document.querySelector('.newsletter-success');
-                if (successMessage) {
-                    successMessage.style.display = 'block';
-                    setTimeout(() => {
-                        successMessage.style.display = 'none';
-                    }, 5000);
+                if (query.length < 2) {
+                    searchSuggestions.classList.remove('active');
+                    return;
                 }
                 
-                this.reset();
+                const results = searchData.filter(item => 
+                    item.term.toLowerCase().includes(query)
+                );
+                
+                if (results.length > 0) {
+                    searchSuggestions.innerHTML = results.map(item => `
+                        <div class="search-suggestion-item" role="option" data-url="${item.url}">
+                            <strong>${item.term}</strong> <span>(${item.type})</span>
+                        </div>
+                    `).join('');
+                    
+                    searchSuggestions.classList.add('active');
+                    
+                    // Add click handlers to suggestion items
+                    document.querySelectorAll('.search-suggestion-item').forEach(item => {
+                        item.addEventListener('click', function() {
+                            const url = this.getAttribute('data-url');
+                            window.location.href = url;
+                        });
+                    });
+                } else {
+                    searchSuggestions.innerHTML = `
+                        <div class="search-suggestion-item">
+                            No results found for "${query}"
+                        </div>
+                    `;
+                    searchSuggestions.classList.add('active');
+                }
+            });
+            
+            // Close suggestions when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !searchSuggestions.contains(e.target)) {
+                    searchSuggestions.classList.remove('active');
+                }
+            });
+            
+            // Keyboard navigation for accessibility
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowDown' && searchSuggestions.classList.contains('active')) {
+                    e.preventDefault();
+                    const firstItem = searchSuggestions.querySelector('.search-suggestion-item');
+                    if (firstItem) firstItem.focus();
+                }
+            });
+            
+            searchSuggestions.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    searchSuggestions.classList.remove('active');
+                    searchInput.focus();
+                }
             });
         }
+        // Scroll to Top Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const scrollTop = document.querySelector('.scroll-top');
+    const progressPath = document.querySelector('.progress-circle path');
+    const pathLength = progressPath.getTotalLength();
+    
+    // Set initial styles for progress circle
+    progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
+    progressPath.style.strokeDashoffset = pathLength;
+    
+    // Update progress on scroll
+    window.addEventListener('scroll', function() {
+        const scrollPercentage = (document.body.scrollTop + document.documentElement.scrollTop) / 
+                               (document.documentElement.scrollHeight - document.documentElement.clientHeight);
+        
+        const drawLength = pathLength * scrollPercentage;
+        progressPath.style.strokeDashoffset = pathLength - drawLength;
+        
+        // Show/hide button based on scroll position
+        if (window.pageYOffset > 300) {
+            scrollTop.classList.add('active');
+        } else {
+            scrollTop.classList.remove('active');
+        }
+    });
+    
+    // Smooth scroll to top when clicked
+    scrollTop.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+});
     </script>
 </body>
 </html>

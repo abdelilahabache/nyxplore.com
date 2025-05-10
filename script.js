@@ -932,3 +932,264 @@ document.addEventListener('DOMContentLoaded', function() {
       alert('Event submission form would open here. In production, you would connect this to your backend.');
   });
 });
+
+// Search Functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const searchForm = document.querySelector('.search-form');
+  
+  if (searchForm) {
+    searchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const searchInput = this.querySelector('.search-input');
+      const query = searchInput.value.trim();
+      
+      if (query) {
+        // Here you would implement your search functionality
+        // For now, we'll just log it and scroll to matching sections
+        console.log('Searching for:', query);
+        
+        // Simple content matching - in a real implementation, you'd want a more robust search
+        const matchingSections = Array.from(document.querySelectorAll('section')).filter(section => {
+          return section.textContent.toLowerCase().includes(query.toLowerCase());
+        });
+        
+        if (matchingSections.length > 0) {
+          // Scroll to first matching section
+          matchingSections[0].scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+          
+          // Highlight matching sections temporarily
+          matchingSections.forEach(section => {
+            section.style.boxShadow = '0 0 0 3px var(--accent-color)';
+            setTimeout(() => {
+              section.style.boxShadow = 'none';
+            }, 3000);
+          });
+        } else {
+          // No results found
+          alert(`No results found for "${query}". Try a different search term.`);
+        }
+        
+        // Track search in analytics
+        if (typeof gtag === 'function') {
+          gtag('event', 'search', {
+            'search_term': query
+          });
+        }
+      }
+    });
+  }
+  
+  // Mobile search toggle (optional)
+  const mobileMenuButton = document.getElementById('mobile-menu');
+  const searchContainer = document.querySelector('.search-container');
+  
+  if (mobileMenuButton && searchContainer) {
+    mobileMenuButton.addEventListener('click', function() {
+      // On mobile, hide search when menu is open for better UX
+      if (window.innerWidth <= 992) {
+        if (this.classList.contains('active')) {
+          searchContainer.style.display = 'none';
+        } else {
+          searchContainer.style.display = 'block';
+        }
+      }
+    });
+  }
+});
+
+// NYC-themed search suggestions
+const nycSearchSuggestions = [
+  { text: "Times Square", category: "landmark", icon: "fa-landmark" },
+  { text: "Statue of Liberty", category: "landmark", icon: "fa-monument" },
+  { text: "Central Park", category: "park", icon: "fa-tree" },
+  { text: "Broadway Shows", category: "culture", icon: "fa-theater-masks" },
+  { text: "Metropolitan Museum", category: "museum", icon: "fa-university" },
+  { text: "Pizza Places", category: "food", icon: "fa-pizza-slice" },
+  { text: "Brooklyn Bridge", category: "landmark", icon: "fa-bridge" },
+  { text: "Empire State Building", category: "landmark", icon: "fa-building" },
+  { text: "Chinatown Restaurants", category: "food", icon: "fa-utensils" },
+  { text: "Subway Map", category: "transport", icon: "fa-subway" },
+  { text: "Nightlife", category: "entertainment", icon: "fa-cocktail" },
+  { text: "Street Art", category: "art", icon: "fa-paint-brush" },
+  { text: "Yankee Stadium", category: "sports", icon: "fa-baseball-ball" },
+  { text: "Bagels", category: "food", icon: "fa-bread-slice" },
+  { text: "Skyline Views", category: "photo", icon: "fa-camera" }
+];
+
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.querySelector('.search-input');
+  const searchSuggestions = document.querySelector('.search-suggestions');
+  
+  if (searchInput && searchSuggestions) {
+    // Show suggestions when input is focused
+    searchInput.addEventListener('focus', function() {
+      showAllSuggestions();
+    });
+    
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.search-input-wrapper')) {
+        searchSuggestions.classList.remove('visible');
+      }
+    });
+    
+    // Handle input for dynamic suggestions
+    searchInput.addEventListener('input', function() {
+      const query = this.value.trim().toLowerCase();
+      
+      if (query.length > 0) {
+        showFilteredSuggestions(query);
+      } else {
+        showAllSuggestions();
+      }
+    });
+    
+    // Keyboard navigation
+    searchInput.addEventListener('keydown', function(e) {
+      const activeSuggestion = document.querySelector('.search-suggestion-item.highlighted');
+      
+      // Arrow down
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (!activeSuggestion) {
+          highlightFirstSuggestion();
+        } else {
+          highlightNextSuggestion(activeSuggestion);
+        }
+      }
+      
+      // Arrow up
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (activeSuggestion) {
+          highlightPreviousSuggestion(activeSuggestion);
+        }
+      }
+      
+      // Enter
+      if (e.key === 'Enter' && activeSuggestion) {
+        e.preventDefault();
+        searchInput.value = activeSuggestion.textContent;
+        searchInput.focus();
+        searchSuggestions.classList.remove('visible');
+      }
+    });
+    
+    // Handle form submission
+    const searchForm = document.querySelector('.search-form');
+    if (searchForm) {
+      searchForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        performSearch(searchInput.value.trim());
+      });
+    }
+  }
+  
+  function showAllSuggestions() {
+    renderSuggestions(nycSearchSuggestions);
+    searchSuggestions.classList.add('visible');
+  }
+  
+  function showFilteredSuggestions(query) {
+    const filtered = nycSearchSuggestions.filter(item => 
+      item.text.toLowerCase().includes(query)
+    );
+    renderSuggestions(filtered);
+    searchSuggestions.classList.add('visible');
+  }
+  
+  function renderSuggestions(items) {
+    searchSuggestions.innerHTML = '';
+    
+    if (items.length === 0) {
+      searchSuggestions.innerHTML = `
+        <div class="search-suggestion-item no-results">
+          <i class="fas fa-search"></i>
+          No matching suggestions found
+        </div>
+      `;
+      return;
+    }
+    
+    items.forEach(item => {
+      const suggestion = document.createElement('div');
+      suggestion.className = 'search-suggestion-item';
+      suggestion.innerHTML = `
+        <i class="fas ${item.icon}"></i>
+        ${item.text}
+      `;
+      
+      suggestion.addEventListener('click', function() {
+        searchInput.value = item.text;
+        performSearch(item.text);
+        searchSuggestions.classList.remove('visible');
+      });
+      
+      searchSuggestions.appendChild(suggestion);
+    });
+  }
+  
+  function highlightFirstSuggestion() {
+    const first = searchSuggestions.querySelector('.search-suggestion-item');
+    if (first) {
+      first.classList.add('highlighted');
+    }
+  }
+  
+  function highlightNextSuggestion(current) {
+    current.classList.remove('highlighted');
+    const next = current.nextElementSibling;
+    if (next) {
+      next.classList.add('highlighted');
+      next.scrollIntoView({ block: 'nearest' });
+    } else {
+      highlightFirstSuggestion();
+    }
+  }
+  
+  function highlightPreviousSuggestion(current) {
+    current.classList.remove('highlighted');
+    const prev = current.previousElementSibling;
+    if (prev) {
+      prev.classList.add('highlighted');
+      prev.scrollIntoView({ block: 'nearest' });
+    }
+  }
+  
+  function performSearch(query) {
+    if (!query) return;
+    
+    // In a real implementation, you would:
+    // 1. Search your content or call an API
+    // 2. Display results on a search page or highlight matches
+    
+    console.log('Searching for:', query);
+    
+    // Simple implementation - scroll to matching section
+    const matchingSection = Array.from(document.querySelectorAll('section')).find(section => 
+      section.textContent.toLowerCase().includes(query.toLowerCase())
+    );
+    
+    if (matchingSection) {
+      matchingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      
+      // Temporary highlight
+      matchingSection.style.boxShadow = '0 0 0 3px var(--accent-color)';
+      setTimeout(() => {
+        matchingSection.style.boxShadow = 'none';
+      }, 3000);
+    } else {
+      alert(`No results found for "${query}". Try a different search term.`);
+    }
+    
+    // Track in analytics
+    if (typeof gtag === 'function') {
+      gtag('event', 'search', {
+        'search_term': query
+      });
+    }
+  }
+});

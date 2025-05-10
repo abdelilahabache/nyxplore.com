@@ -6,105 +6,301 @@
     <title>NYC Museums Guide | Metropolitan, MoMA & More | NYxplore</title>
     <meta name="description" content="Comprehensive guide to New York City museums including The Met, MoMA, American Museum of Natural History, and hidden gems with visitor tips.">
     
-    <!-- Preload Critical Resources -->
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Guide",
+      "name": "NYC Museums Guide",
+      "description": "Comprehensive guide to New York City's world-class museums",
+      "publisher": {
+        "@type": "Organization",
+        "name": "NYxplore",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://nyxplore.com/assets/images/logo-NY.webp"
+        }
+      },
+      "about": {
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@type": "Museum",
+              "name": "The Metropolitan Museum of Art",
+              "url": "https://nyxplore.com/museums/metropolitan.html"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@type": "Museum",
+              "name": "Museum of Modern Art",
+              "url": "https://nyxplore.com/museums/moma.html"
+            }
+          }
+        ]
+      }
+    }
+    </script>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMW3YWQXBF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DMW3YWQXBF');
+    </script>
+
+    <!-- Preload key resources -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" as="style">
+    <link rel="preload" href="assets/images/museum/museum-hero.webp" as="image" fetchpriority="high">
     <link rel="preload" href="assets/images/museum/met-museum.webp" as="image">
     <link rel="preload" href="assets/images/museum/moma.webp" as="image">
     <link rel="preload" href="assets/images/museum/amnh.webp" as="image">
     
-    <!-- DNS Prefetch -->
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
-    <link rel="dns-prefetch" href="https://unpkg.com">
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="styles.css">
-    
     <!-- Critical CSS -->
     <style>
         :root {
-            --primary: #2c3e50;
-            --secondary: #e74c3c;
-            --accent: #f39c12;
-            --text: #34495e;
-            --light: #ecf0f1;
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
         }
         
         body {
-            margin: 0;
-            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark-color);
             line-height: 1.6;
-            color: var(--text);
+            margin: 0;
+            padding: 0;
             overflow-x: hidden;
         }
         
-        /* Header Styles */
-        .page-header {
-            padding: 4rem 1rem;
-            text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                        url('assets/images/museum/museum-hero-small.webp') center/cover;
+        /* Header & Search */
+        .header {
+            background-color: #fff;
+            box-shadow: var(--box-shadow);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+        
+        .search-container {
+            position: relative;
+            width: 50%;
+            max-width: 500px;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
+        }
+        
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-radius: 0 0 10px 10px;
+            box-shadow: var(--box-shadow);
+            z-index: 100;
+            display: none;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .search-suggestions.active {
+            display: block;
+        }
+        
+        .search-suggestion-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .search-suggestion-item:hover {
+            background: var(--light-color);
+        }
+        
+        /* Museum Hero Styles */
+        .landmark-hero {
+            position: relative;
+            height: 70vh;
+            min-height: 500px;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), 
+                        url('assets/images/museum/museum-hero.webp') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
-            opacity: 0;
-            animation: fadeIn 0.8s 0.3s forwards;
+            text-align: center;
         }
         
-        @keyframes fadeIn {
-            to { opacity: 1; }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 20px;
         }
         
-        /* Museum Grid Layout */
+        .landmark-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .cta-button {
+            padding: 12px 30px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .cta-button:hover {
+            background: #e67e22;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Content Section */
+        .content-section {
+            padding: 5rem 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--dark-color);
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--accent-color);
+            margin: 1rem auto;
+        }
+        
+        .section-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        
+        /* Museum Cards */
         .museum-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2rem;
-            padding: 2rem;
+            margin: 3rem 0;
         }
         
-        /* Museum Card Styles */
         .museum-card {
-            background: white;
-            border-radius: 8px;
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: var(--transition);
+            position: relative;
         }
         
         .museum-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
         
         .museum-card img {
             width: 100%;
             height: 200px;
             object-fit: cover;
-            background: #f5f5f5;
             display: block;
+            transition: transform 0.5s ease;
         }
         
-        /* Fallback for broken images */
-        .museum-card img:after {
-            content: "Image not available";
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #eee;
-            color: #777;
-            font-size: 0.9rem;
+        .museum-card:hover img {
+            transform: scale(1.03);
         }
         
         .card-content {
             padding: 1.5rem;
+        }
+        
+        .museum-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
         }
         
         .details {
@@ -115,124 +311,352 @@
             font-size: 0.9rem;
         }
         
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        
+        .price {
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+        
         /* Filter Buttons */
         .filter-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
             justify-content: center;
-            padding: 1rem;
-            background: var(--light);
+            margin-bottom: 2rem;
         }
         
         .filter-buttons button {
             padding: 0.5rem 1rem;
             border: none;
-            background: white;
+            background: #fff;
             border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: var(--box-shadow);
         }
         
         .filter-buttons button.active,
         .filter-buttons button:hover {
-            background: var(--secondary);
+            background: var(--secondary-color);
             color: white;
         }
         
-        /* Navigation Styles */
-        .navbar {
-            background-color: var(--primary);
-            padding: 1rem;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
         }
         
-        .navbar-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
+        .stat-item {
+            background: #fff;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
         }
         
-        .logo img {
-            height: 40px;
-            width: auto;
+        .stat-item:hover {
+            transform: translateY(-3px);
         }
         
-        .navbar-menu {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
         }
         
-        .navbar-item {
-            margin-left: 1.5rem;
-        }
-        
-        .navbar-link {
-            color: white;
-            text-decoration: none;
+        .stat-label {
             font-weight: 600;
+        }
+        
+        /* Resource Cards */
+        .resource-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .resource-card {
+            padding: 2rem;
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .resource-card h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        
+        /* Gallery Section */
+        .gallery-section {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .gallery-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Lightbox Modal */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .lightbox-img {
+            max-height: 80vh;
+            max-width: 90vw;
+            border-radius: var(--border-radius);
+            box-shadow: 0 0 20px rgba(0,0,0,0.6);
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
             transition: color 0.3s ease;
         }
         
-        .navbar-link:hover {
-            color: var(--accent);
+        .lightbox-close:hover {
+            color: var(--accent-color);
         }
         
-        .navbar-toggle {
-            display: none;
-            background: none;
-            border: none;
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
             color: white;
-            font-size: 1.5rem;
+            font-size: 2.5rem;
             cursor: pointer;
+            padding: 0 20px;
+            transition: color 0.3s ease;
         }
         
-        /* Animations */
-        @keyframes cardEntrance {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .lightbox-nav:hover {
+            color: var(--accent-color);
+        }
+        
+        .lightbox-prev {
+            left: 10px;
+        }
+        
+        .lightbox-next {
+            right: 10px;
+        }
+        
+        .lightbox-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: white;
+            font-size: 1.2rem;
+            padding: 10px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+        }
+        
+        /* Visitor Tips */
+        .visitor-tips {
+            background-color: var(--light-color);
+            padding: 5rem 0;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #222;
+            color: #fff;
+            padding: 3rem 0 0;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h4 {
+            color: #fff;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-column a:hover {
+            color: #fff;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            margin-bottom: 1rem;
+        }
+        
+        .social-links a {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .legal-links {
+            margin-bottom: 1rem;
+        }
+        
+        .legal-links a {
+            color: #bbb;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .legal-links a:hover {
+            color: #fff;
+        }
+        
+        .copyright {
+            color: #777;
+            font-size: 0.9rem;
         }
         
         /* Responsive Adjustments */
         @media (max-width: 768px) {
-            .museum-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .navbar-menu {
-                display: none;
+            .header-container {
                 flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .search-container {
                 width: 100%;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                background-color: var(--primary);
-                padding: 1rem 0;
             }
             
-            .navbar-menu.active {
-                display: flex;
+            .landmark-hero {
+                height: 60vh;
             }
             
-            .navbar-item {
-                margin: 0;
-                padding: 0.5rem 1rem;
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
             
-            .navbar-toggle {
-                display: block;
+            .lightbox-nav {
+                font-size: 2rem;
+            }
+            
+            .lightbox-close {
+                font-size: 2rem;
+                top: 10px;
+                right: 20px;
             }
             
             .filter-buttons {
@@ -243,167 +667,384 @@
                 padding: 0.4rem 0.8rem;
                 font-size: 0.8rem;
             }
+        }
+        
+        @media (max-width: 480px) {
+            .landmark-title {
+                font-size: 2.5rem;
+            }
             
-            .museum-card img {
-                height: 150px;
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .resource-cards {
+                grid-template-columns: 1fr;
             }
         }
-    </style>
-    
-    <!-- Museum schema markup -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "item": {
-            "@type": "Museum",
-            "name": "The Metropolitan Museum of Art",
-            "url": "/museums/metropolitan.html"
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@type": "Museum",
-            "name": "Museum of Modern Art",
-            "url": "/museums/moma.html"
-          }
+        
+        /* Accessibility Focus Styles */
+        a:focus, button:focus, input:focus {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 2px;
         }
-      ]
+        
+        /* Skip to Content Link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        /* Image fallback styles */
+        .museum-card img:after {
+            content: "Image not available";
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #eee;
+            color: #777;
+            font-size: 0.9rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        /* Scroll to Top Button Styles */
+.scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-top.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-top::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-top: 3px solid white;
+    border-left: 3px solid white;
+    transform: rotate(45deg);
+    margin-top: 8px;
+}
+
+.progress-circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.progress-circle path {
+    fill: none;
+    stroke: white;
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+
+@media (max-width: 768px) {
+    .scroll-top {
+        width: 40px;
+        height: 40px;
+        right: 20px;
+        bottom: 20px;
     }
-    </script>
+    
+    .scroll-top::before {
+        width: 16px;
+        height: 16px;
+        margin-top: 6px;
+    }
+}
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="navbar-container">
+    <!-- Skip to Content Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header with Search -->
+    <header class="header" role="banner">
+        <div class="header-container">
             <a href="/" class="logo">
-                <img src="assets/images/logo-NY.webp" alt="NYxplore Logo" width="120" height="40">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore - New York City Travel Guide" width="150" height="50" loading="eager">
             </a>
-            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-            <ul class="navbar-menu" id="navbar-menu">
-                <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
-                <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
-                <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
-                <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
-                <li class="navbar-item"><a href="index.html#map" class="navbar-link">Map</a></li>
-            </ul>
+            
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Search NYC museums..." aria-label="Search NYC museums" id="search-input">
+                <div class="search-suggestions" id="search-suggestions" role="listbox" aria-expanded="false">
+                    <!-- Suggestions will be populated by JavaScript -->
+                </div>
+            </div>
         </div>
-    </nav>
-
-    <header class="page-header museum-header">
-        <h1>New York City Museums Guide</h1>
-        <p class="subtitle">From The Met to hidden gems - explore NYC's world-class collections</p>
     </header>
-
-    <section class="museum-categories">
-        <div class="filter-buttons">
-            <button data-filter="all" class="active">All Museums</button>
-            <button data-filter="art">Art</button>
-            <button data-filter="history">History</button>
-            <button data-filter="science">Science</button>
-            <button data-filter="special">Special Exhibits</button>
-        </div>
-
-        <div class="museum-grid">
-            <!-- MET Card -->
-            <article class="museum-card" data-categories="art,special">
-                <img src="assets/images/met-museum-small.webp" 
-                     data-src="assets/images/museum/met-museum.webp" 
-                     alt="The Metropolitan Museum of Art facade" 
-                     loading="lazy"
-                     width="600"
-                     height="400"
-                     onerror="this.src='assets/images/museum/placeholder.webp';this.onerror=null;">
-                <div class="card-content">
-                    <h2>The Metropolitan Museum of Art</h2>
-                    <div class="details">
-                        <span class="location">Upper East Side</span>
-                        <span class="hours">Open daily</span>
-                    </div>
-                    <p>Over 5,000 years of art from around the world.</p>
-                    <div class="card-footer">
-                        <a href="/museums/metropolitan.html" class="cta-button">Explore The Met</a>
-                        <span class="price">Suggested Admission</span>
-                    </div>
-                </div>
-            </article>
-            
-            <!-- MoMA Card -->
-            <article class="museum-card" data-categories="art">
-                <img src="assets/images/museum/moma-small.webp" 
-                     data-src="assets/images/museum/moma.webp" 
-                     alt="Museum of Modern Art exterior" 
-                     loading="lazy"
-                     width="600"
-                     height="400"
-                     onerror="this.src='assets/images/museum/placeholder.webp';this.onerror=null;">
-                <div class="card-content">
-                    <h2>Museum of Modern Art</h2>
-                    <div class="details">
-                        <span class="location">Midtown</span>
-                        <span class="hours">Open daily</span>
-                    </div>
-                    <p>Premier collection of modern and contemporary art.</p>
-                    <div class="card-footer">
-                        <a href="/museums/moma.html" class="cta-button">Explore MoMA</a>
-                        <span class="price">$25 Adults</span>
-                    </div>
-                </div>
-            </article>
-            
-            <!-- Natural History Card -->
-            <article class="museum-card" data-categories="science,history">
-                <img src="assets/images/museum/amnh-small.webp" 
-                     data-src="assets/images/museum/amnh.webp" 
-                     alt="American Museum of Natural History" 
-                     loading="lazy"
-                     width="600"
-                     height="400"
-                     onerror="this.src='assets/images/museum/placeholder.webp';this.onerror=null;">
-                <div class="card-content">
-                    <h2>American Museum of Natural History</h2>
-                    <div class="details">
-                        <span class="location">Upper West Side</span>
-                        <span class="hours">Open daily</span>
-                    </div>
-                    <p>Explore human cultures and the natural world.</p>
-                    <div class="card-footer">
-                        <a href="/museums/amnh.html" class="cta-button">Explore AMNH</a>
-                        <span class="price">Suggested Admission</span>
-                    </div>
-                </div>
-            </article>
-        </div>
-    </section>
-
-    <section class="museum-resources">
-        <h2>Museum Visiting Resources</h2>
-        <div class="resource-cards">
-            <div class="resource-card">
-                <h3>Free Museum Days</h3>
-                <p>List of NYC museums with free admission days.</p>
-                <a href="#" class="cta-link">View Schedule</a>
+    
+    <main class="landmark-guide" id="main-content">
+        <!-- Hero Banner -->
+        <section class="landmark-hero" aria-labelledby="hero-heading">
+            <div class="hero-content">
+                <h1 id="hero-heading">New York City Museums Guide</h1>
+                <p class="hero-subtitle">From The Met to hidden gems - explore NYC's world-class collections</p>
+                <button class="cta-button" aria-label="Discover NYC museums">Discover Museums</button>
             </div>
-            <div class="resource-card">
-                <h3>Guided Tours</h3>
-                <p>Best docent-led and audio tour options.</p>
-                <a href="#" class="cta-link">Tour Options</a>
-            </div>
-        </div>
-    </section>
+        </section>
 
+        <!-- Main Content -->
+        <section class="content-section" aria-labelledby="museums-intro">
+            <div class="container">
+                <h2 id="museums-intro" class="section-title">NYC's Cultural Treasures</h2>
+                <p class="section-description">New York City is home to some of the world's most renowned museums, spanning art, history, science, and culture. With over 100 museums across the five boroughs, there's something for every interest.</p>
+                
+                <div class="stats-grid" role="list">
+                    <div class="stat-item" role="listitem">
+                        <div class="stat-number">100+</div>
+                        <div class="stat-label">Museums</div>
+                    </div>
+                    <div class="stat-item" role="listitem">
+                        <div class="stat-number">8M+</div>
+                        <div class="stat-label">Artworks</div>
+                    </div>
+                    <div class="stat-item" role="listitem">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Free Days Monthly</div>
+                    </div>
+                    <div class="stat-item" role="listitem">
+                        <div class="stat-number">1870</div>
+                        <div class="stat-label">Met Founded</div>
+                    </div>
+                </div>
+                
+                <h2 class="section-title">Featured Museums</h2>
+                
+                <div class="filter-buttons">
+                    <button data-filter="all" class="active" aria-pressed="true">All Museums</button>
+                    <button data-filter="art" aria-pressed="false">Art</button>
+                    <button data-filter="history" aria-pressed="false">History</button>
+                    <button data-filter="science" aria-pressed="false">Science</button>
+                    <button data-filter="special" aria-pressed="false">Special Exhibits</button>
+                </div>
+                
+                <div class="museum-grid" role="list">
+                    <!-- MET Card -->
+                    <article class="museum-card" data-categories="art,special" role="listitem">
+                        <img src="assets/images/museum/met-museum-small.webp" 
+                             data-src="assets/images/museum/met-museum.webp" 
+                             alt="The Metropolitan Museum of Art facade" 
+                             loading="lazy"
+                             width="600"
+                             height="400"
+                             onerror="this.src='assets/images/museum/placeholder.webp';this.onerror=null;">
+                        <div class="card-content">
+                            <h3>The Metropolitan Museum of Art</h3>
+                            <div class="details">
+                                <span class="location">Upper East Side</span>
+                                <span class="hours">Open daily</span>
+                            </div>
+                            <p>Over 5,000 years of art from around the world in one of America's most visited museums.</p>
+                            <div class="card-footer">
+                                <a href="/museums/metropolitan.html" class="cta-button">Explore The Met</a>
+                                <span class="price">Suggested Admission</span>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- MoMA Card -->
+                    <article class="museum-card" data-categories="art" role="listitem">
+                        <img src="assets/images/museum/moma-small.webp" 
+                             data-src="assets/images/museum/moma.webp" 
+                             alt="Museum of Modern Art exterior" 
+                             loading="lazy"
+                             width="600"
+                             height="400"
+                             onerror="this.src='assets/images/museum/placeholder.webp';this.onerror=null;">
+                        <div class="card-content">
+                            <h3>Museum of Modern Art</h3>
+                            <div class="details">
+                                <span class="location">Midtown</span>
+                                <span class="hours">Open daily</span>
+                            </div>
+                            <p>Premier collection of modern and contemporary art featuring works by Van Gogh, Warhol, and Picasso.</p>
+                            <div class="card-footer">
+                                <a href="/museums/moma.html" class="cta-button">Explore MoMA</a>
+                                <span class="price">$25 Adults</span>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Natural History Card -->
+                    <article class="museum-card" data-categories="science,history" role="listitem">
+                        <img src="assets/images/museum/amnh-small.webp" 
+                             data-src="assets/images/museum/amnh.webp" 
+                             alt="American Museum of Natural History" 
+                             loading="lazy"
+                             width="600"
+                             height="400"
+                             onerror="this.src='assets/images/museum/placeholder.webp';this.onerror=null;">
+                        <div class="card-content">
+                            <h3>American Museum of Natural History</h3>
+                            <div class="details">
+                                <span class="location">Upper West Side</span>
+                                <span class="hours">Open daily</span>
+                            </div>
+                            <p>Explore human cultures, the natural world, and the universe in this iconic museum.</p>
+                            <div class="card-footer">
+                                <a href="/museums/amnh.html" class="cta-button">Explore AMNH</a>
+                                <span class="price">Suggested Admission</span>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <!-- Whitney Card -->
+                    <article class="museum-card" data-categories="art" role="listitem">
+                        <img src="assets/images/museum/whitney-small.webp" 
+                             data-src="assets/images/museum/whitney.webp" 
+                             alt="Whitney Museum of American Art" 
+                             loading="lazy"
+                             width="600"
+                             height="400"
+                             onerror="this.src='assets/images/museum/placeholder.webp';this.onerror=null;">
+                        <div class="card-content">
+                            <h3>Whitney Museum of American Art</h3>
+                            <div class="details">
+                                <span class="location">Meatpacking District</span>
+                                <span class="hours">Closed Tue</span>
+                            </div>
+                            <p>Dedicated to 20th- and 21st-century American art with a focus on living artists.</p>
+                            <div class="card-footer">
+                                <a href="/museums/whitney.html" class="cta-button">Explore Whitney</a>
+                                <span class="price">$25 Adults</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                
+                <h2 class="section-title">Visitor Resources</h2>
+                <div class="resource-cards" role="list">
+                    <div class="resource-card" role="listitem">
+                        <h3>Free Museum Days</h3>
+                        <p>Many NYC museums offer free or pay-what-you-wish admission days each month. The Met and AMNH are always pay-what-you-wish for NY State residents.</p>
+                        <a href="/free-museum-days.html" class="cta-button">View Schedule</a>
+                    </div>
+                    <div class="resource-card" role="listitem">
+                        <h3>Guided Tours</h3>
+                        <p>Enhance your visit with expert-led tours. Options include general introductions, themed tours, and audio guides available in multiple languages.</p>
+                        <a href="/museum-tours.html" class="cta-button">Tour Options</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Gallery Section -->
+        <section class="gallery-section" aria-labelledby="gallery-heading">
+            <div class="container">
+                <h2 id="gallery-heading" class="section-title">Museum Highlights</h2>
+                <p class="section-description">Iconic artworks and exhibits from NYC's top museums</p>
+                
+                <div class="gallery-grid" role="list">
+                    <div class="gallery-item" role="listitem">
+                        <img src="assets/images/museum/gallery1-small.webp" 
+                             data-src="assets/images/museum/gallery1.webp" 
+                             alt="Van Gogh's Starry Night at MoMA" 
+                             loading="lazy"
+                             width="600"
+                             height="450">
+                    </div>
+                    <div class="gallery-item" role="listitem">
+                        <img src="assets/images/museum/gallery2-small.webp" 
+                             data-src="assets/images/museum/gallery2.webp" 
+                             alt="T-Rex skeleton at AMNH" 
+                             loading="lazy"
+                             width="600"
+                             height="450">
+                    </div>
+                    <div class="gallery-item" role="listitem">
+                        <img src="assets/images/museum/gallery3-small.webp" 
+                             data-src="assets/images/museum/gallery3.webp" 
+                             alt="Temple of Dendur at The Met" 
+                             loading="lazy"
+                             width="600"
+                             height="450">
+                    </div>
+                    <div class="gallery-item" role="listitem">
+                        <img src="assets/images/museum/gallery4-small.webp" 
+                             data-src="assets/images/museum/gallery4.webp" 
+                             alt="Contemporary exhibit at the Whitney" 
+                             loading="lazy"
+                             width="600"
+                             height="450">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Visitor Tips Section -->
+        <section class="visitor-tips" aria-labelledby="visitor-tips">
+            <div class="container">
+                <h2 id="visitor-tips" class="section-title">Museum Visitor Tips</h2>
+                <div class="resource-cards" role="list">
+                    <div class="resource-card" role="listitem">
+                        <h3>Best Times to Visit</h3>
+                        <p>Weekday mornings are typically least crowded. Evenings at MoMA (open until 9pm on select days) offer a more relaxed experience. Avoid holiday weekends when tourist numbers peak.</p>
+                    </div>
+                    <div class="resource-card" role="listitem">
+                        <h3>Ticket Savings</h3>
+                        <p>Consider combo passes like the New York Pass or CityPASS for multiple museums. Many museums offer student, senior, and military discounts with valid ID.</p>
+                    </div>
+                    <div class="resource-card" role="listitem">
+                        <h3>Accessibility</h3>
+                        <p>All major museums offer wheelchair access, sign language tours, and sensory-friendly hours. Check museum websites for specific accommodations and programs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Lightbox Container -->
+    <div class="lightbox">
+        <span class="lightbox-close" aria-label="Close lightbox">&times;</span>
+        <span class="lightbox-nav lightbox-prev" aria-label="Previous image">&lt;</span>
+        <span class="lightbox-nav lightbox-next" aria-label="Next image">&gt;</span>
+        <div class="lightbox-content">
+            <img class="lightbox-img" src="" alt="">
+            <div class="lightbox-caption"></div>
+        </div>
+    </div>
+    
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="footer-container">
             <!-- Newsletter Section -->
             <div class="footer-newsletter">
@@ -427,41 +1068,40 @@
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </div>
-                    <small id="email-helper" class="visually-hidden">We'll never share your email</small>
+                    <small id="email-helper">We'll never share your email</small>
                 </form>
-                <div class="newsletter-success" aria-live="polite">Thank you for subscribing!</div>
+                <div id="newsletter-message" class="newsletter-message" aria-live="polite"></div>
             </div>
             
             <!-- Quick Links Grid -->
             <div class="footer-grid">
                 <div class="footer-column">
-                    <h4>Discover</h4>
+                    <h4>Discover NYC</h4>
                     <ul>
-                        <li><a href="index.html#landmarks"><i class="fas fa-landmark"></i> Iconic Landmarks</a></li>
-                        <li><a href="index.html#culture"><i class="fas fa-theater-masks"></i> Arts & Culture</a></li>
-                        <li><a href="index.html#food"><i class="fas fa-utensils"></i> Food Scene</a></li>
-                        <li><a href="index.html#gallery"><i class="fas fa-camera"></i> Photo Gallery</a></li>
-                        <li><a href="full-calendar.html"><i class="fas fa-calendar-alt"></i> Events Calendar</a></li>
+                        <li><a href="/landmarks.html"><i class="fas fa-landmark" aria-hidden="true"></i> Iconic Landmarks</a></li>
+                        <li><a href="/neighborhoods.html"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Neighborhoods</a></li>
+                        <li><a href="/tours.html"><i class="fas fa-walking" aria-hidden="true"></i> Guided Tours</a></li>
+                        <li><a href="/events.html"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Events</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
-                    <h4>Resources</h4>
+                    <h4>Visitor Resources</h4>
                     <ul>
-                        <li><a href="#"><i class="fas fa-subway"></i> Transit Guide</a></li>
-                        <li><a href="#"><i class="fas fa-calendar-alt"></i> Events Calendar</a></li>
-                        <li><a href="#"><i class="fas fa-map-marked-alt"></i> Interactive Map</a></li>
-                        <li><a href="#"><i class="fas fa-question-circle"></i> Visitor FAQ</a></li>
+                        <li><a href="/transportation.html"><i class="fas fa-subway" aria-hidden="true"></i> Transportation</a></li>
+                        <li><a href="/itineraries.html"><i class="fas fa-route" aria-hidden="true"></i> Itineraries</a></li>
+                        <li><a href="/maps.html"><i class="fas fa-map" aria-hidden="true"></i> Interactive Maps</a></li>
+                        <li><a href="/faq.html"><i class="fas fa-question-circle" aria-hidden="true"></i> Visitor FAQ</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
-                    <h4>Company</h4>
+                    <h4>About NYxplore</h4>
                     <ul>
-                        <li><a href="#"><i class="fas fa-heart"></i> About NYxplore</a></li>
-                        <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
-                        <li><a href="#"><i class="fas fa-briefcase"></i> Careers</a></li>
-                        <li><a href="#"><i class="fas fa-newspaper"></i> Press</a></li>
+                        <li><a href="/about.html"><i class="fas fa-heart" aria-hidden="true"></i> Our Story</a></li>
+                        <li><a href="/contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact Us</a></li>
+                        <li><a href="/blog.html"><i class="fas fa-newspaper" aria-hidden="true"></i> NYC Blog</a></li>
+                        <li><a href="/privacy.html"><i class="fas fa-shield-alt" aria-hidden="true"></i> Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
@@ -469,61 +1109,89 @@
             <!-- Social & Legal -->
             <div class="footer-bottom">
                 <div class="social-links">
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/nyxplore" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com/nyxplore" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.facebook.com/nyxplore" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.youtube.com/nyxplore" target="_blank" rel="noopener noreferrer" aria-label="Subscribe on YouTube"><i class="fab fa-youtube"></i></a>
                 </div>
                 
                 <div class="legal-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Accessibility</a>
-                    <a href="#">Sitemap</a>
+                    <a href="/privacy.html">Privacy Policy</a>
+                    <a href="/terms.html">Terms of Service</a>
+                    <a href="/accessibility.html">Accessibility</a>
+                    <a href="/sitemap.xml">Sitemap</a>
                 </div>
                 
                 <div class="copyright">
                     <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
-                    <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
+                    <p>Made with <i class="fas fa-heart" style="color: var(--accent-color);" aria-hidden="true"></i> in New York City</p>
                 </div>
             </div>
         </div>
     </footer>
-    
     <!-- Scroll to Top Button -->
-    <div class="scroll-top">
-        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
-                  style="transition: stroke-dashoffset 10ms linear; 
-                         stroke-dasharray: 307.919, 307.919; 
-                         stroke-dashoffset: 307.919;">
-            </path>
-        </svg>
-    </div>
-
-    <!-- JavaScript -->
+<div class="scroll-top">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
+              style="transition: stroke-dashoffset 10ms linear; 
+                     stroke-dasharray: 307.919, 307.919; 
+                     stroke-dashoffset: 307.919;">
+        </path>
+    </svg>
+</div>
+    
+    <!-- External Scripts -->
+    <script src="script.js"></script>
+    
+    <!-- Inline JavaScript -->
     <script>
+        // Museum Guide Page Specific JavaScript
         document.addEventListener('DOMContentLoaded', function() {
-            // Mobile menu toggle
-            const mobileMenuButton = document.getElementById('mobile-menu');
-            const navbarMenu = document.getElementById('navbar-menu');
+            // Set current year in footer
+            document.getElementById('year').textContent = new Date().getFullYear();
             
-            mobileMenuButton.addEventListener('click', function() {
-                const isExpanded = this.getAttribute('aria-expanded') === 'true';
-                this.setAttribute('aria-expanded', !isExpanded);
-                navbarMenu.classList.toggle('active');
-            });
+            // Initialize search functionality
+            initSearch();
             
-            // Filter buttons functionality
+            // Animate stats counting up
+            const stats = document.querySelectorAll('.stat-number');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = +entry.target.innerText.replace(/\D/g, '');
+                        const increment = target / 20;
+                        let current = 0;
+                        
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                clearInterval(timer);
+                                current = target;
+                            }
+                            entry.target.innerText = Math.floor(current).toLocaleString() + 
+                                (entry.target.innerText.includes('+') ? '+' : '');
+                        }, 50);
+                        
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            stats.forEach(stat => observer.observe(stat));
+            
+            // Museum filter functionality
             const filterButtons = document.querySelectorAll('.filter-buttons button');
             const museumCards = document.querySelectorAll('.museum-card');
             
             filterButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    // Update active button
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Update active button state
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.setAttribute('aria-pressed', 'false');
+                    });
                     this.classList.add('active');
+                    this.setAttribute('aria-pressed', 'true');
                     
                     const filterValue = this.dataset.filter;
                     
@@ -537,6 +1205,96 @@
                         }
                     });
                 });
+            });
+            
+            // Animate gallery items
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const galleryObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                        galleryObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            galleryItems.forEach(item => galleryObserver.observe(item));
+            
+            // Lightbox functionality
+            const lightbox = document.querySelector('.lightbox');
+            const lightboxImg = document.querySelector('.lightbox-img');
+            const lightboxCaption = document.querySelector('.lightbox-caption');
+            const closeBtn = document.querySelector('.lightbox-close');
+            const prevBtn = document.querySelector('.lightbox-prev');
+            const nextBtn = document.querySelector('.lightbox-next');
+            
+            let currentImageIndex = 0;
+            const images = Array.from(galleryItems).map(item => ({
+                src: item.querySelector('img').dataset.src || item.querySelector('img').src,
+                alt: item.querySelector('img').alt
+            }));
+            
+            // Open lightbox with clicked image
+            galleryItems.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    currentImageIndex = index;
+                    openLightbox();
+                });
+            });
+            
+            function openLightbox() {
+                lightbox.classList.add('active');
+                updateLightboxImage();
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            
+            function updateLightboxImage() {
+                lightboxImg.src = images[currentImageIndex].src;
+                lightboxImg.alt = images[currentImageIndex].alt;
+                lightboxCaption.textContent = images[currentImageIndex].alt;
+            }
+            
+            function showPrevImage() {
+                currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                updateLightboxImage();
+            }
+            
+            function showNextImage() {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                updateLightboxImage();
+            }
+            
+            // Event listeners
+            closeBtn.addEventListener('click', closeLightbox);
+            prevBtn.addEventListener('click', showPrevImage);
+            nextBtn.addEventListener('click', showNextImage);
+            
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (!lightbox.classList.contains('active')) return;
+                
+                switch(e.key) {
+                    case 'Escape':
+                        closeLightbox();
+                        break;
+                    case 'ArrowLeft':
+                        showPrevImage();
+                        break;
+                    case 'ArrowRight':
+                        showNextImage();
+                        break;
+                }
             });
             
             // Improved lazy loading
@@ -574,17 +1332,155 @@
                 subtree: true
             });
             
-            // Set current year in footer
-            document.getElementById('year').textContent = new Date().getFullYear();
-            
-            // Close mobile menu when clicking a link
-            document.querySelectorAll('.navbar-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    navbarMenu.classList.remove('active');
-                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+            // Newsletter form handling
+            const newsletterForm = document.getElementById('newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const email = this.elements['email'].value;
+                    const messageElement = document.getElementById('newsletter-message');
+                    
+                    // Simple validation
+                    if (!email.includes('@')) {
+                        messageElement.textContent = 'Please enter a valid email address';
+                        messageElement.style.color = 'red';
+                        return;
+                    }
+                    
+                    // Simulate submission (in a real site, this would be an AJAX call)
+                    messageElement.textContent = 'Thank you for subscribing to our newsletter!';
+                    messageElement.style.color = 'green';
+                    
+                    // Reset form after 3 seconds
+                    setTimeout(() => {
+                        this.reset();
+                        messageElement.textContent = '';
+                    }, 3000);
                 });
-            });
+            }
         });
+
+        // Initialize search functionality
+        function initSearch() {
+            const searchInput = document.getElementById('search-input');
+            const searchSuggestions = document.getElementById('search-suggestions');
+            
+            if (!searchInput || !searchSuggestions) return;
+            
+            // Sample search data (in a real app, this would come from an API)
+            const searchData = [
+                { term: 'The Met', type: 'museum', url: '/museums/metropolitan.html' },
+                { term: 'MoMA', type: 'museum', url: '/museums/moma.html' },
+                { term: 'American Museum of Natural History', type: 'museum', url: '/museums/amnh.html' },
+                { term: 'Whitney Museum', type: 'museum', url: '/museums/whitney.html' },
+                { term: 'Guggenheim', type: 'museum', url: '/museums/guggenheim.html' },
+                { term: 'Museum of the Moving Image', type: 'museum', url: '/museums/moving-image.html' },
+                { term: 'Museum Free Days', type: 'guide', url: '/free-museum-days.html' },
+                { term: 'Best Art Museums', type: 'guide', url: '/best-art-museums.html' }
+            ];
+            
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase();
+                
+                if (query.length < 2) {
+                    searchSuggestions.classList.remove('active');
+                    searchSuggestions.setAttribute('aria-expanded', 'false');
+                    return;
+                }
+                
+                const results = searchData.filter(item => 
+                    item.term.toLowerCase().includes(query)
+                );
+                
+                if (results.length > 0) {
+                    searchSuggestions.innerHTML = results.map(item => `
+                        <div class="search-suggestion-item" role="option" data-url="${item.url}">
+                            <strong>${item.term}</strong> <span>(${item.type})</span>
+                        </div>
+                    `).join('');
+                    
+                    searchSuggestions.classList.add('active');
+                    searchSuggestions.setAttribute('aria-expanded', 'true');
+                    
+                    // Add click handlers to suggestion items
+                    document.querySelectorAll('.search-suggestion-item').forEach(item => {
+                        item.addEventListener('click', function() {
+                            const url = this.getAttribute('data-url');
+                            window.location.href = url;
+                        });
+                    });
+                } else {
+                    searchSuggestions.innerHTML = `
+                        <div class="search-suggestion-item">
+                            No results found for "${query}"
+                        </div>
+                    `;
+                    searchSuggestions.classList.add('active');
+                    searchSuggestions.setAttribute('aria-expanded', 'true');
+                }
+            });
+            
+            // Close suggestions when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !searchSuggestions.contains(e.target)) {
+                    searchSuggestions.classList.remove('active');
+                    searchSuggestions.setAttribute('aria-expanded', 'false');
+                }
+            });
+            
+            // Keyboard navigation for accessibility
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowDown' && searchSuggestions.classList.contains('active')) {
+                    e.preventDefault();
+                    const firstItem = searchSuggestions.querySelector('.search-suggestion-item');
+                    if (firstItem) firstItem.focus();
+                }
+            });
+            
+            searchSuggestions.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    searchSuggestions.classList.remove('active');
+                    searchSuggestions.setAttribute('aria-expanded', 'false');
+                    searchInput.focus();
+                }
+            });
+        }
+        // Scroll to Top Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const scrollTop = document.querySelector('.scroll-top');
+    const progressPath = document.querySelector('.progress-circle path');
+    const pathLength = progressPath.getTotalLength();
+    
+    // Set initial styles for progress circle
+    progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
+    progressPath.style.strokeDashoffset = pathLength;
+    
+    // Update progress on scroll
+    window.addEventListener('scroll', function() {
+        const scrollPercentage = (document.body.scrollTop + document.documentElement.scrollTop) / 
+                               (document.documentElement.scrollHeight - document.documentElement.clientHeight);
+        
+        const drawLength = pathLength * scrollPercentage;
+        progressPath.style.strokeDashoffset = pathLength - drawLength;
+        
+        // Show/hide button based on scroll position
+        if (window.pageYOffset > 300) {
+            scrollTop.classList.add('active');
+        } else {
+            scrollTop.classList.remove('active');
+        }
+    });
+    
+    // Smooth scroll to top when clicked
+    scrollTop.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+});
     </script>
 </body>
 </html>
