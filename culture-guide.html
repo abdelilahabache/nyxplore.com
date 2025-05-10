@@ -825,6 +825,44 @@
                 });
             });
         });
+         // Basic Protection Methods
+        document.addEventListener('DOMContentLoaded', function() {
+          // 1. Disable right-click
+          document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            alert('Right-click is disabled on this page');
+          });
+        
+          // 2. Disable keyboard shortcuts
+          document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+                (e.ctrlKey && e.key === 'u')) {
+              e.preventDefault();
+              alert('This action is not allowed');
+            }
+          });
+          
+          // Optional: Disable drag-and-drop of images
+          document.addEventListener('dragstart', function(e) {
+            if (e.target.tagName === 'IMG') {
+              e.preventDefault();
+            }
+          });
+        });
+        </script>
+        
+        <!-- Before </body> -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    netlifyIdentity.on("init", user => {
+      if (!user) netlifyIdentity.on("login", () => {
+        document.location.href = "/admin/";
+      });
+    });
+  }
     </script>
 </body>
 </html>
