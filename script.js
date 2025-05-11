@@ -526,10 +526,8 @@ function imagesLoaded(selector, callback) {
   });
 }
 
-// ==============================================
-// FOOD SECTION - COMPLETE JAVASCRIPT
-// ==============================================
 
+// FOOD SECTION - COMPLETE JAVASCRIPT 
 document.addEventListener('DOMContentLoaded', function() {
   // 1. Initialize Elements
   const foodCards = document.querySelectorAll('.food-card');
@@ -583,15 +581,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // 5. "View Places" Button Handling
+  // 5. Updated "View Places" Button Handling with unique links
   document.querySelectorAll('.food-button').forEach(button => {
     button.addEventListener('click', function(e) {
-      e.stopPropagation(); // Prevent card flip
-      const foodType = this.closest('.food-card').querySelector('h3').textContent;
-      
-      // Your action here (example):
-      console.log(`Opening locations for: ${foodType}`);
-      // highlightOnMap(foodType); // If you have map integration
+      e.stopPropagation();
+      const link = this.getAttribute('data-link');
+      if (link) {
+        window.location.href = link;
+      }
     });
   });
 

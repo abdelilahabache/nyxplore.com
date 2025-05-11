@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World's Best Cuisines | NYxplore</title>
+    <meta name="description" content="Discover the world's finest culinary traditions with our guide to international foods, featuring Moroccan cuisine as the #1 in the world">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Guide",
+      "name": "International Food Guide",
+      "description": "Comprehensive guide to the world's best cuisines featuring Moroccan food as #1",
+      "publisher": {
+        "@type": "Organization",
+        "name": "NYxplore",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://nyxplore.com/assets/images/logo-NY.webp"
+        }
+      },
+      "about": {
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@type": "FoodEstablishment",
+              "name": "Moroccan Cuisine",
+              "url": "#moroccan"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@type": "FoodEstablishment",
+              "name": "Japanese Cuisine",
+              "url": "#japanese"
+            }
+          }
+        ]
+      }
+    }
+    </script>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMW3YWQXBF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DMW3YWQXBF');
+    </script>
+
+    <!-- Preload key resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" as="style">
+    <link rel="preload" href="assets/images/international/world-cuisines-hero.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="assets/images/international/moroccan-tagine.webp" as="image">
+    <link rel="preload" href="assets/images/international/japanese-sushi.webp" as="image">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Critical CSS -->
+    <style>
+        :root {
+            --primary-color: #e74c3c;
+            --secondary-color: #2c3e50;
+            --accent-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        /* Dark Theme */
+        .dark-theme {
+            background-color: #121212;
+            color: #f5f5f5;
+        }
+        
+        .dark-theme .header {
+            background-color: #1e1e1e;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        .dark-theme .navbar-link {
+            color: #f5f5f5;
+        }
+        
+        .dark-theme .cuisine-card,
+        .dark-theme .tour-card,
+        .dark-theme .tip-card {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+        }
+        
+        .dark-theme .cuisine-name,
+        .dark-theme .section-title,
+        .dark-theme h3,
+        .dark-theme .spotlight-text h3 {
+            color: #f5f5f5;
+        }
+        
+        .dark-theme .section-description,
+        .dark-theme .cuisine-info p,
+        .dark-theme .spotlight-text p {
+            color: #bbb;
+        }
+        
+        .dark-theme .search-bar {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+            border-color: #444;
+        }
+        
+        .dark-theme .search-suggestions {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+        }
+        
+        .dark-theme .search-suggestion-item:hover {
+            background-color: #3d3d3d;
+        }
+        
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--light-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--accent-color);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Header & Navigation */
+        .header {
+            background-color: #fff;
+            box-shadow: var(--box-shadow);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo img {
+            height: 50px;
+            width: auto;
+            transition: filter 0.3s ease;
+        }
+        
+        .dark-theme .logo img {
+            filter: brightness(0.8);
+        }
+        
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            order: 3;
+            flex: 1 1 100%;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
+        }
+        
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-radius: 0 0 10px 10px;
+            box-shadow: var(--box-shadow);
+            z-index: 100;
+            display: none;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .search-suggestions.active {
+            display: block;
+        }
+        
+        .search-suggestion-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .search-suggestion-item:hover {
+            background: var(--light-color);
+        }
+        
+        .navbar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            order: 2;
+        }
+        
+        .navbar-toggle .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--dark-color);
+            margin: 5px 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        
+        .dark-theme .navbar-toggle .bar {
+            background-color: #f5f5f5;
+        }
+        
+        .navbar-toggle.active .bar:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        
+        .navbar-toggle.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .navbar-toggle.active .bar:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            order: 4;
+            flex: 1 1 100%;
+        }
+        
+        .navbar-item {
+            margin-left: 20px;
+        }
+        
+        .navbar-link {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .navbar-link:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Hero Banner */
+        .food-hero {
+            position: relative;
+            height: 60vh;
+            min-height: 400px;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), 
+                        url('assets/images/international/world-cuisines-hero.webp') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .food-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--dark-color);
+            text-align: center;
+            position: relative;
+        }
+        
+        .dark-theme .section-title {
+            color: #f5f5f5;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--accent-color);
+            margin: 1rem auto;
+        }
+        
+        .section-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        
+        /* Type Filters */
+        .type-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        
+        .type-btn {
+            padding: 0.75rem 1.5rem;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .type-btn.active {
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        .dark-theme .type-btn {
+            background: #2d2d2d;
+            color: #f5f5f5;
+        }
+        
+        .dark-theme .type-btn.active {
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        /* Cuisine Grid */
+        .cuisine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .cuisine-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .cuisine-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .cuisine-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .cuisine-card:hover .cuisine-image {
+            transform: scale(1.03);
+        }
+        
+        .cuisine-info {
+            padding: 1.5rem;
+        }
+        
+        .cuisine-name {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin: 0.5rem 0;
+        }
+        
+        .dark-theme .cuisine-name {
+            color: #f5f5f5;
+        }
+        
+        .cuisine-rank {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        /* Moroccan Highlight */
+        .moroccan-highlight {
+            background: linear-gradient(135deg, rgba(193,125,17,0.1) 0%, rgba(120,66,18,0.1) 100%);
+            padding: 3rem 0;
+            margin: 3rem 0;
+            border-radius: var(--border-radius);
+        }
+        
+        .dark-theme .moroccan-highlight {
+            background: linear-gradient(135deg, rgba(193,125,17,0.2) 0%, rgba(120,66,18,0.2) 100%);
+        }
+        
+        .highlight-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        /* Vendor Spotlight */
+        .vendor-spotlight {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin: 4rem 0;
+            align-items: center;
+        }
+        
+        @media (min-width: 768px) {
+            .vendor-spotlight {
+                grid-template-columns: 1fr 2fr;
+            }
+        }
+        
+        .spotlight-image {
+            width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            object-fit: cover;
+        }
+        
+        .spotlight-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        /* Tours Grid */
+        .tours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .tour-card {
+            padding: 2rem;
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .tour-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tour-type {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .tour-card i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        
+        /* Tips Grid */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .tip-card {
+            padding: 1.5rem;
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .tip-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* Footer */
+        .footer {
+            background: #222;
+            color: #fff;
+            padding: 3rem 0 0;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h4 {
+            color: #fff;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-column a:hover {
+            color: #fff;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            margin-bottom: 1rem;
+        }
+        
+        .social-links a {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .legal-links {
+            margin-bottom: 1rem;
+        }
+        
+        .legal-links a {
+            color: #bbb;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .legal-links a:hover {
+            color: #fff;
+        }
+        
+        .copyright {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        /* Floating Controls */
+        .floating-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        .control-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .control-button:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .scroll-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-top: 3px solid white;
+            border-left: 3px solid white;
+            transform: rotate(45deg);
+            margin-top: 8px;
+        }
+
+        .progress-circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .progress-circle path {
+            fill: none;
+            stroke: white;
+            stroke-width: 3;
+            stroke-linecap: round;
+        }
+
+        /* Responsive Adjustments */
+        @media (min-width: 768px) {
+            .header-container {
+                flex-wrap: nowrap;
+            }
+            
+            .search-container {
+                order: 2;
+                flex: 1 1 auto;
+                max-width: 400px;
+                margin: 0 1rem;
+            }
+            
+            .navbar-toggle {
+                order: 3;
+            }
+            
+            .navbar-menu {
+                order: 4;
+                flex: 0 1 auto;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .navbar-toggle {
+                display: block;
+            }
+            
+            .navbar-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--box-shadow);
+            }
+            
+            .dark-theme .navbar-menu {
+                background: #2d2d2d;
+            }
+            
+            .navbar-menu.active {
+                display: flex;
+            }
+            
+            .navbar-item {
+                margin: 0.5rem 0;
+            }
+            
+            .type-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .scroll-top {
+                width: 40px;
+                height: 40px;
+                right: 20px;
+                bottom: 20px;
+            }
+            
+            .scroll-top::before {
+                width: 16px;
+                height: 16px;
+                margin-top: 6px;
+            }
+        }
+        
+        /* Accessibility Focus Styles */
+        a:focus, button:focus, input:focus {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+        
+        /* Skip to Content Link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        /* Utility Classes */
+        .hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        /* CTA Button */
+        .cta-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .cta-button:hover {
+            background: #e67e22;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Pulse Animation for Moroccan Card */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(243, 156, 18, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(243, 156, 18, 0); }
+        }
+        
+        .moroccan-pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+    
+    <!-- Skip to Content Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Floating Controls -->
+    <div class="floating-controls">
+        <button id="sound-toggle" class="control-button" aria-label="Toggle ambient sound">
+            <i class="fas fa-volume-up"></i>
+        </button>
+        <button id="theme-toggle" class="control-button" aria-label="Toggle dark mode">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+    
+    <!-- Header -->
+    <header class="header" role="banner">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="assets/images/logo-NY.webp" alt="NYxplore - New York City Travel Guide" width="150" height="50" loading="eager">
+            </a>
+            
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Search world cuisines..." aria-label="Search world cuisines" id="search-input">
+                <div class="search-suggestions" id="search-suggestions" role="listbox" aria-expanded="false">
+                    <!-- Suggestions will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false" aria-controls="navbar-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            
+            <ul class="navbar-menu" id="navbar-menu">
+                <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
+                <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
+                <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
+                <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
+                <li class="navbar-item"><a href="index.html#map" class="navbar-link">Map</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <main id="main-content">
+        <!-- Hero Banner -->
+        <section class="food-hero" aria-labelledby="hero-heading">
+            <div class="hero-content">
+                <h1 id="hero-heading" class="food-title">World Cuisines</h1>
+                <p class="hero-subtitle">A culinary journey across continents and cultures</p>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <section class="container" aria-labelledby="cuisines-heading">
+            <h2 id="cuisines-heading" class="section-title">Global Culinary Traditions</h2>
+            <p class="section-description">Explore the world's most celebrated cuisines, from the aromatic spices of Morocco to the delicate flavors of Japan</p>
+            
+            <!-- Moroccan Highlight -->
+            <div class="moroccan-highlight" id="moroccan">
+                <div class="container">
+                    <div class="highlight-content">
+                        <h2>#1: Moroccan Cuisine - The Crown Jewel of World Food</h2>
+                        <p>Voted consistently as the world's best cuisine, Moroccan food is a symphony of flavors that combines Berber, Arab, Andalusian, and Mediterranean influences. The secret lies in its perfect balance of sweet and savory, combined with an intoxicating blend of spices like cumin, cinnamon, turmeric, and saffron.</p>
+                        <p>From the bustling food markets of Marrakech to the coastal restaurants of Essaouira, Moroccan cuisine offers an unforgettable culinary journey that engages all the senses.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cuisine-grid" role="list">
+                <!-- Moroccan -->
+                <article class="cuisine-card moroccan-pulse" role="listitem">
+                    <picture>
+                        <source srcset="assets/images/international/moroccan-tagine.webp" type="image/webp">
+                        <source srcset="assets/images/international/moroccan-tagine.jpg" type="image/jpeg"> 
+                        <img src="assets/images/international/moroccan-tagine.jpg" 
+                             alt="Traditional Moroccan tagine with meat and vegetables" 
+                             loading="lazy"
+                             class="cuisine-image"
+                             width="600"
+                             height="400">
+                    </picture>
+                    <div class="cuisine-info">
+                        <span class="cuisine-rank">#1 in the World</span>
+                        <h3>Moroccan</h3>
+                        <p>Signature dishes include tagines, couscous, pastilla, and harira soup. The communal dining experience and elaborate tea ceremonies make Moroccan cuisine truly special.</p>
+                        <ul>
+                            <li><strong>Must-try:</strong> Lamb tagine with prunes and almonds</li>
+                            <li><strong>Key flavors:</strong> Cumin, cinnamon, preserved lemons</li>
+                            <li><strong>Best in:</strong> Marrakech, Fes, Chefchaouen</li>
+                        </ul>
+                        <a href="#" class="cta-button">Moroccan Restaurants</a>
+                    </div>
+                </article>
+                
+                <!-- Japanese -->
+                <article class="cuisine-card" role="listitem" id="japanese">
+                    <picture>
+                        <source srcset="assets/images/international/japanese-sushi.webp" type="image/webp">
+                        <source srcset="assets/images/international/japanese-sushi.jpg" type="image/jpeg"> 
+                        <img src="assets/images/international/japanese-sushi.jpg" 
+                             alt="Assortment of fresh sushi" 
+                             loading="lazy"
+                             class="cuisine-image"
+                             width="600"
+                             height="400">
+                    </picture>
+                    <div class="cuisine-info">
+                        <span class="cuisine-rank">#2 in the World</span>
+                        <h3>Japanese</h3>
+                        <p>Celebrated for its precision, seasonality, and artful presentation. From sushi to ramen, Japanese cuisine emphasizes fresh ingredients and umami flavors.</p>
+                        <ul>
+                            <li><strong>Must-try:</strong> Omakase sushi experience</li>
+                            <li><strong>Key flavors:</strong> Dashi, soy, mirin, wasabi</li>
+                            <li><strong>Best in:</strong> Tokyo, Kyoto, Osaka</li>
+                        </ul>
+                        <a href="#" class="cta-button">Japanese Restaurants</a>
+                    </div>
+                </article>
+                
+                <!-- Italian -->
+                <article class="cuisine-card" role="listitem" id="italian">
+                    <picture>
+                        <source srcset="assets/images/international/italian-pasta.webp" type="image/webp">
+                        <source srcset="assets/images/international/italian-pasta.jpg" type="image/jpeg"> 
+                        <img src="assets/images/international/italian-pasta.jpg" 
+                             alt="Fresh homemade pasta with sauce" 
+                             loading="lazy"
+                             class="cuisine-image"
+                             width="600"
+                             height="400">
+                    </picture>
+                    <div class="cuisine-info">
+                        <span class="cuisine-rank">#3 in the World</span>
+                        <h3>Italian</h3>
+                        <p>More than just pizza and pasta, Italian cuisine varies dramatically by region, with each area boasting its own specialties and traditional dishes.</p>
+                        <ul>
+                            <li><strong>Must-try:</strong> Handmade tortellini in brodo</li>
+                            <li><strong>Key flavors:</strong> Olive oil, garlic, tomatoes, basil</li>
+                            <li><strong>Best in:</strong> Bologna, Rome, Naples</li>
+                        </ul>
+                        <a href="#" class="cta-button">Italian Restaurants</a>
+                    </div>
+                </article>
+                
+                <!-- Indian -->
+                <article class="cuisine-card" role="listitem" id="indian">
+                    <picture>
+                        <source srcset="assets/images/international/indian-curry.webp" type="image/webp">
+                        <source srcset="assets/images/international/indian-curry.jpg" type="image/jpeg"> 
+                        <img src="assets/images/international/indian-curry.jpg" 
+                             alt="Colorful Indian curry with naan bread" 
+                             loading="lazy"
+                             class="cuisine-image"
+                             width="600"
+                             height="400">
+                    </picture>
+                    <div class="cuisine-info">
+                        <span class="cuisine-rank">#4 in the World</span>
+                        <h3>Indian</h3>
+                        <p>A vibrant tapestry of flavors, Indian cuisine varies by region from the creamy kormas of the north to the spicy vindaloos of the south.</p>
+                        <ul>
+                            <li><strong>Must-try:</strong> Butter chicken with garlic naan</li>
+                            <li><strong>Key flavors:</strong> Turmeric, garam masala, chili</li>
+                            <li><strong>Best in:</strong> Delhi, Mumbai, Kolkata</li>
+                        </ul>
+                        <a href="#" class="cta-button">Indian Restaurants</a>
+                    </div>
+                </article>
+                
+                <!-- Mexican -->
+                <article class="cuisine-card" role="listitem" id="mexican">
+                    <picture>
+                        <source srcset="assets/images/international/mexican-tacos.webp" type="image/webp">
+                        <source srcset="assets/images/international/mexican-tacos.jpg" type="image/jpeg"> 
+                        <img src="assets/images/international/mexican-tacos.jpg" 
+                             alt="Authentic Mexican street tacos" 
+                             loading="lazy"
+                             class="cuisine-image"
+                             width="600"
+                             height="400">
+                    </picture>
+                    <div class="cuisine-info">
+                        <span class="cuisine-rank">#5 in the World</span>
+                        <h3>Mexican</h3>
+                        <p>UNESCO-recognized cuisine featuring complex moles, fresh ceviches, and an incredible variety of chili peppers and corn-based dishes.</p>
+                        <ul>
+                            <li><strong>Must-try:</strong> Tacos al pastor</li>
+                            <li><strong>Key flavors:</strong> Lime, cilantro, chili, cumin</li>
+                            <li><strong>Best in:</strong> Mexico City, Oaxaca, Puebla</li>
+                        </ul>
+                        <a href="#" class="cta-button">Mexican Restaurants</a>
+                    </div>
+                </article>
+                
+                <!-- French -->
+                <article class="cuisine-card" role="listitem" id="french">
+                    <picture>
+                        <source srcset="assets/images/international/french-bistro.webp" type="image/webp">
+                        <source srcset="assets/images/international/french-bistro.jpg" type="image/jpeg"> 
+                        <img src="assets/images/international/french-bistro.jpg" 
+                             alt="Classic French bistro dishes" 
+                             loading="lazy"
+                             class="cuisine-image"
+                             width="600"
+                             height="400">
+                    </picture>
+                    <div class="cuisine-info">
+                        <span class="cuisine-rank">#6 in the World</span>
+                        <h3>French</h3>
+                        <p>The foundation of Western fine dining, French cuisine ranges from rustic provincial dishes to elaborate haute cuisine preparations.</p>
+                        <ul>
+                            <li><strong>Must-try:</strong> Coq au vin</li>
+                            <li><strong>Key flavors:</strong> Butter, wine, herbs de Provence</li>
+                            <li><strong>Best in:</strong> Paris, Lyon, Provence</li>
+                        </ul>
+                        <a href="#" class="cta-button">French Restaurants</a>
+                    </div>
+                </article>
+            </div>
+            
+            <!-- Moroccan Special Section -->
+            <article class="vendor-spotlight">
+                <picture>
+                    <source srcset="assets/images/international/moroccan-chef.webp" type="image/webp">
+                    <source srcset="assets/images/international/moroccan-chef.jpg" type="image/jpeg"> 
+                    <img src="assets/images/international/moroccan-chef.jpg" 
+                         alt="Moroccan chef preparing traditional dish" 
+                         loading="lazy"
+                         class="spotlight-image"
+                         width="400"
+                         height="600">
+                </picture>
+                <div class="spotlight-text">
+                    <h3>Why Moroccan Cuisine Reigns Supreme</h3>
+                    <p>Moroccan food has been consistently ranked as the world's best cuisine for its perfect balance of flavors, health benefits, and cultural significance. The traditional cooking methods, like slow-cooking in tagine pots, preserve nutrients while developing deep, complex flavors.</p>
+                    <p>"What sets Moroccan cuisine apart is its ability to engage all the senses," explains Chef Fatima Zahra. "The vibrant colors, aromatic spices, sizzling sounds, varied textures, and of course the explosion of flavors - it's a complete culinary experience that reflects our rich cultural heritage."</p>
+                    <p>The communal aspect of Moroccan dining, where meals are often shared from a central platter, adds to its appeal as one of the world's most welcoming and convivial food traditions.</p>
+                    <a href="#" class="cta-button">Learn Moroccan Cooking</a>
+                </div>
+            </article>
+            
+            <div class="tips">
+                <h3 class="section-title">International Dining Tips</h3>
+                <div class="tips-grid">
+                    <article class="tip-card">
+                        <h3>Moroccan Dining Etiquette</h3>
+                        <p>1) Eat with your right hand only (left is considered impure). 2) Accept tea when offered - it's a sign of hospitality. 3) Compliment the host on the food. 4) Leave a small amount of food on your plate to show you're satisfied.</p>
+                    </article>
+                    
+                    <article class="tip-card">
+                        <h3>Finding Authentic Experiences</h3>
+                        <p>Look for restaurants where: 1) The menu is in the native language first. 2) The staff can explain dishes knowledgeably. 3) The clientele includes people from that culture. 4) The aromas match the cuisine's signature spices.</p>
+                    </article>
+                    
+                    <article class="tip-card">
+                        <h3>Spice Level Guide</h3>
+                        <p>1) Thai: Medium to very hot. 2) Indian: Varies by region (South is hottest). 3) Mexican: Medium (except some regional specialties). 4) Sichuan Chinese: Numbing spicy. 5) Moroccan: Mild to medium (flavorful but not fiery).</p>
+                    </article>
+                    
+                    <article class="tip-card">
+                        <h3>Global Dining Customs</h3>
+                        <p>1) Japan: Slurping noodles is encouraged. 2) Italy: Don't ask for cheese with seafood pasta. 3) France: Keep hands on table (not in lap). 4) India: Eat with your hands (right hand only). 5) Morocco: Accept second helpings to be polite.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Explore NYC</h4>
+                    <ul>
+                        <li><a href="#">Landmarks</a></li>
+                        <li><a href="#">Neighborhoods</a></li>
+                        <li><a href="#">Museums</a></li>
+                        <li><a href="#">Parks</a></li>
+                        <li><a href="#">Tours</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Food Guides</h4>
+                    <ul>
+                        <li><a href="#">Pizza</a></li>
+                        <li><a href="#">Bagels</a></li>
+                        <li><a href="#">Deli</a></li>
+                        <li><a href="#">Street Food</a></li>
+                        <li><a href="#">Fine Dining</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Maps</a></li>
+                        <li><a href="#">Transportation</a></li>
+                        <li><a href="#">Events Calendar</a></li>
+                        <li><a href="#">Accessibility</a></li>
+                        <li><a href="#">Visitor Tips</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>About NYxplore</h4>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Advertise</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                </div>
+                
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Cookie Policy</a>
+                    <a href="#">Do Not Sell My Info</a>
+                </div>
+                
+                <p class="copyright">&copy; 2025 NYxplore. All rights reserved. New York City travel guide and resource.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+        <svg class="progress-circle" width="50" height="50" viewBox="0 0 50 50">
+            <path d="M25,2.5A22.5,22.5 0 0 1 47.5,25A22.5,22.5 0 0 1 25,47.5A22.5,22.5 0 0 1 2.5,25A22.5,22.5 0 0 1 25,2.5" 
+                  stroke-dasharray="141.372" 
+                  stroke-dashoffset="141.372"/>
+        </svg>
+    </div>
+    
+    <!-- JavaScript -->
+    <script>
+        // Loading animation
+        window.addEventListener('load', () => {
+            const loadingOverlay = document.getElementById('loading-overlay');
+            loadingOverlay.style.opacity = '0';
+            setTimeout(() => {
+                loadingOverlay.style.display = 'none';
+            }, 500);
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu');
+        const navbarMenu = document.getElementById('navbar-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+            mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+            mobileMenuBtn.classList.toggle('active');
+            navbarMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.navbar-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navbarMenu.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            });
+        });
+        
+        // Search Suggestions
+        const searchInput = document.getElementById('search-input');
+        const searchSuggestions = document.getElementById('search-suggestions');
+        const cuisinesData = [
+            { name: "Moroccan Cuisine", type: "african", location: "North Africa", id: "moroccan" },
+            { name: "Japanese Cuisine", type: "asian", location: "Japan", id: "japanese" },
+            { name: "Italian Cuisine", type: "european", location: "Italy", id: "italian" },
+            { name: "Indian Cuisine", type: "asian", location: "India", id: "indian" },
+            { name: "Mexican Cuisine", type: "latin", location: "Mexico", id: "mexican" },
+            { name: "French Cuisine", type: "european", location: "France", id: "french" }
+        ];
+        
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            
+            if (query.length > 2) {
+                const matches = cuisinesData.filter(cuisine => 
+                    cuisine.name.toLowerCase().includes(query) || 
+                    cuisine.location.toLowerCase().includes(query)
+                );
+                
+                displaySuggestions(matches);
+                searchSuggestions.setAttribute('aria-expanded', 'true');
+                searchSuggestions.classList.add('active');
+            } else {
+                searchSuggestions.innerHTML = '';
+                searchSuggestions.setAttribute('aria-expanded', 'false');
+                searchSuggestions.classList.remove('active');
+            }
+        });
+        
+        function displaySuggestions(matches) {
+            searchSuggestions.innerHTML = '';
+            
+            if (matches.length > 0) {
+                matches.forEach(match => {
+                    const suggestion = document.createElement('div');
+                    suggestion.className = 'search-suggestion-item';
+                    suggestion.textContent = `${match.name} (${match.location})`;
+                    suggestion.setAttribute('role', 'option');
+                    suggestion.setAttribute('tabindex', '0');
+                    
+                    suggestion.addEventListener('click', () => {
+                        searchInput.value = match.name;
+                        searchSuggestions.innerHTML = '';
+                        searchSuggestions.classList.remove('active');
+                        if (match.id) {
+                            document.getElementById(match.id).scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                    
+                    // Add keyboard support
+                    suggestion.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter') {
+                            searchInput.value = match.name;
+                            searchSuggestions.innerHTML = '';
+                            searchSuggestions.classList.remove('active');
+                            if (match.id) {
+                                document.getElementById(match.id).scrollIntoView({
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }
+                    });
+                    
+                    searchSuggestions.appendChild(suggestion);
+                });
+            } else {
+                const noResults = document.createElement('div');
+                noResults.className = 'search-suggestion-item';
+                noResults.textContent = 'No results found';
+                searchSuggestions.appendChild(noResults);
+            }
+        }
+        
+        // Close suggestions when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target)) {
+                searchSuggestions.classList.remove('active');
+                searchSuggestions.setAttribute('aria-expanded', 'false');
+            }
+        });
+        
+        // Enhanced search validation
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (searchInput.value.trim().length < 3) {
+                    searchInput.setCustomValidity('Please enter at least 3 characters');
+                    searchInput.reportValidity();
+                } else {
+                    searchInput.setCustomValidity('');
+                    // Submit search or show results
+                }
+            }
+        });
+        
+        // Scroll to Top Button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('active');
+            } else {
+                scrollTopBtn.classList.remove('active');
+            }
+            
+            // Update progress circle
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollProgress = (window.pageYOffset / scrollHeight) * 141.372;
+            const path = scrollTopBtn.querySelector('path');
+            path.style.strokeDashoffset = 141.372 - scrollProgress;
+        });
+        
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            
+            const isDark = document.body.classList.contains('dark-theme');
+            themeToggle.setAttribute('aria-label', isDark ? 'Toggle light mode' : 'Toggle dark mode');
+            themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            
+            // Save preference to localStorage
+            localStorage.setItem('darkMode', isDark);
+        });
+        
+        // Check for saved theme preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-theme');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            themeToggle.setAttribute('aria-label', 'Toggle light mode');
+        }
+        
+        // Sound Toggle
+        const soundToggle = document.getElementById('sound-toggle');
+        let ambientSound;
+        
+        soundToggle.addEventListener('click', () => {
+            if (!ambientSound) {
+                // In a real implementation, this would play ambient NYC street sounds
+                soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                soundToggle.setAttribute('aria-label', 'Turn off ambient sound');
+                // ambientSound = new Audio('assets/sounds/nyc-street.mp3');
+                // ambientSound.loop = true;
+                // ambientSound.play();
+            } else {
+                soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+                soundToggle.setAttribute('aria-label', 'Turn on ambient sound');
+                // ambientSound.pause();
+                // ambientSound = null;
+            }
+        });
+        
+        // Enhanced lazy loading with Intersection Observer
+        if ('IntersectionObserver' in window) {
+            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+            const imageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.tagName === 'IMG') {
+                            img.src = img.dataset.src || img.src;
+                        } else if (img.tagName === 'SOURCE') {
+                            const parent = img.parentElement;
+                            const imgElement = parent.querySelector('img');
+                            if (imgElement) {
+                                imgElement.src = img.srcset;
+                            }
+                        }
+                        imageObserver.unobserve(img);
+                    }
+                });
+            }, { rootMargin: '200px' });
+            
+            lazyImages.forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+        
+        // Register Service Worker for offline support
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

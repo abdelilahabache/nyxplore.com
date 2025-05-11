@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYC's Best Pizza | NYxplore</title>
+    <meta name="description" content="Discover New York City's iconic pizza scene with our guide to the best pizzerias, classic slices, and pizza tours">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Guide",
+      "name": "NYC Pizza Guide",
+      "description": "Comprehensive guide to New York City's best pizza places",
+      "publisher": {
+        "@type": "Organization",
+        "name": "NYxplore",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://nyxplore.com/assets/images/logo-NY.webp"
+        }
+      },
+      "about": {
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@type": "FoodEstablishment",
+              "name": "Joe's Pizza",
+              "url": "#"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@type": "FoodEstablishment",
+              "name": "Di Fara Pizza",
+              "url": "#"
+            }
+          }
+        ]
+      }
+    }
+    </script>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMW3YWQXBF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DMW3YWQXBF');
+    </script>
+
+    <!-- Preload key resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" as="style">
+    <link rel="preload" href="assets/images/pizza/pizza-hero.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="assets/images/pizza/joes-pizza.webp" as="image">
+    <link rel="preload" href="assets/images/pizza/difara-pizza.webp" as="image">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Critical CSS -->
+    <style>
+        :root {
+            --primary-color: #e74c3c;
+            --secondary-color: #2c3e50;
+            --accent-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        /* Header & Navigation */
+        .header {
+            background-color: #fff;
+            box-shadow: var(--box-shadow);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+        
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            order: 3;
+            flex: 1 1 100%;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
+        }
+        
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-radius: 0 0 10px 10px;
+            box-shadow: var(--box-shadow);
+            z-index: 100;
+            display: none;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .search-suggestions.active {
+            display: block;
+        }
+        
+        .search-suggestion-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .search-suggestion-item:hover {
+            background: var(--light-color);
+        }
+        
+        .navbar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            order: 2;
+        }
+        
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            order: 4;
+            flex: 1 1 100%;
+        }
+        
+        .navbar-item {
+            margin-left: 20px;
+        }
+        
+        .navbar-link {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .navbar-link:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Hero Banner */
+        .food-hero {
+            position: relative;
+            height: 60vh;
+            min-height: 400px;
+            background: linear-gradient(rgba(0,0,0,0.6), #00000066), 
+                        url('assets/images/pizza.webp') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .food-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--dark-color);
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--accent-color);
+            margin: 1rem auto;
+        }
+        
+        .section-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        
+        /* Borough Filters */
+        .borough-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 2rem 0;
+            justify-content: center;
+        }
+        
+        .borough-btn {
+            padding: 0.5rem 1.5rem;
+            border: 2px solid var(--accent-color);
+            background: white;
+            color: var(--primary-color);
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .borough-btn:hover,
+        .borough-btn.active {
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        /* Restaurant Grid */
+        .restaurant-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .restaurant-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .restaurant-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .restaurant-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .restaurant-card:hover .restaurant-image {
+            transform: scale(1.03);
+        }
+        
+        .restaurant-info {
+            padding: 1.5rem;
+        }
+        
+        .restaurant-name {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin: 0.5rem 0;
+        }
+        
+        .restaurant-location {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+            color: var(--primary-color);
+        }
+        
+        .restaurant-location i {
+            margin-right: 0.5rem;
+            color: var(--accent-color);
+        }
+        
+        /* Pizza Maker Spotlight */
+        .pizzamaker-spotlight {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            align-items: center;
+            margin: 4rem 0;
+            background: var(--light-color);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+        }
+        
+        .spotlight-image {
+            width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        /* Tours Grid */
+        .tours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .tour-card {
+            padding: 2rem;
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .tour-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tour-type {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .tour-card i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #222;
+            color: #fff;
+            padding: 3rem 0 0;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h4 {
+            color: #fff;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-column a:hover {
+            color: #fff;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            margin-bottom: 1rem;
+        }
+        
+        .social-links a {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .legal-links {
+            margin-bottom: 1rem;
+        }
+        
+        .legal-links a {
+            color: #bbb;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .legal-links a:hover {
+            color: #fff;
+        }
+        
+        .copyright {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        /* Floating Controls */
+        .floating-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        .control-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .control-button:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Responsive Adjustments */
+        @media (min-width: 768px) {
+            .header-container {
+                flex-wrap: nowrap;
+            }
+            
+            .search-container {
+                order: 2;
+                flex: 1 1 auto;
+                max-width: 400px;
+                margin: 0 1rem;
+            }
+            
+            .navbar-toggle {
+                order: 3;
+            }
+            
+            .navbar-menu {
+                order: 4;
+                flex: 0 1 auto;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .navbar-toggle {
+                display: block;
+            }
+            
+            .navbar-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--box-shadow);
+            }
+            
+            .navbar-menu.active {
+                display: flex;
+            }
+            
+            .navbar-item {
+                margin: 0.5rem 0;
+            }
+            
+            .pizzamaker-spotlight {
+                grid-template-columns: 1fr;
+            }
+            
+            .borough-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Accessibility Focus Styles */
+        a:focus, button:focus, input:focus {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+        
+        /* Skip to Content Link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        /* Utility Classes */
+        .hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        /* CTA Button */
+        .cta-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .cta-button:hover {
+            background: #e67e22;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .scroll-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-top: 3px solid white;
+            border-left: 3px solid white;
+            transform: rotate(45deg);
+            margin-top: 8px;
+        }
+
+        .progress-circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .progress-circle path {
+            fill: none;
+            stroke: white;
+            stroke-width: 3;
+            stroke-linecap: round;
+        }
+
+        @media (max-width: 768px) {
+            .scroll-top {
+                width: 40px;
+                height: 40px;
+                right: 20px;
+                bottom: 20px;
+            }
+            
+            .scroll-top::before {
+                width: 16px;
+                height: 16px;
+                margin-top: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to Content Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Floating Controls -->
+    <div class="floating-controls">
+        <button id="sound-toggle" class="control-button" aria-label="Toggle ambient sound">
+            <i class="fas fa-volume-up"></i>
+        </button>
+        <button id="theme-toggle" class="control-button" aria-label="Toggle dark mode">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+    
+    <!-- Header -->
+    <header class="header" role="banner">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore - New York City Travel Guide" width="150" height="50" loading="eager">
+            </a>
+            
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Search pizza places..." aria-label="Search pizza places" id="search-input">
+                <div class="search-suggestions" id="search-suggestions" role="listbox" aria-expanded="false">
+                    <!-- Suggestions will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false" aria-controls="navbar-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            
+            <ul class="navbar-menu" id="navbar-menu">
+                <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
+                <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
+                <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
+                <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
+                <li class="navbar-item"><a href="index.html#map" class="navbar-link">Map</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <main id="main-content">
+        <!-- Hero Banner -->
+        <section class="food-hero" aria-labelledby="hero-heading">
+            <div class="hero-content">
+                <h1 id="hero-heading" class="food-title">NYC Pizza</h1>
+                <p class="hero-subtitle">The iconic New York slice - foldable, delicious, and unforgettable</p>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <section class="container" aria-labelledby="pizza-heading">
+            <h2 id="pizza-heading" class="section-title">New York's Pizza Culture</h2>
+            <p class="section-description">From classic dollar slices to gourmet coal-fired pies, NYC pizza is a culinary institution</p>
+            
+            <div class="borough-filters">
+                <button class="borough-btn active" data-borough="all" aria-pressed="true">All Boroughs</button>
+                <button class="borough-btn" data-borough="manhattan" aria-pressed="false">Manhattan</button>
+                <button class="borough-btn" data-borough="brooklyn" aria-pressed="false">Brooklyn</button>
+                <button class="borough-btn" data-borough="queens" aria-pressed="false">Queens</button>
+                <button class="borough-btn" data-borough="bronx" aria-pressed="false">The Bronx</button>
+            </div>
+            
+            <article class="pizza-intro">
+                <h3>The New York Slice</h3>
+                <p>New York-style pizza is characterized by its large, thin, and foldable slices with a crispy yet pliable crust. The secret lies in the city's water, high-gluten bread flour, and the century-old techniques perfected by generations of pizzaiolos. Whether you're grabbing a quick dollar slice or sitting down for a whole pie at a historic pizzeria, each bite tells a story of New York's rich culinary heritage.</p>
+            </article>
+            
+            <div class="restaurant-grid" role="list">
+                <!-- Joe's Pizza -->
+                <article class="restaurant-card" data-borough="manhattan" role="listitem">
+                    <img src="assets/images/pizza/joes-pizza.webp" 
+                         alt="Classic cheese slice from Joe's Pizza" 
+                         loading="lazy"
+                         class="restaurant-image"
+                         width="600"
+                         height="400">
+                    <div class="restaurant-info">
+                        <h3>Joe's Pizza</h3>
+                        <p class="restaurant-name">Since 1975</p>
+                        <p>The quintessential NYC slice joint where the classic cheese slice achieves perfect balance of sauce, cheese, and crust.</p>
+                        <div class="restaurant-location">
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            <span>7 Carmine St, Greenwich Village</span>
+                        </div>
+                        <a href="#" class="cta-button">View Details</a>
+                    </div>
+                </article>
+                
+                <!-- Di Fara Pizza -->
+                <article class="restaurant-card" data-borough="brooklyn" role="listitem">
+                    <img src="assets/images/pizza/difara-pizza.webp"                         
+                         alt="Artisanal pizza from Di Fara" 
+                         loading="lazy"
+                         class="restaurant-image"
+                         width="600"
+                         height="400">
+                    <div class="restaurant-info">
+                        <h3>Di Fara Pizza</h3>
+                        <p class="restaurant-name">Since 1964</p>
+                        <p>Domenico DeMarco's legendary pies with fresh basil, olive oil, and multiple cheeses - worth the wait.</p>
+                        <div class="restaurant-location">
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            <span>1424 Avenue J, Midwood</span>
+                        </div>
+                        <a href="#" class="cta-button">View Details</a>
+                    </div>
+                </article>
+                
+                <!-- Lucali -->
+                <article class="restaurant-card" data-borough="brooklyn" role="listitem">
+                    <img src="assets/images/pizza/lucali-pizza.webp"                        
+                         alt="Thin crust pizza from Lucali" 
+                         loading="lazy"
+                         class="restaurant-image"
+                         width="600"
+                         height="400">
+                    <div class="restaurant-info">
+                        <h3>Lucali</h3>
+                        <p class="restaurant-name">Since 2006</p>
+                        <p>Candlelit BYOB spot making heavenly thin-crust pies in a coal oven. The margherita is legendary.</p>
+                        <div class="restaurant-location">
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            <span>575 Henry St, Carroll Gardens</span>
+                        </div>
+                        <a href="#" class="cta-button">View Details</a>
+                    </div>
+                </article>
+                
+                <!-- Patsy's -->
+                <article class="restaurant-card" data-borough="manhattan" role="listitem">
+                    <img src="assets/images/pizza/patsys-pizza.webp" 
+                         alt="Coal-fired pizza from Patsy's" 
+                         loading="lazy"
+                         class="restaurant-image"
+                         width="600"
+                         height="400">
+                    <div class="restaurant-info">
+                        <h3>Patsy's Pizzeria</h3>
+                        <p class="restaurant-name">Since 1933</p>
+                        <p>Original coal-oven pizzeria with crisp crust and balanced toppings - Frank Sinatra's favorite.</p>
+                        <div class="restaurant-location">
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            <span>2287 1st Ave, East Harlem</span>
+                        </div>
+                        <a href="#" class="cta-button">View Details</a>
+                    </div>
+                </article>
+                
+                <!-- New Park Pizza -->
+                <article class="restaurant-card" data-borough="queens" role="listitem">
+                    <img src="assets/images/pizza/newpark-pizza.webp"
+                         alt="Square slice from New Park Pizza" 
+                         loading="lazy"
+                         class="restaurant-image"
+                         width="600"
+                         height="400">
+                    <div class="restaurant-info">
+                        <h3>New Park Pizza</h3>
+                        <p class="restaurant-name">Since 1956</p>
+                        <p>Queens institution known for its square slices with perfect cheese-to-sauce ratio and crispy crust.</p>
+                        <div class="restaurant-location">
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            <span>156-71 Cross Bay Blvd, Howard Beach</span>
+                        </div>
+                        <a href="#" class="cta-button">View Details</a>
+                    </div>
+                </article>
+                
+                <!-- Louie & Ernie's -->
+                <article class="restaurant-card" data-borough="bronx" role="listitem">
+                    <img src="assets/images/pizza/louie-ernies.webp"         
+                         alt="Sausage pizza from Louie & Ernie's" 
+                         loading="lazy"
+                         class="restaurant-image"
+                         width="600"
+                         height="400">
+                    <div class="restaurant-info">
+                        <h3>Louie & Ernie's</h3>
+                        <p class="restaurant-name">Since 1959</p>
+                        <p>Bronx favorite with charred, blistered crust and house-made sausage that locals swear by.</p>
+                        <div class="restaurant-location">
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            <span>1300 Crosby Ave, Pelham Bay</span>
+                        </div>
+                        <a href="#" class="cta-button">View Details</a>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="highlight">
+                <div class="container">
+                    <div class="highlight-content">
+                        <h2>What Makes New York Pizza Special?</h2>
+                        <p>NYC's tap water (with its unique mineral content), the high-gluten bread flour, and the century-old coal ovens all contribute to that distinctive New York pizza flavor and texture that's nearly impossible to replicate outside the five boroughs. The perfect New York slice should be foldable but not floppy, with a slightly charred bottom and just the right ratio of sauce to cheese.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="section-title">Pizza Tours & Experiences</h3>
+            <div class="tours-grid" role="list">
+                <article class="tour-card" role="listitem">
+                    <span class="tour-type">Walking Tour</span>
+                    <i class="fas fa-walking" aria-hidden="true"></i>
+                    <h4>Greenwich Village Pizza Walk</h4>
+                    <p>3-hour guided tour through historic pizzerias in the Village, tasting classic NY slices and learning pizza history.</p>
+                    <ul>
+                        <li><i class="fas fa-clock" aria-hidden="true"></i> Daily at 11am & 3pm</li>
+                        <li><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Starts at Washington Square Park</li>
+                        <li><i class="fas fa-dollar-sign" aria-hidden="true"></i> $45 per person</li>
+                    </ul>
+                    <a href="#" class="cta-button">Book Tour</a>
+                </article>
+                
+                <article class="tour-card" role="listitem">
+                    <span class="tour-type">Workshop</span>
+                    <i class="fas fa-utensils" aria-hidden="true"></i>
+                    <h4>Pizza Making Class</h4>
+                    <p>Hands-on workshop where you'll learn to stretch dough, make sauce, and bake your own NY-style pizza.</p>
+                    <ul>
+                        <li><i class="fas fa-clock" aria-hidden="true"></i> Weekends at 2pm</li>
+                        <li><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Williamsburg, Brooklyn</li>
+                        <li><i class="fas fa-dollar-sign" aria-hidden="true"></i> $75 per person</li>
+                    </ul>
+                    <a href="#" class="cta-button">Book Class</a>
+                </article>
+                
+                <article class="tour-card" role="listitem">
+                    <span class="tour-type">Self-Guided</span>
+                    <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+                    <h4>NYC Pizza Trail App</h4>
+                    <p>Interactive map with over 100 pizzerias across all boroughs, including ratings, history, and secret menu items.</p>
+                    <ul>
+                        <li><i class="fas fa-clock" aria-hidden="true"></i> Available anytime</li>
+                        <li><i class="fas fa-mobile-alt" aria-hidden="true"></i> iOS & Android</li>
+                        <li><i class="fas fa-dollar-sign" aria-hidden="true"></i> $9.99 download</li>
+                    </ul>
+                    <a href="#" class="cta-button">Get App</a>
+                </article>
+            </div>
+            
+            <article class="pizzamaker-spotlight">
+                <img src="assets/images/pizza/pizzamaker-spotlight.webp" 
+                     alt="Pizzaiolo tossing dough" 
+                     loading="lazy"
+                     class="spotlight-image"
+                     width="400"
+                     height="600">
+                <div class="spotlight-text">
+                    <h3>Pizzaiolo Spotlight: John Arena</h3>
+                    <p>John Arena is a third-generation pizzaiolo and co-owner of Metro Pizza in Las Vegas (originally from Brooklyn). He's dedicated his career to preserving traditional New York pizza techniques while innovating with new flavors.</p>
+                    <p>"The secret to great New York pizza isn't just the water or the oven - it's the rhythm. The way you stretch the dough, the timing of the bake, the balance of ingredients. It's a dance that takes years to master."</p>
+                    <a href="#" class="cta-button">Read Full Interview</a>
+                </div>
+            </article>
+            
+            <div class="tips">
+                <h3 class="section-title">Pizza Tips & Etiquette</h3>
+                <div class="tips-grid">
+                    <article class="tip-card">
+                        <h3>How to Eat Like a Local</h3>
+                        <p>Fold your slice lengthwise to eat it. This helps support the structure and prevents toppings from sliding off. If you're getting a whole pie, New Yorkers typically order it "regular" which means with mozzarella and tomato sauce.</p>
+                    </article>
+                    
+                    <article class="tip-card">
+                        <h3>Best Time to Visit</h3>
+                        <p>For classic slice joints, late night (after 11pm) is prime time when the crust is extra crispy and the atmosphere is lively. For sit-down pizzerias, aim for early dinner (5-6pm) to avoid long waits.</p>
+                    </article>
+                    
+                    <article class="tip-card">
+                        <h3>Pizza Etiquette</h3>
+                        <p>At busy slice joints, know your order before you reach the counter and have cash ready. At sit-down spots, it's customary to leave any uneaten slices (they'll box them for you). Never use a knife and fork unless it's a grandma pie!</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer-container">
+            <div class="footer-newsletter">
+                <h3>Explore NYC With Us</h3>
+                <p>Get updates on new restaurants and food events</p>
+                <form class="newsletter-form" id="newsletter-form" name="newsletter" method="POST" netlify data-netlify-honeypot="bot-field">
+                    <input type="hidden" name="form-name" value="newsletter">
+                    <p class="hidden">
+                        <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                    </p>
+                    <div class="input-group">
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Your email address" 
+                            required 
+                            aria-label="Email address"
+                            aria-describedby="email-helper"
+                        >
+                        <button type="submit" aria-label="Subscribe">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <small id="email-helper">We'll never share your email</small>
+                </form>
+                <div id="newsletter-message" class="newsletter-message" aria-live="polite"></div>
+            </div>
+            
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Discover</h4>
+                    <ul>
+                        <li><a href="index.html#landmarks"><i class="fas fa-landmark" aria-hidden="true"></i> Iconic Landmarks</a></li>
+                        <li><a href="index.html#culture"><i class="fas fa-theater-masks" aria-hidden="true"></i> Arts & Culture</a></li>
+                        <li><a href="index.html#food"><i class="fas fa-utensils" aria-hidden="true"></i> Food Scene</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Food Resources</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-book" aria-hidden="true"></i> Restaurant Guides</a></li>
+                        <li><a href="#"><i class="fas fa-map" aria-hidden="true"></i> Foodie Map</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-heart" aria-hidden="true"></i> About Us</a></li>
+                        <li><a href="#"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+                
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Accessibility</a>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
+                  style="transition: stroke-dashoffset 10ms linear; 
+                         stroke-dasharray: 307.919, 307.919; 
+                         stroke-dashoffset: 307.919;">
+            </path>
+        </svg>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current year
+            document.getElementById('year').textContent = new Date().getFullYear();
+            
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu');
+            const navbarMenu = document.getElementById('navbar-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                navbarMenu.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.navbar-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navbarMenu.classList.remove('active');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                });
+            });
+            
+            // Borough filtering functionality
+            const boroughButtons = document.querySelectorAll('.borough-btn');
+            const restaurantCards = document.querySelectorAll('.restaurant-card');
+            
+            boroughButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    boroughButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.setAttribute('aria-pressed', 'false');
+                    });
+                    button.classList.add('active');
+                    button.setAttribute('aria-pressed', 'true');
+                    
+                    const borough = button.dataset.borough;
+                    
+                    // Filter restaurant cards
+                    restaurantCards.forEach(card => {
+                        if (borough === 'all' || card.dataset.borough === borough) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Search functionality
+            const searchInput = document.getElementById('search-input');
+            const searchSuggestions = document.getElementById('search-suggestions');
+            
+            if (searchInput && searchSuggestions) {
+                // Sample search data (in a real app, this would come from an API)
+                const searchData = [
+                    { term: 'Joe\'s Pizza', type: 'manhattan', url: '#' },
+                    { term: 'Di Fara Pizza', type: 'brooklyn', url: '#' },
+                    { term: 'Lucali', type: 'brooklyn', url: '#' },
+                    { term: 'Patsy\'s Pizzeria', type: 'manhattan', url: '#' },
+                    { term: 'New Park Pizza', type: 'queens', url: '#' },
+                    { term: 'Louie & Ernie\'s', type: 'bronx', url: '#' }
+                ];
+                
+                searchInput.addEventListener('input', function() {
+                    const query = this.value.toLowerCase();
+                    
+                    if (query.length < 2) {
+                        searchSuggestions.classList.remove('active');
+                        searchSuggestions.setAttribute('aria-expanded', 'false');
+                        return;
+                    }
+                    
+                    const results = searchData.filter(item => 
+                        item.term.toLowerCase().includes(query)
+                    );
+                    
+                    if (results.length > 0) {
+                        searchSuggestions.innerHTML = results.map(item => `
+                            <div class="search-suggestion-item" role="option" data-url="${item.url}">
+                                <strong>${item.term}</strong> <span>(${item.type})</span>
+                            </div>
+                        `).join('');
+                        
+                        searchSuggestions.classList.add('active');
+                        searchSuggestions.setAttribute('aria-expanded', 'true');
+                        
+                        // Add click handlers to suggestion items
+                        document.querySelectorAll('.search-suggestion-item').forEach(item => {
+                            item.addEventListener('click', function() {
+                                const url = this.getAttribute('data-url');
+                                window.location.href = url;
+                            });
+                        });
+                    } else {
+                        searchSuggestions.innerHTML = `
+                            <div class="search-suggestion-item">
+                                No results found for "${query}"
+                            </div>
+                        `;
+                        searchSuggestions.classList.add('active');
+                        searchSuggestions.setAttribute('aria-expanded', 'true');
+                    }
+                });
+                
+                // Close suggestions when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!searchInput.contains(e.target) && !searchSuggestions.contains(e.target)) {
+                        searchSuggestions.classList.remove('active');
+                        searchSuggestions.setAttribute('aria-expanded', 'false');
+                    }
+                });
+                
+                // Keyboard navigation for accessibility
+                searchInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'ArrowDown' && searchSuggestions.classList.contains('active')) {
+                        e.preventDefault();
+                        const firstItem = searchSuggestions.querySelector('.search-suggestion-item');
+                        if (firstItem) firstItem.focus();
+                    }
+                });
+                
+                searchSuggestions.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        searchSuggestions.classList.remove('active');
+                        searchSuggestions.setAttribute('aria-expanded', 'false');
+                        searchInput.focus();
+                    }
+                });
+            }
+            
+            // Lazy load images
+            const lazyLoadImages = () => {
+                const lazyImages = document.querySelectorAll('img[data-src]');
+                const imageObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src;
+                            img.removeAttribute('data-src');
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                }, {
+                    rootMargin: '200px 0px'
+                });
+
+                lazyImages.forEach(img => {
+                    if (img.getBoundingClientRect().top < window.innerHeight + 200) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                    } else {
+                        imageObserver.observe(img);
+                    }
+                });
+            };
+
+            lazyLoadImages();
+            new MutationObserver(lazyLoadImages).observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+            
+            // Newsletter form handling
+            const newsletterForm = document.getElementById('newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const email = this.elements['email'].value;
+                    const messageElement = document.getElementById('newsletter-message');
+                    
+                    // Simple validation
+                    if (!email.includes('@')) {
+                        messageElement.textContent = 'Please enter a valid email address';
+                        messageElement.style.color = 'red';
+                        return;
+                    }
+                    
+                    // Simulate submission (in a real site, this would be an AJAX call)
+                    messageElement.textContent = 'Thank you for subscribing to our newsletter!';
+                    messageElement.style.color = 'green';
+                    
+                    // Reset form after 3 seconds
+                    setTimeout(() => {
+                        this.reset();
+                        messageElement.textContent = '';
+                    }, 3000);
+                });
+            }
+            
+            // Theme toggle functionality
+            const themeToggle = document.getElementById('theme-toggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    document.body.classList.toggle('dark-theme');
+                    const icon = this.querySelector('i');
+                    if (document.body.classList.contains('dark-theme')) {
+                        icon.classList.replace('fa-moon', 'fa-sun');
+                    } else {
+                        icon.classList.replace('fa-sun', 'fa-moon');
+                    }
+                });
+            }
+            
+            // Sound toggle functionality
+            const soundToggle = document.getElementById('sound-toggle');
+            if (soundToggle) {
+                soundToggle.addEventListener('click', function() {
+                    const icon = this.querySelector('i');
+                    if (icon.classList.contains('fa-volume-up')) {
+                        icon.classList.replace('fa-volume-up', 'fa-volume-mute');
+                        // In a real implementation, you would pause any ambient sound here
+                    } else {
+                        icon.classList.replace('fa-volume-mute', 'fa-volume-up');
+                        // In a real implementation, you would play ambient sound here
+                    }
+                });
+            }
+            
+            // Scroll to top functionality
+            const scrollTop = document.querySelector('.scroll-top');
+            const progressPath = document.querySelector('.progress-circle path');
+            const pathLength = progressPath.getTotalLength();
+            
+            // Set initial styles for progress circle
+            progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
+            progressPath.style.strokeDashoffset = pathLength;
+            
+            // Update progress on scroll
+            window.addEventListener('scroll', function() {
+                const scrollPercentage = (document.body.scrollTop + document.documentElement.scrollTop) / 
+                                       (document.documentElement.scrollHeight - document.documentElement.clientHeight);
+                
+                const drawLength = pathLength * scrollPercentage;
+                progressPath.style.strokeDashoffset = pathLength - drawLength;
+                
+                // Show/hide button based on scroll position
+                if (window.pageYOffset > 300) {
+                    scrollTop.classList.add('active');
+                } else {
+                    scrollTop.classList.remove('active');
+                }
+            });
+            
+            // Smooth scroll to top when clicked
+            scrollTop.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Basic protection methods
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                alert('Right-click is disabled on this page');
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'F12' || 
+                    (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                    (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+                    (e.ctrlKey && e.key === 'u')) {
+                    e.preventDefault();
+                    alert('This action is not allowed');
+                }
+            });
+            
+            document.addEventListener('dragstart', function(e) {
+                if (e.target.tagName === 'IMG') {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+    
+    <!-- Netlify Identity Widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script>
+        if (window.netlifyIdentity) {
+            netlifyIdentity.on("init", user => {
+                if (!user) netlifyIdentity.on("login", () => {
+                    document.location.href = "/admin/";
+                });
+            });
+        }
+    </script>
+</body>
+</html>

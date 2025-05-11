@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYC's Best Hot Dogs | NYxplore</title>
+    <meta name="description" content="Discover New York City's iconic hot dog stands with our guide to classic franks, dirty water dogs, and gourmet sausages">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Guide",
+      "name": "NYC Hot Dog Guide",
+      "description": "Comprehensive guide to New York City's best hot dog stands and vendors",
+      "publisher": {
+        "@type": "Organization",
+        "name": "NYxplore",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://nyxplore.com/assets/images/logo-NY.webp"
+        }
+      },
+      "about": {
+        "@type": "ItemList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@type": "FoodEstablishment",
+              "name": "Nathan's Famous",
+              "url": "#nathans"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@type": "FoodEstablishment",
+              "name": "Gray's Papaya",
+              "url": "#grays"
+            }
+          }
+        ]
+      }
+    }
+    </script>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMW3YWQXBF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DMW3YWQXBF');
+    </script>
+
+    <!-- Preload key resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" as="style">
+    <link rel="preload" href="assets/images/hotdogs/hotdogs-hero.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="assets/images/hotdogs/nathans-famous.webp" as="image">
+    <link rel="preload" href="assets/images/hotdogs/grays-papaya.webp" as="image">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Critical CSS -->
+    <style>
+        :root {
+            --primary-color: #e74c3c;
+            --secondary-color: #2c3e50;
+            --accent-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Dark Theme */
+        .dark-theme {
+            background-color: #121212;
+            color: #f5f5f5;
+        }
+        
+        .dark-theme .header {
+            background-color: #1e1e1e;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        .dark-theme .navbar-link {
+            color: #f5f5f5;
+        }
+        
+        .dark-theme .stand-card,
+        .dark-theme .tour-card,
+        .dark-theme .tip-card {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+        }
+        
+        .dark-theme .stand-name,
+        .dark-theme .section-title,
+        .dark-theme h3,
+        .dark-theme .spotlight-text h3 {
+            color: #f5f5f5;
+        }
+        
+        .dark-theme .section-description,
+        .dark-theme .stand-info p,
+        .dark-theme .spotlight-text p {
+            color: #bbb;
+        }
+        
+        .dark-theme .search-bar {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+            border-color: #444;
+        }
+        
+        .dark-theme .search-suggestions {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+        }
+        
+        .dark-theme .search-suggestion-item:hover {
+            background-color: #3d3d3d;
+        }
+        
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--light-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--accent-color);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Header & Navigation */
+        .header {
+            background-color: #fff;
+            box-shadow: var(--box-shadow);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo img {
+            height: 50px;
+            width: auto;
+            transition: filter 0.3s ease;
+        }
+        
+        .dark-theme .logo img {
+            filter: brightness(0.8);
+        }
+        
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            order: 3;
+            flex: 1 1 100%;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
+        }
+        
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-radius: 0 0 10px 10px;
+            box-shadow: var(--box-shadow);
+            z-index: 100;
+            display: none;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .search-suggestions.active {
+            display: block;
+        }
+        
+        .search-suggestion-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .search-suggestion-item:hover {
+            background: var(--light-color);
+        }
+        
+        .navbar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            order: 2;
+        }
+        
+        .navbar-toggle .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--dark-color);
+            margin: 5px 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        
+        .dark-theme .navbar-toggle .bar {
+            background-color: #f5f5f5;
+        }
+        
+        .navbar-toggle.active .bar:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        
+        .navbar-toggle.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .navbar-toggle.active .bar:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            order: 4;
+            flex: 1 1 100%;
+        }
+        
+        .navbar-item {
+            margin-left: 20px;
+        }
+        
+        .navbar-link {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .navbar-link:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Hero Banner */
+        .food-hero {
+            position: relative;
+            height: 60vh;
+            min-height: 400px;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), 
+                        url('assets/images/hotdogs/hotdogs-hero.webp') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .food-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--dark-color);
+            text-align: center;
+            position: relative;
+        }
+        
+        .dark-theme .section-title {
+            color: #f5f5f5;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--accent-color);
+            margin: 1rem auto;
+        }
+        
+        .section-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        
+        /* Type Filters */
+        .type-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        
+        .type-btn {
+            padding: 0.75rem 1.5rem;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .type-btn.active {
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        .dark-theme .type-btn {
+            background: #2d2d2d;
+            color: #f5f5f5;
+        }
+        
+        .dark-theme .type-btn.active {
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        /* Stand Grid */
+        .stand-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .stand-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .stand-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .stand-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .stand-card:hover .stand-image {
+            transform: scale(1.03);
+        }
+        
+        .stand-info {
+            padding: 1.5rem;
+        }
+        
+        .stand-name {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin: 0.5rem 0;
+        }
+        
+        .dark-theme .stand-name {
+            color: #f5f5f5;
+        }
+        
+        .stand-location {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+            color: var(--primary-color);
+        }
+        
+        .stand-location i {
+            margin-right: 0.5rem;
+            color: var(--accent-color);
+        }
+        
+        /* Vendor Spotlight */
+        .vendor-spotlight {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin: 4rem 0;
+            align-items: center;
+        }
+        
+        @media (min-width: 768px) {
+            .vendor-spotlight {
+                grid-template-columns: 1fr 2fr;
+            }
+        }
+        
+        .spotlight-image {
+            width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            object-fit: cover;
+        }
+        
+        .spotlight-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        /* Tours Grid */
+        .tours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .tour-card {
+            padding: 2rem;
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .tour-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tour-type {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .tour-card i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        
+        /* Tips Grid */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .tip-card {
+            padding: 1.5rem;
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .tip-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* Highlight Section */
+        .highlight {
+            background: linear-gradient(135deg, rgba(243,156,18,0.1) 0%, rgba(231,76,60,0.1) 100%);
+            padding: 3rem 0;
+            margin: 3rem 0;
+            border-radius: var(--border-radius);
+        }
+        
+        .dark-theme .highlight {
+            background: linear-gradient(135deg, rgba(243,156,18,0.2) 0%, rgba(231,76,60,0.2) 100%);
+        }
+        
+        .highlight-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #222;
+            color: #fff;
+            padding: 3rem 0 0;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h4 {
+            color: #fff;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-column a:hover {
+            color: #fff;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            margin-bottom: 1rem;
+        }
+        
+        .social-links a {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .legal-links {
+            margin-bottom: 1rem;
+        }
+        
+        .legal-links a {
+            color: #bbb;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .legal-links a:hover {
+            color: #fff;
+        }
+        
+        .copyright {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        /* Floating Controls */
+        .floating-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        .control-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .control-button:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .scroll-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-top: 3px solid white;
+            border-left: 3px solid white;
+            transform: rotate(45deg);
+            margin-top: 8px;
+        }
+
+        .progress-circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .progress-circle path {
+            fill: none;
+            stroke: white;
+            stroke-width: 3;
+            stroke-linecap: round;
+        }
+
+        /* Responsive Adjustments */
+        @media (min-width: 768px) {
+            .header-container {
+                flex-wrap: nowrap;
+            }
+            
+            .search-container {
+                order: 2;
+                flex: 1 1 auto;
+                max-width: 400px;
+                margin: 0 1rem;
+            }
+            
+            .navbar-toggle {
+                order: 3;
+            }
+            
+            .navbar-menu {
+                order: 4;
+                flex: 0 1 auto;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .navbar-toggle {
+                display: block;
+            }
+            
+            .navbar-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--box-shadow);
+            }
+            
+            .dark-theme .navbar-menu {
+                background: #2d2d2d;
+            }
+            
+            .navbar-menu.active {
+                display: flex;
+            }
+            
+            .navbar-item {
+                margin: 0.5rem 0;
+            }
+            
+            .type-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .scroll-top {
+                width: 40px;
+                height: 40px;
+                right: 20px;
+                bottom: 20px;
+            }
+            
+            .scroll-top::before {
+                width: 16px;
+                height: 16px;
+                margin-top: 6px;
+            }
+        }
+        
+        /* Accessibility Focus Styles */
+        a:focus, button:focus, input:focus {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+        
+        /* Skip to Content Link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        /* Utility Classes */
+        .hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        /* CTA Button */
+        .cta-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .cta-button:hover {
+            background: #e67e22;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+    
+    <!-- Skip to Content Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Floating Controls -->
+    <div class="floating-controls">
+        <button id="sound-toggle" class="control-button" aria-label="Toggle ambient sound">
+            <i class="fas fa-volume-up"></i>
+        </button>
+        <button id="theme-toggle" class="control-button" aria-label="Toggle dark mode">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+    
+    <!-- Header -->
+    <header class="header" role="banner">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="assets/images/logo-NY.webp" alt="NYxplore - New York City Travel Guide" width="150" height="50" loading="eager">
+            </a>
+            
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Search hot dog stands..." aria-label="Search hot dog stands" id="search-input">
+                <div class="search-suggestions" id="search-suggestions" role="listbox" aria-expanded="false">
+                    <!-- Suggestions will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false" aria-controls="navbar-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            
+            <ul class="navbar-menu" id="navbar-menu">
+                <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
+                <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
+                <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
+                <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
+                <li class="navbar-item"><a href="index.html#map" class="navbar-link">Map</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <main id="main-content">
+        <!-- Hero Banner -->
+        <section class="food-hero" aria-labelledby="hero-heading">
+            <div class="hero-content">
+                <h1 id="hero-heading" class="food-title">NYC Hot Dogs</h1>
+                <p class="hero-subtitle">From street carts to iconic institutions - New York's frankfurters</p>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <section class="container" aria-labelledby="hotdogs-heading">
+            <h2 id="hotdogs-heading" class="section-title">New York's Hot Dog Tradition</h2>
+            <p class="section-description">Steamed, grilled, or dirty-water style - discover why NYC's hot dogs are legendary</p>
+            
+            <div class="type-filters">
+                <button class="type-btn active" data-type="all" aria-pressed="true">All Types</button>
+                <button class="type-btn" data-type="street" aria-pressed="false">Street Carts</button>
+                <button class="type-btn" data-type="classic" aria-pressed="false">Classic Stands</button>
+                <button class="type-btn" data-type="gourmet" aria-pressed="false">Gourmet</button>
+            </div>
+            
+            <article class="hotdog-intro">
+                <h3>The New York Hot Dog</h3>
+                <p>New York hot dogs come in three main styles: 1) "Dirty water dogs" from street carts (steamed in seasoned water), 2) Classic grilled franks from century-old stands, and 3) Gourmet artisanal sausages. The classic NYC street dog is a natural-casing beef frank topped with sauerkraut and deli mustard or the famous "onions in sauce" from Sabrett carts. Whether you're grabbing a quick $2 dog from a cart or sitting down at an historic stand, each bite represents a piece of New York's street food culture.</p>
+            </article>
+            
+            <div class="stand-grid" role="list">
+                <!-- Nathan's Famous -->
+                <article class="stand-card" data-type="classic" role="listitem" id="nathans">
+                    <picture>
+                        <source srcset="assets/images/hotdogs/nathans-famous.webp" type="image/webp">
+                        <source srcset="assets/images/hotdogs/nathans-famous.jpg" type="image/jpeg"> 
+                        <img src="assets/images/hotdogs/nathans-famous.jpg" 
+                             alt="Hot dogs at Nathan's Famous" 
+                             loading="lazy"
+                             class="stand-image"
+                             width="600"
+                             height="400">
+                    </picture>
+                    <div class="stand-info">
+                        <h3>Nathan's Famous</h3>
+                        <p class="stand-name">Since 1916</p>
+                        <p>Home of the annual July 4th hot dog eating contest. Their crinkle-cut fries and classic frank with mustard are Coney Island icons.</p>
+                        <div class="stand-location">
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            <span>1310 Surf Ave, Coney Island</span>
+                        </div>
+                        <a href="#" class="cta-button">View Details</a>
+                    </div>
+                </article>
+                
+                <!-- Gray's Papaya -->
+                <article class="stand-card" data-type="classic" role="listitem" id="grays">
+                    <picture>
+                        <source srcset="assets/images/hotdogs/grays-papaya.webp" type="image/webp">
+                        <source srcset="assets/images/hotdogs/grays-papaya.jpg" type="image/jpeg"> 
+                        <img src="assets/images/hotdogs/grays-papaya.jpg" 
+                             alt="Hot dogs at Gray's Papaya" 
+                             loading="lazy"
+                             class="stand-image"
+                             width="600"
+                             height="400">
+                    </picture>
+                    <div class="stand-info">
+                        <h3>Gray's Papaya</h3>
+                        <p class="stand-name">Since 1973</p>
+                        <p>Legendary recession special: 2 franks and a tropical drink for $5. The snap of their grilled dogs is unforgettable.</p>
+                        <div class="stand-location">
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            <span>2090 Broadway, Upper West Side</span>
+                        </div>
+                        <a href="#" class="cta-button">View Details</a>
+                    </div>
+                </article>
+                
+                <!-- Sabrett Cart -->
+                <article class="stand-card" data-type="street" role="listitem">
+                    <picture>
+                        <source srcset="assets/images/hotdogs/sabrett-cart.webp" type="image/webp">
+                        <source srcset="assets/images/hotdogs/sabrett-cart.jpg" type="image/jpeg"> 
+                        <img src="assets/images/hotdogs/sabrett-cart.jpg" 
+                             alt="Classic Sabrett hot dog cart" 
+                             loading="lazy"
+                             class="stand-image"
+                             width="600"
+                             height="400">
+                    </picture>
+                    <div class="stand-info">
+                        <h3>Sabrett Street Cart</h3>
+                        <p class="stand-name">Since 1936</p>
+                        <p>The iconic blue-and-yellow umbrella means "onions in sauce" perfection. Find them throughout Manhattan's busy corners.</p>
+                        <div class="stand-location">
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            <span>Various locations</span>
+                        </div>
+                        <a href="#" class="cta-button">View Details</a>
+                    </div>
+                </article>
+                
+                <!-- Crif Dogs -->
+                <article class="stand-card" data-type="gourmet" role="listitem">
+                    <picture>
+                        <source srcset="assets/images/hotdogs/crif-dogs.webp" type="image/webp">
+                        <source srcset="assets/images/hotdogs/crif-dogs.jpg" type="image/jpeg"> 
+                        <img src="assets/images/hotdogs/crif-dogs.jpg" 
+                             alt="Creative hot dogs at Crif Dogs" 
+                             loading="lazy"
+                             class="stand-image"
+                             width="600"
+                             height="400">
+                    </picture>
+                    <div class="stand-info">
+                        <h3>Crif Dogs</h3>
+                        <p class="stand-name">Since 2001</p>
+                        <p>Gourmet dogs with creative toppings like cream cheese, scallions, and everything bagel seasoning. Try the "Chihuahua" wrapped in bacon.</p>
+                        <div class="stand-location">
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            <span>113 St. Marks Pl, East Village</span>
+                        </div>
+                        <a href="#" class="cta-button">View Details</a>
+                    </div>
+                </article>
+                
+                <!-- Papaya King -->
+                <article class="stand-card" data-type="classic" role="listitem">
+                    <picture>
+                        <source srcset="assets/images/hotdogs/papaya-king.webp" type="image/webp">
+                        <source srcset="assets/images/hotdogs/papaya-king.jpg" type="image/jpeg"> 
+                        <img src="assets/images/hotdogs/papaya-king.jpg" 
+                             alt="Hot dogs at Papaya King" 
+                             loading="lazy"
+                             class="stand-image"
+                             width="600"
+                             height="400">
+                    </picture>
+                    <div class="stand-info">
+                        <h3>Papaya King</h3>
+                        <p class="stand-name">Since 1932</p>
+                        <p>The original hot dog and tropical drink combo. Their grilled franks with kraut and mustard define NYC street food.</p>
+                        <div class="stand-location">
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            <span>179 E 86th St, Upper East Side</span>
+                        </div>
+                        <a href="#" class="cta-button">View Details</a>
+                    </div>
+                </article>
+                
+                <!-- Feltman's -->
+                <article class="stand-card" data-type="gourmet" role="listitem">
+                    <picture>
+                        <source srcset="assets/images/hotdogs/feltmans.webp" type="image/webp">
+                        <source srcset="assets/images/hotdogs/feltmans.jpg" type="image/jpeg"> 
+                        <img src="assets/images/hotdogs/feltmans.jpg" 
+                             alt="Gourmet hot dogs at Feltman's" 
+                             loading="lazy"
+                             class="stand-image"
+                             width="600"
+                             height="400">
+                    </picture>
+                    <div class="stand-info">
+                        <h3>Feltman's of Coney Island</h3>
+                        <p class="stand-name">Since 1867 (revived)</p>
+                        <p>Revived original Coney Island frank with natural casings and premium beef. The "German Style" with beer mustard is spectacular.</p>
+                        <div class="stand-location">
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            <span>Various locations</span>
+                        </div>
+                        <a href="#" class="cta-button">View Details</a>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="highlight">
+                <div class="container">
+                    <div class="highlight-content">
+                        <h2>What Makes New York Hot Dogs Special?</h2>
+                        <p>Three elements define NYC hot dogs: 1) The natural-casing beef franks (especially Sabrett and Hebrew National brands) that "snap" when bitten, 2) The iconic toppings like "onions in sauce" (a sweet-tart onion relish) and deli mustard, and 3) The preparation methods - either steamed in seasoned "dirty water" or grilled to crispy perfection. The city's hot dog culture reflects its immigrant history, with German, Jewish, and Latin American influences creating unique regional styles.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="section-title">Hot Dog Tours & Experiences</h3>
+            <div class="tours-grid" role="list">
+                <article class="tour-card" role="listitem">
+                    <span class="tour-type">Walking Tour</span>
+                    <i class="fas fa-walking" aria-hidden="true"></i>
+                    <h4>NYC Hot Dog Crawl</h4>
+                    <p>3-hour guided tour sampling all hot dog styles from street carts to gourmet stands while learning food history.</p>
+                    <ul>
+                        <li><i class="fas fa-clock" aria-hidden="true"></i> Saturdays at 11am</li>
+                        <li><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Starts at Times Square</li>
+                        <li><i class="fas fa-dollar-sign" aria-hidden="true"></i> $45 per person</li>
+                    </ul>
+                    <a href="#" class="cta-button">Book Tour</a>
+                </article>
+                
+                <article class="tour-card" role="listitem">
+                    <span class="tour-type">Workshop</span>
+                    <i class="fas fa-utensils" aria-hidden="true"></i>
+                    <h4>Hot Dog Making Class</h4>
+                    <p>Hands-on workshop where you'll learn to make authentic NYC-style franks and classic toppings from experts.</p>
+                    <ul>
+                        <li><i class="fas fa-clock" aria-hidden="true"></i> Select Sundays at 2pm</li>
+                        <li><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Brooklyn Kitchen</li>
+                        <li><i class="fas fa-dollar-sign" aria-hidden="true"></i> $75 per person</li>
+                    </ul>
+                    <a href="#" class="cta-button">Book Class</a>
+                </article>
+                
+                <article class="tour-card" role="listitem">
+                    <span class="tour-type">Self-Guided</span>
+                    <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+                    <h4>NYC Hot Dog Trail App</h4>
+                    <p>Interactive map with 50+ top-rated hot dog spots across all boroughs, including ordering tips and secret menu items.</p>
+                    <ul>
+                        <li><i class="fas fa-clock" aria-hidden="true"></i> Available anytime</li>
+                        <li><i class="fas fa-mobile-alt" aria-hidden="true"></i> iOS & Android</li>
+                        <li><i class="fas fa-dollar-sign" aria-hidden="true"></i> $4.99 download</li>
+                    </ul>
+                    <a href="#" class="cta-button">Get App</a>
+                </article>
+            </div>
+            
+            <article class="vendor-spotlight">
+                <picture>
+                    <source srcset="assets/images/hotdogs/vendor-spotlight.webp" type="image/webp">
+                    <source srcset="assets/images/hotdogs/vendor-spotlight.jpg" type="image/jpeg"> 
+                    <img src="assets/images/hotdogs/vendor-spotlight.jpg" 
+                         alt="Hot dog vendor serving customer" 
+                         loading="lazy"
+                         class="spotlight-image"
+                         width="400"
+                         height="600">
+                </picture>
+                <div class="spotlight-text">
+                    <h3>Vendor Spotlight: The Sabrett Story</h3>
+                    <p>The iconic Sabrett brand has been synonymous with NYC street food since 1936. Their signature "onions in sauce" and bright yellow umbrellas are fixtures of the city's culinary landscape. What began as a small family business grew to supply over 90% of NYC's street carts.</p>
+                    <p>"The key to our success is consistency," says current owner Steven Silver. "Whether you get a Sabrett dog in Times Square or outside a Queens subway station, it should taste exactly the same - that snap of the natural casing, the tang of our special onion sauce, the perfect steam on the bun."</p>
+                    <a href="#" class="cta-button">Read Full Story</a>
+                </div>
+            </article>
+            
+            <div class="tips">
+                <h3 class="section-title">Hot Dog Tips & Etiquette</h3>
+                <div class="tips-grid">
+                    <article class="tip-card">
+                        <h3>How to Order Like a Local</h3>
+                        <p>At street carts: "One with everything" means a dog with onions in sauce, mustard, and kraut. At classic stands: Specify your toppings clearly ("mustard and sauerkraut only"). For gourmet spots: Ask about daily specials. Always have small bills ready for street vendors.</p>
+                    </article>
+                    
+                    <article class="tip-card">
+                        <h3>Best Time to Visit</h3>
+                        <p>Street carts are best at lunch (11am-2pm) when turnover is high and dogs are freshest. Classic stands like Nathan's have shorter lines on weekday afternoons. Gourmet spots often have happy hour specials (4-6pm).</p>
+                    </article>
+                    
+                    <article class="tip-card">
+                        <h3>Hot Dog Etiquette</h3>
+                        <p>1) Eat street dogs immediately - they don't travel well. 2) Don't ask for ketchup at classic NYC stands - it's considered sacrilege. 3) Have your payment ready at busy carts. 4) Tip generously if you get extra toppings or service.</p>
+                    </article>
+                    
+                    <article class="tip-card">
+                        <h3>Dietary Considerations</h3>
+                        <p>Most street dogs contain beef and gluten. For vegetarian options, try Superiority Burger or vegan carts in parks. Kosher options are available at Hebrew National carts. Gluten-free buns can be found at gourmet spots like Bark Hot Dogs in Brooklyn.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Explore NYC</h4>
+                    <ul>
+                        <li><a href="#">Landmarks</a></li>
+                        <li><a href="#">Neighborhoods</a></li>
+                        <li><a href="#">Museums</a></li>
+                        <li><a href="#">Parks</a></li>
+                        <li><a href="#">Tours</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Food Guides</h4>
+                    <ul>
+                        <li><a href="#">Pizza</a></li>
+                        <li><a href="#">Bagels</a></li>
+                        <li><a href="#">Deli</a></li>
+                        <li><a href="#">Street Food</a></li>
+                        <li><a href="#">Fine Dining</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Maps</a></li>
+                        <li><a href="#">Transportation</a></li>
+                        <li><a href="#">Events Calendar</a></li>
+                        <li><a href="#">Accessibility</a></li>
+                        <li><a href="#">Visitor Tips</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>About NYxplore</h4>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Advertise</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                </div>
+                
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Cookie Policy</a>
+                    <a href="#">Do Not Sell My Info</a>
+                </div>
+                
+                <p class="copyright">&copy; 2023 NYxplore. All rights reserved. New York City travel guide and resource.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+        <svg class="progress-circle" width="50" height="50" viewBox="0 0 50 50">
+            <path d="M25,2.5A22.5,22.5 0 0 1 47.5,25A22.5,22.5 0 0 1 25,47.5A22.5,22.5 0 0 1 2.5,25A22.5,22.5 0 0 1 25,2.5" 
+                  stroke-dasharray="141.372" 
+                  stroke-dashoffset="141.372"/>
+        </svg>
+    </div>
+    
+    <!-- JavaScript -->
+    <script>
+        // Loading animation
+        window.addEventListener('load', () => {
+            const loadingOverlay = document.getElementById('loading-overlay');
+            loadingOverlay.style.opacity = '0';
+            setTimeout(() => {
+                loadingOverlay.style.display = 'none';
+            }, 500);
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu');
+        const navbarMenu = document.getElementById('navbar-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+            mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+            mobileMenuBtn.classList.toggle('active');
+            navbarMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.navbar-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navbarMenu.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            });
+        });
+        
+        // Type Filter Buttons
+        const typeButtons = document.querySelectorAll('.type-btn');
+        typeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const type = button.dataset.type;
+                
+                // Update button states
+                typeButtons.forEach(btn => {
+                    const pressed = btn === button;
+                    btn.classList.toggle('active', pressed);
+                    btn.setAttribute('aria-pressed', pressed);
+                });
+                
+                // Filter stands
+                const stands = document.querySelectorAll('.stand-card');
+                stands.forEach(stand => {
+                    if (type === 'all' || stand.dataset.type === type) {
+                        stand.style.display = 'block';
+                    } else {
+                        stand.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Search Suggestions
+        const searchInput = document.getElementById('search-input');
+        const searchSuggestions = document.getElementById('search-suggestions');
+        const standsData = [
+            { name: "Nathan's Famous", type: "classic", location: "Coney Island", id: "nathans" },
+            { name: "Gray's Papaya", type: "classic", location: "Upper West Side", id: "grays" },
+            { name: "Sabrett Cart", type: "street", location: "Various" },
+            { name: "Crif Dogs", type: "gourmet", location: "East Village" },
+            { name: "Papaya King", type: "classic", location: "Upper East Side" },
+            { name: "Feltman's", type: "gourmet", location: "Various" }
+        ];
+        
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            
+            if (query.length > 2) {
+                const matches = standsData.filter(stand => 
+                    stand.name.toLowerCase().includes(query) || 
+                    stand.location.toLowerCase().includes(query)
+                );
+                
+                displaySuggestions(matches);
+                searchSuggestions.setAttribute('aria-expanded', 'true');
+                searchSuggestions.classList.add('active');
+            } else {
+                searchSuggestions.innerHTML = '';
+                searchSuggestions.setAttribute('aria-expanded', 'false');
+                searchSuggestions.classList.remove('active');
+            }
+        });
+        
+        function displaySuggestions(matches) {
+            searchSuggestions.innerHTML = '';
+            
+            if (matches.length > 0) {
+                matches.forEach(match => {
+                    const suggestion = document.createElement('div');
+                    suggestion.className = 'search-suggestion-item';
+                    suggestion.textContent = `${match.name} (${match.location})`;
+                    suggestion.setAttribute('role', 'option');
+                    suggestion.setAttribute('tabindex', '0');
+                    
+                    suggestion.addEventListener('click', () => {
+                        searchInput.value = match.name;
+                        searchSuggestions.innerHTML = '';
+                        searchSuggestions.classList.remove('active');
+                        // Scroll to the matching stand
+                        if (match.id) {
+                            document.getElementById(match.id).scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                    
+                    // Add keyboard support
+                    suggestion.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter') {
+                            searchInput.value = match.name;
+                            searchSuggestions.innerHTML = '';
+                            searchSuggestions.classList.remove('active');
+                            if (match.id) {
+                                document.getElementById(match.id).scrollIntoView({
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }
+                    });
+                    
+                    searchSuggestions.appendChild(suggestion);
+                });
+            } else {
+                const noResults = document.createElement('div');
+                noResults.className = 'search-suggestion-item';
+                noResults.textContent = 'No results found';
+                searchSuggestions.appendChild(noResults);
+            }
+        }
+        
+// Close suggestions when clicking outside
+document.addEventListener('click', (e) => {
+    if (!searchInput.contains(e.target)) {
+        searchSuggestions.classList.remove('active');
+        searchSuggestions.setAttribute('aria-expanded', 'false');
+    }
+});
+        
+        // Enhanced search validation
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (searchInput.value.trim().length < 3) {
+                    searchInput.setCustomValidity('Please enter at least 3 characters');
+                    searchInput.reportValidity();
+                } else {
+                    searchInput.setCustomValidity('');
+                    // Submit search or show results
+                }
+            }
+        });
+        
+        // Scroll to Top Button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('active');
+            } else {
+                scrollTopBtn.classList.remove('active');
+            }
+            
+            // Update progress circle
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollProgress = (window.pageYOffset / scrollHeight) * 141.372;
+            const path = scrollTopBtn.querySelector('path');
+            path.style.strokeDashoffset = 141.372 - scrollProgress;
+        });
+        
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            
+            const isDark = document.body.classList.contains('dark-theme');
+            themeToggle.setAttribute('aria-label', isDark ? 'Toggle light mode' : 'Toggle dark mode');
+            themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            
+            // Save preference to localStorage
+            localStorage.setItem('darkMode', isDark);
+        });
+        
+        // Check for saved theme preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-theme');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            themeToggle.setAttribute('aria-label', 'Toggle light mode');
+        }
+        
+        // Sound Toggle
+        const soundToggle = document.getElementById('sound-toggle');
+        let ambientSound;
+        
+        soundToggle.addEventListener('click', () => {
+            if (!ambientSound) {
+                // In a real implementation, this would play ambient NYC street sounds
+                soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                soundToggle.setAttribute('aria-label', 'Turn off ambient sound');
+                // ambientSound = new Audio('assets/sounds/nyc-street.mp3');
+                // ambientSound.loop = true;
+                // ambientSound.play();
+            } else {
+                soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+                soundToggle.setAttribute('aria-label', 'Turn on ambient sound');
+                // ambientSound.pause();
+                // ambientSound = null;
+            }
+        });
+        
+        // Enhanced lazy loading with Intersection Observer
+        if ('IntersectionObserver' in window) {
+            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+            const imageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.tagName === 'IMG') {
+                            img.src = img.dataset.src || img.src;
+                        } else if (img.tagName === 'SOURCE') {
+                            const parent = img.parentElement;
+                            const imgElement = parent.querySelector('img');
+                            if (imgElement) {
+                                imgElement.src = img.srcset;
+                            }
+                        }
+                        imageObserver.unobserve(img);
+                    }
+                });
+            }, { rootMargin: '200px' });
+            
+            lazyImages.forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+        
+        // Register Service Worker for offline support
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
