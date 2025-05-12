@@ -20,7 +20,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
     
     <!-- Main CSS -->
     <link rel="stylesheet" href="styles.css">
@@ -146,6 +148,8 @@
             width: 100%;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
+            min-height: 500px;
+            z-index: 0;
         }
         
         .map-legend {
@@ -234,268 +238,90 @@
             background-color: var(--secondary-color);
         }
         
-        /* Navigation Styles */
-        .navbar {
-            background-color: var(--primary-color);
-            padding: 1rem;
+        /* Header & Search */
+        .header {
+            background-color: #fff;
+            box-shadow: var(--shadow);
+            padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
         }
         
-        .navbar-container {
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
         }
         
         .logo img {
-            height: 40px;
+            height: 50px;
             width: auto;
         }
         
-        .navbar-menu {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .navbar-item {
-            margin-left: 20px;
-        }
-        
-        .navbar-link {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-        
-        .navbar-link:hover {
-            color: var(--accent-color);
-        }
-        
-        .navbar-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        /* Floating Controls */
-        .floating-controls {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 999;
-        }
-        
-        .control-button {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--box-shadow);
-            transition: var(--transition);
-        }
-        
-        .control-button:hover {
-            background-color: var(--secondary-color);
-            transform: scale(1.1);
-        }
-        
-        /* Footer Styles */
-        .footer {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 60px 0 20px;
-        }
-        
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .footer-newsletter {
-            margin-bottom: 40px;
-            text-align: center;
-        }
-        
-        .newsletter-form {
-            max-width: 500px;
-            margin: 20px auto 0;
-        }
-        
-        .input-group {
-            display: flex;
-        }
-        
-        .input-group input {
-            flex: 1;
-            padding: 12px 15px;
-            border: none;
-            border-radius: var(--border-radius) 0 0 var(--border-radius);
-        }
-        
-        .input-group button {
-            padding: 0 20px;
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            border-radius: 0 var(--border-radius) var(--border-radius) 0;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .input-group button:hover {
-            background-color: #e67e22;
-        }
-        
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-column h4 {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+        .search-container {
             position: relative;
-            padding-bottom: 10px;
+            width: 50%;
+            max-width: 500px;
         }
         
-        .footer-column h4::after {
-            content: '';
+        .search-bar {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(211, 84, 0, 0.2);
+        }
+        
+        .search-suggestions {
             position: absolute;
+            top: 100%;
             left: 0;
-            bottom: 0;
-            width: 50px;
-            height: 2px;
-            background-color: var(--accent-color);
+            right: 0;
+            background: #fff;
+            border-radius: 0 0 10px 10px;
+            box-shadow: var(--shadow);
+            z-index: 100;
+            display: none;
+            max-height: 300px;
+            overflow-y: auto;
         }
         
-        .footer-column ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+        .search-suggestions.active {
+            display: block;
         }
         
-        .footer-column li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-column a {
-            color: #ddd;
-            text-decoration: none;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .footer-column a:hover {
-            color: var(--accent-color);
-            padding-left: 5px;
-        }
-        
-        .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 20px;
-            text-align: center;
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .social-links a {
-            color: white;
-            font-size: 1.2rem;
-            transition: var(--transition);
-        }
-        
-        .social-links a:hover {
-            color: var(--accent-color);
-            transform: translateY(-3px);
-        }
-        
-        .legal-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .legal-links a {
-            color: #ddd;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: var(--transition);
-        }
-        
-        .legal-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .copyright {
-            font-size: 0.9rem;
-            color: #aaa;
-        }
-        
-        /* Scroll to Top Button */
-        .scroll-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--primary-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
+        .search-suggestion-item {
+            padding: 12px 20px;
             cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-            z-index: 999;
-            box-shadow: var(--box-shadow);
+            transition: background 0.2s;
         }
         
-        .scroll-top.active {
-            opacity: 1;
-            visibility: visible;
+        .search-suggestion-item:hover {
+            background: var(--bg-light);
         }
-        
-        /* Custom Icon Styles for Map */
-        .custom-icon {
-            background: transparent;
-            border: none;
-        }
-        
-        /* Responsive Styles */
-        @media (max-width: 1024px) {
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .search-container {
+                width: 100%;
+            }
+            
             .map-container {
                 grid-template-columns: 1fr;
                 height: auto;
@@ -504,114 +330,19 @@
             #interactive-map {
                 height: 50vh;
             }
-            
-            .footer-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
         }
         
-        @media (max-width: 768px) {
-            .map-title {
-                font-size: 2.5rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .filter-btn {
-                padding: 10px 15px;
-                font-size: 0.9rem;
-            }
-            
-            .navbar-menu {
-                position: fixed;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background-color: var(--primary-color);
-                flex-direction: column;
-                align-items: center;
-                padding: 20px 0;
-                clip-path: circle(0px at 90% -10%);
-                transition: all 0.5s ease-out;
-                pointer-events: none;
-            }
-            
-            .navbar-menu.active {
-                clip-path: circle(1000px at 90% -10%);
-                pointer-events: all;
-            }
-            
-            .navbar-item {
-                margin: 15px 0;
-            }
-            
-            .navbar-toggle {
-                display: block;
-            }
-            
-            .bar {
-                display: block;
-                width: 25px;
-                height: 3px;
-                background-color: white;
-                margin: 5px 0;
-                transition: var(--transition);
-            }
-            
-            .navbar-toggle.active .bar:nth-child(1) {
-                transform: translateY(8px) rotate(45deg);
-            }
-            
-            .navbar-toggle.active .bar:nth-child(2) {
-                opacity: 0;
-            }
-            
-            .navbar-toggle.active .bar:nth-child(3) {
-                transform: translateY(-8px) rotate(-45deg);
-            }
-            
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .map-title {
-                font-size: 2rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1rem;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-            }
-            
-            .section-subtitle {
-                font-size: 1rem;
-            }
-            
-            .map-filters {
-                gap: 10px;
-            }
-            
-            .filter-btn {
-                padding: 8px 12px;
-                font-size: 0.8rem;
-            }
-            
-            .map-tools {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .map-tool-button {
-                width: 100%;
-                justify-content: center;
-            }
+        /* Loading indicator */
+        .map-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background: rgba(255,255,255,0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
         }
     </style>
 </head>
@@ -626,26 +357,22 @@
         </button>
     </div> 
     
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="navbar-container container">
+    <!-- Header with Search -->
+    <header class="header" role="banner">
+        <div class="header-container">
             <a href="/" class="logo">
-                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo" width="120" height="40">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore - New York City Travel Guide" width="150" height="50">
             </a>
-            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-            <ul class="navbar-menu" id="navbar-menu">
-                <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
-                <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
-                <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
-                <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
-                <li class="navbar-item"><a href="events-calendar.html" class="navbar-link">Events</a></li>
-            </ul>
+            
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Search Broadway shows..." aria-label="Search Broadway shows" id="search-input">
+                <div class="search-suggestions" id="search-suggestions" role="listbox">
+                    <!-- Suggestions will be populated by JavaScript -->
+                </div>
+            </div>
         </div>
-    </nav>
+    </header>
+
     
     <!-- Hero Section -->
     <section class="map-hero">
@@ -704,7 +431,11 @@
                 </div>
             </div>
             
-            <div id="interactive-map"></div>
+            <div id="interactive-map">
+                <div class="map-loading" id="map-loading">
+                    <i class="fas fa-spinner fa-spin"></i> Loading map...
+                </div>
+            </div>
         </div>
         
         <div class="map-tools">
@@ -818,278 +549,299 @@
     </div>
 
     <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
     
     <!-- Main JS -->
-    <script src="script.js"></script>
-    
-    <!-- Map JS -->
     <script>
         // Initialize current year
         document.getElementById('year').textContent = new Date().getFullYear();
         
-        // Mobile menu toggle
+        // Initialize the map with error handling
+        function initializeMap() {
+            try {
+                // Check if map container exists
+                const mapContainer = document.getElementById('interactive-map');
+                if (!mapContainer) {
+                    throw new Error('Map container not found');
+                }
+                
+                // Check if Leaflet is loaded
+                if (typeof L === 'undefined') {
+                    throw new Error('Leaflet library not loaded');
+                }
+                
+                // Create the map
+                const map = L.map('interactive-map', {
+                    preferCanvas: true, // Better for many markers
+                    zoomControl: false // We'll add our own later
+                }).setView([40.7128, -74.0060], 12);
+                
+                // Add tile layer with error handling
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                    maxZoom: 18,
+                    detectRetina: true
+                }).addTo(map);
+                
+                // Add zoom control with position
+                L.control.zoom({
+                    position: 'topright'
+                }).addTo(map);
+                
+                // Hide loading indicator
+                document.getElementById('map-loading').style.display = 'none';
+                
+                // Sample locations data
+                const locations = [
+                    {
+                        id: 1,
+                        name: "Statue of Liberty",
+                        category: "landmark",
+                        coords: [40.6892, -74.0445],
+                        address: "Liberty Island, New York, NY 10004",
+                        description: "Iconic symbol of freedom and democracy",
+                        iconColor: "#e74c3c"
+                    },
+                    {
+                        id: 2,
+                        name: "Central Park",
+                        category: "park",
+                        coords: [40.7829, -73.9654],
+                        address: "New York, NY 10024",
+                        description: "Vast urban park with walking paths, lakes and cultural attractions",
+                        iconColor: "#9b59b6"
+                    },
+                    {
+                        id: 3,
+                        name: "The Metropolitan Museum of Art",
+                        category: "museum",
+                        coords: [40.7794, -73.9632],
+                        address: "1000 5th Ave, New York, NY 10028",
+                        description: "Massive art museum with works from around the world",
+                        iconColor: "#3498db"
+                    },
+                    {
+                        id: 4,
+                        name: "Times Square",
+                        category: "landmark",
+                        coords: [40.7580, -73.9855],
+                        address: "Manhattan, NY 10036",
+                        description: "Bustling commercial intersection with giant digital billboards",
+                        iconColor: "#e74c3c"
+                    },
+                    {
+                        id: 5,
+                        name: "Katz's Delicatessen",
+                        category: "restaurant",
+                        coords: [40.7224, -73.9875],
+                        address: "205 E Houston St, New York, NY 10002",
+                        description: "Legendary Jewish deli known for its pastrami sandwiches",
+                        iconColor: "#2ecc71"
+                    },
+                    {
+                        id: 6,
+                        name: "Brooklyn Bridge",
+                        category: "landmark",
+                        coords: [40.7061, -73.9969],
+                        address: "New York, NY 10038",
+                        description: "Iconic 19th-century suspension bridge connecting Manhattan and Brooklyn",
+                        iconColor: "#e74c3c"
+                    },
+                    {
+                        id: 7,
+                        name: "Chelsea Market",
+                        category: "shopping",
+                        coords: [40.7424, -74.0061],
+                        address: "75 9th Ave, New York, NY 10011",
+                        description: "Food & shopping mall in the Meatpacking District",
+                        iconColor: "#f39c12"
+                    },
+                    {
+                        id: 8,
+                        name: "Empire State Building",
+                        category: "landmark",
+                        coords: [40.7484, -73.9857],
+                        address: "20 W 34th St, New York, NY 10001",
+                        description: "Iconic 102-story Art Deco skyscraper with observatories",
+                        iconColor: "#e74c3c"
+                    },
+                    {
+                        id: 9,
+                        name: "Greenwich Village",
+                        category: "neighborhood",
+                        coords: [40.7336, -74.0027],
+                        address: "Manhattan, NY",
+                        description: "Historic neighborhood known for its bohemian past and vibrant culture",
+                        iconColor: "#f39c12"
+                    },
+                    {
+                        id: 10,
+                        name: "American Museum of Natural History",
+                        category: "museum",
+                        coords: [40.7813, -73.9740],
+                        address: "200 Central Park West, New York, NY 10024",
+                        description: "Massive museum with exhibits on human cultures, the natural world and the cosmos",
+                        iconColor: "#3498db"
+                    }
+                ];
+                
+                // Create custom icon function
+                function createCustomIcon(color) {
+                    return L.divIcon({
+                        className: 'custom-icon',
+                        html: `<svg viewBox="0 0 24 24" width="24" height="24" fill="${color}">
+                                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                              </svg>`,
+                        iconSize: [24, 24],
+                        iconAnchor: [12, 24],
+                        popupAnchor: [0, -24]
+                    });
+                }
+                
+                // Add markers to map
+                const markers = locations.map(location => {
+                    const marker = L.marker(location.coords, {
+                        icon: createCustomIcon(location.iconColor)
+                    }).addTo(map);
+                    
+                    marker.bindPopup(`
+                        <h3>${location.name}</h3>
+                        <p><strong>Category:</strong> ${location.category.charAt(0).toUpperCase() + location.category.slice(1)}</p>
+                        <p>${location.description}</p>
+                        <p><i class="fas fa-map-marker-alt"></i> ${location.address}</p>
+                    `);
+                    
+                    return marker;
+                });
+                
+                // Add location list functionality
+                const locationList = document.getElementById('location-list');
+                if (locationList) {
+                    locations.forEach(location => {
+                        const card = document.createElement('div');
+                        card.className = 'location-card';
+                        card.dataset.id = location.id;
+                        card.dataset.category = location.category;
+                        card.innerHTML = `
+                            <div class="location-name">${location.name}</div>
+                            <span class="location-category">${location.category.charAt(0).toUpperCase() + location.category.slice(1)}</span>
+                            <div class="location-address"><i class="fas fa-map-marker-alt"></i> ${location.address}</div>
+                        `;
+                        
+                        card.addEventListener('click', () => {
+                            map.flyTo(location.coords, 15);
+                            markers[location.id - 1].openPopup();
+                        });
+                        
+                        locationList.appendChild(card);
+                    });
+                }
+                
+                // Add filter functionality
+                document.querySelectorAll('.filter-btn').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const filter = button.dataset.filter;
+                        
+                        // Update active button
+                        document.querySelectorAll('.filter-btn').forEach(btn => {
+                            btn.classList.remove('active');
+                        });
+                        button.classList.add('active');
+                        
+                        // Filter markers
+                        markers.forEach((marker, index) => {
+                            if (filter === 'all' || locations[index].category === filter) {
+                                map.addLayer(marker);
+                            } else {
+                                map.removeLayer(marker);
+                            }
+                        });
+                        
+                        // Filter location cards
+                        document.querySelectorAll('.location-card').forEach(card => {
+                            if (filter === 'all' || card.dataset.category === filter) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+                    });
+                });
+                
+                // Add map tools functionality
+                document.getElementById('locate-me')?.addEventListener('click', () => {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(
+                            position => {
+                                const userLocation = [position.coords.latitude, position.coords.longitude];
+                                map.flyTo(userLocation, 15);
+                                
+                                L.marker(userLocation, {
+                                    icon: createCustomIcon('#2c3e50')
+                                }).addTo(map)
+                                .bindPopup('Your location')
+                                .openPopup();
+                            },
+                            error => {
+                                console.error('Geolocation error:', error);
+                                alert('Unable to retrieve your location. Please ensure location services are enabled.');
+                            }
+                        );
+                    } else {
+                        alert('Geolocation is not supported by your browser');
+                    }
+                });
+                
+                document.getElementById('reset-view')?.addEventListener('click', () => {
+                    map.flyTo([40.7128, -74.0060], 12);
+                });
+                
+                document.getElementById('print-map')?.addEventListener('click', () => {
+                    window.print();
+                });
+                
+                return map;
+                
+            } catch (error) {
+                console.error('Map initialization error:', error);
+                const loadingElement = document.getElementById('map-loading');
+                if (loadingElement) {
+                    loadingElement.innerHTML = `
+                        <div style="color: red;">
+                            <i class="fas fa-exclamation-triangle"></i> 
+                            Map failed to load: ${error.message}
+                        </div>
+                        <button onclick="window.location.reload()">Try Again</button>
+                    `;
+                }
+                return null;
+            }
+        }
+        
+        // Initialize when DOM is ready
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize map
+            initializeMap();
+            
+            // Mobile menu toggle
             const mobileMenuButton = document.getElementById('mobile-menu');
             const navbarMenu = document.getElementById('navbar-menu');
             
-            mobileMenuButton.addEventListener('click', function() {
-                const isExpanded = this.getAttribute('aria-expanded') === 'true';
-                this.setAttribute('aria-expanded', !isExpanded);
-                this.classList.toggle('active');
-                navbarMenu.classList.toggle('active');
-            });
-            
-            // Close mobile menu when clicking a link
-            document.querySelectorAll('.navbar-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    navbarMenu.classList.remove('active');
-                    mobileMenuButton.classList.remove('active');
-                    mobileMenuButton.setAttribute('aria-expanded', 'false');
-                });
-            });
-            
-            // Initialize the map
-            const map = L.map('interactive-map').setView([40.7128, -74.0060], 12);
-            
-            // Add tile layer (OpenStreetMap)
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
-            
-            // Sample locations data
-            const locations = [
-                {
-                    id: 1,
-                    name: "Statue of Liberty",
-                    category: "landmark",
-                    coords: [40.6892, -74.0445],
-                    address: "Liberty Island, New York, NY 10004",
-                    description: "Iconic symbol of freedom and democracy",
-                    iconColor: "#e74c3c"
-                },
-                {
-                    id: 2,
-                    name: "Central Park",
-                    category: "park",
-                    coords: [40.7829, -73.9654],
-                    address: "New York, NY 10024",
-                    description: "Vast urban park with walking paths, lakes and cultural attractions",
-                    iconColor: "#9b59b6"
-                },
-                {
-                    id: 3,
-                    name: "The Metropolitan Museum of Art",
-                    category: "museum",
-                    coords: [40.7794, -73.9632],
-                    address: "1000 5th Ave, New York, NY 10028",
-                    description: "Massive art museum with works from around the world",
-                    iconColor: "#3498db"
-                },
-                {
-                    id: 4,
-                    name: "Times Square",
-                    category: "landmark",
-                    coords: [40.7580, -73.9855],
-                    address: "Manhattan, NY 10036",
-                    description: "Bustling commercial intersection with giant digital billboards",
-                    iconColor: "#e74c3c"
-                },
-                {
-                    id: 5,
-                    name: "Katz's Delicatessen",
-                    category: "restaurant",
-                    coords: [40.7224, -73.9875],
-                    address: "205 E Houston St, New York, NY 10002",
-                    description: "Legendary Jewish deli known for its pastrami sandwiches",
-                    iconColor: "#2ecc71"
-                },
-                {
-                    id: 6,
-                    name: "Brooklyn Bridge",
-                    category: "landmark",
-                    coords: [40.7061, -73.9969],
-                    address: "New York, NY 10038",
-                    description: "Iconic 19th-century suspension bridge connecting Manhattan and Brooklyn",
-                    iconColor: "#e74c3c"
-                },
-                {
-                    id: 7,
-                    name: "Chelsea Market",
-                    category: "shopping",
-                    coords: [40.7424, -74.0061],
-                    address: "75 9th Ave, New York, NY 10011",
-                    description: "Food & shopping mall in the Meatpacking District",
-                    iconColor: "#f39c12"
-                },
-                {
-                    id: 8,
-                    name: "Empire State Building",
-                    category: "landmark",
-                    coords: [40.7484, -73.9857],
-                    address: "20 W 34th St, New York, NY 10001",
-                    description: "Iconic 102-story Art Deco skyscraper with observatories",
-                    iconColor: "#e74c3c"
-                },
-                {
-                    id: 9,
-                    name: "Greenwich Village",
-                    category: "neighborhood",
-                    coords: [40.7336, -74.0027],
-                    address: "Manhattan, NY",
-                    description: "Historic neighborhood known for its bohemian past and vibrant culture",
-                    iconColor: "#f39c12"
-                },
-                {
-                    id: 10,
-                    name: "American Museum of Natural History",
-                    category: "museum",
-                    coords: [40.7813, -73.9740],
-                    address: "200 Central Park West, New York, NY 10024",
-                    description: "Massive museum with exhibits on human cultures, the natural world and the cosmos",
-                    iconColor: "#3498db"
-                }
-            ];
-            
-            // Create custom icons
-            function createCustomIcon(color) {
-                return L.divIcon({
-                    className: 'custom-icon',
-                    html: `<svg viewBox="0 0 24 24" width="24" height="24" fill="${color}">
-                              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                          </svg>`,
-                    iconSize: [24, 24],
-                    iconAnchor: [12, 24],
-                    popupAnchor: [0, -24]
+            if (mobileMenuButton && navbarMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                    this.setAttribute('aria-expanded', !isExpanded);
+                    this.classList.toggle('active');
+                    navbarMenu.classList.toggle('active');
                 });
             }
             
-            // Add markers to map and create location list
-            const locationList = document.getElementById('location-list');
-            const markers = [];
-            
-            locations.forEach(location => {
-                // Create marker
-                const marker = L.marker(location.coords, {
-                    icon: createCustomIcon(location.iconColor)
-                }).addTo(map);
-                
-                // Bind popup
-                marker.bindPopup(`
-                    <h3>${location.name}</h3>
-                    <p><strong>Category:</strong> ${location.category.charAt(0).toUpperCase() + location.category.slice(1)}</p>
-                    <p>${location.description}</p>
-                    <p><i class="fas fa-map-marker-alt"></i> ${location.address}</p>
-                `);
-                
-                // Create location card
-                const locationCard = document.createElement('div');
-                locationCard.className = 'location-card';
-                locationCard.dataset.id = location.id;
-                locationCard.dataset.category = location.category;
-                locationCard.innerHTML = `
-                    <div class="location-name">${location.name}</div>
-                    <span class="location-category">${location.category.charAt(0).toUpperCase() + location.category.slice(1)}</span>
-                    <div class="location-address"><i class="fas fa-map-marker-alt"></i> ${location.address}</div>
-                `;
-                
-                // Add click event to card
-                locationCard.addEventListener('click', () => {
-                    // Highlight card
-                    document.querySelectorAll('.location-card').forEach(card => {
-                        card.classList.remove('active');
-                    });
-                    locationCard.classList.add('active');
-                    
-                    // Fly to marker
-                    map.flyTo(location.coords, 15);
-                    
-                    // Open popup
-                    marker.openPopup();
-                });
-                
-                // Add click event to marker
-                marker.on('click', () => {
-                    // Highlight corresponding card
-                    document.querySelectorAll('.location-card').forEach(card => {
-                        card.classList.remove('active');
-                        if (parseInt(card.dataset.id) === location.id) {
-                            card.classList.add('active');
-                            // Scroll to card in sidebar
-                            card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                        }
-                    });
-                });
-                
-                locationList.appendChild(locationCard);
-                markers.push(marker);
-            });
-            
-            // Filter functionality
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    // Update active button
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    
-                    const filter = button.dataset.filter;
-                    
-                    // Filter location cards
-                    document.querySelectorAll('.location-card').forEach(card => {
-                        if (filter === 'all' || card.dataset.category === filter) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-                    
-                    // Filter markers
-                    markers.forEach((marker, index) => {
-                        if (filter === 'all' || locations[index].category === filter) {
-                            marker.addTo(map);
-                        } else {
-                            marker.remove();
-                        }
-                    });
-                });
-            });
-            
-            // Map tools functionality
-            document.getElementById('locate-me').addEventListener('click', () => {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(position => {
-                        const userLocation = [position.coords.latitude, position.coords.longitude];
-                        map.flyTo(userLocation, 15);
-                        
-                        // Add user location marker
-                        L.marker(userLocation, {
-                            icon: createCustomIcon('#2c3e50')
-                        }).addTo(map)
-                        .bindPopup('Your location')
-                        .openPopup();
-                    }, () => {
-                        alert('Unable to retrieve your location. Please ensure location services are enabled.');
-                    });
-                } else {
-                    alert('Geolocation is not supported by your browser');
-                }
-            });
-            
-            document.getElementById('reset-view').addEventListener('click', () => {
-                map.flyTo([40.7128, -74.0060], 12);
-            });
-            
-            document.getElementById('print-map').addEventListener('click', () => {
-                window.print();
-            });
-            
-            // Theme toggle functionality
-            const themeToggle = document.getElementById('theme-toggle');
-            themeToggle.addEventListener('click', () => {
+            // Theme toggle
+            document.getElementById('theme-toggle')?.addEventListener('click', function() {
                 document.body.classList.toggle('dark-theme');
-                const icon = themeToggle.querySelector('i');
+                const icon = this.querySelector('i');
                 if (document.body.classList.contains('dark-theme')) {
                     icon.classList.replace('fa-moon', 'fa-sun');
                 } else {
@@ -1097,35 +849,24 @@
                 }
             });
             
-            // Sound toggle functionality
-            const soundToggle = document.getElementById('sound-toggle');
-            soundToggle.addEventListener('click', () => {
-                const icon = soundToggle.querySelector('i');
-                if (icon.classList.contains('fa-volume-up')) {
-                    icon.classList.replace('fa-volume-up', 'fa-volume-mute');
-                    // Sound off logic here
-                } else {
-                    icon.classList.replace('fa-volume-mute', 'fa-volume-up');
-                    // Sound on logic here
-                }
-            });
-            
-            // Scroll to top button functionality
+            // Scroll to top button
             const scrollTop = document.querySelector('.scroll-top');
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    scrollTop.classList.add('active');
-                } else {
-                    scrollTop.classList.remove('active');
-                }
-            });
-            
-            scrollTop.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
+            if (scrollTop) {
+                window.addEventListener('scroll', function() {
+                    if (window.pageYOffset > 300) {
+                        scrollTop.classList.add('active');
+                    } else {
+                        scrollTop.classList.remove('active');
+                    }
                 });
-            });
+                
+                scrollTop.addEventListener('click', function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
         });
     </script>
 </body>
