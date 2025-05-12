@@ -3,17 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NYC Cultural Events Calendar | NYxplore</title>
+    <title>NYC Cultural Events Calendar | NYxplore - Exhibitions, Performances & Festivals</title>
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <meta name="description" content="Complete guide to New York City's cultural events, festivals, and performances">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="calendar-full.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Google tag (gtag.js) -->
+    <meta name="description" content="Complete guide to New York City's cultural events, festivals, and performances. Find art exhibitions, theater shows, music concerts and seasonal festivals.">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": "NYC Cultural Events",
+      "description": "Comprehensive calendar of cultural events in New York City including art exhibitions, theater performances, music concerts and festivals",
+      "location": {
+        "@type": "Place",
+        "name": "New York City",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "New York",
+          "addressRegion": "NY",
+          "postalCode": "10001",
+          "addressCountry": "US"
+        }
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "lowPrice": "0",
+        "highPrice": "250",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMW3YWQXBF"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -21,238 +42,827 @@
       gtag('js', new Date());
       gtag('config', 'G-DMW3YWQXBF');
     </script>
-        <style>
-            /* Updated Navigation Styles */
-            .navbar {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                background-color: rgba(10, 17, 40, 0.95);
-                color: white;
-                z-index: 1000;
-                transition: all 0.3s ease;
-                padding: 15px 0;
-            }
+
+    <!-- Preload key resources -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" as="style">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js" as="script">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" as="style">
     
-            .navbar.scrolled {
-                background-color: var(--primary-color);
-                box-shadow: var(--box-shadow);
-                padding: 10px 0;
-            }
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     
-            .navbar-container {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                max-width: 1200px;
-                margin: 0 auto;
-                padding: 0 20px;
-                position: relative;
-            }
+    <!-- FullCalendar CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
     
-            .logo img {
-                height: 50px;
-                width: auto;
-                transition: all 0.3s ease;
-            }
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     
-            .navbar-menu {
-                display: flex;
-                gap: 30px;
-            }
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-            .navbar-item {
-                position: relative;
-            }
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="styles.css">
     
-            .navbar-link {
-                padding: 8px 0;
-                font-weight: 600;
-                transition: all 0.3s ease;
-                color: white;
-            }
-    
-            .navbar-link.active {
-                color: var(--accent-color);
-            }
-    
-            .navbar-link::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 0;
-                height: 2px;
-                background-color: var(--accent-color);
-                transition: all 0.3s ease;
-            }
-    
-            .navbar-link:hover::after,
-            .navbar-link.active::after {
-                width: 100%;
-            }
-    
-            .navbar-toggle {
-                display: none;
-                cursor: pointer;
+    <!-- Calendar Page Specific CSS -->
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --text-color: #333;
+            --light-text: #666;
+            --bg-light: #f8f8f8;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Header & Search */
+        .header {
+            background-color: #fff;
+            box-shadow: var(--shadow);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+        
+        .search-container {
+            position: relative;
+            width: 50%;
+            max-width: 500px;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.2);
+        }
+        
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-radius: 0 0 10px 10px;
+            box-shadow: var(--shadow);
+            z-index: 100;
+            display: none;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .search-suggestions.active {
+            display: block;
+        }
+        
+        .search-suggestion-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .search-suggestion-item:hover {
+            background: var(--bg-light);
+        }
+        
+        /* Hero Banner */
+        .hero-banner {
+            position: relative;
+            height: 70vh;
+            min-height: 500px;
+            background-image: url('assets/images/calendar/nyc-events-hero.webp');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+        
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-content p {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Content Section */
+        .content-section {
+            padding: 5rem 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-color);
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 1rem auto;
+        }
+        
+        .section-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--light-text);
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        
+        /* Calendar Controls */
+        .calendar-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .view-btn {
+            padding: 8px 16px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .view-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .view-btn:hover:not(.active) {
+            background: var(--bg-light);
+        }
+        
+        .calendar-filters {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        #category-filter {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #fff;
+        }
+        
+        .date-navigation {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .date-navigation button {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+        
+        #calendar-title {
+            margin: 0;
+            font-size: 1.2rem;
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        /* Calendar Container */
+        #full-calendar {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        /* Event Submission CTA */
+        .event-submission-cta {
+            background: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 3rem 0;
+        }
+        
+        .event-submission-cta h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .event-submission-cta p {
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        #submit-event-btn {
+            background: white;
+            color: var(--primary-color);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        #submit-event-btn:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+        
+        /* Feature Boxes */
+        .feature-boxes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-box {
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+        
+        /* Event Categories Section */
+        .event-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .category-card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category-image {
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .category-info {
+            padding: 1.5rem;
+        }
+        
+        .category-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+        
+        .category-count {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+        
+        /* Tips Section */
+        .tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .tip-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--primary-color);
+        }
+        
+        .tip-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+        
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #0a1128 0%, #1e1e24 100%);
+            color: white;
+            padding: 60px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h4 {
+            color: #fff;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: #fff;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            margin-bottom: 1rem;
+        }
+        
+        .social-links a {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .legal-links {
+            margin-bottom: 1rem;
+        }
+        
+        .legal-links a {
+            color: #bbb;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .legal-links a:hover {
+            color: #fff;
+        }
+        
+        .copyright {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .header-container {
                 flex-direction: column;
-                justify-content: space-between;
-                width: 30px;
-                height: 21px;
-                position: relative;
-                z-index: 1002;
-                background: transparent;
-                border: none;
-                padding: 0;
+                gap: 1rem;
             }
-    
-            .bar {
+            
+            .search-container {
                 width: 100%;
-                height: 3px;
-                background-color: white;
-                transition: all 0.3s ease;
             }
-    
-            .navbar-toggle.active .bar:nth-child(1) {
-                transform: translateY(9px) rotate(45deg);
+            
+            .hero-content h1 {
+                font-size: 3rem;
             }
-    
-            .navbar-toggle.active .bar:nth-child(2) {
-                opacity: 0;
+            
+            .feature-box {
+                min-width: 100%;
             }
-    
-            .navbar-toggle.active .bar:nth-child(3) {
-                transform: translateY(-9px) rotate(-45deg);
+            
+            .calendar-controls {
+                flex-direction: column;
+                align-items: flex-start;
             }
-    
-            /* Mobile Menu */
-            @media (max-width: 992px) {
-                .navbar-menu {
-                    position: fixed;
-                    top: 0;
-                    left: -100%;
-                    width: 80%;
-                    max-width: 300px;
-                    height: 100vh;
-                    background-color: var(--primary-color);
-                    flex-direction: column;
-                    align-items: flex-start;
-                    padding: 80px 30px 30px;
-                    transition: all 0.4s ease;
-                    z-index: 1001;
-                }
-    
-                .navbar-menu.active {
-                    left: 0;
-                }
-    
-                .navbar-toggle {
-                    display: flex;
-                }
-    
-                .navbar-item {
-                    width: 100%;
-                    margin: 10px 0;
-                }
-    
-                .navbar-link {
-                    display: block;
-                    padding: 12px 0;
-                    width: 100%;
-                }
+            
+            .event-categories, .tips {
+                grid-template-columns: 1fr;
             }
-    
-            @media (max-width: 480px) {
-                .navbar-container {
-                    padding: 0 15px;
-                }
-    
-                .logo img {
-                    height: 40px;
-                }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
             }
-    
-            /* Add this for mobile menu scroll lock */
-            .no-scroll {
-                overflow: hidden;
-                height: 100%;
+            
+            .section-title {
+                font-size: 2rem;
             }
-        </style>
+            
+            .view-toggle {
+                flex-wrap: wrap;
+            }
+        }
+        
+        /* Accessibility Focus Styles */
+        a:focus, button:focus, input:focus {
+            outline: 3px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+        
+        /* Print Styles */
+        @media print {
+            .header, .footer {
+                display: none;
+            }
+            
+            body {
+                font-size: 12pt;
+                color: #000;
+            }
+            
+            #full-calendar {
+                page-break-inside: avoid;
+            }
+        }
+        
+        /* Scroll to Top Button Styles */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .scroll-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-top::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-top: 3px solid white;
+            border-left: 3px solid white;
+            transform: rotate(45deg);
+            margin-top: 8px;
+        }
+        
+        .progress-circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+        
+        .progress-circle path {
+            fill: none;
+            stroke: white;
+            stroke-width: 3;
+            stroke-linecap: round;
+        }
+        
+        @media (max-width: 768px) {
+            .scroll-top {
+                width: 40px;
+                height: 40px;
+                right: 20px;
+                bottom: 20px;
+            }
+            
+            .scroll-top::before {
+                width: 16px;
+                height: 16px;
+                margin-top: 6px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Reuse your navigation from index.html -->
-    <nav class="navbar">
-        <div class="navbar-container">
+    <!-- Header with Search -->
+    <header class="header" role="banner">
+        <div class="header-container">
             <a href="/" class="logo">
-                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore - New York City Travel Guide" width="150" height="50">
             </a>
-            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-            <ul class="navbar-menu" id="navbar-menu">
-                <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
-                <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
-                <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
-                <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
-                <li class="navbar-item"><a href="index.html#map" class="navbar-link">Map</a></li>
-                <li class="navbar-item"><a href="full-calendar.html" class="navbar-link active">Events</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    
-    <main class="full-calendar-container">
-        <div class="calendar-hero">
-            <h1>NYC Cultural Events</h1>
-            <p>Discover exhibitions, performances, and festivals across the city</p>
-        </div>
-        
-        <div class="calendar-controls">
-            <div class="view-toggle">
-                <button class="view-btn active" data-view="month">Month</button>
-                <button class="view-btn" data-view="week">Week</button>
-                <button class="view-btn" data-view="day">Day</button>
-                <button class="view-btn" data-view="list">List</button>
-            </div>
             
-            <div class="calendar-filters">
-                <select id="category-filter">
-                    <option value="all">All Categories</option>
-                    <option value="art">Art</option>
-                    <option value="music">Music</option>
-                    <option value="theater">Theater</option>
-                    <option value="dance">Dance</option>
-                    <option value="festival">Festivals</option>
-                </select>
-                
-                <div class="date-navigation">
-                    <button id="calendar-prev"><i class="fas fa-chevron-left"></i></button>
-                    <h2 id="calendar-title">May 2023</h2>
-                    <button id="calendar-next"><i class="fas fa-chevron-right"></i></button>
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Search cultural events..." aria-label="Search cultural events" id="search-input">
+                <div class="search-suggestions" id="search-suggestions" role="listbox">
+                    <!-- Suggestions will be populated by JavaScript -->
                 </div>
             </div>
         </div>
-        
-        <!-- Calendar Container -->
-        <div id="full-calendar"></div>
+    </header>
+    
+    <main class="cultural-events" id="main-content">
+        <!-- Hero Banner -->
+        <section class="hero-banner" aria-labelledby="hero-heading">
+            <div class="hero-content">
+                <h1 id="hero-heading">NYC Cultural Events</h1>
+                <p>Discover exhibitions, performances, and festivals across the city</p>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <section class="content-section" aria-labelledby="events-intro">
+            <div class="container">
+                <h2 id="events-intro" class="section-title">New York's Cultural Calendar</h2>
+                <p class="section-description">New York City offers an unparalleled array of cultural events year-round. From world-class museum exhibitions to avant-garde theater performances and vibrant street festivals, there's always something happening in the city that never sleeps.</p>
+                
+                <div class="feature-boxes">
+                    <div class="feature-box">
+                        <div class="feature-icon" aria-hidden="true">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3 class="feature-title">Art Exhibitions</h3>
+                        <p>Discover groundbreaking contemporary art and classic masterpieces at NYC's renowned museums and galleries</p>
+                    </div>
+                    <div class="feature-box">
+                        <div class="feature-icon" aria-hidden="true">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <h3 class="feature-title">Music & Dance</h3>
+                        <p>Experience everything from classical concerts at Carnegie Hall to underground jazz clubs in Harlem</p>
+                    </div>
+                    <div class="feature-box">
+                        <div class="feature-icon" aria-hidden="true">
+                            <i class="fas fa-theater-masks"></i>
+                        </div>
+                        <h3 class="feature-title">Performing Arts</h3>
+                        <p>Attend Broadway shows, off-Broadway productions, and experimental theater performances</p>
+                    </div>
+                </div>
+                
+                <h2 class="section-title">Upcoming Featured Events</h2>
+                <div class="calendar-controls">
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="month">Month</button>
+                        <button class="view-btn" data-view="week">Week</button>
+                        <button class="view-btn" data-view="day">Day</button>
+                        <button class="view-btn" data-view="list">List</button>
+                    </div>
+                    
+                    <div class="calendar-filters">
+                        <select id="category-filter">
+                            <option value="all">All Categories</option>
+                            <option value="art">Art</option>
+                            <option value="music">Music</option>
+                            <option value="theater">Theater</option>
+                            <option value="dance">Dance</option>
+                            <option value="festival">Festivals</option>
+                        </select>
+                        
+                        <div class="date-navigation">
+                            <button id="calendar-prev"><i class="fas fa-chevron-left"></i></button>
+                            <h2 id="calendar-title">May 2023</h2>
+                            <button id="calendar-next"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Calendar Container -->
+                <div id="full-calendar"></div>
+                
+                <h2 class="section-title">Event Categories</h2>
+                <div class="event-categories" role="list">
+                    <article class="category-card" role="listitem">
+                        <div class="category-image" style="background-image: url('assets/images/calendar/art-exhibitions.webp')" aria-label="Art exhibition at a museum"></div>
+                        <div class="category-info">
+                            <h3 class="category-title">Art Exhibitions</h3>
+                            <p class="category-count">42 upcoming events</p>
+                        </div>
+                    </article>
+                    <article class="category-card" role="listitem">
+                        <div class="category-image" style="background-image: url('assets/images/calendar/music-concerts.webp')" aria-label="Live music performance"></div>
+                        <div class="category-info">
+                            <h3 class="category-title">Music Concerts</h3>
+                            <p class="category-count">36 upcoming events</p>
+                        </div>
+                    </article>
+                    <article class="category-card" role="listitem">
+                        <div class="category-image" style="background-image: url('assets/images/calendar/theater-performances.webp')" aria-label="Theater performance"></div>
+                        <div class="category-info">
+                            <h3 class="category-title">Theater Performances</h3>
+                            <p class="category-count">28 upcoming events</p>
+                        </div>
+                    </article>
+                    <article class="category-card" role="listitem">
+                        <div class="category-image" style="background-image: url('assets/images/calendar/festivals.webp')" aria-label="Street festival"></div>
+                        <div class="category-info">
+                            <h3 class="category-title">Festivals</h3>
+                            <p class="category-count">15 upcoming events</p>
+                        </div>
+                    </article>
+                </div>
+                
+                <h2 class="section-title">Planning Your Cultural Experience</h2>
+                <div class="tips" role="list">
+                    <div class="tip-card" role="listitem">
+                        <h3 class="tip-title">Ticket Purchasing</h3>
+                        <p>Many cultural institutions offer discounted tickets for students, seniors, and NYC residents. Check museum websites for free or pay-what-you-wish hours. For popular events, purchase tickets well in advance.</p>
+                    </div>
+                    <div class="tip-card" role="listitem">
+                        <h3 class="tip-title">Timing Your Visit</h3>
+                        <p>Weekday mornings are often less crowded at museums and galleries. Evening performances typically start at 7:30pm or 8pm. Arrive early for popular exhibitions to avoid long lines.</p>
+                    </div>
+                    <div class="tip-card" role="listitem">
+                        <h3 class="tip-title">Getting Around</h3>
+                        <p>Many cultural institutions are clustered in areas like Museum Mile (Upper East Side) and Lincoln Square. The subway is often the fastest way to travel between venues. Consider a MetroCard for multiple trips.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
         
         <!-- Event Submission CTA -->
-        <div class="event-submission-cta">
-            <h3>Hosting a Cultural Event?</h3>
-            <p>List your event to reach thousands of culture-loving New Yorkers</p>
-            <button id="submit-event-btn">Submit Your Event</button>
-        </div>
+        <section class="content-section" aria-labelledby="submit-event">
+            <div class="container">
+                <div class="event-submission-cta" id="submit-event">
+                    <h3>Hosting a Cultural Event?</h3>
+                    <p>List your event to reach thousands of culture-loving New Yorkers</p>
+                    <button id="submit-event-btn">Submit Your Event</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Accessibility Section -->
+        <section class="content-section" aria-labelledby="accessibility-info">
+            <div class="container">
+                <h2 id="accessibility-info" class="section-title">Accessibility Information</h2>
+                <div class="tips">
+                    <div class="tip-card">
+                        <h3 class="tip-title">Mobility Access</h3>
+                        <p>Most NYC cultural venues are wheelchair accessible with elevators and ramps. Many offer wheelchairs for visitor use - call ahead to confirm availability.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h3 class="tip-title">Sensory-Friendly</h3>
+                        <p>Several museums and theaters offer sensory-friendly hours with reduced lighting and sound levels. Check individual venue websites for schedules.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h3 class="tip-title">Assistive Technology</h3>
+                        <p>Many venues provide assistive listening devices, large print materials, and audio description services. Some offer ASL-interpreted tours and performances.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
     
-    <!-- Reuse your footer from index.html -->
-    <footer class="footer">
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
         <div class="footer-container">
+            <!-- Newsletter Section -->
             <div class="footer-newsletter">
                 <h3>Explore NYC With Us</h3>
-                <p>Get exclusive updates on hidden gems and events</p>
+                <p>Get exclusive updates on cultural events and NYC happenings</p>
                 <form class="newsletter-form" id="newsletter-form" name="newsletter" method="POST" netlify data-netlify-honeypot="bot-field">
                     <input type="hidden" name="form-name" value="newsletter">
                     <p class="hidden">
@@ -271,63 +881,63 @@
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </div>
-                    <small id="email-helper" class="visually-hidden">We'll never share your email</small>
+                    <small id="email-helper">We'll never share your email</small>
                 </form>
-                <div class="newsletter-success" aria-live="polite">Thank you for subscribing!</div>
+                <div id="newsletter-message" class="newsletter-message" aria-live="polite"></div>
             </div>
             
+            <!-- Quick Links Grid -->
             <div class="footer-grid">
                 <div class="footer-column">
-                    <h4>Discover</h4>
+                    <h4>Discover Events</h4>
                     <ul>
-                        <li><a href="index.html#landmarks"><i class="fas fa-landmark"></i> Iconic Landmarks</a></li>
-                        <li><a href="index.html#culture"><i class="fas fa-theater-masks"></i> Arts & Culture</a></li>
-                        <li><a href="index.html#food"><i class="fas fa-utensils"></i> Food Scene</a></li>
-                        <li><a href="index.html#gallery"><i class="fas fa-camera"></i> Photo Gallery</a></li>
-                        <li><a href="full-calendar.html"><i class="fas fa-calendar-alt"></i> Events Calendar</a></li>
+                        <li><a href="#events-intro"><i class="fas fa-info-circle" aria-hidden="true"></i> About NYC Culture</a></li>
+                        <li><a href="#full-calendar"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Events Calendar</a></li>
+                        <li><a href="#submit-event"><i class="fas fa-plus-circle" aria-hidden="true"></i> Submit Event</a></li>
+                        <li><a href="#accessibility-info"><i class="fas fa-wheelchair" aria-hidden="true"></i> Accessibility</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
-                    <h4>Resources</h4>
+                    <h4>Visitor Resources</h4>
                     <ul>
-                        <li><a href="#"><i class="fas fa-subway"></i> Transit Guide</a></li>
-                        <li><a href="#"><i class="fas fa-calendar-alt"></i> Events Calendar</a></li>
-                        <li><a href="#"><i class="fas fa-map-marked-alt"></i> Interactive Map</a></li>
-                        <li><a href="#"><i class="fas fa-question-circle"></i> Visitor FAQ</a></li>
+                        <li><a href="https://www.nycgo.com/events" target="_blank" rel="noopener"><i class="fas fa-tag" aria-hidden="true"></i> Official NYC Events</a></li>
+                        <li><a href="https://www.timeout.com/newyork" target="_blank" rel="noopener"><i class="fas fa-newspaper" aria-hidden="true"></i> Time Out New York</a></li>
+                        <li><a href="https://www.nytimes.com/events" target="_blank" rel="noopener"><i class="fas fa-calendar-check" aria-hidden="true"></i> NY Times Events</a></li>
+                        <li><a href="https://new.mta.info/" target="_blank" rel="noopener"><i class="fas fa-subway" aria-hidden="true"></i> Transit Guide</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
-                    <h4>Company</h4>
+                    <h4>About NYxplore</h4>
                     <ul>
-                        <li><a href="#"><i class="fas fa-heart"></i> About NYxplore</a></li>
-                        <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
-                        <li><a href="#"><i class="fas fa-briefcase"></i> Careers</a></li>
-                        <li><a href="#"><i class="fas fa-newspaper"></i> Press</a></li>
+                        <li><a href="/about.html"><i class="fas fa-heart" aria-hidden="true"></i> Our Story</a></li>
+                        <li><a href="/contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact Us</a></li>
+                        <li><a href="/blog.html"><i class="fas fa-newspaper" aria-hidden="true"></i> NYC Blog</a></li>
+                        <li><a href="/privacy.html"><i class="fas fa-shield-alt" aria-hidden="true"></i> Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
         
+            <!-- Social & Legal -->
             <div class="footer-bottom">
                 <div class="social-links">
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/nyxplore" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com/nyxplore" target="_blank" rel="noopener" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.facebook.com/nyxplore" target="_blank" rel="noopener" aria-label="Follow us on Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.youtube.com/nyxplore" target="_blank" rel="noopener" aria-label="Subscribe on YouTube"><i class="fab fa-youtube"></i></a>
                 </div>
                 
                 <div class="legal-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Accessibility</a>
-                    <a href="#">Sitemap</a>
+                    <a href="/privacy.html">Privacy Policy</a>
+                    <a href="/terms.html">Terms of Service</a>
+                    <a href="/accessibility.html">Accessibility</a>
+                    <a href="/sitemap.xml">Sitemap</a>
                 </div>
                 
                 <div class="copyright">
                     <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
-                    <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
+                    <p>Made with <i class="fas fa-heart" style="color: var(--secondary-color);" aria-hidden="true"></i> in New York City</p>
                 </div>
             </div>
         </div>
