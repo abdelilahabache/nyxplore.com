@@ -3,19 +3,255 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit Your Event | NYxplore</title>
+    <title>Submit Your Event | NYxplore - NYC Cultural Events Submission</title>
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Submit your cultural event to be featured on NYxplore's NYC events calendar. Share your exhibitions, performances, and festivals with thousands of visitors.">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Submit Your Event",
+      "description": "Form for submitting cultural events to NYxplore's NYC events calendar",
+      "publisher": {
+        "@type": "Organization",
+        "name": "NYxplore",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://nyxplore.com/assets/images/logo-NY.webp"
+        }
+      }
+    }
+    </script>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMW3YWQXBF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DMW3YWQXBF');
+    </script>
+
+    <!-- Preload key resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" as="style">
+    
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Event Submission Page Specific CSS -->
     <style>
-        /* Form-specific styles */
+        /* Base Styles */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --text-color: #333;
+            --light-text: #666;
+            --bg-light: #f8f8f8;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Header & Search */
+        .header {
+            background-color: #fff;
+            box-shadow: var(--shadow);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+        
+        .search-container {
+            position: relative;
+            width: 50%;
+            max-width: 500px;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.2);
+        }
+        
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-radius: 0 0 10px 10px;
+            box-shadow: var(--shadow);
+            z-index: 100;
+            display: none;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .search-suggestions.active {
+            display: block;
+        }
+        
+        .search-suggestion-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .search-suggestion-item:hover {
+            background: var(--bg-light);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .search-container {
+                width: 100%;
+            }
+        }
+        
+        /* Hero Banner */
+        .hero-banner {
+            position: relative;
+            height: 50vh;
+            min-height: 400px;
+            background-image: url('assets/images/calendar/event-submission-hero.webp');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+        
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-content p {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Content Section */
+        .content-section {
+            padding: 5rem 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-color);
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 1rem auto;
+        }
+        
+        .section-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--light-text);
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        
+        /* Form Styles */
         .event-form-container {
             max-width: 800px;
-            margin: 40px auto;
-            padding: 30px;
+            margin: 0 auto;
+            padding: 40px;
             background: white;
             border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
         }
         
         .form-header {
@@ -41,7 +277,7 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: #333;
+            color: var(--text-color);
         }
         
         input, select, textarea {
@@ -50,6 +286,13 @@
             border: 1px solid #ddd;
             border-radius: 6px;
             font-family: 'Montserrat', sans-serif;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.2);
         }
         
         textarea {
@@ -58,12 +301,13 @@
         }
         
         .submit-btn {
-            background: #ff5a5f;
+            background: var(--primary-color);
             color: white;
             border: none;
             padding: 14px 28px;
             border-radius: 30px;
             font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             display: block;
@@ -71,11 +315,302 @@
         }
         
         .submit-btn:hover {
-            background: #e04a50;
+            background: var(--secondary-color);
             transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Feature Boxes */
+        .feature-boxes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-box {
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+        
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #0a1128 0%, #1e1e24 100%);
+            color: white;
+            padding: 60px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Newsletter Section */
+        .footer-newsletter {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+
+        .footer-newsletter h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .footer-newsletter p {
+            color: #bbb;
+            margin-bottom: 1.5rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 30px;
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .input-group input::placeholder {
+            color: #999;
+        }
+
+        .input-group button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            background: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .input-group button:hover {
+            background: var(--secondary-color);
+        }
+
+        .newsletter-message {
+            min-height: 24px;
+            color: #4CAF50;
+            font-size: 0.9rem;
+        }
+
+        #email-helper {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h4 {
+            color: #fff;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: #fff;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            margin-bottom: 1rem;
+        }
+        
+        .social-links a {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .legal-links {
+            margin-bottom: 1rem;
+        }
+        
+        .legal-links a {
+            color: #bbb;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .legal-links a:hover {
+            color: #fff;
+        }
+        
+        .copyright {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .scroll-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-top: 3px solid white;
+            border-left: 3px solid white;
+            transform: rotate(45deg);
+            margin-top: 8px;
+        }
+
+        .progress-circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .progress-circle path {
+            fill: none;
+            stroke: white;
+            stroke-width: 3;
+            stroke-linecap: round;
+        }
+
+        @media (max-width: 768px) {
+            .scroll-top {
+                width: 40px;
+                height: 40px;
+                right: 20px;
+                bottom: 20px;
+            }
+            
+            .scroll-top::before {
+                width: 16px;
+                height: 16px;
+                margin-top: 6px;
+            }
         }
         
         @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .search-container {
+                width: 100%;
+            }
+            
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+            
+            .feature-box {
+                min-width: 100%;
+            }
+            
             .form-grid {
                 grid-template-columns: 1fr;
             }
@@ -84,123 +619,211 @@
                 grid-column: span 1;
             }
         }
+        
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .event-form-container {
+                padding: 20px;
+            }
+        }
+        
+        /* Accessibility Focus Styles */
+        a:focus, button:focus, input:focus, select:focus, textarea:focus {
+            outline: 3px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+        
+        /* Print Styles */
+        @media print {
+            .header, .footer {
+                display: none;
+            }
+            
+            body {
+                font-size: 12pt;
+                color: #000;
+            }
+            
+            .event-form-container {
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+        
     </style>
 </head>
 <body>
-    <!-- Your site header would go here -->
-    <nav class="navbar">
-        <div class="navbar-container">
+    <!-- Header with Search -->
+    <header class="header" role="banner">
+        <div class="header-container">
             <a href="/" class="logo">
-                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo" width="200" height="50">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore - New York City Travel Guide" width="150" height="50">
             </a>
-            <div class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+            
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Search events..." aria-label="Search events" id="search-input">
+                <div class="search-suggestions" id="search-suggestions" role="listbox">
+                    <!-- Suggestions will be populated by JavaScript -->
+                </div>
             </div>
-            <ul class="navbar-menu">
-                <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
-                <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
-                <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
-                <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
-                <li class="navbar-item"><a href="index.html#map" class="navbar-link">Map</a></li>
-                <li class="navbar-item"><a href="full-calendar.html" class="navbar-link active">Events</a></li>
-            </ul>
         </div>
-    </nav>
-
-    <main class="event-submission-page">
-        <div class="event-form-container">
-            <div class="form-header">
-                <h1><i class="fas fa-calendar-plus"></i> Submit Your Event</h1>
+    </header>
+    
+    <main class="event-submission" id="main-content">
+        <!-- Hero Banner -->
+        <section class="hero-banner" aria-labelledby="hero-heading">
+            <div class="hero-content">
+                <h1 id="hero-heading">Submit Your Event</h1>
                 <p>Share your cultural event with thousands of NYC visitors</p>
             </div>
-            
-            <form id="event-submission-form" netlify>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="event-title">Event Title*</label>
-                        <input type="text" id="event-title" name="event-title" required>
+        </section>
+
+        <!-- Main Content -->
+        <section class="content-section" aria-labelledby="form-intro">
+            <div class="container">
+                <h2 id="form-intro" class="section-title">List Your NYC Event</h2>
+                <p class="section-description">Our calendar reaches thousands of culture-loving New Yorkers and visitors. Submit your event details below for consideration in our curated listings.</p>
+                
+                <div class="feature-boxes">
+                    <div class="feature-box">
+                        <div class="feature-icon" aria-hidden="true">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3 class="feature-title">Increased Visibility</h3>
+                        <p>Reach thousands of potential attendees through our curated events calendar</p>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="event-category">Category*</label>
-                        <select id="event-category" name="event-category" required>
-                            <option value="">Select category...</option>
-                            <option value="art">Art Exhibition</option>
-                            <option value="music">Concert/Performance</option>
-                            <option value="theater">Theater/Dance</option>
-                            <option value="festival">Festival</option>
-                            <option value="workshop">Workshop/Class</option>
-                            <option value="other">Other</option>
-                        </select>
+                    <div class="feature-box">
+                        <div class="feature-icon" aria-hidden="true">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3 class="feature-title">Quality Audience</h3>
+                        <p>Connect with engaged culture-seekers who actively plan their NYC experiences</p>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="event-date">Date*</label>
-                        <input type="date" id="event-date" name="event-date" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="event-time">Time*</label>
-                        <input type="time" id="event-time" name="event-time" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="event-location">Location*</label>
-                        <input type="text" id="event-location" name="event-location" placeholder="Venue name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="event-address">Address*</label>
-                        <input type="text" id="event-address" name="event-address" placeholder="Street address" required>
-                    </div>
-                    
-                    <div class="form-group full-width">
-                        <label for="event-description">Description*</label>
-                        <textarea id="event-description" name="event-description" required></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="event-website">Website</label>
-                        <input type="url" id="event-website" name="event-website" placeholder="https://">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="event-image">Image URL</label>
-                        <input type="url" id="event-image" name="event-image" placeholder="https://">
-                    </div>
-                    
-                    <div class="form-group full-width">
-                        <label for="organizer-info">Organizer Information*</label>
-                        <input type="text" id="organizer-info" name="organizer-info" placeholder="Organization/Individual name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="contact-email">Contact Email*</label>
-                        <input type="email" id="contact-email" name="contact-email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="contact-phone">Contact Phone</label>
-                        <input type="tel" id="contact-phone" name="contact-phone">
+                    <div class="feature-box">
+                        <div class="feature-icon" aria-hidden="true">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <h3 class="feature-title">Free Promotion</h3>
+                        <p>No cost to submit your event for consideration in our listings</p>
                     </div>
                 </div>
                 
-                <button type="submit" class="submit-btn">
-                    <i class="fas fa-paper-plane"></i> Submit Event
-                </button>
-            </form>
-        </div>
+                <div class="event-form-container">
+                    <div class="form-header">
+                        <h2><i class="fas fa-calendar-plus"></i> Event Submission Form</h2>
+                        <p>All fields marked with * are required</p>
+                    </div>
+                    
+                    <form id="event-submission-form" netlify>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="event-title">Event Title*</label>
+                                <input type="text" id="event-title" name="event-title" required aria-required="true">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="event-category">Category*</label>
+                                <select id="event-category" name="event-category" required aria-required="true">
+                                    <option value="">Select category...</option>
+                                    <option value="art">Art Exhibition</option>
+                                    <option value="music">Concert/Performance</option>
+                                    <option value="theater">Theater/Dance</option>
+                                    <option value="festival">Festival</option>
+                                    <option value="workshop">Workshop/Class</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="event-date">Date*</label>
+                                <input type="date" id="event-date" name="event-date" required aria-required="true">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="event-time">Time*</label>
+                                <input type="time" id="event-time" name="event-time" required aria-required="true">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="event-location">Location*</label>
+                                <input type="text" id="event-location" name="event-location" placeholder="Venue name" required aria-required="true">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="event-address">Address*</label>
+                                <input type="text" id="event-address" name="event-address" placeholder="Street address" required aria-required="true">
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="event-description">Description*</label>
+                                <textarea id="event-description" name="event-description" required aria-required="true"></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="event-website">Website</label>
+                                <input type="url" id="event-website" name="event-website" placeholder="https://">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="event-image">Image URL</label>
+                                <input type="url" id="event-image" name="event-image" placeholder="https://">
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="organizer-info">Organizer Information*</label>
+                                <input type="text" id="organizer-info" name="organizer-info" placeholder="Organization/Individual name" required aria-required="true">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-email">Contact Email*</label>
+                                <input type="email" id="contact-email" name="contact-email" required aria-required="true">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-phone">Contact Phone</label>
+                                <input type="tel" id="contact-phone" name="contact-phone">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> Submit Event
+                        </button>
+                    </form>
+                </div>
+                
+                <h2 class="section-title">Submission Guidelines</h2>
+                <div class="tips" role="list">
+                    <div class="tip-card" role="listitem">
+                        <h3 class="tip-title">Eligibility</h3>
+                        <p>We feature cultural events including art exhibitions, performances, lectures, workshops, and festivals. Commercial sales events or promotional offers are not eligible.</p>
+                    </div>
+                    <div class="tip-card" role="listitem">
+                        <h3 class="tip-title">Approval Process</h3>
+                        <p>All submissions are reviewed by our editorial team. Approved events typically appear within 2-3 business days. We reserve the right to edit event details for clarity.</p>
+                    </div>
+                    <div class="tip-card" role="listitem">
+                        <h3 class="tip-title">Image Requirements</h3>
+                        <p>Images should be high-quality (minimum 1200px wide) and relevant to the event. By submitting images, you confirm you have rights to use them for promotion.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
-
-    <!-- Your site footer would go here -->
-     <!-- Footer -->
-     <footer class="footer">
+    
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
         <div class="footer-container">
+            <!-- Newsletter Section -->
             <div class="footer-newsletter">
                 <h3>Explore NYC With Us</h3>
-                <p>Get exclusive updates on hidden gems and events</p>
+                <p>Get exclusive updates on Broadway shows and NYC events</p>
                 <form class="newsletter-form" id="newsletter-form" name="newsletter" method="POST" netlify data-netlify-honeypot="bot-field">
                     <input type="hidden" name="form-name" value="newsletter">
                     <p class="hidden">
@@ -219,148 +842,264 @@
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </div>
-                    <small id="email-helper" class="visually-hidden">We'll never share your email</small>
+                    <small id="email-helper">We'll never share your email</small>
                 </form>
-                <div class="newsletter-success" aria-live="polite">Thank you for subscribing!</div>
+                <div id="newsletter-message" class="newsletter-message" aria-live="polite"></div>
             </div>
             
+            <!-- Quick Links Grid -->
             <div class="footer-grid">
                 <div class="footer-column">
-                    <h4>Discover</h4>
+                    <h4>Discover Events</h4>
                     <ul>
-                        <li><a href="index.html#landmarks"><i class="fas fa-landmark"></i> Iconic Landmarks</a></li>
-                        <li><a href="index.html#culture"><i class="fas fa-theater-masks"></i> Arts & Culture</a></li>
-                        <li><a href="index.html#food"><i class="fas fa-utensils"></i> Food Scene</a></li>
-                        <li><a href="index.html#gallery"><i class="fas fa-camera"></i> Photo Gallery</a></li>
-                        <li><a href="full-calendar.html"><i class="fas fa-calendar-alt"></i> Events Calendar</a></li>
+                        <li><a href="full-calendar.html#events-intro"><i class="fas fa-info-circle" aria-hidden="true"></i> About NYC Culture</a></li>
+                        <li><a href="full-calendar.html#full-calendar"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Events Calendar</a></li>
+                        <li><a href="#form-intro"><i class="fas fa-plus-circle" aria-hidden="true"></i> Submit Event</a></li>
+                        <li><a href="#accessibility-info"><i class="fas fa-wheelchair" aria-hidden="true"></i> Accessibility</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
-                    <h4>Resources</h4>
+                    <h4>Visitor Resources</h4>
                     <ul>
-                        <li><a href="#"><i class="fas fa-subway"></i> Transit Guide</a></li>
-                        <li><a href="#"><i class="fas fa-calendar-alt"></i> Events Calendar</a></li>
-                        <li><a href="#"><i class="fas fa-map-marked-alt"></i> Interactive Map</a></li>
-                        <li><a href="#"><i class="fas fa-question-circle"></i> Visitor FAQ</a></li>
+                        <li><a href="https://www.nycgo.com/events" target="_blank" rel="noopener"><i class="fas fa-tag" aria-hidden="true"></i> Official NYC Events</a></li>
+                        <li><a href="https://www.timeout.com/newyork" target="_blank" rel="noopener"><i class="fas fa-newspaper" aria-hidden="true"></i> Time Out New York</a></li>
+                        <li><a href="https://www.nytimes.com/events" target="_blank" rel="noopener"><i class="fas fa-calendar-check" aria-hidden="true"></i> NY Times Events</a></li>
+                        <li><a href="https://new.mta.info/" target="_blank" rel="noopener"><i class="fas fa-subway" aria-hidden="true"></i> Transit Guide</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
-                    <h4>Company</h4>
+                    <h4>About NYxplore</h4>
                     <ul>
-                        <li><a href="#"><i class="fas fa-heart"></i> About NYxplore</a></li>
-                        <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
-                        <li><a href="#"><i class="fas fa-briefcase"></i> Careers</a></li>
-                        <li><a href="#"><i class="fas fa-newspaper"></i> Press</a></li>
+                        <li><a href="/about.html"><i class="fas fa-heart" aria-hidden="true"></i> Our Story</a></li>
+                        <li><a href="/contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact Us</a></li>
+                        <li><a href="/blog.html"><i class="fas fa-newspaper" aria-hidden="true"></i> NYC Blog</a></li>
+                        <li><a href="/privacy.html"><i class="fas fa-shield-alt" aria-hidden="true"></i> Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
         
+            <!-- Social & Legal -->
             <div class="footer-bottom">
                 <div class="social-links">
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/nyxplore" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com/nyxplore" target="_blank" rel="noopener" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.facebook.com/nyxplore" target="_blank" rel="noopener" aria-label="Follow us on Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.youtube.com/nyxplore" target="_blank" rel="noopener" aria-label="Subscribe on YouTube"><i class="fab fa-youtube"></i></a>
                 </div>
                 
                 <div class="legal-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Accessibility</a>
-                    <a href="#">Sitemap</a>
+                    <a href="/privacy.html">Privacy Policy</a>
+                    <a href="/terms.html">Terms of Service</a>
+                    <a href="/accessibility.html">Accessibility</a>
+                    <a href="/sitemap.xml">Sitemap</a>
                 </div>
                 
                 <div class="copyright">
                     <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
-                    <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
+                    <p>Made with <i class="fas fa-heart" style="color: var(--primary-color);" aria-hidden="true"></i> in New York City</p>
                 </div>
             </div>
         </div>
     </footer>
-        <!-- Scroll to Top Button -->
-        <div class="scroll-top">
-            <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-                <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
-                      style="transition: stroke-dashoffset 10ms linear; 
-                             stroke-dasharray: 307.919, 307.919; 
-                             stroke-dashoffset: 307.919;">
-                </path>
-            </svg>
-        </div>
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
+                  style="transition: stroke-dashoffset 10ms linear; 
+                         stroke-dasharray: 307.919, 307.919; 
+                         stroke-dashoffset: 307.919;">
+            </path>
+        </svg>
+    </div>
 
-    <!-- Ambient Sound -->
-    <audio id="ambient-sound" loop>
-        <source src="assets/sounds/" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio> 
-    <script src="script.js"></script>
-    <script src="gallery.js" defer></script>
-    <script src="map.js" defer></script>
+    <!-- Netlify Identity Widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    
+    <!-- Inline JavaScript -->
     <script>
-        // Basic Protection Methods
+        // Event Submission Page Specific JavaScript
         document.addEventListener('DOMContentLoaded', function() {
-          // 1. Disable right-click
-          document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            alert('Right-click is disabled on this page');
-          });
-        
-          // 2. Disable keyboard shortcuts
-          document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || 
-                (e.ctrlKey && e.shiftKey && e.key === 'I') || 
-                (e.ctrlKey && e.shiftKey && e.key === 'J') ||
-                (e.ctrlKey && e.key === 'u')) {
-              e.preventDefault();
-              alert('This action is not allowed');
-            }
-          });
-          
-          // Optional: Disable drag-and-drop of images
-          document.addEventListener('dragstart', function(e) {
-            if (e.target.tagName === 'IMG') {
-              e.preventDefault();
-            }
-          });
-        });
-        </script>
-
-    <script>
-        // Form validation and submission
-        document.getElementById('event-submission-form').addEventListener('submit', function(e) {
-            const form = e.target;
-            const requiredFields = form.querySelectorAll('[required]');
-            let isValid = true;
+            // Set current year in footer
+            document.getElementById('year').textContent = new Date().getFullYear();
             
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    field.style.borderColor = '#ff5a5f';
-                    isValid = false;
+            // Initialize date picker with minimum today's date
+            document.getElementById('event-date').min = new Date().toISOString().split('T')[0];
+            
+            // Form validation
+            const form = document.getElementById('event-submission-form');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    const requiredFields = form.querySelectorAll('[required]');
+                    let isValid = true;
+                    
+                    requiredFields.forEach(field => {
+                        if (!field.value.trim()) {
+                            field.style.borderColor = '#ff5a5f';
+                            isValid = false;
+                        } else {
+                            field.style.borderColor = '#ddd';
+                        }
+                    });
+                    
+                    if (!isValid) {
+                        e.preventDefault();
+                        alert('Please fill in all required fields');
+                        return;
+                    }
+                    
+                    // Add loading state
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+                    submitBtn.disabled = true;
+                });
+            }
+            
+            // Scroll to top functionality
+            const scrollTop = document.querySelector('.scroll-top');
+            const progressPath = document.querySelector('.progress-circle path');
+            const pathLength = progressPath.getTotalLength();
+            
+            progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
+            progressPath.style.strokeDashoffset = pathLength;
+            
+            window.addEventListener('scroll', function() {
+                const scrollPercentage = (document.body.scrollTop + document.documentElement.scrollTop) / 
+                                       (document.documentElement.scrollHeight - document.documentElement.clientHeight);
+                
+                const drawLength = pathLength * scrollPercentage;
+                progressPath.style.strokeDashoffset = pathLength - drawLength;
+                
+                if (window.pageYOffset > 300) {
+                    scrollTop.classList.add('active');
                 } else {
-                    field.style.borderColor = '#ddd';
+                    scrollTop.classList.remove('active');
                 }
             });
             
-            if (!isValid) {
+            scrollTop.addEventListener('click', function(e) {
                 e.preventDefault();
-                alert('Please fill in all required fields');
-                return;
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Netlify Identity
+            if (window.netlifyIdentity) {
+                netlifyIdentity.on("init", user => {
+                    if (!user) netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                });
             }
-            
-            // Add loading state
-            const submitBtn = form.querySelector('button[type="submit"]');
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
-            submitBtn.disabled = true;
-            
-            // In a real implementation, you would handle form submission here
-            // This example assumes you're using Netlify Forms
         });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Search functionality
+        const searchInput = document.querySelector('.search-bar');
+        const suggestionsContainer = document.querySelector('.search-suggestions');
         
-        // Initialize date picker with minimum today's date
-        document.getElementById('event-date').min = new Date().toISOString().split('T')[0];
+        if (searchInput && suggestionsContainer) {
+            let searchTimeout;
+            
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                const query = this.value.trim();
+                
+                if (query.length < 2) {
+                    suggestionsContainer.style.display = 'none';
+                    return;
+                }
+                
+                searchTimeout = setTimeout(() => {
+                    // Simulate search results
+                    const mockResults = [
+                        'Submit Event',
+                        'Event Guidelines',
+                        'Event Categories',
+                        'Event Calendar'
+                    ].filter(item => item.toLowerCase().includes(query.toLowerCase()));
+                    
+                    if (mockResults.length > 0) {
+                        suggestionsContainer.innerHTML = mockResults
+                            .map(result => `
+                                <div class="search-suggestion-item" role="option">
+                                    <i class="fas fa-search"></i>
+                                    ${result}
+                                </div>
+                            `).join('');
+                        suggestionsContainer.style.display = 'block';
+                    } else {
+                        suggestionsContainer.style.display = 'none';
+                    }
+                }, 300);
+            });
+            
+            // Close suggestions when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
+                    suggestionsContainer.style.display = 'none';
+                }
+            });
+            
+            // Handle suggestion clicks
+            suggestionsContainer.addEventListener('click', function(e) {
+                const item = e.target.closest('.search-suggestion-item');
+                if (item) {
+                    searchInput.value = item.textContent.trim();
+                    suggestionsContainer.style.display = 'none';
+                    // Here you would typically trigger a search with the selected value
+                }
+            });
+            
+            // Handle keyboard navigation
+            searchInput.addEventListener('keydown', function(e) {
+                const items = suggestionsContainer.querySelectorAll('.search-suggestion-item');
+                const activeItem = suggestionsContainer.querySelector('.search-suggestion-item.active');
+                
+                switch (e.key) {
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        if (!activeItem) {
+                            items[0]?.classList.add('active');
+                        } else {
+                            const nextItem = activeItem.nextElementSibling;
+                            if (nextItem) {
+                                activeItem.classList.remove('active');
+                                nextItem.classList.add('active');
+                            }
+                        }
+                        break;
+                        
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        if (activeItem) {
+                            const prevItem = activeItem.previousElementSibling;
+                            if (prevItem) {
+                                activeItem.classList.remove('active');
+                                prevItem.classList.add('active');
+                            }
+                        }
+                        break;
+                        
+                    case 'Enter':
+                        if (activeItem) {
+                            e.preventDefault();
+                            searchInput.value = activeItem.textContent.trim();
+                            suggestionsContainer.style.display = 'none';
+                            // Here you would typically trigger a search with the selected value
+                        }
+                        break;
+                        
+                    case 'Escape':
+                        suggestionsContainer.style.display = 'none';
+                        break;
+                }
+            });
+        }
+    });
     </script>
 </body>
 </html>
