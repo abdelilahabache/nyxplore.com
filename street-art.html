@@ -535,31 +535,37 @@
         }
         
         /* Responsive Adjustments */
-        @media (min-width: 768px) {
+        @media (max-width: 767px) {
             .header-container {
-                flex-wrap: nowrap;
+                padding: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .logo {
+                order: 2;
+                margin: 0;
+                flex: 0 0 auto;
+            }
+            
+            .logo img {
+                height: 45px;
+            }
+
+            .navbar-toggle {
+                display: block;
+                order: 1;
+                margin: 0;
+                position: absolute;
+                left: 15px;
             }
             
             .search-container {
-                order: 2;
-                flex: 1 1 auto;
-                max-width: 400px;
-                margin: 0 1rem;
-            }
-            
-            .navbar-toggle {
                 order: 3;
-            }
-            
-            .navbar-menu {
-                order: 4;
-                flex: 0 1 auto;
-            }
-        }
-        
-        @media (max-width: 767px) {
-            .navbar-toggle {
-                display: block;
+                width: 100%;
+                margin: 0;
+                flex-basis: 100%;
             }
             
             .navbar-menu {
@@ -1335,9 +1341,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           });
         });
-        </script>
-        
-        <!-- Before </body> -->
+        </script> 
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script>
   if (window.netlifyIdentity) {

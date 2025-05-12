@@ -894,6 +894,24 @@
         .moroccan-pulse {
             animation: pulse 2s infinite;
         }
+        .cta-button.loading {
+    position: relative;
+    color: transparent;
+}
+.cta-button.loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s linear infinite;
+}
+/* Add to dark theme styles */
+.dark-theme .cuisine-info p {
+    color: #ddd; /* Slightly lighter than current #bbb */
+}
     </style>
 </head>
 <body>
@@ -1481,6 +1499,15 @@
                     });
             });
         }
+        // Add to the search functionality
+let searchTimer;
+searchInput.addEventListener('input', (e) => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+        const query = e.target.value.toLowerCase();
+        // Rest of search logic
+    }, 300);
+});
     </script>
 </body>
 </html>

@@ -149,16 +149,155 @@
             margin: 20px 0;
         }
         
-        /* Navigation Styles */
-        .navbar {
-            background-color: var(--primary-color);
-            padding: 1rem;
+        /* Header & Search */
+        .header {
+            background-color: #fff;
+            box-shadow: var(--box-shadow);
+            padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
         }
         
-        @media (max-width: 768px) {
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+        
+        .search-container {
+            position: relative;
+            width: 50%;
+            max-width: 500px;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.2);
+        }
+        
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-radius: 0 0 10px 10px;
+            box-shadow: var(--box-shadow);
+            z-index: 100;
+            display: none;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .search-suggestions.active {
+            display: block;
+        }
+        
+        .search-suggestion-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .search-suggestion-item:hover {
+            background: var(--light-color);
+        }
+
+        /* Responsive Adjustments */
+        @media (min-width: 768px) {
+            .header-container {
+                flex-wrap: nowrap;
+            }
+            
+            .search-container {
+                order: 2;
+                flex: 1 1 auto;
+                max-width: 400px;
+                margin: 0 1rem;
+            }
+            
+            .navbar-toggle {
+                order: 3;
+            }
+            
+            .navbar-menu {
+                order: 4;
+                flex: 0 1 auto;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .header-container {
+                padding: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .logo {
+                order: 2;
+                margin: 0;
+                flex: 0 0 auto;
+            }
+            
+            .logo img {
+                height: 45px;
+            }
+
+            .navbar-toggle {
+                display: block;
+                order: 1;
+                margin: 0;
+                position: absolute;
+                left: 15px;
+            }
+            
+            .search-container {
+                order: 3;
+                width: 100%;
+                margin: 0;
+                flex-basis: 100%;
+            }
+            
+            .navbar-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--box-shadow);
+            }
+            
+            .navbar-menu.active {
+                display: flex;
+            }
+            
+            .navbar-item {
+                margin: 0.5rem 0;
+            }
+
             .transit-title {
                 font-size: 2.5rem;
             }
@@ -180,17 +319,26 @@
         </button>
     </div> 
     
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="navbar-container">
+    <!-- Header with Search -->
+    <header class="header" role="banner">
+        <div class="header-container">
             <a href="/" class="logo">
-                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo" width="120" height="40">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore - New York City Travel Guide" width="150" height="50" loading="eager">
             </a>
-            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false">
+            
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Search transit options..." aria-label="Search transit options" id="search-input">
+                <div class="search-suggestions" id="search-suggestions" role="listbox" aria-expanded="false">
+                    <!-- Suggestions will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false" aria-controls="navbar-menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </button>
+            
             <ul class="navbar-menu" id="navbar-menu">
                 <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
                 <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
@@ -199,7 +347,7 @@
                 <li class="navbar-item"><a href="index.html#map" class="navbar-link">Map</a></li>
             </ul>
         </div>
-    </nav>
+    </header>
     
     <!-- Hero Section -->
     <section class="transit-hero">
@@ -510,12 +658,10 @@
                 <div class="copyright">
                     <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
                     <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
-                </div>
             </div>
         </div>
     </footer>
     
-    <!-- Scroll to Top Button -->
     <div class="scroll-top">
         <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
             <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
