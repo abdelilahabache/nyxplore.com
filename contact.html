@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact NYxplore | New York City Travel Help & Support</title>
+    <meta name="description" content="Need help with your NYC trip? Contact NYxplore for travel advice, partnership inquiries, and customer support. We're here to help you explore New York City.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMW3YWQXBF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DMW3YWQXBF');
+    </script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==== Basic Reset ==== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        /* ==== Header Styles ==== */
+        header {
+            background: #0a1128;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        nav a:hover {
+            color: #f79256;
+        }
+        
+        /* ==== Hero Section ==== */
+        .contact-hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('assets/images/nyc-contact-bg.webp');
+            background-size: cover;
+            background-position: center;
+            height: 50vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .contact-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* ==== Contact Sections ==== */
+        .contact-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .contact-form {
+            background: #f8f8f8;
+            padding: 2rem;
+            border-radius: 8px;
+        }
+        
+        .contact-form h2 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+            color: #0a1128;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #d35400;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #e05a00;
+            transform: translateY(-2px);
+        }
+        
+        /* Form Success Message */
+        .form-success {
+            display: none;
+            background: #4CAF50;
+            color: white;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            text-align: center;
+        }
+        
+        .contact-info {
+            padding: 1rem;
+        }
+        
+        .contact-info h2 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+            color: #0a1128;
+        }
+        
+        .info-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .info-icon {
+            font-size: 1.5rem;
+            color: #d35400;
+            margin-top: 0.3rem;
+        }
+        
+        .info-content h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* ==== Map Section ==== */
+        .map-section {
+            height: 400px;
+            margin-bottom: 3rem;
+        }
+        
+        #contact-map {
+            height: 100%;
+            width: 100%;
+        }
+        
+        /* ==== Footer ==== */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Scroll to Top Button Styles */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #d35400;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .scroll-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-top::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-top: 3px solid white;
+            border-left: 3px solid white;
+            transform: rotate(45deg);
+            margin-top: 8px;
+        }
+        
+        .progress-circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+        
+        .progress-circle path {
+            fill: none;
+            stroke: white;
+            stroke-width: 3;
+            stroke-linecap: round;
+        }
+        
+        /* ==== Responsive Design ==== */
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+            
+            .contact-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .scroll-top {
+                width: 40px;
+                height: 40px;
+                right: 20px;
+                bottom: 20px;
+            }
+            
+            .scroll-top::before {
+                width: 16px;
+                height: 16px;
+                margin-top: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ==== Header ==== -->
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore">
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html#landmarks">Landmarks</a></li>
+                    <li><a href="partner-with-us.html">Partner</a></li>
+                    <li><a href="contact.html" aria-current="page">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- ==== Hero Section ==== -->
+    <section class="contact-hero">
+        <div class="hero-content">
+            <h1>We're Here to Help</h1>
+            <p>Contact our team for travel advice, partnerships, or any questions about New York City</p>
+        </div>
+    </section>
+    
+    <!-- ==== Contact Sections ==== -->
+    <div class="contact-container">
+        <!-- Contact Form -->
+        <section class="contact-form">
+            <h2>Send Us a Message</h2>
+            <form name="contact" method="POST" data-netlify="true" id="contactForm">
+                <input type="hidden" name="form-name" value="contact">
+                
+                <!-- Netlify Bot Field -->
+                <div class="form-group" style="display: none;">
+                    <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                </div>
+                
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <select id="subject" name="subject" class="form-control" required>
+                        <option value="" disabled selected>Select a topic</option>
+                        <option value="travel-help">Travel Help</option>
+                        <option value="partnership">Partnership Inquiry</option>
+                        <option value="feedback">Website Feedback</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <textarea id="message" name="message" class="form-control" required></textarea>
+                </div>
+                
+                <button type="submit" class="btn">Send Message</button>
+                
+                <!-- Success Message -->
+                <div class="form-success" id="formSuccess">
+                    Thank you! Your message has been sent. We'll respond within 24 hours.
+                </div>
+            </form>
+        </section>
+        
+        <!-- Contact Info -->
+        <section class="contact-info">
+            <h2>Contact Information</h2>
+            
+            <div class="info-card">
+                <div class="info-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="info-content">
+                    <h3>Our Office</h3>
+                    <p>xxx Broadway, Suite xxx<br>New York, NY xxxxx</p>
+                </div>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <div class="info-content">
+                    <h3>Phone</h3>
+                    <p>+1 (212) XXX-XXXX<br>Mon-Fri, 9am-5pm EST</p>
+                </div>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="info-content">
+                    <h3>Email</h3>
+                    <p>XXXX@nyxplore.com<br>We reply within 24 hours</p>
+                </div>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="info-content">
+                    <h3>Social Media</h3>
+                    <div style="display: flex; gap: 1rem; font-size: 1.5rem;">
+                        <a href="#" style="color: #0a1128;"><i class="fab fa-facebook"></i></a>
+                        <a href="#" style="color: #0a1128;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" style="color: #0a1128;"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- ==== Map Section ==== -->
+    <section class="map-section">
+        <div id="contact-map"></div>
+    </section>
+    
+    <!-- ==== Footer ==== -->
+    <footer>
+        <div class="footer-container">
+            <img src="assets/images/logo-NY (2).webp" alt="NYxplore" style="height: 50px; margin-bottom: 1rem;">
+            <p style="margin-bottom: 1rem;">Helping travelers discover the best of New York City since 2025.</p>
+            <div style="margin-bottom: 1rem;">
+                <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-instagram"></i></a>
+                <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p>&copy; <script>document.write(new Date().getFullYear())</script> NYxplore. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
+                  style="transition: stroke-dashoffset 10ms linear; 
+                         stroke-dasharray: 307.919, 307.919; 
+                         stroke-dashoffset: 307.919;">
+            </path>
+        </svg>
+    </div>
+    
+    <script>
+        // Scroll to Top Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const scrollTop = document.querySelector('.scroll-top');
+            const progressPath = document.querySelector('.progress-circle path');
+            const pathLength = progressPath.getTotalLength();
+            
+            // Set initial styles for progress circle
+            progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
+            progressPath.style.strokeDashoffset = pathLength;
+            
+            // Update progress on scroll
+            window.addEventListener('scroll', function() {
+                const scrollPercentage = (document.body.scrollTop + document.documentElement.scrollTop) / 
+                                       (document.documentElement.scrollHeight - document.documentElement.clientHeight);
+                
+                const drawLength = pathLength * scrollPercentage;
+                progressPath.style.strokeDashoffset = pathLength - drawLength;
+                
+                // Show/hide button based on scroll position
+                if (window.pageYOffset > 300) {
+                    scrollTop.classList.add('active');
+                } else {
+                    scrollTop.classList.remove('active');
+                }
+            });
+            
+            // Smooth scroll to top when clicked
+            scrollTop.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Netlify Form Handling
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const form = this;
+                    const formData = new FormData(form);
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.textContent;
+                    
+                    // Show loading state
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                    
+                    // Submit to Netlify
+                    fetch('/', {
+                        method: 'POST',
+                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                        body: new URLSearchParams(formData).toString()
+                    })
+                    .then(() => {
+                        // Show success message
+                        document.getElementById('formSuccess').style.display = 'block';
+                        form.reset();
+                        
+                        // Track in Google Analytics
+                        if (typeof gtag !== 'undefined') {
+                            gtag('event', 'contact_form_submit', {
+                                'event_category': 'Contact',
+                                'event_label': 'Contact Form Submission'
+                            });
+                        }
+                        
+                        // Reset button after delay
+                        setTimeout(() => {
+                            submitBtn.disabled = false;
+                            submitBtn.textContent = originalText;
+                        }, 3000);
+                    })
+                    .catch(() => {
+                        alert('There was an error sending your message. Please try again.');
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

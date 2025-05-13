@@ -861,7 +861,7 @@
                     <h4>About NYxplore</h4>
                     <ul>
                         <li><a href="broadway.html"><i class="fas fa-heart" aria-hidden="true"></i> Our Story</a></li>
-                        <li><a href="broadway.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact Us</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact Us</a></li>
                         <li><a href="broadway.html"><i class="fas fa-newspaper" aria-hidden="true"></i> NYC Blog</a></li>
                         <li><a href="broadway.html"><i class="fas fa-shield-alt" aria-hidden="true"></i> Privacy Policy</a></li>
                     </ul>
@@ -1292,32 +1292,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
- // Basic Protection Methods
-        document.addEventListener('DOMContentLoaded', function() {
-          // 1. Disable right-click
-          document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            alert('Right-click is disabled on this page');
-          });
-        
-          // 2. Disable keyboard shortcuts
-          document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || 
-                (e.ctrlKey && e.shiftKey && e.key === 'I') || 
-                (e.ctrlKey && e.shiftKey && e.key === 'J') ||
-                (e.ctrlKey && e.key === 'u')) {
-              e.preventDefault();
-              alert('This action is not allowed');
-            }
-          });
-          
-          // Optional: Disable drag-and-drop of images
-          document.addEventListener('dragstart', function(e) {
-            if (e.target.tagName === 'IMG') {
-              e.preventDefault();
-            }
-          });
-        });
+
         </script>     
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script>

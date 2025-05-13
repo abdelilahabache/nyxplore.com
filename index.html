@@ -697,7 +697,7 @@
                         <li><a href="events-calendar.html"><i class="fas fa-calendar-alt"></i> Events Calendar</a></li>
                         <li><a href="interactive-map.html"><i class="fas fa-map-marked-alt"></i> Interactive Map</a></li>
                         <li><a href="visitor-faq.html"><i class="fas fa-question-circle"></i> Visitor FAQ</a></li>
-                        <li><a href="#"><i class="fas fa-handshake"></i> partner with us</a></li>
+                        
                     </ul>
                 </div>
                 
@@ -705,7 +705,8 @@
                     <h4>Company</h4>
                     <ul>
                         <li><a href="#"><i class="fas fa-heart"></i> About NYxplore</a></li>
-                        <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>              
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a></li>   
+                        <li><a href="partner-with-us.html"><i class="fas fa-handshake"></i> partner with us</a></li>           
                     </ul>
                 </div>
             </div>
@@ -754,32 +755,7 @@
     <script src="gallery.js" defer></script>
     <script src="map.js" defer></script>
     <script>
-        // Basic Protection Methods
-        document.addEventListener('DOMContentLoaded', function() {
-          // 1. Disable right-click
-          document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            alert('Right-click is disabled on this page');
-          });
-        
-          // 2. Disable keyboard shortcuts
-          document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || 
-                (e.ctrlKey && e.shiftKey && e.key === 'I') || 
-                (e.ctrlKey && e.shiftKey && e.key === 'J') ||
-                (e.ctrlKey && e.key === 'u')) {
-              e.preventDefault();
-              alert('This action is not allowed');
-            }
-          });
-          
-          // Optional: Disable drag-and-drop of images
-          document.addEventListener('dragstart', function(e) {
-            if (e.target.tagName === 'IMG') {
-              e.preventDefault();
-            }
-          });
-        });
+         
         </script>
     
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>

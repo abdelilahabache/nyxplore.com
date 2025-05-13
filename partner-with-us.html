@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partner With NYxplore | NYC Business Collaborations</title>
+    <meta name="description" content="Partner with NYxplore to reach 500,000+ NYC travelers. Get featured listings, sponsored content, and exclusive deals for hotels, restaurants, and attractions.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+     <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMW3YWQXBF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DMW3YWQXBF');
+    </script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==== Basic Reset ==== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        /* ==== Header Styles ==== */
+        header {
+            background: #0a1128;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        nav a:hover {
+            color: #f79256;
+        }
+        
+        /* ==== Hero Section ==== */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('assets/images/partners/hero-bg.webp');
+            background-size: cover;
+            background-position: center;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #d35400;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #e05a00;
+            transform: translateY(-2px);
+        }
+        
+        /* ==== Trust Badges ==== */
+        .trust-badges {
+            background: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .badges-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .badge {
+            padding: 1rem;
+        }
+        
+        .badge-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #d35400;
+        }
+        
+        /* ==== Responsive Design ==== */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .badges-container {
+                flex-direction: column;
+            }
+        }
+        /* Scroll to Top Button Styles */
+.scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-top.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-top::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-top: 3px solid white;
+    border-left: 3px solid white;
+    transform: rotate(45deg);
+    margin-top: 8px;
+}
+
+.progress-circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.progress-circle path {
+    fill: none;
+    stroke: white;
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+
+@media (max-width: 768px) {
+    .scroll-top {
+        width: 40px;
+        height: 40px;
+        right: 20px;
+        bottom: 20px;
+    }
+    
+    .scroll-top::before {
+        width: 16px;
+        height: 16px;
+        margin-top: 6px;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- ==== Header ==== -->
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore">
+            </a>
+            <nav>
+                <ul>
+                  
+                    <li><a href="index.html#landmarks">landmarks</a></li>
+                    <li><a href="partner-with-us.html">Partner</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- ==== Hero Section ==== -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Grow Your NYC Business With Us</h1>
+            <p>Reach 100,000+ travelers monthly through featured listings, sponsored content, and exclusive deals.</p>
+            <a href="#contact" class="btn">Get Started</a>
+        </div>
+    </section>
+    
+    <!-- ==== Trust Badges ==== -->
+    <section class="trust-badges">
+        <div class="badges-container">
+            <div class="badge">
+                <div class="badge-number">100K+</div>
+                <p>Monthly Visitors</p>
+            </div>
+            <div class="badge">
+                <div class="badge-number">4.8★</div>
+                <p>Average Rating</p>
+            </div>
+            <div class="badge">
+                <div class="badge-number">85%</div>
+                <p>Direct Bookings</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ==== Partner Benefits Section ==== -->
+    <section style="padding: 3rem 0; max-width: 1200px; margin: 0 auto;">
+        <h2 style="text-align: center; font-family: 'Playfair Display'; margin-bottom: 2rem;">Why Partner With Us?</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; padding: 0 20px;">
+            <div style="background: #f8f8f8; padding: 2rem; border-radius: 8px;">
+                <i class="fas fa-star" style="font-size: 2rem; color: #d35400; margin-bottom: 1rem;"></i>
+                <h3 style="margin-bottom: 1rem;">Featured Listings</h3>
+                <p>Get premium placement in our guides to stand out from competitors.</p>
+            </div>
+            <div style="background: #f8f8f8; padding: 2rem; border-radius: 8px;">
+                <i class="fas fa-users" style="font-size: 2rem; color: #d35400; margin-bottom: 1rem;"></i>
+                <h3 style="margin-bottom: 1rem;">Targeted Audience</h3>
+                <p>Connect with travelers actively planning their NYC visits.</p>
+            </div>
+            <div style="background: #f8f8f8; padding: 2rem; border-radius: 8px;">
+                <i class="fas fa-chart-line" style="font-size: 2rem; color: #d35400; margin-bottom: 1rem;"></i>
+                <h3 style="margin-bottom: 1rem;">Measurable Results</h3>
+                <p>Track bookings and conversions from our platform.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ==== Contact Form ==== -->
+    <section id="contact" style="background: #0a1128; color: white; padding: 3rem 0;">
+        <div style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
+            <h2 style="text-align: center; font-family: 'Playfair Display'; margin-bottom: 2rem;">Let's Work Together</h2>
+            <form name="partner-request" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="display: grid; gap: 1rem;">
+                <input type="hidden" name="form-name" value="partner-request">
+                <p class="hidden" style="display: none;">
+                    <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                </p>
+                <input type="text" name="name" placeholder="Your Name" required style="padding: 12px; border-radius: 4px; border: none;">
+                <input type="email" name="email" placeholder="Email Address" required style="padding: 12px; border-radius: 4px; border: none;">
+                <input type="text" name="business-name" placeholder="Business Name" required style="padding: 12px; border-radius: 4px; border: none;">
+                <select name="partnership-type" required style="padding: 12px; border-radius: 4px; border: none;">
+                    <option value="">Partnership Type</option>
+                    <option value="Featured Listing">Featured Listing</option>
+                    <option value="Sponsored Content">Sponsored Content</option>
+                    <option value="Advertising">Advertising</option>
+                </select>
+                <textarea name="business-details" placeholder="Tell us about your business" required style="padding: 12px; border-radius: 4px; border: none; min-height: 120px;"></textarea>
+                <div data-netlify-recaptcha="true"></div>
+                <button type="submit" style="padding: 12px; background: #d35400; color: white; border: none; border-radius: 4px; font-weight: 600; cursor: pointer;">Submit Request</button>
+            </form>
+        </div>
+    </section>
+    
+    <!-- ==== Footer ==== -->
+    <footer style="background: #1a1a1a; color: white; padding: 2rem 0; text-align: center;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+            <img src="assets/images/logo-NY (2).webp" alt="NYxplore" style="height: 50px; margin-bottom: 1rem;">
+            <p style="margin-bottom: 1rem;">Helping travelers discover the best of New York City since 2015.</p>
+            <div style="margin-bottom: 1rem;">
+                <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-instagram"></i></a>
+                <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p>&copy; <script>document.write(new Date().getFullYear())</script> NYxplore. All rights reserved.</p>
+        </div>
+    </footer>
+        <div class="scroll-top">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
+              style="transition: stroke-dashoffset 10ms linear; 
+                     stroke-dasharray: 307.919, 307.919; 
+                     stroke-dashoffset: 307.919;">
+        </path>
+    </svg>
+</div>
+<script>
+     // Scroll to Top Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const scrollTop = document.querySelector('.scroll-top');
+    const progressPath = document.querySelector('.progress-circle path');
+    const pathLength = progressPath.getTotalLength();
+    
+    // Set initial styles for progress circle
+    progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
+    progressPath.style.strokeDashoffset = pathLength;
+    
+    // Update progress on scroll
+    window.addEventListener('scroll', function() {
+        const scrollPercentage = (document.body.scrollTop + document.documentElement.scrollTop) / 
+                               (document.documentElement.scrollHeight - document.documentElement.clientHeight);
+        
+        const drawLength = pathLength * scrollPercentage;
+        progressPath.style.strokeDashoffset = pathLength - drawLength;
+        
+        // Show/hide button based on scroll position
+        if (window.pageYOffset > 300) {
+            scrollTop.classList.add('active');
+        } else {
+            scrollTop.classList.remove('active');
+        }
+    });
+    
+    // Smooth scroll to top when clicked
+    scrollTop.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    });
+</script>
+</body>
+</html>

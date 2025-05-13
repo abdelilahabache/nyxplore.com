@@ -1047,7 +1047,7 @@
                     <h4>Company</h4>
                     <ul>
                         <li><a href="#"><i class="fas fa-heart" aria-hidden="true"></i> About Us</a></li>
-                        <li><a href="#"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -1338,27 +1338,7 @@
                 });
             });
             
-            // Basic protection methods
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-                alert('Right-click is disabled on this page');
-            });
-            
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'F12' || 
-                    (e.ctrlKey && e.shiftKey && e.key === 'I') || 
-                    (e.ctrlKey && e.shiftKey && e.key === 'J') ||
-                    (e.ctrlKey && e.key === 'u')) {
-                    e.preventDefault();
-                    alert('This action is not allowed');
-                }
-            });
-            
-            document.addEventListener('dragstart', function(e) {
-                if (e.target.tagName === 'IMG') {
-                    e.preventDefault();
-                }
-            });
+               
         });
     </script>
     
