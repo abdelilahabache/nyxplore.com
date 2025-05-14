@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYC Blog Archive | NYxplore</title>
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <meta name="description" content="Explore all our NYC blog posts - hidden gems, food guides, cultural insights, and local stories">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Blog Archive Specific Styles */
+        .blog-archive {
+            padding: 80px 0;
+            background-color: var(--bg-color);
+        }
+
+        .archive-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .archive-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .archive-header p {
+            font-size: 1.1rem;
+            color: var(--secondary-text);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .archive-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .archive-filter .filter-btn {
+            padding: 8px 20px;
+            border: 2px solid var(--accent-color);
+            background: transparent;
+            color: var(--accent-color);
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .archive-filter .filter-btn.active,
+        .archive-filter .filter-btn:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .archive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .archive-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .archive-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .archive-image {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .archive-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .archive-card:hover .archive-image img {
+            transform: scale(1.05);
+        }
+
+        .archive-category {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .archive-content {
+            padding: 25px;
+        }
+
+        .archive-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            color: var(--secondary-text);
+        }
+
+        .archive-content h2 {
+            margin: 0 0 15px;
+            font-size: 1.4rem;
+            line-height: 1.4;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .archive-content p {
+            margin: 0 0 20px;
+            color: var(--secondary-text);
+        }
+
+        .archive-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--accent-color);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .archive-link i {
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .archive-link:hover {
+            color: var(--accent-dark);
+        }
+
+        .archive-link:hover i {
+            transform: translateX(3px);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 50px;
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn.active,
+        .page-btn:hover {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .page-btn.prev-next {
+            width: auto;
+            padding: 0 20px;
+            border-radius: 30px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .archive-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blog-archive {
+                padding: 60px 0;
+            }
+            
+            .archive-header h1 {
+                font-size: 2rem;
+            }
+            
+            .archive-filter {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .archive-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .archive-image {
+                height: 200px;
+            }
+            
+            .pagination {
+                flex-wrap: wrap;
+            }
+        }
+        /* Search Bar Styles */
+.search-container {
+  position: relative;
+  flex: 1;
+  max-width: 600px;
+  margin: 0 20px;
+}
+
+.search-form {
+  display: flex;
+  width: 100%;
+}
+
+.search-input-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 20px;
+  padding-right: 50px; /* Space for button */
+  border: 2px solid #e0e0e0;
+  border-radius: 30px;
+  font-size: 1rem;
+  background-color: #f8f8f8;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #007bff;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0,123,255,0.25);
+}
+
+.search-button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: #666;
+  transition: color 0.2s;
+}
+
+.search-button:hover {
+  color: #007bff;
+}
+
+.search-icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* Suggestions Dropdown */
+.search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+  display: none;
+  margin-top: 5px;
+}
+
+.search-suggestions[aria-expanded="true"] {
+  display: block;
+}
+
+.search-suggestions div {
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.search-suggestions div:hover,
+.search-suggestions div[aria-selected="true"] {
+  background-color: #f0f0f0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .search-container {
+    order: 3;
+    width: 100%;
+    max-width: 100%;
+    margin: 15px 0;
+  }
+  
+  .search-input {
+    padding: 10px 15px;
+    padding-right: 40px;
+  }
+}
+ /* Floating Controls */
+ .floating-controls {
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+  
+  .control-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+}
+  
+  .control-button:hover {
+  transform: translateY(-3px);
+  background: var(--accent-dark);
+}
+  
+  .control-button i {
+    font-size: 1.2rem;
+  }
+  
+#scroll-to-top {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  align-self: flex-end; /* Forces right alignment */
+  margin-left: 0; /* Resets any previous margin */
+  order: 2; /* Keeps below theme toggle */
+}
+  
+  #scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+  
+  /* Dark Mode Styles */
+  body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --secondary-text: #b0b0b0;
+    --card-bg: #1e1e1e;
+    --border-color: #333333;
+    --accent-color: #f79256;
+    --accent-dark: #e07d45;
+  }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="logo">
+                <img src="assets/images/logo-NY (2).webp" alt="NYxplore Logo" width="120" height="40">
+            </a>
+            
+<div class="search-container">
+  <form class="search-form" role="search" id="search-form">
+    <div class="search-input-wrapper">
+      <input type="search" class="search-input" 
+             placeholder="Search NYC landmarks, food, culture..." 
+             aria-label="Search New York City attractions"
+             aria-autocomplete="list"
+             aria-controls="search-suggestions"
+             autocomplete="off"
+             id="search-input">
+      <div class="search-suggestions" id="search-suggestions" role="listbox" aria-expanded="false">
+        <!-- Suggestions will appear here dynamically -->
+      </div>
+    </div>
+    <button type="submit" class="search-button" aria-label="Submit search">
+      <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+      </svg>
+    </button>
+  </form>
+</div>
+            
+            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false" aria-controls="navbar-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            
+            <ul class="navbar-menu" id="navbar-menu">
+                <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
+                <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
+                <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
+                <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
+                <li class="navbar-item"><a href="index.html#blog" class="navbar-link">Blog</a></li>
+                <li class="navbar-item"><a href="index.html#map" class="navbar-link">Map</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Blog Archive Section -->
+    <section class="blog-archive" id="blog">
+        <div class="container">
+            <div class="archive-header">
+                <h1>NYC Blog Archive</h1>
+                <p>Dive deep into New York City's hidden gems, culinary delights, cultural treasures, and local stories through our collection of expert guides and insider tips.</p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="archive-filter">
+                <button class="filter-btn active" data-filter="all">All Posts</button>
+                <button class="filter-btn" data-filter="guides">Guides</button>
+                <button class="filter-btn" data-filter="food">Food</button>
+                <button class="filter-btn" data-filter="culture">Culture</button>
+                <button class="filter-btn" data-filter="history">History</button>
+                <button class="filter-btn" data-filter="neighborhoods">Neighborhoods</button>
+                <button class="filter-btn" data-filter="secrets">Local Secrets</button>
+            </div>
+
+            <!-- Blog Posts Grid -->
+            <div class="archive-grid">
+                <!-- Blog Post 1 -->
+                <article class="archive-card" data-category="guides secrets">
+                    <div class="archive-image">
+                        <img src="assets/images/blog/hidden-gems.webp" alt="Secret courtyard in West Village" loading="lazy">
+                        <div class="archive-category">Local Secrets</div>
+                    </div>
+                    <div class="archive-content">
+                        <div class="archive-meta">
+                            <span class="author">By NYxplore Team</span>
+                            <span class="date">May 12, 2025</span>
+                        </div>
+                        <h2>10 Hidden Courtyards & Alleyways Even Locals Miss</h2>
+                        <p>Discover secret gardens, historic mews, and tucked-away oases from Greenwich Village to Brooklyn Heights.</p>
+                        <a href="hidden-courtyards.html" class="archive-link">
+                            Read More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Blog Post 2 -->
+                <article class="archive-card" data-category="food guides">
+                    <div class="archive-image">
+                        <img src="assets/images/nyc-pizza.webp" alt="New York style pizza slice" loading="lazy">
+                        <div class="archive-category">By NYxplore Team</div>
+                    </div>
+                    <div class="archive-content">
+                        <div class="archive-meta">
+                            <span class="author">By NYxplore Team</span>
+                            <span class="date">May 10, 2025</span>
+                        </div>
+                        <h2>The Definitive NYC Pizza Ranking: 15 Must-Try Slices</h2>
+                        <p>From classic dollar slices to artisanal pies - we tasted them all to crown NYC's best pizza.</p>
+                        <a href="nyc-pizza-guide.html" class="archive-link">
+                            Read More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Blog Post 3 -->
+                <article class="archive-card" data-category="culture history">
+                    <div class="archive-image">
+                        <img src="assets/images/blog/subway-art.webp" alt="Colorful mosaic in subway station" loading="lazy">
+                        <div class="archive-category">Art & Culture</div>
+                    </div>
+                    <div class="archive-content">
+                        <div class="archive-meta">
+                            <span class="author">By NYxplore Team</span>
+                            <span class="date">May 8, 2025</span>
+                        </div>
+                        <h2>Underground Gallery: The Best MTA Art You've Walked Past</h2>
+                        <p>A tour of the most stunning (and overlooked) public art in NYC's subway stations.</p>
+                        <a href="subway-art.html" class="archive-link">
+                            Read More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Blog Post 4 -->
+                <article class="archive-card" data-category="guides neighborhoods">
+                    <div class="archive-image">
+                        <img src="assets/images/blog/skyline-views.webp" alt="Manhattan skyline from Brooklyn" loading="lazy">
+                        <div class="archive-category">Photo Spots</div>
+                    </div>
+                    <div class="archive-content">
+                        <div class="archive-meta">
+                            <span class="author">By NYxplore Team</span>
+                            <span class="date">May 3, 2025</span>
+                        </div>
+                        <h2>15 Best Free Skyline Views (That Aren't the Empire State)</h2>
+                        <p>Secret rooftops, park benches, and waterfront spots with million-dollar views.</p>
+                        <a href="skyline-views.html" class="archive-link">
+                            Read More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Blog Post 5 -->
+                <article class="archive-card" data-category="food history">
+                    <div class="archive-image">
+                        <img src="assets/images/blog/immigrant-food.webp" alt="Diverse NYC street food" loading="lazy">
+                        <div class="archive-category">Food History</div>
+                    </div>
+                    <div class="archive-content">
+                        <div class="archive-meta">
+                            <span class="author">By NYxplore Team</span>
+                            <span class="date">April 30, 2025</span>
+                        </div>
+                        <h2>How Immigrants Shaped NYC's Food Culture: A Delicious History</h2>
+                        <p>From Jewish delis to Dominican bakeries - the stories behind iconic NYC foods.</p>
+                        <a href="food-history.html" class="archive-link">
+                            Read More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Blog Post 6 -->
+                <article class="archive-card" data-category="culture history">
+                    <div class="archive-image">
+                        <img src="assets/images/blog/movie-locations.webp" alt="Famous NYC movie location" loading="lazy">
+                        <div class="archive-category">Pop Culture</div>
+                    </div>
+                    <div class="archive-content">
+                        <div class="archive-meta">
+                            <span class="author">By NYxplore Team</span>
+                            <span class="date">April 28, 2025</span>
+                        </div>
+                        <h2>Iconic Movie Locations You Can Visit in Real Life</h2>
+                        <p>Walk in the footsteps of your favorite film characters at these NYC spots.</p>
+                        <a href="movie-locations.html" class="archive-link">
+                            Read More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Blog Post 7 -->
+                <article class="archive-card" data-category="neighborhoods guides">
+                    <div class="archive-image">
+                        <img src="assets/images/blog/street-markets.webp" alt="Vibrant NYC street market" loading="lazy">
+                        <div class="archive-category">Shopping</div>
+                    </div>
+                    <div class="archive-content">
+                        <div class="archive-meta">
+                            <span class="author">By NYxplore Team</span>
+                            <span class="date">April 25, 2025</span>
+                        </div>
+                        <h2>Beyond Times Square: NYC's Best Street Markets for Unique Finds</h2>
+                        <p>Where to shop for vintage, antiques, and handmade goods like a local.</p>
+                        <a href="street-markets.html" class="archive-link">
+                            Read More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Blog Post 8 -->
+                <article class="archive-card" data-category="guides culture">
+                    <div class="archive-image">
+                        <img src="assets/images/blog/free-museums.webp" alt="Museum interior" loading="lazy">
+                        <div class="archive-category">Budget Tips</div>
+                    </div>
+                    <div class="archive-content">
+                        <div class="archive-meta">
+                            <span class="author">By NYxplore Team</span>
+                            <span class="date">April 22, 2025</span>
+                        </div>
+                        <h2>When NYC Museums Are Free (Or Pay-What-You-Wish)</h2>
+                        <p>Complete guide to enjoying world-class art without breaking the bank.</p>
+                        <a href="free-museums.html" class="archive-link">
+                            Read More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Blog Post 9 -->
+                <article class="archive-card" data-category="neighborhoods guides">
+                    <div class="archive-image">
+                        <img src="assets/images/blog/waterfront-walks.webp" alt="Scenic NYC waterfront path" loading="lazy">
+                        <div class="archive-category">Outdoors</div>
+                    </div>
+                    <div class="archive-content">
+                        <div class="archive-meta">
+                            <span class="author">By Emily Park</span>
+                            <span class="date">April 20, 2025</span>
+                        </div>
+                        <h2>NYC's Most Scenic Waterfront Walks You've Never Heard Of</h2>
+                        <p>Escape the crowds with these breathtaking (and peaceful) shoreline paths.</p>
+                        <a href="waterfront-walks.html" class="archive-link">
+                            Read More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Blog Post 10 -->
+                <article class="archive-card" data-category="history culture">
+                    <div class="archive-image">
+                        <img src="assets/images/blog/underground-nyc.webp" alt="Abandoned subway station" loading="lazy">
+                        <div class="archive-category">History</div>
+                    </div>
+                    <div class="archive-content">
+                        <div class="archive-meta">
+                            <span class="author">By Dr. Samuel Greenberg</span>
+                            <span class="date">April 18, 2025</span>
+                        </div>
+                        <h2>The Forgotten Underground: NYC's Secret Subway Stations</h2>
+                        <p>Explore the fascinating history of abandoned subway stations and tunnels beneath the city streets.</p>
+                        <a href="underground-nyc.html" class="archive-link">
+                            Read More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Blog Post 11 -->
+                <article class="archive-card" data-category="food neighborhoods">
+                    <div class="archive-image">
+                        <img src="assets/images/blog/chinatown-eats.webp" alt="Dim sum in Chinatown restaurant" loading="lazy">
+                        <div class="archive-category">Food</div>
+                    </div>
+                    <div class="archive-content">
+                        <div class="archive-meta">
+                            <span class="author">By Lin Wei</span>
+                            <span class="date">April 15, 2025</span>
+                        </div>
+                        <h2>Chinatown's Best-Kept Secrets: A Food Lover's Guide</h2>
+                        <p>Where the locals eat - authentic spots that most tourists never find in this vibrant neighborhood.</p>
+                        <a href="chinatown-eats.html" class="archive-link">
+                            Read More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="page-btn prev-next" id="prev-page">
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <button class="page-btn active" data-page="1">1</button>
+                <button class="page-btn" data-page="2">2</button>
+                <button class="page-btn" data-page="3">3</button>
+                <button class="page-btn prev-next" id="next-page">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Newsletter Section -->
+            <div class="footer-newsletter">
+                <h3>Explore NYC With Us</h3>
+                <p>Get exclusive updates on hidden gems and events</p>
+                <form class="newsletter-form" id="newsletter-form" name="newsletter" method="POST" netlify data-netlify-honeypot="bot-field">
+                    <input type="hidden" name="form-name" value="newsletter">
+                    <p class="hidden">
+                        <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                    </p>
+                    <div class="input-group">
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Your email address" 
+                            required 
+                            aria-label="Email address"
+                            aria-describedby="email-helper"
+                        >
+                        <button type="submit" aria-label="Subscribe">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <small id="email-helper" class="visually-hidden">We'll never share your email</small>
+                </form>
+                <div class="newsletter-success" aria-live="polite">Thank you for subscribing!</div>
+            </div>
+            
+            <!-- Quick Links Grid -->
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Discover</h4>
+                    <ul>
+                        <li><a href="#landmarks"><i class="fas fa-landmark"></i> Iconic Landmarks</a></li>
+                        <li><a href="#culture"><i class="fas fa-theater-masks"></i> Arts & Culture</a></li>
+                        <li><a href="#food"><i class="fas fa-utensils"></i> Food Scene</a></li>
+                        <li><a href="#gallery"><i class="fas fa-camera"></i> Photo Gallery</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="Transit-Guide.html"><i class="fas fa-subway"></i> Transit Guide</a></li>
+                        <li><a href="events-calendar.html"><i class="fas fa-calendar-alt"></i> Events Calendar</a></li>
+                        <li><a href="interactive-map.html"><i class="fas fa-map-marked-alt"></i> Interactive Map</a></li>
+                        <li><a href="visitor-faq.html"><i class="fas fa-question-circle"></i> Visitor FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html"><i class="fas fa-heart"></i> About NYxplore</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a></li>   
+                        <li><a href="partner-with-us.html"><i class="fas fa-handshake"></i> Partner With Us</a></li>           
+                    </ul>
+                </div>
+            </div>
+        
+            <!-- Social & Legal -->
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+                
+                <div class="legal-links">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="accessibility.html">Accessibility</a>
+                    <a href="sitemap.html">Sitemap</a>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; <span id="year">2025</span> NYxplore. All rights reserved.</p>
+                    <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="floating-controls">
+  <button id="scroll-to-top" class="control-button" aria-label="Scroll to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+  <button id="theme-toggle" class="control-button" aria-label="Toggle dark mode">
+    <i class="fas fa-moon"></i>
+  </button>
+</div>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" 
+                  style="transition: stroke-dashoffset 10ms linear; 
+                         stroke-dasharray: 307.919, 307.919; 
+                         stroke-dashoffset: 307.919;">
+            </path>
+        </svg>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filter functionality
+            const filterButtons = document.querySelectorAll('.archive-filter .filter-btn');
+            const archiveCards = document.querySelectorAll('.archive-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    const filterValue = button.getAttribute('data-filter');
+                    
+                    // Filter cards
+                    archiveCards.forEach(card => {
+                        if (filterValue === 'all') {
+                            card.style.display = 'block';
+                        } else {
+                            const cardCategories = card.getAttribute('data-category').split(' ');
+                            if (cardCategories.includes(filterValue)) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+            
+            // Pagination functionality
+            const itemsPerPage = 6;
+            const totalItems = document.querySelectorAll('.archive-card').length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+            let currentPage = 1;
+            
+            function showPage(page) {
+                const startIndex = (page - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                
+                document.querySelectorAll('.archive-card').forEach((card, index) => {
+                    if (index >= startIndex && index < endIndex) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Update pagination buttons
+                document.querySelectorAll('.page-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.getAttribute('data-page') == page) {
+                        btn.classList.add('active');
+                    }
+                });
+                
+                // Update current page
+                currentPage = page;
+                
+                // Scroll to top of blog section
+                document.getElementById('blog').scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Initialize pagination
+            document.querySelectorAll('.page-btn').forEach(btn => {
+                if (btn.getAttribute('data-page')) {
+                    btn.addEventListener('click', () => {
+                        const page = parseInt(btn.getAttribute('data-page'));
+                        showPage(page);
+                    });
+                }
+            });
+            
+            document.getElementById('prev-page').addEventListener('click', () => {
+                if (currentPage > 1) {
+                    showPage(currentPage - 1);
+                }
+            });
+            
+            document.getElementById('next-page').addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    showPage(currentPage + 1);
+                }
+            });
+            
+            // Show first page by default
+            showPage(1);
+            
+            // Update year in footer
+            document.getElementById('year').textContent = new Date().getFullYear();
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+  const searchForm = document.getElementById('search-form');
+  const searchInput = document.getElementById('search-input');
+  const searchSuggestions = document.getElementById('search-suggestions');
+  
+  // Sample search data (replace with your actual data)
+  const searchData = [
+    { title: "Times Square", url: "times-square.html", category: "Landmark" },
+    { title: "Central Park", url: "central-park.html", category: "Park" },
+    { title: "Statue of Liberty", url: "statue-liberty.html", category: "Landmark" },
+    { title: "Empire State Building", url: "empire-state.html", category: "Landmark" },
+    { title: "Broadway Shows", url: "broadway.html", category: "Culture" },
+    { title: "Best Pizza in NYC", url: "nyc-pizza.html", category: "Food" },
+    { title: "Metropolitan Museum", url: "met-museum.html", category: "Museum" },
+    { title: "Brooklyn Bridge", url: "brooklyn-bridge.html", category: "Landmark" },
+    { title: "Chinatown Restaurants", url: "chinatown-food.html", category: "Food" },
+    { title: "High Line Park", url: "high-line.html", category: "Park" }
+  ];
+
+  // Show suggestions when input is focused
+  searchInput.addEventListener('focus', showSuggestions);
+  searchInput.addEventListener('input', showSuggestions);
+  
+  // Hide suggestions when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!searchForm.contains(e.target)) {
+      searchSuggestions.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  function showSuggestions() {
+    const inputValue = searchInput.value.toLowerCase();
+    if (inputValue.length === 0) {
+      searchSuggestions.setAttribute('aria-expanded', 'false');
+      return;
+    }
+
+    const filteredResults = searchData.filter(item => 
+      item.title.toLowerCase().includes(inputValue) ||
+      item.category.toLowerCase().includes(inputValue)
+    );
+
+    displaySuggestions(filteredResults);
+  }
+
+  function displaySuggestions(results) {
+    searchSuggestions.innerHTML = '';
+    
+    if (results.length === 0) {
+      searchSuggestions.innerHTML = '<div>No results found</div>';
+      searchSuggestions.setAttribute('aria-expanded', 'true');
+      return;
+    }
+
+    results.forEach(result => {
+      const suggestion = document.createElement('div');
+      suggestion.innerHTML = `
+        <strong>${result.title}</strong>
+        <span style="color: #666; font-size: 0.8em">${result.category}</span>
+      `;
+      suggestion.addEventListener('click', () => {
+        window.location.href = result.url;
+      });
+      searchSuggestions.appendChild(suggestion);
+    });
+
+    searchSuggestions.setAttribute('aria-expanded', 'true');
+  }
+
+  // Handle form submission
+  searchForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const inputValue = searchInput.value.trim();
+    if (inputValue) {
+      // Replace with your actual search handling logic
+      const matchedItem = searchData.find(item => 
+        item.title.toLowerCase() === inputValue.toLowerCase()
+      );
+      
+      if (matchedItem) {
+        window.location.href = matchedItem.url;
+      } else {
+        // Fallback search page
+        window.location.href = `search-results.html?query=${encodeURIComponent(inputValue)}`;
+      }
+    }
+  });
+});
+    </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Theme Toggle
+  const themeToggle = document.getElementById('theme-toggle');
+  const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+  
+  // Check for saved theme or use preferred color scheme
+  const currentTheme = localStorage.getItem('theme') || 
+                      (prefersDarkScheme.matches ? 'dark' : 'light');
+  
+  if (currentTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+  }
+  
+  themeToggle.addEventListener('click', function() {
+    const isDark = document.body.classList.toggle('dark-mode');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+  });
+  
+  // Scroll to Top
+  const scrollButton = document.getElementById('scroll-to-top');
+  
+  window.addEventListener('scroll', function() {
+    if (window.pageYOffset > 300) {
+      scrollButton.classList.add('visible');
+    } else {
+      scrollButton.classList.remove('visible');
+    }
+  });
+  
+  scrollButton.addEventListener('click', function() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+  
+  // Initialize scroll position check
+  window.dispatchEvent(new Event('scroll'));
+});
+</script>
+</body>
+</html>

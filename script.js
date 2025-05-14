@@ -1192,3 +1192,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 });
+
+// blogs section
