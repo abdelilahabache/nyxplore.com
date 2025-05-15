@@ -607,58 +607,106 @@ document.addEventListener('DOMContentLoaded', function() {
   initFoodSection();
 });
 
-    // Parallax Effect
     document.addEventListener('DOMContentLoaded', function() {
-         const parallaxItems = document.querySelectorAll('.parallax-item');
-        if (window.innerWidth > 768) {
-            window.addEventListener('scroll', function() {
-                parallaxItems.forEach(item => {
-                    const speed = parseFloat(item.getAttribute('data-speed'));
-                    const yPos = -(window.scrollY * speed);
-                     const img = item.querySelector('.parallax-image');
-                    if (img) {
-                        img.style.transform = `translateY(${yPos}px)`;
-                     }
-                    const content = item.querySelector('.parallax-content');
-                    const itemTop = item.getBoundingClientRect().top;
-                    const windowHeight = window.innerHeight;
-                    
-                    if (itemTop < windowHeight * 0.75) {
-                        content.style.opacity = '1';
-                        content.style.transform = 'translateY(0)';
-                    }
-                });
-            }, { passive: true });
-         } else {
-            parallaxItems.forEach(item => {
-                const content = item.querySelector('.parallax-content');
-                content.style.opacity = '1';
-                content.style.transform = 'translateY(0)';
-            });
+  const parallaxItems = document.querySelectorAll('.parallax-item');
+  let lastScrollPos = 0;
+  let ticking = false;
+
+  // Combined functionality
+  function updateParallax() {
+    const scrollTop = window.pageYOffset;
+    parallaxItems.forEach(item => {
+      const speed = parseFloat(item.dataset.speed) || 0.1;
+      const img = item.querySelector('.parallax-image');
+      const content = item.querySelector('.parallax-content');
+      const rect = item.getBoundingClientRect();
+      
+      // Only animate when in viewport (performance optimization)
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        // Parallax effect
+        if (img) {
+          const yPos = -(scrollTop * speed * 0.5); // Reduced intensity
+          img.style.transform = `translateY(${yPos}px)`;
         }
-    });
-   // Final Landmarks Interaction Script
-document.addEventListener('DOMContentLoaded', function() {
-  // Get all landmark cards
-  const landmarkCards = document.querySelectorAll('.parallax-item');
-  
-  // Add click handling to each card
-  landmarkCards.forEach(card => {
-    card.addEventListener('click', function(e) {
-      // Only navigate if the click wasn't on the button itself
-      if (!e.target.closest('.landmark-button') && this.href) {
-        window.location.href = this.href;
+        
+        // Content reveal
+        if (content) {
+          const revealPoint = window.innerHeight * 0.8;
+          if (rect.top < revealPoint) {
+            content.style.opacity = '1';
+            content.style.transform = 'translateY(0)';
+            
+            // Animate button separately with delay
+            const button = item.querySelector('.landmark-button');
+            if (button) {
+              setTimeout(() => {
+                button.style.transform = 'translateY(0)';
+                button.style.opacity = '1';
+              }, 200);
+            }
+          }
+        }
       }
     });
-    
-    // Optional: Add keyboard navigation support
+    ticking = false;
+  }
+
+  // Scroll handler with requestAnimationFrame
+  window.addEventListener('scroll', function() {
+    if (!ticking && window.innerWidth > 768) {
+      window.requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  });
+
+  // Initialize mobile state
+  if (window.innerWidth <= 768) {
+    parallaxItems.forEach(item => {
+      const content = item.querySelector('.parallax-content');
+      const button = item.querySelector('.landmark-button');
+      if (content) content.style.opacity = '1';
+      if (button) {
+        button.style.opacity = '1';
+        button.style.transform = 'none';
+        button.style.pointerEvents = 'auto';
+      }
+    });
+  }
+
+  // Click handling with improved feedback
+  parallaxItems.forEach(card => {
+    card.addEventListener('click', function(e) {
+      if (!e.target.closest('.landmark-button') && this.href) {
+        e.preventDefault();
+        this.style.transform = 'scale(0.97)';
+        setTimeout(() => {
+          window.location.href = this.href;
+        }, 200);
+      }
+    });
+
+    // Keyboard navigation
     card.addEventListener('keydown', function(e) {
       if (e.key === 'Enter' && this.href) {
         window.location.href = this.href;
       }
     });
+
+    // Hover effects (desktop only)
+    if (window.innerWidth > 768) {
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-5px)';
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    }
   });
-}); 
+
+  // Initial animation trigger
+  updateParallax();
+});
 
 // Scroll to Top Button with Progress Indicator
 document.addEventListener('DOMContentLoaded', function() {

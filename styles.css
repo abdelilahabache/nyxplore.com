@@ -1420,6 +1420,52 @@ img, video, iframe {
   }
 } 
 
+/* Add these to your existing CSS */
+.parallax-container {
+  perspective: 1000px; /* Creates depth for parallax */
+  padding: 20px 0;
+}
+
+.parallax-item {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.parallax-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.parallax-image {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Improved content reveal animation */
+.parallax-content {
+  will-change: transform, opacity;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .parallax-item {
+    height: 280px; /* Slightly taller for better content display */
+  }
+  
+  .parallax-content {
+    opacity: 1 !important;
+    transform: none !important;
+    padding: 15px;
+  }
+  
+  .landmark-button {
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+}
+
 /* Scroll to Top Button */
 .scroll-top {
   position: fixed;
