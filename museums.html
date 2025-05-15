@@ -792,6 +792,21 @@
         margin-top: 6px;
     }
 }
+/* Add to your existing header styles */
+.header {
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    will-change: transform;
+}
+
+.header.hide {
+    transform: translateY(-100%);
+}
+
+/* Small adjustment to prevent content jump */
+body {
+    scroll-padding-top: 80px; /* Match your header height */
+}
+
     </style>
 </head>
 <body>
@@ -1500,5 +1515,32 @@ document.addEventListener('DOMContentLoaded', function() {
     // document.getElementById('museums-section').scrollIntoView({ behavior: 'smooth' });
 });
     </script>
+    <script>
+// Auto-hide navbar on scroll
+let lastScroll = 0;
+const header = document.querySelector('.header');
+const scrollThreshold = 100; // Pixels to scroll before hiding
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll <= 0) {
+        // At top of page - always show
+        header.classList.remove('hide');
+        return;
+    }
+    
+    if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
+        // Scrolling DOWN - hide
+        header.classList.add('hide');
+    } else if (currentScroll < lastScroll) {
+        // Scrolling UP - show
+        header.classList.remove('hide');
+    }
+    
+    lastScroll = currentScroll;
+});
+</script>
+
 </body>
 </html>
