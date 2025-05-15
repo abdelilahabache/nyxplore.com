@@ -24,15 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     location: 'The Met'
                 }
             },
-            {
-                title: 'Jazz Festival',
-                start: '2023-05-20',
-                end: '2023-05-22',
-                extendedProps: {
-                    category: 'music',
-                    location: 'Harlem'
-                }
-            }
+
         ],
         eventContent: function(arg) {
             // Custom event rendering

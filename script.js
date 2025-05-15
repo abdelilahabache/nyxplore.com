@@ -410,121 +410,183 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
+
+// ===== Culture Section - Optimized Final Version =====
 document.addEventListener('DOMContentLoaded', function() {
-  // Filter functionality
-  const filterButtons = document.querySelectorAll('.filter-btn');
+  // 1. Initialize Elements
+  const filterButtons = document.querySelectorAll('.culture-filter .filter-btn');
   const masonryItems = document.querySelectorAll('.masonry-item');
-  
-  filterButtons.forEach(button => {
+  const masonryGrid = document.querySelector('.masonry-grid');
+
+  // 2. Image Loading Handler
+  const loadImages = () => {
+    document.querySelectorAll('.masonry-image').forEach(img => {
+      // Skip if already loaded
+      if (img.classList.contains('loaded')) return;
+      
+      // Use small placeholder for initial load
+      const smallSrc = img.dataset.small || img.src;
+      const actualSrc = img.dataset.src || img.src;
+      
+      // Load small image first
+      const tempImg = new Image();
+      tempImg.src = smallSrc;
+      tempImg.onload = () => {
+        img.src = smallSrc;
+        img.classList.add('loaded');
+        
+        // Then load full quality
+        setTimeout(() => {
+          const fullImg = new Image();
+          fullImg.src = actualSrc;
+          fullImg.onload = () => {
+            img.src = actualSrc;
+            updateMasonryLayout();
+          };
+        }, 300);
+      };
+    });
+  };
+
+  // 3. Filter Functionality
+  const applyFilters = () => {
+    filterButtons.forEach(button => {
       button.addEventListener('click', function() {
-          // Remove active class from all buttons
-          filterButtons.forEach(btn => btn.classList.remove('active'));
+        // Update active button
+        filterButtons.forEach(btn => {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-pressed', 'false');
+        });
+        this.classList.add('active');
+        this.setAttribute('aria-pressed', 'true');
+        
+        // Filter items
+        const filterValue = this.dataset.filter;
+        masonryItems.forEach(item => {
+          const match = filterValue === 'all' || 
+                       item.dataset.category === filterValue;
           
-          // Add active class to clicked button
-          this.classList.add('active');
-          
-          const filterValue = this.getAttribute('data-filter');
-          
-          // Filter items
-          masonryItems.forEach(item => {
-              if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                  item.style.display = 'flex';
-              } else {
-                  item.style.display = 'none';
-              }
-          });
+          item.style.display = match ? 'flex' : 'none';
+          item.setAttribute('aria-hidden', !match);
+        });
+        
+        // Update layout after filtering
+        setTimeout(updateMasonryLayout, 50);
       });
-  });
-  
-  // Click animation for masonry items
-  masonryItems.forEach(item => {
-      // Add keyboard accessibility
+    });
+  };
+
+  // 4. Masonry Layout Calculator
+  const updateMasonryLayout = () => {
+    if (!masonryGrid || window.innerWidth <= 768) return;
+    
+    const rowHeight = parseInt(getComputedStyle(masonryGrid).gridAutoRows);
+    const rowGap = parseInt(getComputedStyle(masonryGrid).gridRowGap);
+    
+    document.querySelectorAll('.masonry-item:nth-child(3n+1)').forEach(item => {
+      if (item.style.display === 'none') return;
+      
+      const contentHeight = item.querySelector('.image-container').offsetHeight + 
+                          item.querySelector('.masonry-content').offsetHeight;
+      
+      const rowSpan = Math.ceil((contentHeight + rowGap) / (rowHeight + rowGap));
+      item.style.gridRowEnd = `span ${rowSpan}`;
+    });
+  };
+
+  // 5. Click Handlers with Loading States
+  const setupItemInteractions = () => {
+    masonryItems.forEach(item => {
+      // Accessibility
       item.setAttribute('tabindex', '0');
       
+      // Click handler
       item.addEventListener('click', function(e) {
-          // Don't follow link if user clicked on the explore button
-          if (e.target.classList.contains('explore-button') || 
-              e.target.closest('.explore-button')) {
-              e.preventDefault();
-              
-              const button = e.target.classList.contains('explore-button') ? 
-                  e.target : e.target.closest('.explore-button');
-              const originalContent = button.innerHTML;
-              
-              // Show loading state
-              button.innerHTML = `
-                  <span>Loading...</span>
-                  <i class="fas fa-spinner fa-spin"></i>
-              `;
-              button.style.pointerEvents = 'none';
-              
-              // Simulate loading delay (remove in production)
-              setTimeout(() => {
-                  window.location.href = this.getAttribute('href');
-              }, 800);
-          }
+        if (e.target.closest('.explore-button')) {
+          e.preventDefault();
+          const button = e.target.closest('.explore-button');
+          
+          // Loading state
+          button.innerHTML = `
+            <span>Loading...</span>
+            <i class="fas fa-spinner fa-spin"></i>
+          `;
+          button.style.pointerEvents = 'none';
+          
+          // Simulate loading delay
+          setTimeout(() => {
+            window.location.href = this.href;
+          }, 500);
+        }
       });
       
       // Keyboard support
-      item.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter') {
-              this.click();
-          }
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          this.click();
+        }
       });
-  });
-  
-  // Initialize Masonry layout after images load
-  imagesLoaded('.masonry-grid', function() {
-      const masonryGrid = document.querySelector('.masonry-grid');
-      
-      // Adjust grid items that span multiple rows
-      document.querySelectorAll('.masonry-item:nth-child(3n+1)').forEach(item => {
-          if (window.innerWidth > 768) {
-              const rowHeight = parseInt(window.getComputedStyle(masonryGrid).getPropertyValue('grid-auto-rows'));
-              const rowGap = parseInt(window.getComputedStyle(masonryGrid).getPropertyValue('grid-row-gap'));
-              const rowSpan = Math.ceil((item.querySelector('.image-container').offsetHeight + 
-                                       item.querySelector('.masonry-content').offsetHeight + 
-                                       rowGap) / (rowHeight + rowGap));
-              item.style.gridRowEnd = 'span ' + rowSpan;
+    });
+  };
+
+  // 6. Intersection Observer for Lazy Loading
+  const initIntersectionObserver = () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const item = entry.target;
+          observer.unobserve(item);
+          
+          // Load images for this item
+          const img = item.querySelector('.masonry-image');
+          if (img && !img.classList.contains('loaded')) {
+            img.src = img.dataset.src || img.src;
+            img.onload = () => {
+              img.classList.add('loaded');
+              updateMasonryLayout();
+            };
           }
+        }
       });
-  });
+    }, {
+      rootMargin: '200px 0px',
+      threshold: 0.01
+    });
+    
+    masonryItems.forEach(item => {
+      observer.observe(item);
+    });
+  };
+
+  // 7. Window Resize Handler
+  const handleResize = () => {
+    clearTimeout(this.resizeTimer);
+    this.resizeTimer = setTimeout(() => {
+      updateMasonryLayout();
+    }, 100);
+  };
+
+  // Initialize Everything
+  const initCultureSection = () => {
+    applyFilters();
+    setupItemInteractions();
+    initIntersectionObserver();
+    updateMasonryLayout();
+    
+    // Set default filter
+    document.querySelector('.culture-filter .filter-btn[data-filter="all"]')?.click();
+    
+    // Event listeners
+    window.addEventListener('resize', handleResize);
+    
+    // Initial image load for visible items
+    setTimeout(loadImages, 300);
+  };
+
+  initCultureSection();
 });
 
-// Helper function to wait for images to load
-function imagesLoaded(selector, callback) {
-  const elements = document.querySelectorAll(selector);
-  let loadedCount = 0;
-  const totalCount = elements.length;
-  
-  if (totalCount === 0) {
-      callback();
-      return;
-  }
-  
-  function imageLoaded() {
-      loadedCount++;
-      if (loadedCount === totalCount) {
-          callback();
-      }
-  }
-  
-  elements.forEach(element => {
-      const images = element.querySelectorAll('img');
-      if (images.length === 0) {
-          imageLoaded();
-      } else {
-          images.forEach(img => {
-              if (img.complete) {
-                  imageLoaded();
-              } else {
-                  img.addEventListener('load', imageLoaded);
-                  img.addEventListener('error', imageLoaded); // Handle broken images too
-              }
-          });
-      }
-  });
-}
+
 
 
 // FOOD SECTION - COMPLETE JAVASCRIPT 
@@ -751,11 +813,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-// Disable right-click context menu
-document.addEventListener('contextmenu', function(e) {
-  e.preventDefault();
-  alert('Right-click is disabled on this page');
-});
+
 
 // Disable keyboard shortcuts for dev tools
 document.addEventListener('keydown', function(e) {
@@ -806,14 +864,7 @@ document.addEventListener('DOMContentLoaded', function() {
           location: "The Met",
           category: "art"
       },
-      {
-          id: 3,
-          title: "Jazz Night in Harlem",
-          date: new Date(2023, 4, 20),
-          time: "8:30 PM",
-          location: "Harlem Jazz Club",
-          category: "music"
-      },
+
       {
           id: 4,
           title: "Chinatown Food Festival",
