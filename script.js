@@ -1374,3 +1374,43 @@ document.addEventListener('DOMContentLoaded', function() {
   
   carousel.addEventListener('touchend', endDrag);
 });
+
+
+
+// Auto-hide Navbar Logic
+document.addEventListener('DOMContentLoaded', function() {
+  const navbar = document.querySelector('.navbar');
+  const scrollThreshold = 100; // Pixels to scroll before hiding
+  let lastScroll = 0;
+  
+  // Mobile menu check (if you have one)
+  const mobileMenu = document.querySelector('.navbar-menu');
+  let isMobileMenuOpen = false;
+  
+  if (mobileMenu) {
+    mobileMenu.addEventListener('click', function() {
+      isMobileMenuOpen = this.classList.contains('active');
+    });
+  }
+
+  window.addEventListener('scroll', function() {
+    const currentScroll = window.pageYOffset;
+    
+    // At top of page or mobile menu open - always show
+    if (currentScroll <= 0 || isMobileMenuOpen) {
+      navbar.classList.remove('hide');
+      return;
+    }
+    
+    // Scrolling DOWN - hide
+    if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
+      navbar.classList.add('hide');
+    } 
+    // Scrolling UP - show
+    else if (currentScroll < lastScroll) {
+      navbar.classList.remove('hide');
+    }
+    
+    lastScroll = currentScroll;
+  });
+});
