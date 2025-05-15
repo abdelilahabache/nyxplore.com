@@ -1910,3 +1910,372 @@ div:empty, span:empty, a:empty, p:empty {
   background: rgba(255,255,255,0.05);
 }
 
+/* Base Styles */
+.search-container {
+  position: relative;
+  flex: 1;
+  max-width: 600px;
+  margin: 0 20px;
+}
+
+.search-form {
+  display: flex;
+  width: 100%;
+}
+
+.search-input-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 20px;
+  padding-right: 50px; /* Space for button */
+  border: 2px solid #e0e0e0;
+  border-radius: 30px;
+  font-size: 1rem;
+  background-color: #f8f8f8;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #007bff;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0,123,255,0.25);
+}
+
+.search-button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: #666;
+  transition: color 0.2s;
+}
+
+.search-button:hover {
+  color: #007bff;
+}
+
+.search-icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* Suggestions Dropdown */
+.search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 1000;
+  display: none;
+  margin-top: 5px;
+}
+
+.search-suggestions[aria-expanded="true"] {
+  display: block;
+}
+
+.search-suggestions div {
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.search-suggestions div:hover,
+.search-suggestions div[aria-selected="true"] {
+  background-color: #f0f0f0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .search-container {
+    order: 3;
+    width: 100%;
+    max-width: 100%;
+    margin: 15px 0;
+  }
+  
+  .search-input {
+    padding: 10px 15px;
+    padding-right: 40px;
+  }
+}
+
+/* Animation for better UX */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.search-suggestions {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+
+/* Blog Carousel Styles */
+.blog-carousel-container {
+  position: relative;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 0 50px;
+}
+
+.blog-carousel {
+  display: flex;
+  gap: 25px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding: 25px 10px;
+  margin: 0 -20px;
+  scrollbar-width: none;
+}
+
+.blog-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.blog-card {
+  flex: 0 0 320px;
+  scroll-snap-align: start;
+  transition: transform 0.3s ease;
+  background: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.blog-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  opacity: 0.9;
+}
+
+.carousel-btn:hover {
+  background: var(--accent-dark);
+  transform: translateY(-50%) scale(1.1);
+  opacity: 1;
+}
+
+.carousel-btn.prev {
+  left: 0;
+}
+
+.carousel-btn.next {
+  right: 0;
+}
+
+.carousel-btn i {
+  font-size: 1.3rem;
+}
+
+/* Blog Card Content Styles */
+.blog-card-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.blog-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.blog-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.blog-card:hover .blog-image img {
+  transform: scale(1.05);
+}
+
+.category-tag {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: var(--accent-color);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.read-time {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 3px 10px;
+  border-radius: 3px;
+  font-size: 0.8rem;
+}
+
+.blog-content {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+  color: var(--secondary-text);
+}
+
+.blog-content h3 {
+  margin: 0 0 15px;
+  font-size: 1.25rem;
+  line-height: 1.4;
+  font-family: 'Playfair Display', serif;
+}
+
+.blog-content p {
+  margin: 0 0 20px;
+  color: var(--secondary-text);
+  flex-grow: 1;
+  font-size: 0.95rem;
+}
+
+.read-more {
+  display: inline-flex;
+  align-items: center;
+  color: var(--accent-color);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.read-more i {
+  margin-left: 5px;
+  transition: transform 0.3s ease;
+  font-size: 0.8rem;
+}
+
+.read-more:hover {
+  color: var(--accent-dark);
+}
+
+.read-more:hover i {
+  transform: translateX(3px);
+}
+
+.view-all-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 30px;
+  background: var(--accent-color);
+  color: white;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-top: 30px;
+}
+
+.view-all-btn i {
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+}
+
+.view-all-btn:hover {
+  background: var(--accent-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.view-all-btn:hover i {
+  transform: translateX(5px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .blog-carousel {
+    gap: 20px;
+  }
+  
+  .blog-card {
+    flex: 0 0 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .blog-carousel-container {
+    padding: 0 30px;
+  }
+  
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+    display: none; /* Hide buttons on mobile */
+  }
+  
+  .blog-carousel {
+    padding: 15px 20px;
+    margin: 0 -15px;
+    gap: 15px;
+  }
+  
+  .blog-card {
+    flex: 0 0 85%;
+  }
+  
+  .blog-image {
+    height: 180px;
+  }
+}
+
+@media (max-width: 576px) {
+  .blog-carousel-container {
+    padding: 0 15px;
+  }
+  
+  .blog-card {
+    flex: 0 0 90%;
+  }
+}

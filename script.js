@@ -1194,3 +1194,84 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // blogs section
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const carousel = document.querySelector('.blog-carousel');
+  const prevBtn = document.querySelector('.carousel-btn.prev');
+  const nextBtn = document.querySelector('.carousel-btn.next');
+  const cards = document.querySelectorAll('.blog-card');
+  const cardWidth = cards[0].offsetWidth + 25; // Width + gap
+  
+  // Scroll to next set of cards
+  nextBtn.addEventListener('click', () => {
+    carousel.scrollBy({
+      left: cardWidth * 2, // Scroll 2 cards at a time
+      behavior: 'smooth'
+    });
+  });
+  
+  // Scroll to previous set of cards
+  prevBtn.addEventListener('click', () => {
+    carousel.scrollBy({
+      left: -cardWidth * 2, // Scroll 2 cards at a time
+      behavior: 'smooth'
+    });
+  });
+  
+  // Update button visibility based on scroll position
+  carousel.addEventListener('scroll', () => {
+    const scrollPos = carousel.scrollLeft;
+    const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+    
+    prevBtn.style.opacity = scrollPos > 10 ? '1' : '0.5';
+    nextBtn.style.opacity = scrollPos < maxScroll - 10 ? '1' : '0.5';
+  });
+  
+  // Touch/swipe support for mobile
+  let isDragging = false;
+  let startX;
+  let scrollLeft;
+  
+  carousel.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.pageX - carousel.offsetLeft;
+    scrollLeft = carousel.scrollLeft;
+    carousel.style.cursor = 'grabbing';
+    carousel.style.scrollBehavior = 'auto';
+  });
+  
+  carousel.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - carousel.offsetLeft;
+    const walk = (x - startX) * 2;
+    carousel.scrollLeft = scrollLeft - walk;
+  });
+  
+  const endDrag = () => {
+    isDragging = false;
+    carousel.style.cursor = 'grab';
+    carousel.style.scrollBehavior = 'smooth';
+  };
+  
+  carousel.addEventListener('mouseup', endDrag);
+  carousel.addEventListener('mouseleave', endDrag);
+  
+  // Touch events for mobile
+  carousel.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    startX = e.touches[0].pageX - carousel.offsetLeft;
+    scrollLeft = carousel.scrollLeft;
+  });
+  
+  carousel.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const x = e.touches[0].pageX - carousel.offsetLeft;
+    const walk = (x - startX) * 2;
+    carousel.scrollLeft = scrollLeft - walk;
+  });
+  
+  carousel.addEventListener('touchend', endDrag);
+});
