@@ -5,8 +5,8 @@
   --accent-color: #f79256;
   --light-color: #fefcfb;
   --dark-color: #1e1e24;
-  --text-color: #333;
-  --text-light: #777;
+  --text-color: #222;
+  --text-light:  #666;
   --font-primary: 'Montserrat', sans-serif;
   --font-secondary: 'Playfair Display', serif;
   --transition: all 0.3s ease;
@@ -20,9 +20,18 @@
   --accent-color: #f79256;
   --light-color: #333;
   --dark-color: #fefcfb;
-  --text-color: #fefcfb;
-  --text-light: #ccc;
-  --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  --text-color: #ffffff;
+  --text-light: #cccccc; 
+   --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  --section-title-color: #ffffff; 
+  [data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+  color: #ffffff;
+}
 }
 
 * {
@@ -46,12 +55,16 @@ body {
   width: 100%;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  font-size: 16px; /* Minimum recommended size */
 }
 
 h1, h2, h3, h4 {
   font-family: var(--font-secondary);
   font-weight: 700;
   line-height: 1.2;
+}
+h1, h2, h3, h4, h5, h6 {
+  transition: color 0.3s ease;
 }
 
 a {
@@ -94,7 +107,7 @@ img, video, iframe {
 
 .section-subtitle {
   font-size: 1.2rem;
-  color: var(--accent-color);
+ color: var(--text-light);
   font-weight: 300;
 }
 
@@ -163,6 +176,7 @@ img, video, iframe {
     height: 45px;
   }
 }
+
 
 
 /* Hero Section */
@@ -686,6 +700,11 @@ img, video, iframe {
   transform: translateX(3px);
 }
 
+a:focus, button:focus, input:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
 /* ===== Category Badge ===== */
 .category-badge {
   position: absolute;
@@ -897,8 +916,8 @@ img, video, iframe {
 }
 
 .food-card-back {
-  background-color: var(--accent-color);
-  color: white;
+   background-color: var(--primary-color);
+  color: var(--light-color);
   transform: rotateY(180deg);
 }
 
@@ -1176,7 +1195,7 @@ img, video, iframe {
 }
 
 .footer-column a {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.9);
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
