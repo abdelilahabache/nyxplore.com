@@ -21,6 +21,9 @@
     
     <!-- Main CSS -->
     <link rel="stylesheet" href="styles.css">
+    <!-- GetYourGuide Analytics -->
+
+      <script async defer src="https://widget.getyourguide.com/dist/pa.umd.production.min.js" data-gyg-partner-id="TNC8XGK"></script>
     
     <!-- Critical CSS -->
     <style>
@@ -34,6 +37,11 @@
             --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             --transition: all 0.3s ease;
         }
+        body {
+  margin: 0;
+  padding: 0;
+}
+
         
         /* FAQ specific styles */
         .faq-hero {
@@ -275,6 +283,21 @@
                 font-size: 1rem;
             }
         }
+        /* Add to your existing header styles */
+.header {
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    will-change: transform;
+}
+
+.header.hide {
+    transform: translateY(-100%);
+}
+
+/* Small adjustment to prevent content jump */
+body {
+    scroll-padding-top: 80px; /* Match your header height */
+}
+
     </style>
 </head>
 <body>
@@ -531,17 +554,17 @@
                     <h4>Visitor Resources</h4>
                     <ul>
                         <li><a href="visitor-faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
-                        <li><a href="#"><i class="fas fa-subway"></i> Transportation Guide</a></li>
+                        <li><a href="Transit-Guide.html"><i class="fas fa-subway"></i> Transportation Guide</a></li>
                         <li><a href="#"><i class="fas fa-hotel"></i> Neighborhood Guide</a></li>
-                        <li><a href="#"><i class="fas fa-suitcase-rolling"></i> Packing Tips</a></li>
+                        <li><a href="https://www.getyourguide.com/new-york-city-l59/?psrc=widget&partner_id=TNC8XGK&widget=city&wid=d59c1635-51c8-5fc7-a9ea-732f48efc4f9&page_id=9a4a6d7c-f348-5828-8dfc-db6d3d417ef0&visitor-id=F665556A08744DCBB6B3338B144D5FE2"><i class="fas fa-suitcase-rolling"></i> Packing Tips</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
                     <h4>Company</h4>
                     <ul>
-                        <li><a href="#"><i class="fas fa-heart"></i> About NYxplore</a></li>
-                        <li><a href="#"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                        <li><a href="contact.html"><i class="fas fa-heart"></i> About NYxplore</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
                         <li><a href="#"><i class="fas fa-briefcase"></i> Careers</a></li>
                         <li><a href="#"><i class="fas fa-newspaper"></i> Press</a></li>
                     </ul>
@@ -743,5 +766,32 @@
     // Call the initSearch function to initialize the search functionality
     initSearch();
 </script>
+<script>
+// Auto-hide navbar on scroll
+let lastScroll = 0;
+const header = document.querySelector('.header');
+const scrollThreshold = 100; // Pixels to scroll before hiding
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll <= 0) {
+        // At top of page - always show
+        header.classList.remove('hide');
+        return;
+    }
+    
+    if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
+        // Scrolling DOWN - hide
+        header.classList.add('hide');
+    } else if (currentScroll < lastScroll) {
+        // Scrolling UP - show
+        header.classList.remove('hide');
+    }
+    
+    lastScroll = currentScroll;
+});
+</script>
+
 </body>
 </html>

@@ -1049,7 +1049,7 @@ a:focus, button:focus, input:focus {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url('nyc-skyline-silhouette.png') bottom center/contain no-repeat;
+  
   opacity: 0.03;
   z-index: 0;
 }
@@ -2422,6 +2422,9 @@ body {
 .navbar-menu.active + .navbar.hide {
   transform: translateY(0);
 }
+
+
+
 
 /* Change all menu item text color */
 .navbar-menu .navbar-link {

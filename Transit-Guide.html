@@ -34,6 +34,10 @@
             --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             --transition: all 0.3s ease;
         }
+        body {
+  margin: 0;
+  padding: 0;
+}
         
         /* Transit Guide specific styles */
         .transit-hero {
@@ -306,16 +310,29 @@
                 grid-template-columns: 1fr;
             }
         }
+        /* Add to your existing header styles */
+.header {
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    will-change: transform;
+}
+
+.header.hide {
+    transform: translateY(-100%);
+}
+
+/* Small adjustment to prevent content jump */
+body {
+    scroll-padding-top: 80px; /* Match your header height */
+}
+
     </style>
 </head>
 <body>
-
-    
     <!-- Header with Search -->
     <header class="header" role="banner">
         <div class="header-container">
             <a href="/" class="logo">
-                <img src="assets/images/logo-NY (2).webp" alt="NYxplore - New York City Travel Guide" width="150" height="50" loading="eager">
+                <img src="assets/images/logo-ny.png" alt="NYxplore - New York City Travel Guide" width="150" height="50" loading="eager">
             </a>
             
             <div class="search-container">
@@ -331,13 +348,15 @@
                 <span class="bar"></span>
             </button>
             
-            <ul class="navbar-menu" id="navbar-menu">
-                <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
-                <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
-                <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
-                <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
-                <li class="navbar-item"><a href="index.html#map" class="navbar-link">Map</a></li>
-            </ul>
+            <nav id="navbar-menu" aria-label="Main navigation">
+                <ul class="navbar-menu">
+                    <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
+                    <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
+                    <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
+                    <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
+                    <li class="navbar-item"><a href="index.html#map" class="navbar-link">Map</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
     
@@ -650,6 +669,7 @@
                 <div class="copyright">
                     <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
                     <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
+                </div>
             </div>
         </div>
     </footer>
@@ -712,5 +732,32 @@
             });
         });
     </script>
+    <script>
+// Auto-hide navbar on scroll
+let lastScroll = 0;
+const header = document.querySelector('.header');
+const scrollThreshold = 100; // Pixels to scroll before hiding
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll <= 0) {
+        // At top of page - always show
+        header.classList.remove('hide');
+        return;
+    }
+    
+    if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
+        // Scrolling DOWN - hide
+        header.classList.add('hide');
+    } else if (currentScroll < lastScroll) {
+        // Scrolling UP - show
+        header.classList.remove('hide');
+    }
+    
+    lastScroll = currentScroll;
+});
+</script>
+
 </body>
 </html>

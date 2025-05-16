@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service | NYxplore - New York City Travel Guide</title>
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <meta name="description" content="Terms of Service for NYxplore outlining the rules and guidelines for using our New York City travel guide website.">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Terms of Service",
+      "description": "NYxplore's terms and conditions for using our NYC travel guide services",
+      "publisher": {
+        "@type": "Organization",
+        "name": "NYxplore",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://nyxplore.com/assets/images/logo-NY.webp"
+        }
+      }
+    }
+    </script>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMW3YWQXBF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DMW3YWQXBF');
+    </script>
+
+    <!-- Preload key resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" as="style">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Critical CSS -->
+    <style>
+        :root {
+            --primary-color: #e74c3c;
+            --secondary-color: #2c3e50;
+            --accent-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        /* Header & Navigation */
+        .header {
+            background-color: #fff;
+            box-shadow: var(--box-shadow);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+        
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            order: 3;
+            flex: 1 1 100%;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
+        }
+        
+        .navbar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            order: 2;
+        }
+        
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            order: 4;
+            flex: 1 1 100%;
+        }
+        
+        .navbar-item {
+            margin-left: 20px;
+        }
+        
+        .navbar-link {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .navbar-link:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Hero Banner */
+        .terms-hero {
+            position: relative;
+            height: 40vh;
+            min-height: 300px;
+            background: linear-gradient(rgba(0,0,0,0.6), #00000066), 
+                        url('assets/images/nyc-bridge.webp') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .terms-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin: 2rem 0 1rem;
+            color: var(--dark-color);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent-color);
+            margin: 1rem 0;
+        }
+        
+        .terms-content {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .terms-section {
+            margin-bottom: 2rem;
+        }
+        
+        .terms-section h3 {
+            font-size: 1.3rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .terms-section p {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+        
+        .terms-section ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .terms-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #0a1128 0%, #1e1e24 100%);
+            color: white;
+            padding: 60px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h4 {
+            color: #fff;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-column a:hover {
+            color: #fff;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            margin-bottom: 1rem;
+        }
+        
+        .social-links a {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .legal-links {
+            margin-bottom: 1rem;
+        }
+        
+        .legal-links a {
+            color: #bbb;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .legal-links a:hover {
+            color: #fff;
+        }
+        
+        .copyright {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Adjustments */
+        @media (min-width: 768px) {
+            .header-container {
+                flex-wrap: nowrap;
+            }
+            
+            .search-container {
+                order: 2;
+                flex: 1 1 auto;
+                max-width: 400px;
+                margin: 0 1rem;
+            }
+            
+            .navbar-toggle {
+                order: 3;
+            }
+            
+            .navbar-menu {
+                order: 4;
+                flex: 0 1 auto;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .navbar-toggle {
+                display: block;
+            }
+            
+            .navbar-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--box-shadow);
+            }
+            
+            .navbar-menu.active {
+                display: flex;
+            }
+            
+            .navbar-item {
+                margin: 0.5rem 0;
+            }
+            
+            .terms-hero {
+                height: 30vh;
+            }
+        }
+        
+        /* Accessibility Focus Styles */
+        a:focus, button:focus, input:focus {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+        
+        /* Skip to Content Link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+        /* Add to your existing header styles */
+.header {
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    will-change: transform;
+}
+
+.header.hide {
+    transform: translateY(-100%);
+}
+
+/* Small adjustment to prevent content jump */
+body {
+    scroll-padding-top: 80px; /* Match your header height */
+}
+
+    </style>
+</head>
+<body>
+    <!-- Skip to Content Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header -->
+    <header class="header" role="banner">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="assets/images/logo-NY.webp" alt="NYxplore - New York City Travel Guide" width="150" height="50" loading="eager">
+            </a>
+            
+            <div class="search-container">
+                <input type="search" class="search-bar" placeholder="Search NYC landmarks..." aria-label="Search NYC landmarks">
+            </div>
+            
+            <button class="navbar-toggle" id="mobile-menu" aria-label="Toggle menu" aria-expanded="false" aria-controls="navbar-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            
+            <ul class="navbar-menu" id="navbar-menu">
+                <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
+                <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
+                <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
+                <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
+                <li class="navbar-item"><a href="index.html#map" class="navbar-link">Map</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <main id="main-content">
+        <!-- Hero Banner -->
+        <section class="terms-hero" aria-labelledby="terms-heading">
+            <div class="hero-content">
+                <h1 id="terms-heading" class="terms-title">Terms of Service</h1>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <div class="container">
+            <div class="terms-content">
+                <section class="terms-section">
+                    <h2 class="section-title">Welcome to NYxplore</h2>
+                    <p>These Terms of Service ("Terms") govern your access to and use of the NYxplore website, services, and applications (collectively, the "Service"). By accessing or using our Service, you agree to be bound by these Terms and our Privacy Policy.</p>
+                    <p>NYxplore provides an online travel guide to New York City, including information about landmarks, attractions, restaurants, and events ("Content"). Our Service is intended for personal, non-commercial use.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h3>Eligibility</h3>
+                    <p>To use our Service, you must:</p>
+                    <ul>
+                        <li>Be at least 13 years of age (or the minimum legal age in your jurisdiction)</li>
+                        <li>Have the legal capacity to enter into these Terms</li>
+                        <li>Not be barred from receiving services under applicable law</li>
+                    </ul>
+                </section>
+                
+                <section class="terms-section">
+                    <h3>User Accounts</h3>
+                    <p>Some features of our Service may require you to create an account. When creating an account, you agree to:</p>
+                    <ul>
+                        <li>Provide accurate, current, and complete information</li>
+                        <li>Maintain the security of your password and accept all risks of unauthorized access</li>
+                        <li>Notify us immediately if you discover or suspect any security breaches</li>
+                    </ul>
+                    <p>We reserve the right to suspend or terminate accounts that violate these Terms or that we determine are being used for fraudulent or inappropriate purposes.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h3>User Responsibilities</h3>
+                    <p>When using NYxplore, you agree not to:</p>
+                    <ul>
+                        <li>Use the Service for any illegal purpose or in violation of any laws</li>
+                        <li>Violate or encourage others to violate the rights of third parties</li>
+                        <li>Post or share any content that is unlawful, harmful, or offensive</li>
+                        <li>Attempt to interfere with the proper working of the Service</li>
+                        <li>Use any automated means to access the Service without our permission</li>
+                        <li>Misrepresent your affiliation with any person or entity</li>
+                        <li>Use the Service to advertise or promote commercial products or services without authorization</li>
+                    </ul>
+                </section>
+                
+                <section class="terms-section">
+                    <h3>Content and Intellectual Property</h3>
+                    <p>All Content provided through our Service is protected by copyright, trademark, and other intellectual property laws. You may access and use the Content solely for your personal, non-commercial use.</p>
+                    <p>You may not:</p>
+                    <ul>
+                        <li>Reproduce, distribute, or create derivative works from our Content without permission</li>
+                        <li>Use any data mining, robots, or similar data gathering/extraction tools</li>
+                        <li>Remove any copyright or other proprietary notices from our Content</li>
+                        <li>Use our trademarks, logos, or branding without express written permission</li>
+                    </ul>
+                    <p>If you believe your intellectual property rights have been violated, please contact us at copyright@nyxplore.com.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h3>Third-Party Links and Services</h3>
+                    <p>Our Service may contain links to third-party websites, services, or resources. We are not responsible for:</p>
+                    <ul>
+                        <li>The content or accuracy of any third-party materials</li>
+                        <li>The availability of these external sites or resources</li>
+                        <li>Any damage or loss caused by or in connection with use of third-party services</li>
+                    </ul>
+                    <p>When you access third-party services, you do so at your own risk and subject to their terms and policies.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h3>Disclaimer of Warranties</h3>
+                    <p>NYxplore provides the Service on an "as is" and "as available" basis. We make no representations or warranties of any kind, express or implied, including:</p>
+                    <ul>
+                        <li>That the Service will be uninterrupted, timely, secure, or error-free</li>
+                        <li>The accuracy, reliability, or completeness of any Content</li>
+                        <li>That any defects will be corrected</li>
+                    </ul>
+                    <p>To the maximum extent permitted by law, we disclaim all warranties, whether express or implied, including implied warranties of merchantability, fitness for a particular purpose, and non-infringement.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h3>Limitation of Liability</h3>
+                    <p>NYxplore shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation:</p>
+                    <ul>
+                        <li>Loss of profits, data, use, goodwill, or other intangible losses</li>
+                        <li>Damages resulting from your access to or use of (or inability to access or use) the Service</li>
+                        <li>Unauthorized access to or alteration of your transmissions or data</li>
+                        <li>Statements or conduct of any third party on the Service</li>
+                    </ul>
+                    <p>Our total liability for any claims under these Terms shall not exceed the amount you paid us, if any, to use the Service.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h3>Indemnification</h3>
+                    <p>You agree to defend, indemnify, and hold harmless NYxplore and its affiliates, officers, directors, employees, and agents from any claims, liabilities, damages, losses, and expenses (including reasonable attorneys' fees) arising out of or in any way connected with:</p>
+                    <ul>
+                        <li>Your access to or use of the Service</li>
+                        <li>Your violation of these Terms</li>
+                        <li>Your violation of any third-party right, including intellectual property or privacy rights</li>
+                    </ul>
+                </section>
+                
+                <section class="terms-section">
+                    <h3>Modifications to the Service</h3>
+                    <p>We reserve the right to modify, suspend, or discontinue the Service (or any part of it) at any time, with or without notice. We will not be liable to you or any third party for any modification, suspension, or discontinuance of the Service.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h3>Changes to These Terms</h3>
+                    <p>We may update these Terms from time to time. If we make material changes, we will notify you through the Service or by other means. Your continued use of the Service after such changes constitutes your acceptance of the new Terms.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h3>Governing Law</h3>
+                    <p>These Terms shall be governed by and construed in accordance with the laws of the State of New York, without regard to its conflict of law provisions. Any disputes arising under these Terms shall be resolved in the state or federal courts located in New York County, New York.</p>
+                </section>
+                
+                <section class="terms-section">
+                    <h3>Contact Us</h3>
+                    <p>If you have any questions about these Terms, please contact us:</p>
+                    <ul>
+                        <li>By email: legal@nyxplore.com</li>
+                        <li>By mail: NYxplore Legal Department, 123 NYC Landmark Way, New York, NY 10001</li>
+                    </ul>
+                    <p>Effective Date: <strong>May 16, 2025</strong></p>
+                </section>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer-container">
+            <div class="footer-newsletter">
+                <h3>Explore NYC With Us</h3>
+                <p>Get updates on new landmarks and NYC events</p>
+                <form class="newsletter-form" id="newsletter-form" name="newsletter" method="POST" netlify data-netlify-honeypot="bot-field">
+                    <input type="hidden" name="form-name" value="newsletter">
+                    <p class="hidden">
+                        <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                    </p>
+                    <div class="input-group">
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Your email address" 
+                            required 
+                            aria-label="Email address"
+                            aria-describedby="email-helper"
+                        >
+                        <button type="submit" aria-label="Subscribe">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <small id="email-helper">We'll never share your email</small>
+                </form>
+                <div id="newsletter-message" class="newsletter-message" aria-live="polite"></div>
+            </div>
+            
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Discover</h4>
+                    <ul>
+                        <li><a href="index.html#landmarks"><i class="fas fa-landmark" aria-hidden="true"></i> Iconic Landmarks</a></li>
+                        <li><a href="index.html#culture"><i class="fas fa-theater-masks" aria-hidden="true"></i> Arts & Culture</a></li>
+                        <li><a href="index.html#food"><i class="fas fa-utensils" aria-hidden="true"></i> Food Scene</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="interactive-map.html"><i class="fas fa-map" aria-hidden="true"></i> Interactive Map</a></li>
+                        <li><a href="https://www.getyourguide.com/new-york-city-l59/?psrc=widget&partner_id=TNC8XGK&widget=city&wid=d59c1635-51c8-5fc7-a9ea-732f48efc4f9&page_id=9a4a6d7c-f348-5828-8dfc-db6d3d417ef0&visitor-id=A4ADFA122E034CF2AC446699C187D82E"><i class="fas fa-bus" aria-hidden="true"></i> Guided Tours</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html"><i class="fas fa-heart" aria-hidden="true"></i> About Us</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
+                        <li><a href="privacy-policy.html"><i class="fas fa-lock" aria-hidden="true"></i> Privacy Policy</a></li>
+                        <li><a href="terms.html"><i class="fas fa-file-contract" aria-hidden="true"></i> Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+                
+                <div class="legal-links">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="accessibility.html">Accessibility</a>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current year
+            document.getElementById('year').textContent = new Date().getFullYear();
+            
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu');
+            const navbarMenu = document.getElementById('navbar-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                navbarMenu.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.navbar-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navbarMenu.classList.remove('active');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                });
+            });
+            
+            // Newsletter form handling
+            const newsletterForm = document.getElementById('newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const email = this.elements['email'].value;
+                    const messageElement = document.getElementById('newsletter-message');
+                    
+                    // Simple validation
+                    if (!email.includes('@')) {
+                        messageElement.textContent = 'Please enter a valid email address';
+                        messageElement.style.color = 'red';
+                        return;
+                    }
+                    
+                    // Simulate submission
+                    messageElement.textContent = 'Thank you for subscribing to our newsletter!';
+                    messageElement.style.color = 'green';
+                    
+                    // Reset form after 3 seconds
+                    setTimeout(() => {
+                        this.reset();
+                        messageElement.textContent = '';
+                    }, 3000);
+                });
+            }
+        });
+    </script>
+    <script>
+// Auto-hide navbar on scroll
+let lastScroll = 0;
+const header = document.querySelector('.header');
+const scrollThreshold = 100; // Pixels to scroll before hiding
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll <= 0) {
+        // At top of page - always show
+        header.classList.remove('hide');
+        return;
+    }
+    
+    if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
+        // Scrolling DOWN - hide
+        header.classList.add('hide');
+    } else if (currentScroll < lastScroll) {
+        // Scrolling UP - show
+        header.classList.remove('hide');
+    }
+    
+    lastScroll = currentScroll;
+});
+</script>
+
+</body>
+</html>
