@@ -438,39 +438,7 @@ body {
   font-size: 0.9rem;
 }
 
-
-/* Scroll to Top Button - Fixed */
-.scroll-top {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 50px;
-  height: 50px;
-  background-color: var(--accent-color);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: var(--transition);
-  z-index: 999;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.scroll-top.visible {
-  opacity: 1;
-  visibility: visible;
-}
-
-.scroll-top:hover {
-  background-color: var(--accent-dark);
-  transform: translateY(-3px);
-}
-
+ 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .blog-post {

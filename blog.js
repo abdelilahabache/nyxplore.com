@@ -2,20 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update year in footer
     document.getElementById('year').textContent = new Date().getFullYear();
     
-    // Scroll to top button
-    const scrollButton = document.getElementById('scroll-to-top');
-    if (scrollButton) {
-        window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 300) {
-                scrollButton.classList.add('visible');
-            } else {
-                scrollButton.classList.remove('visible');
-            }
-        });
-        scrollButton.addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
+
     
     // Theme toggle
     const themeToggle = document.getElementById('theme-toggle');
@@ -82,18 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Scroll progress indicator
-window.addEventListener('scroll', function() {
-    const path = document.querySelector('.progress-circle path');
-    if (path) {
-        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrollProgress = (scrollTop / scrollHeight) * 100;
-        const circumference = 307.919;
-        const offset = circumference - (scrollProgress / 100) * circumference;
-        path.style.strokeDashoffset = offset;
-    }
-});
+
 
 //Structured Data
 type="application/ld+json">
