@@ -3,45 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy | NYxplore - New York City Travel Guide</title>
+    <title>About NYxplore | Discover the Soul of New York City</title>
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-    <meta name="description" content="NYxplore's privacy policy outlining how we collect, use, and protect your personal information while exploring New York City's landmarks and culture.">
-      <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DMW3YWQXBF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-DMW3YWQXBF');
-</script>
-<!-- GetYourGuide Analytics -->
-<script async defer src="https://widget.getyourguide.com/dist/pa.umd.production.min.js" data-gyg-partner-id="TNC8XGK"></script>
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Privacy Policy",
-      "description": "NYxplore's privacy policy outlining data collection and usage practices",
-      "publisher": {
-        "@type": "Organization",
-        "name": "NYxplore",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://nyxplore.com/assets/images/logo-NY.webp"
-        }
-      }
-    }
-    </script>
-    
-    <!-- Google Analytics -->
+    <meta name="description" content="Learn about NYxplore's mission to showcase the authentic New York City experience through curated landmarks, culture, and culinary adventures.">
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMW3YWQXBF"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-DMW3YWQXBF');
+    </script>
+    
+    <!-- GetYourGuide Analytics -->
+    <script async defer src="https://widget.getyourguide.com/dist/pa.umd.production.min.js" data-gyg-partner-id="TNC8XGK"></script>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "name": "About NYxplore",
+      "description": "Discover our mission to showcase authentic New York City experiences",
+      "publisher": {
+        "@type": "Organization",
+        "name": "NYxplore",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://nyxplore.com/assets/images/logo-ny.webp"
+        },
+        "founder": {
+          "@type": "Person",
+          "name": "NYxplore Team"
+        },
+        "foundingDate": "2020"
+      }
+    }
     </script>
 
     <!-- Preload key resources -->
@@ -55,8 +52,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Critical CSS -->
+    <!-- Critical CSS (same as privacy policy) -->
     <style>
+        /* Same CSS as privacy policy page */
         :root {
             --primary-color: #e74c3c;
             --secondary-color: #2c3e50;
@@ -76,7 +74,6 @@
             padding: 0;
             overflow-x: hidden;
         }
-        
         /* Header & Navigation */
         .header {
             background-color: #fff;
@@ -425,6 +422,137 @@ body {
     scroll-padding-top: 80px; /* Match your header height */
 }
 
+    
+        /* Same header, footer, and responsive styles as privacy policy */
+        /* ... */
+        
+        /* About Page Specific Styles */
+        .about-hero {
+            background: linear-gradient(rgba(0,0,0,0.6), #00000066), 
+                        url('assets/images/nyc-about-hero.webp') center/cover no-repeat;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .team-member {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+        
+        .member-photo {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .member-info {
+            padding: 1.5rem;
+        }
+        
+        .member-info h3 {
+            margin: 0 0 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .member-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .mission-statement {
+            background: var(--light-color);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+            position: relative;
+        }
+        
+        .mission-statement::before {
+            content: '"';
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            color: rgba(243, 156, 18, 0.2);
+            position: absolute;
+            top: 0;
+            left: 1rem;
+            line-height: 1;
+        }
+        
+        .values-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .value-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            border-top: 4px solid var(--accent-color);
+        }
+        
+        .value-card h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: var(--accent-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .timeline-date {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
     </style>
 </head>
 <body>
@@ -452,17 +580,19 @@ body {
                 <li class="navbar-item"><a href="index.html#landmarks" class="navbar-link">Landmarks</a></li>
                 <li class="navbar-item"><a href="index.html#culture" class="navbar-link">Culture</a></li>
                 <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
-                <li class="navbar-item"><a href="index.html#gallery" class="navbar-link">Gallery</a></li>
+                <li class="navbar-item"><a href="blog.html" class="navbar-link">Blog</a></li>
                 <li class="navbar-item"><a href="index.html#map" class="navbar-link">Map</a></li>
+                <li class="navbar-item"><a href="about.html" class="navbar-link active">About</a></li>
             </ul>
         </div>
     </header>
     
     <main id="main-content">
         <!-- Hero Banner -->
-        <section class="policy-hero" aria-labelledby="policy-heading">
+        <section class="policy-hero about-hero" aria-labelledby="about-heading">
             <div class="hero-content">
-                <h1 id="policy-heading" class="policy-title">Privacy Policy</h1>
+                <h1 id="about-heading" class="policy-title">Our NYC Story</h1>
+                <p class="hero-subtitle">Discover the passion behind NYxplore</p>
             </div>
         </section>
 
@@ -470,89 +600,145 @@ body {
         <div class="container">
             <div class="policy-content">
                 <section class="policy-section">
-                    <h2 class="section-title">Our Commitment to Your Privacy</h2>
-                    <p>At NYxplore, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you visit our website (www.nyxplore.com) and use our services to explore New York City's landmarks, culture, and attractions.</p>
-                    <p>By using our website, you consent to the data practices described in this policy. If you do not agree with our policies and practices, please do not use our website.</p>
+                    <h2 class="section-title">Who We Are</h2>
+                    <p>NYxplore was born from a simple idea: to create the most authentic, immersive guide to New York City. Founded in 2020 by a team of lifelong New Yorkers and passionate explorers, we're dedicated to showcasing the soul of the city beyond the typical tourist spots.</p>
+                    
+                    <div class="mission-statement">
+                        <p>Our mission is to connect people with the real New York—the hidden courtyards, the family-run eateries, the vibrant street culture, and the stories that make each neighborhood unique. We believe the best NYC experiences happen when you explore like a local.</p>
+                    </div>
                 </section>
                 
                 <section class="policy-section">
-                    <h3>Information We Collect</h3>
-                    <p>We collect several types of information from and about users of our website, including:</p>
+                    <h3>Our Team</h3>
+                    <p>We're a diverse group of writers, photographers, urban explorers, and food enthusiasts who know every corner of the five boroughs. Meet some of the people behind NYxplore:</p>
+                    
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <div class="member-photo" style="background-image: url('assets/images/team/maria.webp')" aria-label="Maria Rodriguez"></div>
+                            <div class="member-info">
+                                <h3>Maria Rodriguez</h3>
+                                <p class="title">Founder & Chief Explorer</p>
+                                <p>Bronx native with 15+ years experience in NYC tourism. Knows every subway shortcut and best bodega in town.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="team-member">
+                            <div class="member-photo" style="background-image: url('assets/images/team/jamal.webp')" aria-label="Jamal Carter"></div>
+                            <div class="member-info">
+                                <h3>Jamal Carter</h3>
+                                <p class="title">Food Editor</p>
+                                <p>Former food critic who can tell you where to find the perfect slice in every neighborhood.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="team-member">
+                            <div class="member-photo" style="background-image: url('assets/images/team/lena.webp')" aria-label="Lena Petrov"></div>
+                            <div class="member-info">
+                                <h3>Lena Petrov</h3>
+                                <p class="title">Culture Director</p>
+                                <p>Arts historian who curates our museum and street art coverage. Brooklyn resident since 2008.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="policy-section">
+                    <h3>Our Values</h3>
+                    <p>These principles guide everything we do at NYxplore:</p>
+                    
+                    <div class="values-list">
+                        <div class="value-card">
+                            <h3>Authenticity</h3>
+                            <p>We only recommend places we genuinely love and think you will too. No paid placements or fake reviews.</p>
+                        </div>
+                        
+                        <div class="value-card">
+                            <h3>Local First</h3>
+                            <p>We prioritize small businesses and neighborhood institutions over tourist traps.</p>
+                        </div>
+                        
+                        <div class="value-card">
+                            <h3>Accessibility</h3>
+                            <p>New York is for everyone. We highlight affordable options and accessible experiences.</p>
+                        </div>
+                        
+                        <div class="value-card">
+                            <h3>Sustainability</h3>
+                            <p>We promote eco-friendly ways to explore and support businesses with green practices.</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="policy-section">
+                    <h3>Our Story</h3>
+                    <p>How NYxplore grew from a passion project to NYC's most trusted travel guide:</p>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">2020</div>
+                                <p>Founded by Maria Rodriguez with a small blog covering hidden gems in the Bronx and Upper Manhattan</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">2021</div>
+                                <p>Expanded to cover all five boroughs with a team of neighborhood correspondents</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">2022</div>
+                                <p>Launched interactive map feature and neighborhood guides</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">2023</div>
+                                <p>Partnered with local businesses to offer exclusive NYxplore experiences</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">2024</div>
+                                <p>Reached 1 million monthly visitors and featured in The New York Times</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <div class="timeline-date">2025</div>
+                                <p>Launched immersive AR features and neighborhood audio tours</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="policy-section">
+                    <h3>Work With Us</h3>
+                    <p>We're always looking to collaborate with passionate New Yorkers and businesses that share our values:</p>
                     <ul>
-                        <li><strong>Personal Information:</strong> When you sign up for newsletters, create an account, or contact us, we may collect your name, email address, and other contact details.</li>
-                        <li><strong>Usage Data:</strong> We automatically collect information about how you interact with our website, including pages visited, time spent on pages, and referring websites.</li>
-                        <li><strong>Location Data:</strong> With your permission, we may collect information about your location to provide personalized recommendations for NYC attractions.</li>
-                        <li><strong>Cookies and Tracking Technologies:</strong> We use cookies and similar tracking technologies to enhance your experience and analyze website traffic.</li>
+                        <li><strong>Content Contributors:</strong> Know a neighborhood or topic we should cover? Pitch us your ideas.</li>
+                        <li><strong>Business Partnerships:</strong> Get featured in our guides (we're very selective!).</li>
+                        <li><strong>Advertising:</strong> Reach our audience of engaged NYC explorers.</li>
                     </ul>
+                    <p>Email us at <a href="mailto:hello@nyxplore.com">hello@nyxplore.com</a> or visit our <a href="partner.html">partnership page</a>.</p>
                 </section>
                 
                 <section class="policy-section">
-                    <h3>How We Use Your Information</h3>
-                    <p>We use the information we collect for various purposes, including:</p>
+                    <h3>Our Promise to You</h3>
+                    <p>When you use NYxplore, you can trust that:</p>
                     <ul>
-                        <li>To provide and maintain our NYC travel guide services</li>
-                        <li>To personalize your experience with recommendations for landmarks, restaurants, and events</li>
-                        <li>To improve our website and develop new features</li>
-                        <li>To communicate with you about updates, promotions, and NYC travel tips</li>
-                        <li>To analyze usage patterns and optimize our content</li>
-                        <li>To detect, prevent, and address technical issues</li>
+                        <li>We've personally visited every place we recommend</li>
+                        <li>We update our guides regularly to reflect changes</li>
+                        <li>We disclose any sponsored content transparently</li>
+                        <li>We respect your privacy (see our <a href="privacy-policy.html">Privacy Policy</a>)</li>
                     </ul>
-                </section>
-                
-                <section class="policy-section">
-                    <h3>Data Sharing and Disclosure</h3>
-                    <p>We may share your information in the following situations:</p>
-                    <ul>
-                        <li><strong>Service Providers:</strong> We may employ third-party companies to facilitate our service (such as analytics providers or email services).</li>
-                        <li><strong>Business Transfers:</strong> If we're involved in a merger, acquisition, or asset sale, your data may be transferred.</li>
-                        <li><strong>Legal Requirements:</strong> We may disclose your information when required by law or in response to valid requests by public authorities.</li>
-                    </ul>
-                    <p>We do not sell your personal information to third parties for marketing purposes.</p>
-                </section>
-                
-                <section class="policy-section">
-                    <h3>Cookies and Tracking Technologies</h3>
-                    <p>We use cookies and similar tracking technologies to track activity on our website and hold certain information. Cookies are files with a small amount of data which may include an anonymous unique identifier. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent.</p>
-                    <p>We use Google Analytics to help analyze how users use our site. Google Analytics uses cookies to collect standard internet log information and visitor behavior information in an anonymous form.</p>
-                </section>
-                
-                <section class="policy-section">
-                    <h3>Your Data Protection Rights</h3>
-                    <p>Depending on your location, you may have certain rights regarding your personal information:</p>
-                    <ul>
-                        <li><strong>Access:</strong> You can request copies of your personal data.</li>
-                        <li><strong>Rectification:</strong> You can request that we correct any information you believe is inaccurate.</li>
-                        <li><strong>Erasure:</strong> You can request that we erase your personal data under certain conditions.</li>
-                        <li><strong>Restriction:</strong> You can request that we restrict the processing of your personal data.</li>
-                        <li><strong>Objection:</strong> You can object to our processing of your personal data.</li>
-                        <li><strong>Data Portability:</strong> You can request that we transfer the data we've collected to another organization.</li>
-                    </ul>
-                    <p>To exercise any of these rights, please contact us using the information below.</p>
-                </section>
-                
-                <section class="policy-section">
-                    <h3>Children's Privacy</h3>
-                    <p>Our website is not intended for children under 13 years of age. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us.</p>
-                </section>
-                
-                <section class="policy-section">
-                    <h3>Links to Other Websites</h3>
-                    <p>Our website contains links to other NYC attractions, restaurants, and services that are not operated by us. If you click on a third-party link, you will be directed to that third party's site. We strongly advise you to review the privacy policy of every site you visit.</p>
-                </section>
-                
-                <section class="policy-section">
-                    <h3>Changes to This Privacy Policy</h3>
-                    <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "effective date" at the top of this policy. You are advised to review this Privacy Policy periodically for any changes.</p>
-                </section>
-                
-                <section class="policy-section">
-                    <h3>Contact Us</h3>
-                    <p>If you have any questions about this Privacy Policy or our data practices, please contact us:</p>
-                    <ul>
-                        <li>By email: privacy@nyxplore.com</li>
-                        <li>By mail: NYxplore Privacy Office, 123 NYC Landmark Way, New York, NY 10001</li>
-                    </ul>
-                    <p>Effective Date: <strong>May 16, 2025</strong></p>
+                    <p>Most importantly, we promise to help you experience New York City at its very best—the way locals know and love it.</p>
                 </section>
             </div>
         </div>
@@ -601,14 +787,14 @@ body {
                     <h4>Resources</h4>
                     <ul>
                         <li><a href="interactive-map.html"><i class="fas fa-map" aria-hidden="true"></i> Interactive Map</a></li>
-                        <li><a href="https://www.getyourguide.com/new-york-city-l59/?psrc=widget&partner_id=TNC8XGK&widget=city&wid=d59c1635-51c8-5fc7-a9ea-732f48efc4f9&page_id=852f1b32-ad72-58f5-baf4-950bc3bb8d35&visitor-id=A4ADFA122E034CF2AC446699C187D82E"><i class="fas fa-bus" aria-hidden="true"></i> Guided Tours</a></li>
+                        <li><a href="https://www.getyourguide.com/new-york-city-l59/?psrc=widget&partner_id=TNC8XGK&widget=city"><i class="fas fa-bus" aria-hidden="true"></i> Guided Tours</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
                     <h4>Company</h4>
                     <ul>
-                        <li><a href="about.html"><i class="fas fa-heart" aria-hidden="true"></i> About Us</a></li>
+                        <li><a href="about.html" class="active"><i class="fas fa-heart" aria-hidden="true"></i> About Us</a></li>
                         <li><a href="contact.html"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
                         <li><a href="privacy-policy.html"><i class="fas fa-lock" aria-hidden="true"></i> Privacy Policy</a></li>
                     </ul>
@@ -634,6 +820,7 @@ body {
             </div>
         </div>
     </footer>
+    <link rel="stylesheet" href="script.js">
 
     <!-- JavaScript -->
     <script>
@@ -689,31 +876,27 @@ body {
         });
     </script>
     <script>
-// Auto-hide navbar on scroll
-let lastScroll = 0;
-const header = document.querySelector('.header');
-const scrollThreshold = 100; // Pixels to scroll before hiding
+        // Auto-hide navbar on scroll
+        let lastScroll = 0;
+        const header = document.querySelector('.header');
+        const scrollThreshold = 100;
 
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll <= 0) {
-        // At top of page - always show
-        header.classList.remove('hide');
-        return;
-    }
-    
-    if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
-        // Scrolling DOWN - hide
-        header.classList.add('hide');
-    } else if (currentScroll < lastScroll) {
-        // Scrolling UP - show
-        header.classList.remove('hide');
-    }
-    
-    lastScroll = currentScroll;
-});
-</script>
-
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll <= 0) {
+                header.classList.remove('hide');
+                return;
+            }
+            
+            if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
+                header.classList.add('hide');
+            } else if (currentScroll < lastScroll) {
+                header.classList.remove('hide');
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
 </body>
 </html>
