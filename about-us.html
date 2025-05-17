@@ -163,7 +163,7 @@
             height: 40vh;
             min-height: 300px;
             background: linear-gradient(rgba(0,0,0,0.6), #00000066), 
-                        url('assets/images/nyc-faq-hero.webp.webp') center/cover no-repeat;
+                        url('assets/images/nyc-faq-hero(1).webp') center/cover no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -429,7 +429,7 @@ body {
         /* About Page Specific Styles */
         .about-hero {
             background: linear-gradient(rgba(0,0,0,0.6), #00000066), 
-                        url('assets/images/nyc-about-hero.webp') center/cover no-repeat;
+                        url('assets/images/nyc-faq-hero(1).webp') center/cover no-repeat;
         }
         
         .team-grid {
@@ -510,48 +510,18 @@ body {
             margin-top: 0;
         }
         
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 2rem auto;
+        .story-highlight {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border-left: 4px solid var(--accent-color);
         }
         
-        .timeline::before {
-            content: '';
-            position: absolute;
-            width: 2px;
-            background-color: var(--accent-color);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -1px;
-        }
-        
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            width: 50%;
-            box-sizing: border-box;
-        }
-        
-        .timeline-item:nth-child(odd) {
-            left: 0;
-        }
-        
-        .timeline-item:nth-child(even) {
-            left: 50%;
-        }
-        
-        .timeline-content {
-            padding: 20px;
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-        }
-        
-        .timeline-date {
-            font-weight: bold;
-            color: var(--accent-color);
+        .story-highlight p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
         }
     </style>
 </head>
@@ -582,7 +552,7 @@ body {
                 <li class="navbar-item"><a href="index.html#food" class="navbar-link">Food</a></li>
                 <li class="navbar-item"><a href="blog.html" class="navbar-link">Blog</a></li>
                 <li class="navbar-item"><a href="index.html#map" class="navbar-link">Map</a></li>
-                <li class="navbar-item"><a href="about.html" class="navbar-link active">About</a></li>
+                <li class="navbar-item"><a href="about-us.html" class="navbar-link active">About</a></li>
             </ul>
         </div>
     </header>
@@ -601,47 +571,13 @@ body {
             <div class="policy-content">
                 <section class="policy-section">
                     <h2 class="section-title">Who We Are</h2>
-                    <p>NYxplore was born from a simple idea: to create the most authentic, immersive guide to New York City. Founded in 2020 by a team of lifelong New Yorkers and passionate explorers, we're dedicated to showcasing the soul of the city beyond the typical tourist spots.</p>
+                    <p>NYxplore was born from a simple idea: to create the most authentic, immersive guide to New York City. Founded by a team of lifelong New Yorkers and passionate explorers, we're dedicated to showcasing the soul of the city beyond the typical tourist spots.</p>
                     
                     <div class="mission-statement">
                         <p>Our mission is to connect people with the real New York—the hidden courtyards, the family-run eateries, the vibrant street culture, and the stories that make each neighborhood unique. We believe the best NYC experiences happen when you explore like a local.</p>
                     </div>
                 </section>
-                
-                <section class="policy-section">
-                    <h3>Our Team</h3>
-                    <p>We're a diverse group of writers, photographers, urban explorers, and food enthusiasts who know every corner of the five boroughs. Meet some of the people behind NYxplore:</p>
-                    
-                    <div class="team-grid">
-                        <div class="team-member">
-                            <div class="member-photo" style="background-image: url('assets/images/team/maria.webp')" aria-label="Maria Rodriguez"></div>
-                            <div class="member-info">
-                                <h3>Maria Rodriguez</h3>
-                                <p class="title">Founder & Chief Explorer</p>
-                                <p>Bronx native with 15+ years experience in NYC tourism. Knows every subway shortcut and best bodega in town.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="team-member">
-                            <div class="member-photo" style="background-image: url('assets/images/team/jamal.webp')" aria-label="Jamal Carter"></div>
-                            <div class="member-info">
-                                <h3>Jamal Carter</h3>
-                                <p class="title">Food Editor</p>
-                                <p>Former food critic who can tell you where to find the perfect slice in every neighborhood.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="team-member">
-                            <div class="member-photo" style="background-image: url('assets/images/team/lena.webp')" aria-label="Lena Petrov"></div>
-                            <div class="member-info">
-                                <h3>Lena Petrov</h3>
-                                <p class="title">Culture Director</p>
-                                <p>Arts historian who curates our museum and street art coverage. Brooklyn resident since 2008.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                
+                 
                 <section class="policy-section">
                     <h3>Our Values</h3>
                     <p>These principles guide everything we do at NYxplore:</p>
@@ -673,48 +609,12 @@ body {
                     <h3>Our Story</h3>
                     <p>How NYxplore grew from a passion project to NYC's most trusted travel guide:</p>
                     
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-content">
-                                <div class="timeline-date">2020</div>
-                                <p>Founded by Maria Rodriguez with a small blog covering hidden gems in the Bronx and Upper Manhattan</p>
-                            </div>
-                        </div>
+                    <div class="story-highlight">
+                        <p>NYxplore began as a passion project, born from a deep love for New York City. We wanted to create more than just a travel guide—we envisioned a trusted platform that captures the true spirit of NYC, crafted with care by those who know it best.</p>
                         
-                        <div class="timeline-item">
-                            <div class="timeline-content">
-                                <div class="timeline-date">2021</div>
-                                <p>Expanded to cover all five boroughs with a team of neighborhood correspondents</p>
-                            </div>
-                        </div>
+                        <p>To bring this vision to life, we partnered with local experts, seasoned guides, and trusted sources to gather authentic insights, hidden gems, and must-see spots across the city. Every recommendation, tip, and itinerary is infused with local knowledge, ensuring an experience that goes beyond the typical tourist path.</p>
                         
-                        <div class="timeline-item">
-                            <div class="timeline-content">
-                                <div class="timeline-date">2022</div>
-                                <p>Launched interactive map feature and neighborhood guides</p>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="timeline-content">
-                                <div class="timeline-date">2023</div>
-                                <p>Partnered with local businesses to offer exclusive NYxplore experiences</p>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="timeline-content">
-                                <div class="timeline-date">2024</div>
-                                <p>Reached 1 million monthly visitors and featured in The New York Times</p>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="timeline-content">
-                                <div class="timeline-date">2025</div>
-                                <p>Launched immersive AR features and neighborhood audio tours</p>
-                            </div>
-                        </div>
+                        <p>Built by NYC lovers, for NYC lovers, NYxplore has become the city's most trusted travel companion. Whether you're a first-time visitor or a lifelong New Yorker, we're here to help you explore the city with confidence—and maybe even fall in love with it as much as we have.</p>
                     </div>
                 </section>
                 
@@ -726,7 +626,7 @@ body {
                         <li><strong>Business Partnerships:</strong> Get featured in our guides (we're very selective!).</li>
                         <li><strong>Advertising:</strong> Reach our audience of engaged NYC explorers.</li>
                     </ul>
-                    <p>Email us at <a href="mailto:hello@nyxplore.com">hello@nyxplore.com</a> or visit our <a href="partner.html">partnership page</a>.</p>
+                    <p>Email us at <a href="mailto:hello@nyxplore.com">hello@nyxplore.com</a> or visit our <a href="partner-with-us.html">partnership page</a>.</p>
                 </section>
                 
                 <section class="policy-section">
@@ -898,5 +798,51 @@ body {
             lastScroll = currentScroll;
         });
     </script>
+    <!-- Scroll to Top Button (Floating Circle) -->
+<button id="scroll-to-top" class="scroll-top" aria-label="Scroll to top">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- Font Awesome (required for the icon) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- CSS (minimal required styles) -->
+<style>
+  .scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: #3a86ff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  .scroll-top.visible { opacity: 1; visibility: visible; }
+  .scroll-top:hover { background-color: #2667cc; transform: translateY(-3px); }
+  .scroll-top i { font-size: 1.25rem; }
+</style>
+
+<!-- JavaScript -->
+<script>
+  const scrollButton = document.getElementById('scroll-to-top');
+  window.addEventListener('scroll', () => {
+    scrollButton.classList.toggle('visible', window.scrollY > 300);
+  });
+  scrollButton.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
 </body>
 </html>
