@@ -39,7 +39,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: rgba(10, 17, 40, 0.95);
+  background-color: white(10, 17, 40, 0.95);
   color: white;
   z-index: 1000;
   transition: var(--transition);
