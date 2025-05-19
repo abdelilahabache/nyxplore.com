@@ -1,0 +1,17 @@
+[build]
+  publish = "dist"
+
+# BLOCK SPECIFIC MALICIOUS IPs
+[[redirects]]
+  from = "/*"
+  to = "/bot-blocked.html"
+  status = 403
+  force = true
+  conditions = {IP = [
+    "188.95.55.119",
+    "188.95.55.121", 
+    "41.248.170.146",
+    "176.53.221.188",
+    "205.169.39.64"
+    # Add more IPs as needed
+  ]}
