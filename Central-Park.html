@@ -1007,8 +1007,7 @@ body {
         <small id="email-helper" class="visually-hidden">We'll never share your email</small>
     </form>
     <div class="newsletter-success" aria-live="polite">Thank you for subscribing!</div>
-</div>
-        
+</div> 
             <!-- Quick Links Grid -->
             <div class="footer-grid">
                 <div class="footer-column">
@@ -1101,35 +1100,61 @@ body {
             
             timelineItems.forEach(item => observer.observe(item));
             
-            // Newsletter form handling
+                        // Newsletter form handling
+            function showMessage(text, type) {
+                const messageDiv = document.getElementById('newsletter-message');
+                if (messageDiv) {
+                    messageDiv.textContent = text;
+                    messageDiv.className = `message ${type}`;
+                    messageDiv.style.opacity = '1';
+                    
+                    setTimeout(() => {
+                        messageDiv.style.opacity = '0';
+                    }, 3000);
+                }
+            }
+
             const newsletterForm = document.getElementById('newsletter-form');
             if (newsletterForm) {
-                newsletterForm.addEventListener('submit', function(e) {
+                newsletterForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
+                    const emailInput = this.querySelector('input[type="email"]');
+                    const submitButton = this.querySelector('button[type="submit"]');
                     
-                    const email = this.elements['email'].value;
-                    const messageElement = document.getElementById('newsletter-message');
-                    
-                    // Simple validation
-                    if (!email.includes('@')) {
-                        messageElement.textContent = 'Please enter a valid email address';
-                        messageElement.style.color = 'red';
+                    if (!emailInput.value) {
+                        showMessage('Please enter your email address.', 'error');
                         return;
                     }
                     
-                    // Simulate submission
-                    messageElement.textContent = 'Thank you for subscribing!';
-                    messageElement.style.color = 'green';
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
                     
-                    // Reset form after 3 seconds
-                    setTimeout(() => {
-                        this.reset();
-                        messageElement.textContent = '';
-                    }, 3000);
+                    try {
+                        const response = await fetch('/', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            body: new URLSearchParams({
+                                'form-name': 'newsletter',
+                                'email': emailInput.value
+                            })
+                        });
+                        
+                        if (response.ok) {
+                            showMessage('Thank you for subscribing!', 'success');
+                            emailInput.value = '';
+                        } else {
+                            throw new Error('Network response was not ok');
+                        }
+                    } catch (error) {
+                        showMessage('Oops! Something went wrong. Please try again.', 'error');
+                        console.error('Error:', error);
+                    } finally {
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = '<i class="fas fa-paper-plane"></i>';
+                    }
                 });
             }
         });
-
         // Initialize search functionality
         function initSearch() {
             const searchInput = document.getElementById('search-input');
