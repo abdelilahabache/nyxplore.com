@@ -1,3 +1,30 @@
-[[edge_functions]]
-  path = "/*"
-  function = "bot-detection"
+[[redirects]]
+  from = "/*"
+  to = "/bot-blocked.html"
+  status = 403  # HTTP 403 Forbidden
+  conditions = {UserAgent = [
+    # BLOCK these patterns (wildcards allowed)
+    "*bot*", "*crawl*", "*spider*", 
+    "scrapy", "nmap", "sqlmap", 
+    "python-requests*", "curl*", "wget*", "zgrab*",
+
+    # EXCEPTIONS (allow these bots with '!')
+    "!Googlebot",        # Google Search
+    "!Bingbot",          # Microsoft Bing
+    "!Slurp",            # Yahoo
+    "!DuckDuckBot",      # DuckDuckGo
+    "!Applebot",         # Apple
+    "!Twitterbot",       # Twitter
+    "!facebookexternalhit*"  # Facebook
+  ]}
+  [[redirects]]
+  from = "/*"
+  to = "/bot-blocked.html"  # Sends blocked visitors to a custom page
+  status = 403             # HTTP 403 Forbidden status
+  conditions = {IP = [
+    "188.95.55.119",
+    "188.95.55.121", 
+    "41.248.170.146",
+    "176.53.221.188",
+    "205.169.39.64"
+  ]}
