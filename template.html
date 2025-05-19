@@ -13,10 +13,10 @@
   <!-- Social Meta -->
   <meta property="og:title" content="{{ title }}">
   <meta property="og:description" content="{{ description }}">
-  <meta property="og:image" content="/assets/{{ heroImage || 'default-hero.jpg' }}">
+  <meta property="og:image" content="/assets/{{ heroImage or 'default-hero.jpg' }}">
 
   <!-- Favicons -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
   <link rel="manifest" href="/site.webmanifest">
 
   <!-- Fonts -->
@@ -49,7 +49,6 @@
           <li><a href="/">Home</a></li>
           <li><a href="/seasonal-events.html">Seasonal Events</a></li>
           <li><a href="/free-attractions.html">Free Attractions</a></li>
-          <!-- Other nav items -->
         </ul>
       </nav>
       <button class="mobile-nav-toggle js-only" aria-label="Toggle navigation">
@@ -58,38 +57,119 @@
     </div>
   </header>
 
-  <!-- Content will be injected here -->
+  <!-- Main Content -->
   <main>
-    {% raw %}<?= html ?>{% endraw %}
+    {{ content | safe }}
   </main>
 
   <!-- Footer -->
-  <footer class="footer">
-    <!-- Your footer content -->
-  </footer>
+ 
+   <footer class="footer">
+        <div class="footer-container">
+            <!-- Newsletter Section -->
+<div class="footer-newsletter">
+    <h3>Explore NYC With Us</h3>
+    <p>Get exclusive updates on hidden gems and events</p>
+    <form class="newsletter-form" id="newsletter-form" name="newsletter" method="POST" netlify data-netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="newsletter">
+        <p class="hidden">
+            <label>Don't fill this out if you're human: <input name="bot-field"></label>
+        </p>
+        <div class="input-group">
+            <input 
+                type="email" 
+                name="email" 
+                placeholder="Your email address" 
+                required 
+                aria-label="Email address"
+                aria-describedby="email-helper"
+            >
+            <button type="submit" aria-label="Subscribe">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+        <small id="email-helper" class="visually-hidden">We'll never share your email</small>
+    </form>
+    <div class="newsletter-success" aria-live="polite">Thank you for subscribing!</div>
+</div>
+        
+            <!-- Quick Links Grid -->
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Discover</h4>
+                    <ul>
+                                            <li><a href="index.html#landmarks"><i class="fas fa-landmark"></i> Iconic Landmarks</a></li>
+                        <li><a href="index.html#culture"><i class="fas fa-theater-masks"></i> Arts & Culture</a></li>
+                        <li><a href="index.html#food"><i class="fas fa-utensils"></i> Food Scene</a></li>
+                        <li><a href="index.html#blog"><i class="fas fa-book-open"></i> blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="Transit-Guide.html"><i class="fas fa-subway"></i> Transit Guide</a></li>
+                        <li><a href="events-calendar.html"><i class="fas fa-calendar-alt"></i> Events Calendar</a></li>
+                        <li><a href="interactive-map.html"><i class="fas fa-map-marked-alt"></i> Interactive Map</a></li>
+                        <li><a href="visitor-faq.html"><i class="fas fa-question-circle"></i> Visitor FAQ</a></li>
+                        
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about-us.html"><i class="fas fa-heart"></i> About NYxplore</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a></li>   
+                        <li><a href="partner-with-us.html"><i class="fas fa-handshake"></i> partner with us</a></li>           
+                    </ul>
+                </div>
+            </div>
+        
+            <!-- Social & Legal -->
+            <div class="footer-bottom">
+                <div class="social-links">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+                
+                <div class="legal-links">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="#">Accessibility</a>
+                    <a href="sitemap.html">Sitemap</a>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; <span id="year"></span> NYxplore. All rights reserved.</p>
+                    <p>Made with <i class="fas fa-heart" style="color: #f79256;"></i> in New York City</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+  
 
-  <!-- Core JS (always loaded) -->
+  <!-- Core JS -->
   <script>
-    // Remove no-js class immediately
     document.documentElement.classList.remove('no-js');
-    
-    // Load core JS
     const coreScript = document.createElement('script');
-    coreScript.src = '/js/core.js';
+    coreScript.src = 'core.js';
     coreScript.defer = true;
     document.body.appendChild(coreScript);
   </script>
 
-  <!-- Conditional Page-Specific JS -->
-  {% if pageClass === 'seasonal-events' %}
-    <script src="/js/seasonal-events.js" defer></script>
+  <!-- Conditional JS -->
+  {% if pageClass == 'seasonal-events' %}
+    <script src="seasonal-events.js" defer></script>
   {% endif %}
   
-  {% if pageClass === 'free-attractions' %}
-    <script src="/js/free-attractions.js" defer></script>
+  {% if pageClass == 'free-attractions' %}
+    <script src="free-attractions.js" defer></script>
   {% endif %}
 
-  <!-- Fallback message -->
   <noscript>
     <div class="noscript-warning">
       <p>For the best experience, please enable JavaScript.</p>

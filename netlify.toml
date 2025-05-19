@@ -1,25 +1,12 @@
 [build]
-  publish = "dist"  # Set your build folder
+  publish = "dist"
 
-### 1. FIRST: ALLOW GOOD BOTS (SEO CRITICAL) ###
-[[redirects]]
-  from = "/*"
-  to = "/"
-  status = 200
-  conditions = {UserAgent = [
-    "Googlebot",
-    "Bingbot",
-    "Slurp",        # Yahoo
-    "DuckDuckBot",
-    "Applebot",
-    "facebookexternalhit"
-  ]}
-
-### 2. BLOCK YOUR SPECIFIC MALICIOUS IPs ###
+### 1. BLOCK MALICIOUS IPs (HIGHEST PRIORITY) ###
 [[redirects]]
   from = "/*"
   to = "/bot-blocked.html"
   status = 403
+  force = true
   conditions = {IP = [
     "188.95.55.119",
     "188.95.55.121",
@@ -28,14 +15,27 @@
     "205.169.39.64"
   ]}
 
-### 3. BLOCK BAD BOTS (while allowing good bots) ###
+### 2. BLOCK BAD BOTS ###
 [[redirects]]
   from = "/*"
   to = "/bot-blocked.html"
   status = 403
   conditions = {UserAgent = [
-    "*bot*", "*crawl*", "*spider*", 
-    "scrapy", "nmap", "sqlmap",
+    "scrapy", "nmap", "sqlmap", 
     "python-requests*", "curl*", "wget*",
-    "!Googlebot", "!Bingbot", "!Slurp"  # Exceptions
+    "AhrefsBot", "SemrushBot"
+  ]}
+
+### 3. ALLOW GOOD BOTS (LAST RULE) ###
+[[redirects]]
+  from = "/*"
+  to = "/"
+  status = 200
+  conditions = {UserAgent = [
+    "Googlebot", 
+    "Bingbot", 
+    "Slurp",
+    "DuckDuckBot", 
+    "Applebot", 
+    "facebookexternalhit"
   ]}
