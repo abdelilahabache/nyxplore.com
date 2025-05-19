@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Access Restricted</title>
+    <script>
+        // Send blocked request data to your analytics (e.g., Google Analytics)
+        if (navigator.sendBeacon) {
+            const data = new Blob([JSON.stringify({
+                ua: navigator.userAgent,
+                url: window.location.href,
+                time: new Date().toISOString()
+            })], { type: 'application/json' });
+            navigator.sendBeacon('/log-blocked-bot', data);
+        }
+    </script>
+</head>
+<body>
+    <h1>Automated Traffic Blocked</h1>
+    <p>This site restricts bots, crawlers, and scrapers.</p>
+</body>
+</html>

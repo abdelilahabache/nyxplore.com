@@ -1256,11 +1256,11 @@ body {
             <label>Don't fill this out if you're human: <input name="bot-field"></label>
         </p>
         <div class="input-group">
-            <input 
-                type="email" 
-                name="email" 
-                placeholder="Your email address" 
-                required 
+            <input
+                type="email"
+                name="email"
+                placeholder="Your email address"
+                required
                 aria-label="Email address"
                 aria-describedby="email-helper"
             >
@@ -1272,6 +1272,7 @@ body {
     </form>
     <div class="newsletter-success" aria-live="polite">Thank you for subscribing!</div>
 </div>
+
         
             <!-- Quick Links Grid -->
             <div class="footer-grid">
@@ -1535,31 +1536,59 @@ body {
                 subtree: true
             });
             
-            // Newsletter form handling
+              // Newsletter form handling
+            function showMessage(text, type) {
+                const messageDiv = document.getElementById('newsletter-message');
+                if (messageDiv) {
+                    messageDiv.textContent = text;
+                    messageDiv.className = `message ${type}`;
+                    messageDiv.style.opacity = '1';
+                   
+                    setTimeout(() => {
+                        messageDiv.style.opacity = '0';
+                    }, 3000);
+                }
+            }
+
+
             const newsletterForm = document.getElementById('newsletter-form');
             if (newsletterForm) {
-                newsletterForm.addEventListener('submit', function(e) {
+                newsletterForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
-                    
-                    const email = this.elements['email'].value;
-                    const messageElement = document.getElementById('newsletter-message');
-                    
-                    // Simple validation
-                    if (!email.includes('@')) {
-                        messageElement.textContent = 'Please enter a valid email address';
-                        messageElement.style.color = 'red';
+                    const emailInput = this.querySelector('input[type="email"]');
+                    const submitButton = this.querySelector('button[type="submit"]');
+                   
+                    if (!emailInput.value) {
+                        showMessage('Please enter your email address.', 'error');
                         return;
                     }
-                    
-                    // Simulate submission (in a real site, this would be an AJAX call)
-                    messageElement.textContent = 'Thank you for subscribing to our newsletter!';
-                    messageElement.style.color = 'green';
-                    
-                    // Reset form after 3 seconds
-                    setTimeout(() => {
-                        this.reset();
-                        messageElement.textContent = '';
-                    }, 3000);
+                   
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                   
+                    try {
+                        const response = await fetch('/', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            body: new URLSearchParams({
+                                'form-name': 'newsletter',
+                                'email': emailInput.value
+                            })
+                        });
+                       
+                        if (response.ok) {
+                            showMessage('Thank you for subscribing!', 'success');
+                            emailInput.value = '';
+                        } else {
+                            throw new Error('Network response was not ok');
+                        }
+                    } catch (error) {
+                        showMessage('Oops! Something went wrong. Please try again.', 'error');
+                        console.error('Error:', error);
+                    } finally {
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = '<i class="fas fa-paper-plane"></i>';
+                    }
                 });
             }
         });
