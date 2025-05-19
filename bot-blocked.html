@@ -1,21 +1,145 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Access Restricted</title>
-    <script>
-        // Send blocked request data to your analytics (e.g., Google Analytics)
-        if (navigator.sendBeacon) {
-            const data = new Blob([JSON.stringify({
-                ua: navigator.userAgent,
-                url: window.location.href,
-                time: new Date().toISOString()
-            })], { type: 'application/json' });
-            navigator.sendBeacon('/log-blocked-bot', data);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Restricted | 403 Forbidden</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --error: #dc2626;
+            --text: #334155;
+            --bg: #ffffff;
         }
-    </script>
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .error-code {
+            font-size: 5rem;
+            font-weight: 800;
+            color: var(--error);
+            margin: 0 0 1rem;
+            line-height: 1;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin: 0 0 1rem;
+        }
+        
+        .illustration {
+            max-width: 200px;
+            margin: 2rem auto;
+        }
+        
+        .contact-card {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        
+        #ref-id {
+            font-family: monospace;
+            font-weight: 700;
+            color: var(--primary);
+            word-break: break-all;
+        }
+        
+        #analytics-status {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 1rem;
+        }
+        
+        a {
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text: #e2e8f0;
+                --bg: #1e293b;
+            }
+            .contact-card {
+                background: #334155;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Automated Traffic Blocked</h1>
-    <p>This site restricts bots, crawlers, and scrapers.</p>
-</body>
+    <div class="error-code">403</div>
+    <h1>Access Restricted</h1>
+    
+    <svg class="illustration" viewBox="0 0 24 24" width="120" height="120" stroke="currentColor" stroke-width="1.5" fill="none">
+        <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    
+    <p>Our security systems have detected unauthorized access attempts from your network.</p>
+    
+    <div class="contact-card">
+        <p><strong>Reference ID:</strong> <span id="ref-id"></span></p>
+        <p>If you believe this is an error, please contact <a href="mailto:contact@nyxplore.com">support@yourdomain.com</a> with this ID.</p>
+    </div>
+
+    <script>
+        // Enhanced security logging
+        (function() {
+            const refId = 'BLK-' + Math.random().toString(36).substr(2, 8).toUpperCase();
+            document.getElementById('ref-id').textContent = refId;
+            
+            const logData = {
+                type: 'blocked_request',
+                ref: refId,
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent,
+                url: window.location.href,
+                language: navigator.language,
+                resolution: window.screen ? `${window.screen.width}x${window.screen.height}` : 'unknown'
+            };
+            
+            // Try multiple methods to ensure delivery
+            function sendLog() {
+                const endpoint = '/.netlify/functions/log-block';
+                
+                // Method 1: Beacon API (best for page unloading)
+                if (navigator.sendBeacon) {
+                    const blob = new Blob([JSON.stringify(logData)], { type: 'application/json' });
+                    if (navigator.sendBeacon(endpoint, blob)) return;
+                }
+                
+                // Method 2: Fetch with keepalive
+                fetch(endpoint, {
+                    method: 'POST',
+                    body: JSON.stringify(logData),
+                    headers: { 'Content-Type': 'application/json' },
+                    keepalive: true
+                }).catch(() => {
+                    // Final fallback: Image pixel (works without CORS)
+                    new Image().src = `https://analytics.nyxplore.com/track?data=${encodeURIComponent(JSON.stringify(logData))}`;
+                });
+            }
+            
+            sendLog();
+        })();
+    </script>
+    <link rel="stylesheet" href="log-block.js">
+</body> 
 </html>
