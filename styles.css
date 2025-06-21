@@ -5,8 +5,8 @@
   --accent-color: #f79256;
   --light-color: #fefcfb;
   --dark-color: #1e1e24;
-  --text-color: #222;
-  --text-light:  #666;
+  --text-color: #222222; /* Darker for better contrast */
+  --text-light: #444444; /* Darker light text */
   --font-primary: 'Montserrat', sans-serif;
   --font-secondary: 'Playfair Display', serif;
   --transition: all 0.3s ease;
@@ -20,8 +20,8 @@
   --accent-color: #f79256;
   --light-color: #333;
   --dark-color: #fefcfb;
-  --text-color: #ffffff;
-  --text-light: #cccccc; 
+  --text-color: #f8f8f8; /* Brighter text on dark */
+  --text-light: #cccccc; /* Brighter secondary text */
    --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   --section-title-color: #ffffff; 
   [data-theme="dark"] h1,
