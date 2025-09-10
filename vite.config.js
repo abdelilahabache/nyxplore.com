@@ -9,7 +9,7 @@ export default defineConfig({
       pages: [
         {
           entry: 'main.js',
-          template: 'template.html',
+          template: 'index.html',
           filename: 'index.html',
           injectOptions: {
             data: {
@@ -21,7 +21,7 @@ export default defineConfig({
         },
         {
           entry: 'seasonal-events.js',
-          template: 'template.html',
+          template: 'index.html',
           filename: 'seasonal-events.html',
           injectOptions: {
             data: {
@@ -44,7 +44,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'template.html')
+        main: path.resolve(__dirname, 'index.html')
       }
     }
   }
