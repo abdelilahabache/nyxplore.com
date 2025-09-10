@@ -332,52 +332,6 @@
 </style>
 
 
-
-    <!-- Cultural Events Calendar -->
-<div class="culture-calendar">
-    <div class="calendar-header">
-        <h3>Upcoming Cultural Events</h3>
-        <div class="calendar-nav">
-            <button id="prev-month" aria-label="Previous month">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <h4 id="current-month">May 2025</h4>
-            <button id="next-month" aria-label="Next month">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-        </div>
-    </div>
-    
-    <div class="calendar-grid">
-        <div class="calendar-weekdays">
-            <div>Sun</div>
-            <div>Mon</div>
-            <div>Tue</div>
-            <div>Wed</div>
-            <div>Thu</div>
-            <div>Fri</div>
-            <div>Sat</div>
-        </div>
-        <div class="calendar-days" id="calendar-days"></div>
-    </div>
-    
-    <div class="calendar-events" id="calendar-events">
-        <h4>Today's Events</h4>
-        <div class="events-list">
-            <!-- Events will be populated by JavaScript -->
-            <div class="no-events">No events scheduled for today</div>
-        </div>
-    </div>
-    
-    <div class="calendar-cta">
-        <button id="add-event-btn">Submit Your Event</button>
-        <a href="full-calendar.html" class="view-full-calendar">
-            View Full Calendar <i class="fas fa-long-arrow-alt-right"></i>
-        </a>
-    </div>
-</div>
-</section>
-
 <!-- Food Section -->
 <section class="section food" id="food">
   <div class="section-header">
@@ -452,234 +406,6 @@
     </div>
   </div>
 </section>
-
-
-
-
-<!-- Blog Section -->
-<section class="section blog" id="blog">
-  <div class="section-header">
-    <h2 class="section-title">NYC Stories & Guides</h2>
-    <p class="section-subtitle">Insider perspectives and expert tips for exploring the city</p>
-  </div>
-
-  <!-- Blog Carousel Container -->
-  <div class="blog-carousel-container">
-    <button class="carousel-btn prev" aria-label="Previous blog posts">
-      <i class="fas fa-chevron-left"></i>
-    </button>
-    
-    <div class="blog-carousel">
-      <!-- Blog Card 1 - Hidden Gems -->
-      <article class="blog-card" data-category="guides">
-        <div class="blog-card-inner">
-          <div class="blog-image">
-            <img src="assets/images/blog/hidden-gems.webp" alt="Secret courtyard in West Village" loading="lazy">
-            <div class="category-tag">Local Secrets</div>
-            <div class="read-time">8 min read</div>
-          </div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <span class="author">By NYxplore Team</span>
-              <span class="date">May 12, 2025</span>
-            </div>
-            <h3>10 Hidden Courtyards & Alleyways Even Locals Miss</h3>
-            <p>Discover secret gardens, historic mews, and tucked-away oases from Greenwich Village to Brooklyn Heights.</p>
-            <a href="hidden-courtyards.html" class="read-more">
-              Read More <i class="fas fa-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Blog Card 2 - Pizza Guide -->
-      <article class="blog-card" data-category="food">
-        <div class="blog-card-inner">
-          <div class="blog-image">
-            <img src="assets/images/blog/nyc-pizzaa.webp.webp" alt="New York style pizza slice" loading="lazy">
-            <div class="category-tag">Food Guide</div>
-            <div class="read-time">6 min read</div>
-          </div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <span class="author">By NYxplore Team</span>
-              <span class="date">May 10, 2025</span>
-            </div>
-            <h3>The Definitive NYC Pizza Ranking: 15 Must-Try Slices</h3>
-            <p>From classic dollar slices to artisanal pies - we tasted them all to crown NYC's best pizza.</p>
-            <a href="nyc-pizza-guide.html" class="read-more">
-              Read More <i class="fas fa-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Blog Card 3 - Subway Art -->
-      <article class="blog-card" data-category="culture">
-        <div class="blog-card-inner">
-          <div class="blog-image">
-            <img src="assets/images/blog/subway-art.webp" alt="Colorful mosaic in subway station" loading="lazy">
-            <div class="category-tag">Art & Culture</div>
-            <div class="read-time">7 min read</div>
-          </div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <span class="author">By NYxplore Team</span>
-              <span class="date">May 8, 2025</span>
-            </div>
-            <h3>Underground Gallery: The Best MTA Art You've Walked Past</h3>
-            <p>A tour of the most stunning (and overlooked) public art in NYC's subway stations.</p>
-            <a href="subway-art.html" class="read-more">
-              Read More <i class="fas fa-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-      </article> 
-      <!-- Blog Card 5 - Skyline Views -->
-      <article class="blog-card" data-category="views">
-        <div class="blog-card-inner">
-          <div class="blog-image">
-            <img src="assets/images/blog/skyline-views.webp" alt="Manhattan skyline from Brooklyn" loading="lazy">
-            <div class="category-tag">Photo Spots</div>
-            <div class="read-time">5 min read</div>
-          </div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <span class="author">By NYxplore Team</span>
-              <span class="date">May 3, 2025</span>
-            </div>
-            <h3>15 Best Free Skyline Views (That Aren't the Empire State)</h3>
-            <p>Secret rooftops, park benches, and waterfront spots with million-dollar views.</p>
-            <a href="skyline-views.html" class="read-more">
-              Read More <i class="fas fa-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Blog Card 6 - Immigrant Food -->
-      <article class="blog-card" data-category="food">
-        <div class="blog-card-inner">
-          <div class="blog-image">
-            <img src="assets/images/blog/immigrant-food.webp" alt="Diverse NYC street food" loading="lazy">
-            <div class="category-tag">Food History</div>
-            <div class="read-time">10 min read</div>
-          </div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <span class="author">By NYxplore Team</span>
-              <span class="date">April 30, 2025</span>
-            </div>
-            <h3>How Immigrants Shaped NYC's Food Culture: A Delicious History</h3>
-            <p>From Jewish delis to Dominican bakeries - the stories behind iconic NYC foods.</p>
-            <a href="food-history.html" class="read-more">
-              Read More <i class="fas fa-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Blog Card 7 - Movie Locations -->
-      <article class="blog-card" data-category="culture">
-        <div class="blog-card-inner">
-          <div class="blog-image">
-            <img src="assets/images/blog/movie-locations.webp" alt="Famous NYC movie location" loading="lazy">
-            <div class="category-tag">Pop Culture</div>
-            <div class="read-time">8 min read</div>
-          </div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <span class="author">By NYxplore Team</span>
-              <span class="date">April 28, 2025</span>
-            </div>
-            <h3>Iconic Movie Locations You Can Visit in Real Life</h3>
-            <p>Walk in the footsteps of your favorite film characters at these NYC spots.</p>
-            <a href="movie-locations.html" class="read-more">
-              Read More <i class="fas fa-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Blog Card 8 - Street Markets -->
-      <article class="blog-card" data-category="shopping">
-        <div class="blog-card-inner">
-          <div class="blog-image">
-            <img src="assets/images/blog/street-markets.webp" alt="Vibrant NYC street market" loading="lazy">
-            <div class="category-tag">Shopping</div>
-            <div class="read-time">7 min read</div>
-          </div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <span class="author">By NYxplore Team</span>
-              <span class="date">April 25, 2025</span>
-            </div>
-            <h3>Beyond Times Square: NYC's Best Street Markets for Unique Finds</h3>
-            <p>Where to shop for vintage, antiques, and handmade goods like a local.</p>
-            <a href="street-markets.html" class="read-more">
-              Read More <i class="fas fa-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Blog Card 9 - Free Museums -->
-      <article class="blog-card" data-category="culture">
-        <div class="blog-card-inner">
-          <div class="blog-image">
-            <img src="assets/images/blog/free-museums.webp" alt="Museum interior" loading="lazy">
-            <div class="category-tag">Budget Tips</div>
-            <div class="read-time">6 min read</div>
-          </div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <span class="author">By NYxplore Team</span>
-              <span class="date">April 22, 2025</span>
-            </div>
-            <h3>When NYC Museums Are Free (Or Pay-What-You-Wish)</h3>
-            <p>Complete guide to enjoying world-class art without breaking the bank.</p>
-            <a href="free-museums.html" class="read-more">
-              Read More <i class="fas fa-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Blog Card 10 - Waterfront Walks -->
-      <article class="blog-card" data-category="outdoors">
-        <div class="blog-card-inner">
-          <div class="blog-image">
-            <img src="assets/images/blog/waterfront-walks.webp" alt="Scenic NYC waterfront path" loading="lazy">
-            <div class="category-tag">Outdoors</div>
-            <div class="read-time">5 min read</div>
-          </div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <span class="author">By NYxplore Team</span>
-              <span class="date">April 20, 2025</span>
-            </div>
-            <h3>NYC's Most Scenic Waterfront Walks You've Never Heard Of</h3>
-            <p>Escape the crowds with these breathtaking (and peaceful) shoreline paths.</p>
-            <a href="waterfront-walks.html" class="read-more">
-              Read More <i class="fas fa-arrow-right"></i>
-            </a>
-          </div>
-        </div>
-      </article>
-    </div>
-    
-    <button class="carousel-btn next" aria-label="Next blog posts">
-      <i class="fas fa-chevron-right"></i>
-    </button>
-  </div>
-
-  <!-- View All Button -->
-  <div class="blog-cta">
-    <a href="blog-archive.html" class="view-all-btn">
-      View All Blog Posts <i class="fas fa-long-arrow-alt-right"></i>
-    </a>
-  </div>
-</section> 
 
    <!-- Map Section -->
     <section class="live-map-section" id="map">
@@ -762,7 +488,7 @@
                         <li><a href="#landmarks"><i class="fas fa-landmark"></i> Iconic Landmarks</a></li>
                         <li><a href="#culture"><i class="fas fa-theater-masks"></i> Arts & Culture</a></li>
                         <li><a href="#food"><i class="fas fa-utensils"></i> Food Scene</a></li>
-                        <li><a href="#blog"><i class="fas fa-book-open"></i> blog</a></li>
+                        <li><a href="#"><i class="fas fa-book-open"></i> blog</a></li>
                     </ul>
                 </div>
                 
@@ -770,7 +496,7 @@
                     <h4>Resources</h4>
                     <ul>
                         <li><a href="Transit-Guide.html"><i class="fas fa-subway"></i> Transit Guide</a></li>
-                        <li><a href="events-calendar.html"><i class="fas fa-calendar-alt"></i> Events Calendar</a></li>
+                        <li><a href="#"><i class="fas fa-calendar-alt"></i> Events Calendar</a></li>
                         <li><a href="interactive-map.html"><i class="fas fa-map-marked-alt"></i> Interactive Map</a></li>
                         <li><a href="visitor-faq.html"><i class="fas fa-question-circle"></i> Visitor FAQ</a></li>
                         
@@ -782,7 +508,7 @@
                     <ul>
                         <li><a href="about-us.html"><i class="fas fa-heart"></i> About NYxplore</a></li>
                         <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a></li>   
-                        <li><a href="partner-with-us.html"><i class="fas fa-handshake"></i> partner with us</a></li>           
+                        <li><a href="#"><i class="fas fa-handshake"></i> partner with us</a></li>           
                     </ul>
                 </div>
             </div>
